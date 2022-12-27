@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<!-- 사이드바 -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li><a href="#">영화</a></li>
+      <li><a href="#">드라마</a></li>
+      <li><a href="#">인물</a></li>
+      <li><a href="#">등산</a></li>
+      <li><a href="#">런닝</a></li>
+      <li><a href="#">만화</a></li>
+      <li><a href="#">메뉴 1</a></li>
+      <li><a href="#">메뉴 2</a></li>
+      <li><a href="#">메뉴 3</a></li>
+      <li><a href="#">메뉴 4</a></li>
+      <li><a href="#">메뉴 4</a></li>
+      <li><a href="#">메뉴 4</a></li>
+      <li><a href="#">메뉴 4</a></li>
+      <li><a href="#">메뉴 4</a></li>
+    </ul>
+  </div>
+  <!-- /사이드바 -->

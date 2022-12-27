@@ -17,7 +17,7 @@
 			<div class="myslide col-xs-12 col-lg-8">
 				<div class="swiper mySwiper">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">Slide 11</div>
+						<div class="swiper-slide">Slide 1</div>
 						<div class="swiper-slide">Slide 2</div>
 						<div class="swiper-slide">Slide 3</div>
 						<div class="swiper-slide">Slide 4</div>

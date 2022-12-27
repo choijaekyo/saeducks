@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+C:\work\saeducks\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\886441018.index
+\saeducks\src\main\java
+C:\work\saeducks\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3715093360.index
+\saeducks\src\main\java

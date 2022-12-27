@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="8005" shutdown="SHUTDOWN">
+  <Listener SSLEngine="on" className="org.apache.catalina.core.AprLifecycleListener"/>
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
+
+  <GlobalNamingResources>
+
+    <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
+
+    <!-- Mysql JNDI -->
+    <!-- Resource name="jdbc/saeduckene"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost/dbname"
+              username="dbuser"
+              password="dbpasswd"
+              maxActive="20"
+              maxIdle="10"
+              maxWait="3000"/ -->
+
+    <!-- Oracle JNDI -->
+    <!-- Resource name="jdbc/saeduckene"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="oracle.jdbc.driver.OracleDriver"
+              url="jdbc:oracle:thin:@IP:1521:ORCL"
+              username="dbuser"
+              password="dbpasswd"
+              maxActive="10"
+              maxIdle="5"
+              maxWait="3000"/ -->
+
+  </GlobalNamingResources>
+
+  <Service name="saeduckene">
+
+    <!-- Do not modify the specified port number! -->
+    <Connector connectionTimeout="20000" port="80" protocol="HTTP/1.1"/>
+
+    <Engine defaultHost="saeducks.shop" name="saeduckene">
+
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host appBase="webapps" autoDeploy="true" name="saeducks.shop" unpackWARs="true">
+      </Host>
+
+    </Engine>
+
+  </Service>
+
+</Server>
