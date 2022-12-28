@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class UserControlller {
 
+	@GetMapping("/userLogin")
+	public void userLogin() {
+		
+	}
+	
 	@GetMapping("/userJoin")
 	public void userJoin() {
 
