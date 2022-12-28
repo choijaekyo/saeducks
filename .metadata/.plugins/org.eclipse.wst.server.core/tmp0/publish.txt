@@ -1,4 +1,0 @@
-#Tomcat publish data
-#Tue Dec 27 09:57:54 KST 2022
-org.eclipse.jst.jee.server\:saeducks=C\:\\work\\tomcat\\wtpwebapps\\saeducks
-org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\chlwo\\.m2\\repository\\org\\springframework\\spring-web\\5.3.18\\spring-web-5.3.18.jar=C\:\\work\\tomcat\\wtpwebapps\\saeducks\\WEB-INF\\lib\\spring-web-5.3.18.jar

@@ -1,8 +1,0 @@
-INDEX VERSION 1.4+C:\work\saeducks\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-256910622.index
-886441018.index
-277843895.index
-2870168707.index
-2406765019.index
-1446693803.index
-1847334251.index
