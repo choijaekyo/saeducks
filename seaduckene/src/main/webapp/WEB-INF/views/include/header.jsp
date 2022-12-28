@@ -44,11 +44,10 @@
                <ul class="navbar-nav">
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> Dropdown
-                        link </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"> 게시판입장 </a>
                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/board/boardList' />">게시판으로</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/board/boardMyList' />">내 게시판</a></li>
                         <li><a class="dropdown-item" href="#">Something else
                               here</a></li>
                      </ul></li>
