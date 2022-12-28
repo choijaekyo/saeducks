@@ -13,4 +13,7 @@ public class boardListController {
 	
 	@GetMapping("/boardMyList")
 	public void boardMyList() {}
+	
+	@GetMapping("/boardWrite")
+	public void boardWrite() {}
 }

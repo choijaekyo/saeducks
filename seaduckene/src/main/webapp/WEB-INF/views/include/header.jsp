@@ -48,8 +48,7 @@
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList' />">게시판으로</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardMyList' />">내 게시판</a></li>
-                        <li><a class="dropdown-item" href="#">Something else
-                              here</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/board/boardWrite' />">글작성</a></li>
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
