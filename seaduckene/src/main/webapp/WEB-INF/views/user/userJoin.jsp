@@ -7,6 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+	<!--Join 디자인 추가-->
+    <link href="${pageContext.request.contextPath }/resources/css/userJoin.css" rel="stylesheet">
 </head>
 <body>
 

@@ -7,6 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+	<!--MyPage 디자인 추가-->
+    <link href="${pageContext.request.contextPath }/resources/css/userMyPage.css" rel="stylesheet">
 </head>
 <body>
 
@@ -383,6 +386,7 @@
 					
 				}
 				
+				
 			},
 			error: function(request, status, error) {
 				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
@@ -414,6 +418,8 @@
 				} else {
 					
 				}
+				
+				
 				
 			},
 			error: function(request, status, error) {
