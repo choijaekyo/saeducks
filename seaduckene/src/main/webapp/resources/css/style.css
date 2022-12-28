@@ -241,7 +241,8 @@ header{
 
 /*============= 로그인 페이지 ==============*/
 
-body{
+
+#userLoginPage{
   margin:0;
   color:#6a6f8c;
   background:#c8c8c8;
@@ -358,9 +359,6 @@ a{color:inherit;text-decoration:none}
 .login-form .group .check:checked + label{
   color:#fff;
 }
-.login-form .group .check:checked + label .icon{
-  background:#1161ee;
-}
 .login-form .group .check:checked + label .icon:before{
   transform:scale(1) rotate(45deg);
 }
@@ -377,11 +375,14 @@ a{color:inherit;text-decoration:none}
 .hr{
   height:2px;
   margin:60px 0 50px 0;
-  background:rgba(255,255,255,.2);
 }
 .foot-lnk{
   text-align:center;
-  font-style : italic
+	color: white;
+}
+.foot-lnk a{
+	display:inline-block;
+	padding-bottom: 5px;
 }
 
 /*============= END 로그인 페이지 ==============*/
@@ -390,6 +391,8 @@ a{color:inherit;text-decoration:none}
 
 #userJoinPage {
 	padding: 0;
+	background: black;
+	color: white;
 }
 
 
@@ -497,10 +500,9 @@ a{color:inherit;text-decoration:none}
 	width: 300px;
 	height: 50px;
 	font-size: 20px;
-	color: black;
+	color: white;
 	
-	
-	background-color: white;
+	background:rgba(255,255,255,.1)
 
 }
 
@@ -764,9 +766,9 @@ a{color:inherit;text-decoration:none}
 	width: 300px;
 	height: 50px;
 	font-size: 20px;
-	color: black;
+	color: white;
 	
-	background: white;
+	background:rgba(255,255,255,.1)
 
 
 }
@@ -786,6 +788,8 @@ a{color:inherit;text-decoration:none}
 	
 	#userMyPage .join-container form input.btn-a:hover {
 		cursor: auto;
+		
+		color: white;
 		
 		opacity: 0.9;
 	

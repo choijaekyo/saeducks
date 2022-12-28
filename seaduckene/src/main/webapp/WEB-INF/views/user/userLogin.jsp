@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<section>
+	<%@ include file="../include/header.jsp" %>
+<section id="userLoginPage">
 	<div class="login-wrap">
 	  <div class="login-html">
 	    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">로그인 페이지</label>
@@ -31,14 +31,16 @@
 	        </div>
 	        <div class="hr"></div>
 	        <div class="foot-lnk">
-	          <a href="#forgot">회원가입</a> <br>
-	          <a href="#forgot">비밀번호 찾기</a>
+	          <a href="#">회원가입</a> <br>
+	          <a href="#">비밀번호 찾기</a>
 	        </div>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 </section>
+
+<%@ include file="../include/footer.jsp" %>
    
 
 </body>
