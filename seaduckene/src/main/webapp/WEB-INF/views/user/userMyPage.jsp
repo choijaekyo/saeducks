@@ -40,7 +40,7 @@
 							</div>
 							<span>기본 정보</span> <br>
 							<input name="" type="text" class="btn btn-a" placeholder="아이디" readonly> <br>
-							<input type="button" class="btn btn-warning btn-b btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 수정하기" id=""> <br>
+							<input type="button" class="btn btn-warning btn-b btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 변경하기" id=""> <br>
 							<input name="" type="password" class="btn btn-a" placeholder="비밀번호" id="userPw"> <br>
 							<input name="" type="password" class="btn btn-a" placeholder="비밀번호 확인" id="pwConfirm"> <br>
 							<input name="" type="text" class="btn btn-a" placeholder="이름"> <br>
@@ -109,17 +109,23 @@
 	<section>
 		<div class="modal" id="myPageModal">
 		  <div class="modal-dialog modalDesign">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h4 class="modal-title">Modal title</h4>
+		    <div class="modal-content" id="myPage-modal-content">
+		      <div class="modal-header" id="myPage-modal-header">
+		        <h4 class="modal-title"></h4>
 		        <button type="button" class="close" onclick="hideModal()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		      </div><!-- 
-		      <div class="modal-body">
-		        <p>One fine body&hellip;</p>
-		      </div> -->
+		      </div>
+		      <div class="modal-body" id="myPage-modal-footer">
+		      	<form action="" method="post" id="modal-submit">
+			        <!-- <p>One fine body&hellip;</p> -->
+			        <input name="" type="password" class="btn btn-a currPw" placeholder="현재 비밀번호" id="currPw"> <br>
+					<input name="" type="password" class="btn btn-a modiPw" placeholder="변경 비밀번호" id="modiPw"> <br class="modiPw">
+					<input name="" type="password" class="btn btn-a checkPw" placeholder="비밀번호 확인" id="checkPw"> <br>
+					<input type="submit" style="display: none" >							
+		      	</form>
+		      </div>
 		      <div class="modal-footer" id="myPage-modal-footer">
-		        <button type="button" class="btn btn-primary modal-modi">내용 수정하기</button>
-		        <button type="button" class="btn btn-default modal-cancel" onclick="hideModal()" data-dismiss="modal">돌아가기</button>
+		        <button type="button" class="btn btn-primary modal-submit-btn">내용 수정하기</button>
+		        <button type="button" class="btn btn-light modal-cancel" onclick="hideModal()" data-dismiss="modal">돌아가기</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
@@ -232,44 +238,36 @@
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
-                $(this).css('border', '3px solid yellowgreen');
-                /* document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다."; */
-
+	            if($("#pwConfirm").val() === $(this).val() ) {
+	                $(this).css('border', '3px solid yellowgreen');
+	                $("#pwConfirm").css('border', '3px solid yellowgreen');
+	            } else {
+	            	$(this).css('border', '2px solid red');
+	            	$("#pwConfirm").css('border', '2px solid red');
+	            }
             } else {
                 $(this).css('border', '2px solid red');
-                /* document.getElementById("msgId").innerHTML = "유효하지 않은 아이디 입력방식입니다."; */
             }            
 
-            if($("#pwConfirm").val() === $(this).val() ) {
-                $("#pwConfirm").css('border', '3px solid yellowgreen');
-                /* document.getElementById("msgPw-c").innerHTML = "비밀번호가 일치합니다"; */
-            } else {
-            	$("#pwConfirm").css('border', '2px solid red');
-                /* document.getElementById("msgPw-c").innerHTML = "비밀번호 확인란을 확인하세요"; */
-            }
 		});
         /*비밀번호 확인검사*/
 		$('#pwConfirm').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
-            if($(this).val() === $("#userPw").val()) {
-                $(this).css('border', '3px solid yellowgreen');
-                /* document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다."; */
-                
-	            if(regex.test($(this).val() )) {
+            
+            if(regex.test($(this).val() )) {
+	            if($(this).val() === $("#userPw").val()) {
 	                $(this).css('border', '3px solid yellowgreen');
-	                /* document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다."; */
+	                $("#userPw").css('border', '3px solid yellowgreen');        
 	
 	            } else {
 	                $(this).css('border', '2px solid red');
-	                /* document.getElementById("msgId").innerHTML = "유효하지 않은 아이디 입력방식입니다."; */
-	            }   
+	                $("#userPw").css('border', '2px solid red');
+	            }      
 
             } else {
                 $(this).css('border', '2px solid red');
-                /* document.getElementById("msgId").innerHTML = "유효하지 않은 아이디 입력방식입니다."; */
-            }      
-            
+            }   
 		});
 	}); // end jQuery
 	
@@ -304,26 +302,132 @@
 	
 	// 비밀번호 변경 모달 열기
 	function showModiPwModal() {
+		$('.modal-submit-btn').text('비밀번호 변경하기');
+		$('.modal-submit-btn').attr('onclick', 'ModiPwModal()');
+		
 		$('#myPageModal').show();
-		$('.modal-modi').text('비밀번호 변경하기');
 	}
 	
 	// 수정 모달 열기
 	function showUpdateModal() {
+		$('.modal-submit-btn').text('내용 수정하기');
+		$('.modiPw').css('display', 'none');
+		$('.modal-submit-btn').attr('onclick', 'UpdateModal()');
+
 		$('#myPageModal').show();
-		$('.modal-modi').text('내용 수정하기');
 	}
 	
 	// 탈퇴 모달 열기
 	function showDeleteModal() {
+		$('.modal-submit-btn').text('탈퇴하기');
+		$('.modiPw').css('display', 'none');
+		$('.modal-submit-btn').attr('onclick', 'DeleteModal()');
+		
 		$('#myPageModal').show();
-		$('.modal-modi').text('탈퇴하기');
+	}
+	
+	function ModiPwModal() {
+		const currPw = $('#currPw').val();
+		const modiPw = $('#modiPw').val();
+		const checkPw = $('#checkPw').val();
+		const array = [currPw,modiPw,checkPw];
+		
+		$.ajax({
+			type:'POST',
+			url:'${pageContext.request.contextPath}/user/pwModify',
+			contentType: 'application/json',
+			dataType:'text',
+			data:JSON.stringify(array),
+			success: function(result) {
+				console.log(result);
+				
+				if (result === '1') {
+					console.log('통신성공');
+					
+					/* $('#modal-submit').submit(); */
+				} else if(result ==='0') {
+					
+				} else {
+					
+				}
+				
+			},
+			error: function(request, status, error) {
+				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
+			}
+		});
+		
+	}
+	
+	function UpdateModal() {
+		const currPw = $('#currPw').val();
+		const checkPw = $('#checkPw').val();
+		const array = [currPw,checkPw];
+		
+		$.ajax({
+			type:'POST',
+			url:'${pageContext.request.contextPath}/user/userUpdate',
+			contentType: 'application/json',
+			dataType:'text',
+			data:JSON.stringify(array),
+			success: function(result) {
+				console.log(result);
+				
+				if (result === '1') {
+					console.log('통신성공!');
+					
+					/* $('#modal-submit').submit(); */
+				} else if(result ==='0') {
+					
+				} else {
+					
+				}
+				
+			},
+			error: function(request, status, error) {
+				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
+			}
+		});
+		
+	}
+
+	function DeleteModal() {
+		const currPw = $('#currPw').val();
+		const checkPw = $('#checkPw').val();
+		const array = [currPw,checkPw];
+		
+		$.ajax({
+			type:'POST',
+			url:'${pageContext.request.contextPath}/user/userDelete',
+			contentType: 'application/json',
+			dataType:'text',
+			data:JSON.stringify(array),
+			success: function(result) {
+				console.log(result);
+				
+				if (result === '1') {
+					console.log('통신성공!!');
+					
+					/* $('#modal-submit').submit(); */
+				} else if(result ==='0') {
+					
+				} else {
+					
+				}
+				
+			},
+			error: function(request, status, error) {
+				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
+			}
+		});
+		
 	}
 	
 	// 모달 닫기
 	function hideModal() {
 		$('#myPageModal').hide();
 	}
+	
 </script>
 </html>
 

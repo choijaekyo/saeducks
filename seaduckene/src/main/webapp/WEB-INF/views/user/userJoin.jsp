@@ -256,44 +256,36 @@
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
-                $(this).css('border', '3px solid yellowgreen');
-                /* document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다."; */
-
+	            if($("#pwConfirm").val() === $(this).val() ) {
+	                $(this).css('border', '3px solid yellowgreen');
+	                $("#pwConfirm").css('border', '3px solid yellowgreen');
+	            } else {
+	            	$(this).css('border', '2px solid red');
+	            	$("#pwConfirm").css('border', '2px solid red');
+	            }
             } else {
                 $(this).css('border', '2px solid red');
-                /* document.getElementById("msgId").innerHTML = "유효하지 않은 아이디 입력방식입니다."; */
             }            
 
-            if($("#pwConfirm").val() === $(this).val() ) {
-                $("#pwConfirm").css('border', '3px solid yellowgreen');
-                /* document.getElementById("msgPw-c").innerHTML = "비밀번호가 일치합니다"; */
-            } else {
-            	$("#pwConfirm").css('border', '2px solid red');
-                /* document.getElementById("msgPw-c").innerHTML = "비밀번호 확인란을 확인하세요"; */
-            }
 		});
         /*비밀번호 확인검사*/
 		$('#pwConfirm').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
-            if($(this).val() === $("#userPw").val()) {
-                $(this).css('border', '3px solid yellowgreen');
-                /* document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다."; */
-                
-	            if(regex.test($(this).val() )) {
+            
+            if(regex.test($(this).val() )) {
+	            if($(this).val() === $("#userPw").val()) {
 	                $(this).css('border', '3px solid yellowgreen');
-	                /* document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다."; */
+	                $("#userPw").css('border', '3px solid yellowgreen');        
 	
 	            } else {
 	                $(this).css('border', '2px solid red');
-	                /* document.getElementById("msgId").innerHTML = "유효하지 않은 아이디 입력방식입니다."; */
-	            }   
+	                $("#userPw").css('border', '2px solid red');
+	            }      
 
             } else {
                 $(this).css('border', '2px solid red');
-                /* document.getElementById("msgId").innerHTML = "유효하지 않은 아이디 입력방식입니다."; */
-            }      
-            
+            }   
 		});
         
         $('#add-category').click(function() {
