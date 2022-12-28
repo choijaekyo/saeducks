@@ -223,7 +223,7 @@
 						  </div>
 						</div>
 						<div class="row justify-content-center row-div-2">
-						  	<div class="col-1 w-auto">
+						  	<div class="col-1 w-auto mt-3">
 						  		<button type="button" class="btn btn-primary rounded">더보기</button>
 						  	</div>
 						</div>
