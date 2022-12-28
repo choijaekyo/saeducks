@@ -50,8 +50,24 @@
 							<input name="" type="text" class="btn btn-a" placeholder="닉네임"> <br> <br> <br>
 							
 							<span class="basic-info">상세 정보</span> 
-							<span class="category-button">+</span>
+							<span class="category-button" id="add-category">+</span>
 							<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
+								<li id="dummy-category" style="display: none;">
+									<select name="a">
+										<optgroup  label="대분류">
+											<option value="movie">영화</option>
+											<option value="food">음식</option>
+										</optgroup>
+									</select>
+									<select name="">
+										<optgroup label="소분류">
+										<!-- 대분류 선택에 따라 select 삭제후 다시 만들어서 추가한다  -->
+											<option value="">태극기휘</option>
+											<option value="">아발타</option>
+										</optgroup>
+									</select> 
+									<span class="category-button" id="del-category">-</span>
+								</li>
 								<li>
 									<select name="a">
 										<optgroup  label="대분류">
@@ -66,6 +82,7 @@
 											<option value="">아발타</option>
 										</optgroup>
 									</select> 
+									<span class="category-button" id="del-category">-</span>
 								</li>
 								<li>
 									<select name="">
@@ -79,6 +96,7 @@
 											<option value="">아발타</option>
 										</optgroup>
 									</select> 
+									<span class="category-button" id="del-category">-</span>
 								</li>
 							</ul>
 								
@@ -239,8 +257,8 @@
 		<div class="modal" id="myPageModal">
 		  <div class="modal-dialog modalDesign">
 		    <div class="modal-content" id="myPage-modal-content">
-		      <div class="modal-header" id="myPage-modal-header">
-		        <h4 class="modal-title"></h4>
+		      <div class="modal-header pt-3" id="myPage-modal-header">
+		        <h4 class="modal-title mx-auto">비밀번호 인증</h4>
 		        <button type="button" class="close" onclick="hideModal()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		      </div>
 		      <div class="modal-body" id="myPage-modal-footer">
@@ -398,6 +416,27 @@
                 $(this).css('border', '2px solid red');
             }   
 		});
+        
+        $('#add-category').click(function() {
+        	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true); 
+        	$($cloneLi).css('display', 'list-item');
+        	
+        	$('#category-wrap').append($cloneLi);
+        	
+        });
+        
+        $('#category-wrap').on('click', '#del-category' ,function() {
+        	console.log(this);
+        	this.parentNode.remove();
+        });
+
+
+		$('#userTel').hover(function() {
+			$(this).attr('placeholder', '000-0000-0000');
+		}, function() {
+			$(this).attr('placeholder', '전화번호');			
+		});
+		
 	}); // end jQuery
 	
 	// 다음 주소 api 사용해보기
@@ -545,8 +584,6 @@
 					
 				}
 				
-				
-				
 			},
 			error: function(request, status, error) {
 				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
@@ -557,6 +594,10 @@
 	
 	// 모달 닫기
 	function hideModal() {
+		$('#currPw').val('');
+		$('#modiPw').val('');
+		$('#checkPw').val('');
+		
 		$('#myPageModal').hide();
 	}
 	

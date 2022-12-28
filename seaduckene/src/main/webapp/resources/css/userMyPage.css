@@ -283,8 +283,18 @@
 }
 
 #myPageModal #myPage-modal-header {
-	padding: 0;
 	border-bottom: none;
+	padding: 0;
+}
+
+#myPageModal #myPage-modal-header .close {
+	position: absolute;
+	right: 0;
+	
+}
+
+#myPageModal #myPage-modal-header  {
+	font-size: 18px;
 }
 
 #myPageModal #myPage-modal-content {

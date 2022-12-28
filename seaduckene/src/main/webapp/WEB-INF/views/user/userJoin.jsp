@@ -303,8 +303,6 @@
         	console.log(this);
         	this.parentNode.remove();
         });
-        
-        
 
 
 		$('#userTel').hover(function() {
