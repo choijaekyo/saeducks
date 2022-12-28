@@ -22,6 +22,8 @@
     <!-- swiper 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 
+	<!-- summernote 추가 -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote/summernote-lite.css">
 </head>
 <body>
 

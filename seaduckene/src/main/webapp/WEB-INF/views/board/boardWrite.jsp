@@ -5,6 +5,11 @@
 
 <%@ include file="../include/header.jsp"%>
 
+<div class="container">
+	<div class="row">
+		<div id="summernote"></div>
+	</div>
+</div>
 
 
 <%@ include file="../include/footer.jsp"%>
