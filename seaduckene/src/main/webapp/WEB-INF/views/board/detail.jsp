@@ -29,7 +29,6 @@
 				<li class="nav-item"><a href="#" class="nav-link">날짜</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">조회</a></li>
-				
 			</ul>
 		</div>
 	</div>
