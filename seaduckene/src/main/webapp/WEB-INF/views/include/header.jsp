@@ -22,6 +22,8 @@
     <!-- swiper 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 
+	<!-- summernote 추가 -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/summernote/summernote-lite.css">
 </head>
 <body>
 
@@ -47,7 +49,7 @@
                      data-bs-toggle="dropdown" aria-expanded="false"> 게시판입장 </a>
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList' />">게시판으로</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/user/userMyPage' />">내 게시판</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/user/userMyPage/2' />">내 게시판</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardWrite' />">글작성</a></li>
                      </ul></li>
                   <li class="nav-item dropdown"><a

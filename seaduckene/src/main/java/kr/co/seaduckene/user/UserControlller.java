@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
@@ -25,9 +28,13 @@ public class UserControlller {
 
 	}
 
-	@GetMapping("/userMyPage")
-	public void userMyPage() {
+	@GetMapping("/userMyPage/{head}")
+	public ModelAndView userMyPage(ModelAndView modelAndView, @PathVariable int head) {
+		modelAndView.addObject("toggle", head);
 		
+		modelAndView.setViewName("/user/userMyPage");
+		
+		return modelAndView;
 	}
 	
 	@ResponseBody
