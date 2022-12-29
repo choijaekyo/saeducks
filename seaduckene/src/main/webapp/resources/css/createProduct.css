@@ -10,3 +10,9 @@
 .inputArea {
 	margin: 20px;
 }
+
+.container .input-group .form-control:focus,
+.container .input-group select:focus {
+	border: 1px solid rgb(244, 198, 33);
+	box-shadow: 0 0 5px 0.20rem rgba(244, 198, 33, 0.475);
+}

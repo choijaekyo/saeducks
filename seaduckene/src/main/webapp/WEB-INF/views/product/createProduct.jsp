@@ -16,13 +16,15 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <!--개인 디자인 추가-->
-<link href="${pageContext.request.contextPath }/resources/css/style.css"
+<link href="${pageContext.request.contextPath }/resources/css/createProduct.css"
 	rel="stylesheet">
 </head>
 <body>
+<%@ include file="../include/header.jsp" %>
+
 <section class="py-5">
     <div class="col-md-12">
-        <h1 class="add-product-title ">상품등록</h1>
+        <h1 class="add-product-title h1 ">상품등록</h1>
     </div>
     <div class="container">
         <div class="row">
@@ -49,6 +51,7 @@
                                     <option value="nor3">소3</option>
                                   </select>
                             </div>
+                    	</div>
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -83,21 +86,33 @@
                         <input class="form-control" type="text" name="quantity" id="quantity" required />
                     </div>
                 </div>
-
-                <div class="container inputArea">
-                    <div class="row">
-                        <div class="col">
-                            <div id="summernote"></div>
-                        </div>
+				
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="productContent">상품설명</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <textarea class="form-control" type="text" name="productContent" id="productContent" required></textarea>
                     </div>
                 </div>
+
+                <div class="inputArea input-group">
+					<div
+						class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
+						<button type="submit" class="order_btn btn btn-outline-success">상품등록</button>
+					</div>
+					<div class="col-md-3 col-sm-6 col-6">
+						<button type="button" class="cancel_btn btn btn-outline-secondary">취소</button>
+					</div>
+				</div>
+                
 
             </form>
 
         </div>
     </div>
 </section>
-
+<%@ include file="../include/footer.jsp" %>
     
 </body>
 </html>

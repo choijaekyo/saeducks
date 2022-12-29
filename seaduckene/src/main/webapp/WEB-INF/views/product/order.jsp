@@ -16,17 +16,18 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <!--개인 디자인 추가-->
-<link href="${pageContext.request.contextPath }/resources/css/style.css"
+<link href="${pageContext.request.contextPath }/resources/css/order.css"
 	rel="stylesheet">
 
 </head>
 <body>
-
+<%@ include file="../include/header.jsp" %>
+<section class="py-5">
 	<div class="orderInfo container">
 
 		<div class="row">
 			<div class="col-md-12">
-				<h1 class="order-title ">주문상세</h1>
+				<h1 class="order-title h1 ">주문상세</h1>
 			</div>
 			<hr>
 			<div class="container">
@@ -209,7 +210,8 @@
 			</form>
 		</div>
 	</div>
-
+</section>
+<%@ include file="../include/footer.jsp" %>
 </body>
 
 <script
