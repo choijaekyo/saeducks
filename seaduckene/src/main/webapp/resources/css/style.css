@@ -238,3 +238,29 @@ header{
    display: none;
 }
 /*============= END header ==============*/
+
+
+/*============= detail ==============*/
+
+
+
+#board-detail #board-detail-button a{
+	border-radius: 12px;
+}
+
+.first-board-detail #board-detail-card #board-detail-card-body h5 {
+	padding: 8px;
+}
+
+.first-board-detail #board-detail-card #board-detail-card-body p {
+	padding: 15px;
+	font-size: 12px;
+}
+
+.first-board-detail #board-detail-card #board-detail-card-body #board-detail-card-body-button{
+	border-radius: 12px;
+}
+
+
+
+/*============= END detail ==============*/
