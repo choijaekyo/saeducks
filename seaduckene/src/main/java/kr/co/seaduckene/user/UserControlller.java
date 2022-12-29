@@ -64,5 +64,9 @@ public class UserControlller {
 		
 		return Integer.toString(1);
 	}
+	@GetMapping("/userBasket")
+	public void basket() {
+		
+	}
 	
 }
