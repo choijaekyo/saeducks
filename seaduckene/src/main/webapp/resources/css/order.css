@@ -1,0 +1,32 @@
+﻿
+
+/*============= Order ==============*/
+.order-title {
+	text-align: center;
+	font-weight: 700;
+	margin: 70px;
+}
+
+.productDetail .order-imgBox {
+	width: 200px;
+	height: 200px;
+	border: 1px solid black;
+	margin: 0 auto;
+}
+
+.productDetail .order-detailBox {
+	margin-left: 20px;
+	padding-top: 10px;
+}
+
+.order-form {
+	line-height: 38px;
+}
+
+.inputArea {
+	margin: 20px;
+}
+
+#checkdeAccount {
+	display: none;
+}
