@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page session="false"%>
 
 <%@ include file="../include/header.jsp"%>
@@ -10,8 +11,8 @@
 <div class="container">
 	<div class="card" style="width: 18rem;" id="board-detail-card">
 		<div class="card-body" id="board-detail-card-body">
-			<h5 class="card-title">~~~게시판 입니다.</h5>
-			<p class="card-text">~~~게시판에 걸맞는 글을 작성해 주세요.</p>
+			<h5 class="card-title">~~게시판 입니다.</h5>
+			<p class="card-text">~~게시판에 걸맞는 글을 작성해 주세요.</p>
 			<button id="board-detail-card-body-button" type="button"
 				class="btn btn-primary">Home</button>
 		</div>
@@ -28,6 +29,7 @@
 				<li class="nav-item"><a href="#" class="nav-link">날짜</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">조회</a></li>
+				
 			</ul>
 		</div>
 	</div>
@@ -85,7 +87,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<hr>
 </div>
 
