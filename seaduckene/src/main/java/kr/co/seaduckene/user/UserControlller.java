@@ -68,9 +68,5 @@ public class UserControlller {
 	public void basket() {
 		
 	}
-	@GetMapping("/productDetail")
-	public void detail() {
-		
-	}
 	
 }
