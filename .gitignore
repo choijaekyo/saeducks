@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
+MANIFEST.MF
+pom.properties
+
 ### Eclipse ###
 .metadata
 bin/
@@ -14,6 +17,7 @@ local.properties
 .loadpath
 .recommenders
 Servers/
+pom.properties
 
 # External tool builders
 .externalToolBuilders/
@@ -60,6 +64,7 @@ Servers/
 .scala_dependencies
 .worksheet
 
+
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
 #.project
@@ -67,6 +72,7 @@ Servers/
 ### Eclipse Patch ###
 # Spring Boot Tooling
 .sts4-cache/
-.properties
+*.properties
+
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
