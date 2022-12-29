@@ -39,6 +39,7 @@
 		});
 	});
 	
+	
 	/*
 		// 서머노트에 text 쓰기
 		$('#summernote').summernote('insertText', 써머노트에 쓸 텍스트);
