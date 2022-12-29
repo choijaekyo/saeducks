@@ -5,8 +5,6 @@
 
 #userMyPage {
 	padding: 0;
-	background: black;
-	color: white;
 }
 
 #userMyPage .col-lg-12, #userMyPage .col-md-12, #userMyPage .col-sm-12 {
@@ -20,7 +18,6 @@
 
 #userMyPage .location-wrap a {
 	padding: 20px 0;
-	color: white;
 	font-weight: 400;
 }
 
@@ -50,7 +47,6 @@
 
 #userMyPage .title a {
 	padding: 20px 0;
-	color: white;
 	font-weight: 400;
 	
 	text-decoration: none;
@@ -278,7 +274,7 @@
 	
 	background-color: black;
 	z-index: 999;
-	opacity: 0.4;
+	opacity: 0.1;
 	
 }
 
@@ -298,13 +294,14 @@
 }
 
 #myPageModal #myPage-modal-content {
-	background-color: black;
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
 }
 
 #myPageModal .modalDesign {
-	width:	500px;
+	width:	350px;
 
-	color: white;
+	color: black;
 	
 	position: absolute;
 	left: 50%;
@@ -326,7 +323,7 @@
 	color: white;
 	cursor: auto;
 	
-	background-color: rgba(255,255,255,.1);
+	background-color: white;
 
 
 }

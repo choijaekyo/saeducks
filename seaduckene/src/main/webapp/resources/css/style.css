@@ -18,6 +18,16 @@ a{
 	text-decoration-line:none;
 }
 
+a:hover {
+	color: #ffcb00;	
+}
+
+.btn-duck {
+	background: #ffcb00;	
+}
+
+
+
 article, aside, details, figcaption, figure, footer, header, hgroup,
    main, menu, nav, section {
    display: block
@@ -28,7 +38,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup,
 }
 
 body {
-   line-height: 1
+   line-height: 1;
+   background: #fff9d6;
 }
 
 menu, ol, ul {
@@ -241,7 +252,6 @@ header{
 /*============= END header ==============*/
 /*=============== footer ================*/
 .f-wrap{
-   background:white;
    color:black;
 }
 

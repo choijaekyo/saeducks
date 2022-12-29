@@ -126,13 +126,13 @@
 							<br> <br>
 							<div class="optional-info">
 								<span class="basic-info">추가 정보</span> <br>
-								<input type="button" class="btn btn-sm btn-b btn-primary" onclick="searchAddress()" value="주소찾기"> <br>
+								<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
 								<input name="" type="text" class="btn btn-a" placeholder="주소" id="addrBasic" readonly> <br>
 								<input name="" type="text" class="btn btn-a" placeholder="상세주소" id="addrDetail"> <br>
 								<input name="" type="text" class="btn btn-a" placeholder="우편번호" id="addrZipNum" readonly> <br>
 								<input name="" type="text" class="btn btn-a" placeholder="전화번호" id="userTel"> <br>
 								<input name="" type="text" class="btn btn-a" placeholder="이메일"> <br>
-								<input type="button" class="btn btn-lg btn-b btn-primary email-btn" onclick="" value="이메일 인증"> <br>
+								<input type="button" class="btn btn-lg btn-b btn-warning email-btn" onclick="" value="이메일 인증"> <br>
 							</div> <br> <br>
 							<input type="button" class="btn btn-sm btn-info btn-b" onclick="showUpdateModal()" value="수정하기" id="update"> &nbsp;&nbsp;
 							<input type="button" class="btn btn-sm btn-danger btn-b" onclick="showDeleteModal()" value="탈퇴하기" id="delete"> &nbsp;&nbsp;
@@ -288,7 +288,6 @@
 		    <div class="modal-content" id="myPage-modal-content">
 		      <div class="modal-header pt-3" id="myPage-modal-header">
 		        <h4 class="modal-title mx-auto">비밀번호 인증</h4>
-		        <button type="button" class="close" onclick="hideModal()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		      </div>
 		      <div class="modal-body" id="myPage-modal-footer">
 		      	<form action="" method="post" id="modal-submit">
