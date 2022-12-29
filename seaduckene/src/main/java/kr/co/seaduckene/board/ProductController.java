@@ -13,5 +13,9 @@ public class ProductController {
 	
 	@GetMapping("order")
 	public void orderSheet() {}
+	@GetMapping("/productDetail")
+	public void detail( ) {
+		
+	}
 	
 }
