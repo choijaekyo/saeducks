@@ -17,8 +17,7 @@ local.properties
 .loadpath
 .recommenders
 Servers/
-.properties
-META-INF
+pom.properties
 
 # External tool builders
 .externalToolBuilders/
@@ -73,7 +72,7 @@ META-INF
 ### Eclipse Patch ###
 # Spring Boot Tooling
 .sts4-cache/
-
+*.properties
 
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
