@@ -20,18 +20,39 @@
 		<div class="row mypage-wrap">
 		 <div class="col-lg-12 col-md-12 col-sm-12 ">
 			<div class="title">
-				<h2>마이페이지</h2>
+			<c:choose>
+				<c:when test="${toggle == 2}">					
+					<h2>내 게시판</h2>
+				</c:when>
+				<c:otherwise>
+					<h2>마이페이지</h2>
+				</c:otherwise>
+			</c:choose>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-					  <li class="breadcrumb-item active"><a data-toggle="tab" href="#myinfo">내 정보</a></li>
-					  <li class="breadcrumb-item"><a data-toggle="tab" href="#myboard">내 글</a></li>
-					  <li class="breadcrumb-item"><a data-toggle="tab" href="#">장바구니</a></li>
-					  <li class="breadcrumb-item"><a data-toggle="tab" href="#">주문정보</a></li>
+					  <li class="breadcrumb-item" data-head="1" ><a data-toggle="tab" href="#myinfo">내 정보</a></li>
+					<c:choose>
+						<c:when test="${toggle == 2}">		
+						  <li class="breadcrumb-item active" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
+						</c:when>
+						<c:otherwise>
+						  <li class="breadcrumb-item" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
+						</c:otherwise>
+					</c:choose>
+					  <li class="breadcrumb-item" data-head="3"><a data-toggle="tab" href="#">장바구니</a></li>
+					  <li class="breadcrumb-item" data-head="4"><a data-toggle="tab" href="#">주문정보</a></li>
 					</ol>
 				</nav>				
 			</div>
 			<div class="tab-content">
+		<c:choose>
+			<c:when test="${toggle == 2}">					
+				<div class="tab-pane" id="myinfo" >
+			</c:when>
+			<c:otherwise>
 				<div class="tab-pane active" id="myinfo" >
+				</c:otherwise>
+			</c:choose>
 					<div class="join-container">
 						<form action="" method="post" enctype="multipart/form-data">
 							<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />">
@@ -101,7 +122,15 @@
 						</form>
 					</div>
 				</div>
+				
+		<c:choose>
+			<c:when test="${toggle == 2}">					
+				<div class="tab-pane active" id="myboard">
+			</c:when>
+			<c:otherwise>
 				<div class="tab-pane" id="myboard">
+			</c:otherwise>
+		</c:choose>
 					<div class="container">
 						<!-- <div class="row row-cols-auto">
 						  	<div class="col mb-1">
@@ -287,6 +316,16 @@
 			
 			$(id).toggleClass('in');
 			$(id).toggleClass('active');
+			
+			if ($(this).data('head') == '1') {
+				$('#userMyPage .title h2').text('마이페이지');
+			} else if($(this).data('head') == '2') {
+				$('#userMyPage .title h2').text('내 게시판');
+			} else if($(this).data('head') == '3') {
+				$('#userMyPage .title h2').text('장바구니');
+			} else {
+				$('#userMyPage .title h2').text('주문정보');
+			}
 			
 		}); 
 		
