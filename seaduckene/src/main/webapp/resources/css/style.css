@@ -14,7 +14,8 @@
 }
 
 a{
-	color:white;
+	color:black;
+	text-decoration-line:none;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup,
@@ -238,3 +239,14 @@ header{
    display: none;
 }
 /*============= END header ==============*/
+/*=============== footer ================*/
+.f-wrap{
+   background:white;
+   color:black;
+}
+
+.f_box{
+   line-height:25px;
+}
+/*============= END footer ==============*/
+
