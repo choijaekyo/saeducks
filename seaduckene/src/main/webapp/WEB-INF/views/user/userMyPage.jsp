@@ -20,18 +20,39 @@
 		<div class="row mypage-wrap">
 		 <div class="col-lg-12 col-md-12 col-sm-12 ">
 			<div class="title">
-				<h2>마이페이지</h2>
+			<c:choose>
+				<c:when test="${toggle == 2}">					
+					<h2>내 게시판</h2>
+				</c:when>
+				<c:otherwise>
+					<h2>마이페이지</h2>
+				</c:otherwise>
+			</c:choose>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-					  <li class="breadcrumb-item active"><a data-toggle="tab" href="#myinfo">내 정보</a></li>
-					  <li class="breadcrumb-item"><a data-toggle="tab" href="#myboard">내 글</a></li>
-					  <li class="breadcrumb-item"><a data-toggle="tab" href="#">장바구니</a></li>
-					  <li class="breadcrumb-item"><a data-toggle="tab" href="#">주문정보</a></li>
+					  <li class="breadcrumb-item" data-head="1" ><a data-toggle="tab" href="#myinfo">내 정보</a></li>
+					<c:choose>
+						<c:when test="${toggle == 2}">		
+						  <li class="breadcrumb-item active" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
+						</c:when>
+						<c:otherwise>
+						  <li class="breadcrumb-item" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
+						</c:otherwise>
+					</c:choose>
+					  <li class="breadcrumb-item" data-head="3"><a data-toggle="tab" href="#">장바구니</a></li>
+					  <li class="breadcrumb-item" data-head="4"><a data-toggle="tab" href="#">주문정보</a></li>
 					</ol>
 				</nav>				
 			</div>
 			<div class="tab-content">
+		<c:choose>
+			<c:when test="${toggle == 2}">					
+				<div class="tab-pane" id="myinfo" >
+			</c:when>
+			<c:otherwise>
 				<div class="tab-pane active" id="myinfo" >
+				</c:otherwise>
+			</c:choose>
 					<div class="join-container">
 						<form action="" method="post" enctype="multipart/form-data">
 							<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />">
@@ -50,8 +71,24 @@
 							<input name="" type="text" class="btn btn-a" placeholder="닉네임"> <br> <br> <br>
 							
 							<span class="basic-info">상세 정보</span> 
-							<span class="category-button">+</span>
+							<span class="category-button" id="add-category">+</span>
 							<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
+								<li id="dummy-category" style="display: none;">
+									<select name="a">
+										<optgroup  label="대분류">
+											<option value="movie">영화</option>
+											<option value="food">음식</option>
+										</optgroup>
+									</select>
+									<select name="">
+										<optgroup label="소분류">
+										<!-- 대분류 선택에 따라 select 삭제후 다시 만들어서 추가한다  -->
+											<option value="">태극기휘</option>
+											<option value="">아발타</option>
+										</optgroup>
+									</select> 
+									<span class="category-button" id="del-category">-</span>
+								</li>
 								<li>
 									<select name="a">
 										<optgroup  label="대분류">
@@ -66,6 +103,7 @@
 											<option value="">아발타</option>
 										</optgroup>
 									</select> 
+									<span class="category-button" id="del-category">-</span>
 								</li>
 								<li>
 									<select name="">
@@ -79,6 +117,7 @@
 											<option value="">아발타</option>
 										</optgroup>
 									</select> 
+									<span class="category-button" id="del-category">-</span>
 								</li>
 							</ul>
 								
@@ -101,7 +140,15 @@
 						</form>
 					</div>
 				</div>
+				
+		<c:choose>
+			<c:when test="${toggle == 2}">					
+				<div class="tab-pane active" id="myboard">
+			</c:when>
+			<c:otherwise>
 				<div class="tab-pane" id="myboard">
+			</c:otherwise>
+		</c:choose>
 					<div class="container">
 						<!-- <div class="row row-cols-auto">
 						  	<div class="col mb-1">
@@ -239,8 +286,8 @@
 		<div class="modal" id="myPageModal">
 		  <div class="modal-dialog modalDesign">
 		    <div class="modal-content" id="myPage-modal-content">
-		      <div class="modal-header" id="myPage-modal-header">
-		        <h4 class="modal-title"></h4>
+		      <div class="modal-header pt-3" id="myPage-modal-header">
+		        <h4 class="modal-title mx-auto">비밀번호 인증</h4>
 		        <button type="button" class="close" onclick="hideModal()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		      </div>
 		      <div class="modal-body" id="myPage-modal-footer">
@@ -287,6 +334,16 @@
 			
 			$(id).toggleClass('in');
 			$(id).toggleClass('active');
+			
+			if ($(this).data('head') == '1') {
+				$('#userMyPage .title h2').text('마이페이지');
+			} else if($(this).data('head') == '2') {
+				$('#userMyPage .title h2').text('내 게시판');
+			} else if($(this).data('head') == '3') {
+				$('#userMyPage .title h2').text('장바구니');
+			} else {
+				$('#userMyPage .title h2').text('주문정보');
+			}
 			
 		}); 
 		
@@ -398,6 +455,27 @@
                 $(this).css('border', '2px solid red');
             }   
 		});
+        
+        $('#add-category').click(function() {
+        	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true); 
+        	$($cloneLi).css('display', 'list-item');
+        	
+        	$('#category-wrap').append($cloneLi);
+        	
+        });
+        
+        $('#category-wrap').on('click', '#del-category' ,function() {
+        	console.log(this);
+        	this.parentNode.remove();
+        });
+
+
+		$('#userTel').hover(function() {
+			$(this).attr('placeholder', '000-0000-0000');
+		}, function() {
+			$(this).attr('placeholder', '전화번호');			
+		});
+		
 	}); // end jQuery
 	
 	// 다음 주소 api 사용해보기
@@ -545,8 +623,6 @@
 					
 				}
 				
-				
-				
 			},
 			error: function(request, status, error) {
 				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
@@ -557,6 +633,10 @@
 	
 	// 모달 닫기
 	function hideModal() {
+		$('#currPw').val('');
+		$('#modiPw').val('');
+		$('#checkPw').val('');
+		
 		$('#myPageModal').hide();
 	}
 	

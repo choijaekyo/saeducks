@@ -303,8 +303,6 @@
         	console.log(this);
         	this.parentNode.remove();
         });
-        
-        
 
 
 		$('#userTel').hover(function() {
@@ -341,7 +339,6 @@
                 document.getElementById('addrDetail').focus();
             }
         }).open();
-        
         
 	}
 </script>
