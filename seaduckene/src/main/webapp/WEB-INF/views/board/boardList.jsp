@@ -8,7 +8,7 @@
 <div class="container">
 	<div class="row mb-1">
 	  	<div class="col">
-	  		<button type="button" class="btn btn-warning w-auto rounded">대카테고리고리</button>
+	  		<button type="button" class="btn btn-warning w-auto rounded btn-shadow">대카테고리고리</button>
 	  		<button type="button" class="btn btn-success w-auto rounded">소소카테고리</button>
 	  		<button type="button" class="btn btn-info w-auto rounded">전체상품</button>
 	  	</div>

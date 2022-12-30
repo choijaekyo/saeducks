@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	
+	<!-- 외부에 따로 설정한 설정 파일을 참조하는 곳에 사용하는 클래스 -->
+	<beans:bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+      <beans:property name="locations">
+         <beans:list>
+            <!-- <beans:value>classpath:/KaKaoAuth.properties</beans:value> -->
+            <beans:value>classpath:/db-config/email.properties</beans:value>
+         </beans:list>
+      </beans:property>
+   </beans:bean>    
+   
+	<!-- css, img, js...의 파일 경로가 복잡할 때 많이 사용합니다.
+		jsp 파일 같은 데서 경로 긴 거 일일히 쓰기 귀찮잖아요. 그럴 때 선언합니다.
+		그리고 내부 경로를 숨겨주는 역할도 합니다.  -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/img/**" location="/resources/img/" />
+	
+	
+	<!-- 컨트롤러가 리턴한 문자열 앞, 뒤에 적절한 경로를 붙여서
+		화면을 응답할 수 있도록 도와주는 뷰 리졸버~ -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 
+		아노테이션으로 등록된 클래스 객체들을 탐색해 주는 설정 태그입니다.
+		base-package에다가는 탐색할 패키지 경로를 쓰시면,
+		하위 패키지까지 몽땅 검색해 줍니다.
+	 -->
+	
+	<context:component-scan base-package="kr.co.seaduckene" />
+	
+	<!-- 파일 업로드 -->
+	<!-- 파일 업로드에 필요한 객체, 빈을 등록하겠다. -->
+	<!-- id를 multipartResolver로 선언.
+		Multipart 형식으로 전달되는 데이터를 스프링 mvc에서 사용할 수 있도록 변환해 주는 객체. -->
+	<!-- 이게 바로 파일 업로드를 도와줄 객체. -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	
+		<!-- 최대 업로드 가능한 바이트 크기(바이트 단위), -1은 제한이 없음을 의미 -->
+		<beans:property name="maxUploadSize" value="10485760" />
+		
+		<!-- 업로드 요청을 변환할 떄 사용할 문자 인코딩 방식 -->
+		<beans:property name="defaultEncoding" value="utf-8" />
+	
+	</beans:bean>
+	
+	
+	
+</beans:beans>
