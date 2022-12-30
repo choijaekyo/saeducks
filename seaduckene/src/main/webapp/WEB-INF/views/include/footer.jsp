@@ -4,7 +4,7 @@
 <section></section>
 
 <footer>
-	<div class="container f-wrap">
+	<div class="container f-wrap mt-5">
 
 		<div class="row">
 			<div class="col text-center">세상의 모든 덕질</div>
