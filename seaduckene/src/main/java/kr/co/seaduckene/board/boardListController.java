@@ -1,4 +1,4 @@
-package kr.co.seaduckene.product;
+package kr.co.seaduckene.board;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,4 +16,8 @@ public class boardListController {
 	
 	@GetMapping("/boardWrite")
 	public void boardWrite() {}
+	
+	//상세보기
+	@GetMapping("/boardDetail")
+	public void boardDetail() {}
 }
