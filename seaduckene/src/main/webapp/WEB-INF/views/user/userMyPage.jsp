@@ -131,7 +131,7 @@
 								<input name="" type="text" class="btn btn-a" placeholder="상세주소" id="addrDetail"> <br>
 								<input name="" type="text" class="btn btn-a" placeholder="우편번호" id="addrZipNum" readonly> <br>
 								<input name="" type="text" class="btn btn-a" placeholder="전화번호" id="userTel"> <br>
-								<input name="" type="text" class="btn btn-a" placeholder="이메일"> <br>
+								<input name="" type="text" class="btn btn-a" placeholder="이메일" id="userEmail"> <br>
 								<input type="button" class="btn btn-lg btn-b btn-warning email-btn" onclick="" value="이메일 인증"> <br>
 							</div> <br> <br>
 							<input type="button" class="btn btn-sm btn-info btn-b" onclick="showUpdateModal()" value="수정하기" id="update"> &nbsp;&nbsp;
@@ -419,13 +419,13 @@
 		});
 
 		/*비밀번호 형식 검사 스크립트*/
-		$('#userPw').keyup(function() {
+		$('#userPw').keydown(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
 	            if($("#pwConfirm").val() === $(this).val() ) {
-	                $(this).css('border', '3px solid yellowgreen');
-	                $("#pwConfirm").css('border', '3px solid yellowgreen');
+	                $(this).css('border', '2px solid #ffc107');
+	                $("#pwConfirm").css('border', '2px solid #ffc107');
 	            } else {
 	            	$(this).css('border', '2px solid red');
 	            	$("#pwConfirm").css('border', '2px solid red');
@@ -436,14 +436,14 @@
 
 		});
         /*비밀번호 확인검사*/
-		$('#pwConfirm').keyup(function() {
+		$('#pwConfirm').keydown(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             
             if(regex.test($(this).val() )) {
 	            if($(this).val() === $("#userPw").val()) {
-	                $(this).css('border', '3px solid yellowgreen');
-	                $("#userPw").css('border', '3px solid yellowgreen');        
+	                $(this).css('border', '2px solid #ffc107');
+	                $("#userPw").css('border', '2px solid #ffc107');        
 	
 	            } else {
 	                $(this).css('border', '2px solid red');
@@ -454,6 +454,21 @@
                 $(this).css('border', '2px solid red');
             }   
 		});
+        
+        /* 이메일 확인검사 */
+        $('#userEmail').keydown(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[A-Za-z0-9+]+@[A-Za-z+]+.[A-Za-z+]{1,4}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid #ffc107');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+				 
+			}
+        	
+        }); 
         
         $('#add-category').click(function() {
         	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true); 

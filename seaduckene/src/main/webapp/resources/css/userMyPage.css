@@ -127,12 +127,11 @@
 	width: 300px;
 	height: 50px;
 	font-size: 20px;
-	color: white;
+	color: black;
 	cursor: auto;
 	
-	background:rgba(255,255,255,.1)
-
-
+	
+	background-color: white;
 }
 
 @media screen and (min-width: 768px) {
@@ -148,7 +147,6 @@
 @media screen and (max-width: 767px) {
 	
 	#userMyPage .join-container form input.btn-a:hover {
-		color: white;
 		
 		opacity: 0.9;
 	

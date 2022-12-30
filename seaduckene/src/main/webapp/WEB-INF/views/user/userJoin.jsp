@@ -211,7 +211,7 @@
 						$('#userId').focus();
 						alert('아이디가 이미 존재합니다.\n다른 아이디로 입력해주세요.');
 					} else {
-						$('#userId').css('border', '3px solid yellowgreen');
+						$('#userId').css('border', '2px solid #ffc107');
 						alert('사용가능한 아이디입니다!');
 					}
 				},
@@ -241,11 +241,11 @@
 		});
 		
 		/*아이디 형식 검사 스크립트*/
-		$('#userId').keyup(function() {
+		$('#userId').keydown(function() {
             const regex = /^[A-Za-z0-9+]{4,12}$/; /* 영문 대/소문자, 숫자 4 ~ 12 */
 			
             if(regex.test($(this).val() )) {
-                $(this).css('border', '3px solid yellowgreen');
+                $(this).css('border', '2px solid #ffc107');
                 /* document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다."; */
 
             } else {
@@ -255,13 +255,13 @@
             
 		});
 		/*비밀번호 형식 검사 스크립트*/
-		$('#userPw').keyup(function() {
+		$('#userPw').keydown(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
 	            if($("#pwConfirm").val() === $(this).val() ) {
-	                $(this).css('border', '3px solid yellowgreen');
-	                $("#pwConfirm").css('border', '3px solid yellowgreen');
+	                $(this).css('border', '2px solid #ffc107');
+	                $("#pwConfirm").css('border', '2px solid #ffc107');
 	            } else {
 	            	$(this).css('border', '2px solid red');
 	            	$("#pwConfirm").css('border', '2px solid red');
@@ -272,14 +272,14 @@
 
 		});
         /*비밀번호 확인검사*/
-		$('#pwConfirm').keyup(function() {
+		$('#pwConfirm').keydown(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             
             if(regex.test($(this).val() )) {
 	            if($(this).val() === $("#userPw").val()) {
-	                $(this).css('border', '3px solid yellowgreen');
-	                $("#userPw").css('border', '3px solid yellowgreen');        
+	                $(this).css('border', '2px solid #ffc107');
+	                $("#userPw").css('border', '2px solid #ffc107');        
 	
 	            } else {
 	                $(this).css('border', '2px solid red');
@@ -290,6 +290,21 @@
                 $(this).css('border', '2px solid red');
             }   
 		});
+        
+        /* 이메일 확인검사 */
+        $('#userEmail').keydown(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[A-Za-z0-9+]+@[A-Za-z+]+.[A-Za-z+]$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid #ffc107');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+				 
+			}
+        	
+        }); 
         
         $('#add-category').click(function() {
         	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true); 
@@ -310,6 +325,9 @@
 		}, function() {
 			$(this).attr('placeholder', '전화번호');			
 		});
+		
+
+
         
 	}); // end jQuery
 	

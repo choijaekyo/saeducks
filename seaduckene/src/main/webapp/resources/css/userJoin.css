@@ -3,7 +3,7 @@
 
 #userJoinPage {
 	padding: 0;
-	color: white;
+	color: black;
 }
 
 
@@ -111,12 +111,12 @@
 	width: 300px;
 	height: 50px;
 	font-size: 20px;
-	color: white;
-	
+	color: black;
 	cursor: auto;
 	
-	background:rgba(255,255,255,.1)
+	
 
+	background-color: white;
 }
 
 @media screen and (min-width: 768px) {
