@@ -18,6 +18,7 @@
 
     <!--개인 디자인 추가-->
     <link href="${pageContext.request.contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath }/resources/css/board.css" rel="stylesheet">
     
     <!-- swiper 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
@@ -30,7 +31,7 @@
 	<header>
       <div class="container" id="main-img">
          <a class="navbar-brand" href="#"> <img
-            src="${pageContext.request.contextPath }/resources/img/saeduck.png"
+            src="${pageContext.request.contextPath }/resources/img/saeduckene.png"
             alt="Logo" class="d-inline-block align-text-top">
          </a>
       </div>
@@ -51,16 +52,17 @@
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList' />">게시판으로</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/user/userMyPage/2' />">내 게시판</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardWrite' />">글작성</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/board/boardDetail' />">글상세</a></li>
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false"> Dropdown
                         link </a>
                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else
-                              here</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/product/order' />">주문서</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/product/createProduct' />">상품등록</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/user/userBasket' />">장바구니</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/product/productDetail' />">상품상세</a></li>
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
