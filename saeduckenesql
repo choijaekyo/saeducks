@@ -1,0 +1,83 @@
+CREATE USER saeduckene IDENTIFIED BY saeduckene;
+
+GRANT CREATE SESSION TO saeduckene;
+
+GRANT CONNECT, RESOURCE TO saeduckene;
+
+CREATE TABLE board(
+    board_no NUMBER PRIMARY KEY,
+    board_title VARCHAR2(60) NOT NULL,
+    board_content VARCHAR2(4000) NOT NULL,
+    board_views  NUMBER DEFAULT 0,
+    board_reg_date DATE DEFAULT sysdate,
+    board_up_date DATE,
+    board_user_no NUMBER NOT NULL,
+    board_category_no NUMBER NOT NULL
+);
+
+CREATE SEQUENCE board_no_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+
+CREATE TABLE reply(
+    reply_no NUMBER PRIMARY KEY,
+    reply_content VARCHAR2(4000) NOT NULL,
+    reply_reg_date DATE DEFAULT sysdate,
+    reply_up_date DATE,
+    reply_board_no NUMBER NOT NULL,
+    reply_user_no NUMBER NOT NULL
+);
+
+CREATE SEQUENCE reply_no_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+
+CREATE TABLE replyLike(
+    like_no NUMBER PRIMARY KEY,
+    like_reply_no NUMBER NOT NULL,
+    like_user_no NUMBER NOT NULL,
+    like_state NUMBER
+);
+
+CREATE SEQUENCE reply_like_no_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+
+CREATE TABLE category(
+    category_no NUMBER PRIMARY KEY,
+    category_major_title VARCHAR2(60) NOT NULL,
+    category_minor_title VARCHAR2(60) NOT NULL,
+    category_reg_date DATE DEFAULT sysdate
+);
+
+CREATE SEQUENCE category_no_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+
+CREATE TABLE boardImage(
+    board_image_no NUMBER PRIMARY KEY,
+    board_image_path VARCHAR2(100) NOT NULL,
+    board_image_folder VARCHAR2(100) NOT NULL,
+    board_image_file_name VARCHAR2(1000) NOT NULL,
+    board_image_uuid VARCHAR2(1000) NOT NULL,
+    board_board_no NUMBER NOT NULL
+);
+
+CREATE SEQUENCE board_image_no_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;

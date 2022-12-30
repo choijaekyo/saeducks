@@ -1,0 +1,16 @@
+﻿/*============= boardList ==============*/
+:root { 
+	--saeduck-stroke-width: 0; 
+	--saeduck-stroke-color: white; 
+	--animation-depth: 10px; 
+	--saeduck-depth-color: black;
+}
+
+.btn-shadow:hover {
+	box-shadow: 0 0 5px var(--saeduck-stroke-width, 0)
+		var(--saeduck-stroke-color), 0 var(--animation-depth, .375em) 0 0
+		var(--saeduck-depth-color);
+	transform: translateY(calc(-1 * var(--animation-depth, .375em)));
+}
+
+/*============= END boardList ==============*/
