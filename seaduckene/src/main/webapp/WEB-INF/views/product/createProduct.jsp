@@ -86,6 +86,14 @@
                         <input class="form-control" type="text" name="quantity" id="quantity" required />
                     </div>
                 </div>
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="productImg">상품이미지</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple" required />
+                    </div>
+                </div>
 				
                 <div class="input-group inputArea">
                     <div class="col-md-2 offset-md-1 col-sm-12 col-12">
