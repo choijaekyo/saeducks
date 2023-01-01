@@ -22,9 +22,9 @@
 			<div class="title">
 				<h2>회원가입</h2>
 				<ol>
-					<li><span>1</span> 약관동의 ─</li>
-					<li style="font-size: 20px" style="font-size: 20px"><span>2</span> 정보입력 ─</li>
-					<li><span>3</span> 가입완료</li> 
+					<li style="font-size: 16px"><span>1</span> 약관동의 ─</li>
+					<li style="font-size: 18px"><span>2</span> 정보입력 ─</li>
+					<li style="font-size: 16px"><span>3</span> 가입완료</li> 
 				</ol>
 			</div>
 			<div class="join-container">
@@ -37,62 +37,80 @@
 						</div>
 					</div>
 					<span>기본 정보</span> <br>
-					<input name="" type="text" class="btn btn-a" placeholder="아이디" id="userId"> <br>
-					<input type="button" class="btn btn-sm btn-b" value="중복 확인" id="account-check"> <br>
-					<input name="" type="password" class="btn btn-a" placeholder="비밀번호" id="userPw"> <br>
-					<input name="" type="password" class="btn btn-a" placeholder="비밀번호 확인" id="pwConfirm"> <br>
-					<input name="" type="text" class="btn btn-a" placeholder="이름"> <br>
-					<input name="" type="text" class="btn btn-a" placeholder="닉네임"> <br> <br>
-					
+					<div class="input-group inputArea">
+	                    <div class="col-md-12 col-sm-12 col-12">
+	                        <input name="" class="form-control join-input" type="text" placeholder="아이디" id="userId" required />
+	                    </div>
+                	</div>
+					<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="account-check"> <br>
+					<div class="input-group inputArea">
+	                    <div class="col-md-12 col-sm-12 col-12">
+	                        <input name="" class="form-control join-input" type="password" placeholder="비밀번호" id="userPw" required />
+	                    </div>
+                	</div>
+					<div class="input-group inputArea">
+	                    <div class="col-md-12 col-sm-12 col-12">
+	                        <input name="" class="form-control join-input" type="password" placeholder="비밀번호 확인" id="pwConfirm" required />
+	                    </div>
+                	</div>
+					<div class="input-group inputArea">
+	                    <div class="col-md-12 col-sm-12 col-12">
+	                        <input name="" class="form-control join-input" type="text" placeholder="이름" id="name" required />
+	                    </div>
+                	</div>
+					<div class="input-group inputArea">
+	                    <div class="col-md-12 col-sm-12 col-12">
+	                        <input name="" class="form-control join-input" type="text" placeholder="닉네임" id="userNickname" required />
+	                    </div>
+                	</div> <br>
 					
 					<span class="basic-info">상세 정보</span> <br> 
-					<span class="category-button" id="add-category">+</span>
+					<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
 					<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
 						<li id="dummy-category" style="display: none;">
-							<select name="a">
-								<optgroup  label="대분류">
-									<option value="movie">영화</option>
-									<option value="food">음식</option>
-								</optgroup>
-							</select>
-							<select name="">
-								<optgroup label="소분류">
-								<!-- 대분류 선택에 따라 select 삭제후 다시 만들어서 추가한다  -->
-									<option value="">태극기휘</option>
-									<option value="">아발타</option>
-								</optgroup>
-							</select> 
-							<span class="category-button" id="del-category">-</span>
+							<select name="b" class="form-select join-category" aria-label="Default select example" name="majorCategory" id="majorCategory">
+                                    <option selected disabled>대 카테고리</option>
+                                    <option value="jor1">영화</option>
+                                    <option value="jor2">드라마</option>
+                                    <option value="jor3">음식</option>
+                            </select>
+                            <select class="form-select join-category " aria-label="Default select example" name="minorCategory" id="minorCategory">
+                                    <option selected disabled>소 카테고리</option>
+                                    <option value="nor1">아발타</option>
+                                    <option value="nor2">태극기휘</option>
+                                    <option value="nor3">워나소리</option>
+                            </select>
+                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 						</li>
 						<li>
-							<select name="a">
-								<optgroup  label="대분류">
-									<option value="movie">영화</option>
-									<option value="food">음식</option>
-								</optgroup>
-							</select>
-							<select name="">
-								<optgroup label="소분류">
-								<!-- 대분류 선택에 따라 select 삭제후 다시 만들어서 추가한다  -->
-									<option value="">태극기휘</option>
-									<option value="">아발타</option>
-								</optgroup>
-							</select> 
-							<span class="category-button" id="del-category">-</span>
+							<select name="b" class="form-select join-category" aria-label="Default select example" name="majorCategory" id="majorCategory">
+                                    <option selected disabled>대 카테고리</option>
+                                    <option value="jor1">대1</option>
+                                    <option value="jor2">대2</option>
+                                    <option value="jor3">대3</option>
+                            </select>
+                            <select class="form-select join-category " aria-label="Default select example" name="minorCategory" id="minorCategory">
+                                    <option selected disabled>소 카테고리</option>
+                                    <option value="nor1">소1</option>
+                                    <option value="nor2">소2</option>
+                                    <option value="nor3">소3</option>
+                            </select>
+                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 						</li>
 						<li>
-							<select name="">
-								<optgroup  label="대분류">
-									<option value="movie">영화</option>
-								</optgroup>
-							</select>
-							<select name="">
-								<optgroup label="소분류">
-									<option value="">태극기휘</option>
-									<option value="">아발타</option>
-								</optgroup>
-							</select> 
-							<span class="category-button" id="del-category">-</span>
+							<select name="b" class="form-select join-category" aria-label="Default select example" name="majorCategory" id="majorCategory">
+                                    <option selected disabled>대 카테고리</option>
+                                    <option value="jor1">대1</option>
+                                    <option value="jor2">대2</option>
+                                    <option value="jor3">대3</option>
+                            </select>
+                            <select class="form-select join-category " aria-label="Default select example" name="minorCategory" id="minorCategory">
+                                    <option selected disabled>소 카테고리</option>
+                                    <option value="nor1">소1</option>
+                                    <option value="nor2">소2</option>
+                                    <option value="nor3">소3</option>
+                            </select>
+                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 						</li>
 					</ul>
 						
@@ -103,13 +121,33 @@
 					</span> <br>
 					<div class="optional-info" style="display: none;">
 						<span class="basic-info">추가 정보</span> <br>
-						<input type="button" class="btn btn-sm btn-b btn-primary" onclick="searchAddress()" value="주소찾기"> <br>
-						<input name="" type="text" class="btn btn-a" placeholder="주소" id="addrBasic" readonly> <br>
-						<input name="" type="text" class="btn btn-a" placeholder="상세주소" id="addrDetail"> <br>
-						<input name="" type="text" class="btn btn-a" placeholder="우편번호" id="addrZipNum" readonly> <br>
-						<input name="" type="text" class="btn btn-a" placeholder="전화번호" id="userTel"> <br>
-						<input name="" type="text" class="btn btn-a" placeholder="이메일" id="userEmail"> <br>
-						<input type="button" class="btn btn-lg btn-b btn-primary email-btn" onclick="" value="이메일 인증"> <br>
+						<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
+						<div class="input-group inputArea">
+		                    <div class="col-md-12 col-sm-12 col-12">
+		                        <input name="" class="form-control join-input" type="text" placeholder="주소" id="addrBasic2" required />
+		                    </div>
+                		</div>	
+						<div class="input-group inputArea">
+		                    <div class="col-md-12 col-sm-12 col-12">
+		                        <input name="" class="form-control join-input" type="text" placeholder="상세주소" id="addrDetail2" required />
+		                    </div>
+                		</div>	
+						<div class="input-group inputArea">
+		                    <div class="col-md-12 col-sm-12 col-12">
+		                        <input name="" class="form-control join-input" type="text" placeholder="우편번호" id="addrZipNum2" required />
+		                    </div>
+                		</div>	
+						<div class="input-group inputArea">
+		                    <div class="col-md-12 col-sm-12 col-12">
+		                        <input name="" class="form-control join-input" type="text" placeholder="전화번호" id="userTel2" required />
+		                    </div>
+                		</div>	
+						<div class="input-group inputArea">
+		                    <div class="col-md-12 col-sm-12 col-12">
+		                        <input name="" class="form-control join-input" type="text" placeholder="이메일" id="userEmail2" required />
+		                    </div>
+                		</div>	
+						<input type="button" class="btn btn-lg btn-b btn-duck email-btn" onclick="" value="이메일 인증"> <br>
 					</div> <br> <br>
 					<input type="submit" class="btn btn-sm btn-info btn-b" value="가입하기"> &nbsp;&nbsp;
 					<input type="button" class="btn btn-sm btn-danger btn-b" value="뒤로가기">
@@ -141,30 +179,33 @@
 			}
 		});
 		
-		$('#category-wrap').on('change', 'select[name=a]', function(e) {
-			
+		$('#category-wrap').on('change', 'select[name=b]', function(e) {
 			const $category2 = this.nextElementSibling;
+			$($category2).html('');
 			
 			const $optgroup = document.createElement('optgroup');
-			$($optgroup).attr('label', '소분류');
+			const $optDefault = document.createElement('option');
+			$($optDefault).attr('selected', 'true');			
+			$($optDefault).attr('disabled', 'true');			
+			$($optDefault).text('소 카테고리');			
 			
-			const $fragOPt = document.createDocumentFragment();
+			const $fragOpts = document.createDocumentFragment();
+			$fragOpts.appendChild($optDefault);
 			
             const $option = document.createElement('option');
-            $($option).attr('name', 'a')
+			$($option).attr('name', 'dummy')
             $option.textContent = '임시로 기능만 대충 구현';
-            $fragOPt.appendChild($option);
+            $fragOpts.appendChild($option);            
 			// for (const f of /* 소분류 갖는 colltection */) {
 	        //    const $option = document.createElement('option');
 	        //    $($option).attr('name', '/* 파라미터 값 */')
 	        //    $option.textContent = /* 한글값 */;
-	        //    $frag.appendChild($option);
-	        //} 
-
-	        $optgroup.appendChild($fragOPt);
+	        //    $fragOpts.appendChild($option);
+	        //}
 			
-	        $category2.replaceChild($optgroup, $category2.firstElementChild);
+	        $category2.appendChild($fragOpts);
 		});
+		
 		
 		// 인증번호 이메일 전송
 		$('#mail-check-btn').click(() => {
@@ -255,7 +296,7 @@
             
 		});
 		/*비밀번호 형식 검사 스크립트*/
-		$('#userPw').keydown(function() {
+		$('#userPw').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
@@ -272,7 +313,7 @@
 
 		});
         /*비밀번호 확인검사*/
-		$('#pwConfirm').keydown(function() {
+		$('#pwConfirm').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             
@@ -292,7 +333,7 @@
 		});
         
         /* 이메일 확인검사 */
-        $('#userEmail').keydown(function() {
+        $('#userEmail').keyup(function() {
         	$(this).css('color', 'black');
 			const regex = /^[A-Za-z0-9+]+@[A-Za-z+]+.[A-Za-z+]$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
 			

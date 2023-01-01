@@ -33,6 +33,7 @@
 #userMyPage .title h2 {
 	padding: 30px 0;
 	font-size: 40px;
+	font-weight: 500;
 	
 }
 
@@ -275,7 +276,7 @@
 	
 }
 
-#myPageModal #myPage-modal-header  {
+#myPageModal #myPage-modal-header h4 {
 	font-size: 18px;
 }
 
@@ -287,6 +288,7 @@
 #myPageModal .modalDesign {
 	width:	350px;
 
+	background-color: #E6E1C1;
 	color: black;
 	
 	position: absolute;

@@ -80,4 +80,13 @@ public class UserControlller {
 		return Integer.toString(1);
 	}
 	
+	@GetMapping("/userJoinSuccess")
+	public void userJoinSuccess() {
+		
+	}
+	
+	@GetMapping("/userFindAccount")
+	public void userFindAccount() {
+		
+	}
 }
