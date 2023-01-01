@@ -24,6 +24,9 @@
 				<c:when test="${toggle == 2}">					
 					<h2>내 게시판</h2>
 				</c:when>
+				<c:when test="${toggle == 3}">					
+					<h2>장바구니</h2>
+				</c:when>
 				<c:otherwise>
 					<h2>마이페이지</h2>
 				</c:otherwise>
@@ -39,18 +42,26 @@
 						  <li class="breadcrumb-item" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
 						</c:otherwise>
 					</c:choose>
-					  <li class="breadcrumb-item" data-head="3"><a data-toggle="tab" href="#">장바구니</a></li>
+					<c:choose>
+						<c:when test="${toggle == 3}">		
+						  <li class="breadcrumb-item active" data-head="3"><a data-toggle="tab" href="#myBasket">장바구니</a></li>
+						</c:when>
+						<c:otherwise>
+						  <li class="breadcrumb-item" data-head="3"><a data-toggle="tab" href="#myBasket">장바구니</a></li>
+						</c:otherwise>
+					</c:choose>
+					  
 					  <li class="breadcrumb-item" data-head="4"><a data-toggle="tab" href="#">주문정보</a></li>
 					</ol>
 				</nav>				
 			</div>
 			<div class="tab-content">
 		<c:choose>
-			<c:when test="${toggle == 2}">					
-				<div class="tab-pane" id="myinfo" >
+			<c:when test="${toggle == 1}">					
+				<div class="tab-pane active" id="myinfo" >
 			</c:when>
 			<c:otherwise>
-				<div class="tab-pane active" id="myinfo" >
+				<div class="tab-pane" id="myinfo" >
 				</c:otherwise>
 			</c:choose>
 					<div class="join-container">
@@ -64,7 +75,7 @@
 							</div>
 							<span>기본 정보</span> <br>
 							<input name="" type="text" class="btn btn-a" placeholder="아이디" readonly> <br>
-							<input type="button" class="btn btn-warning btn-b btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 변경하기" id=""> <br>
+							<input type="button" class="btn btn-b btn-duck btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 변경하기" id=""> <br>
 							<input name="" type="password" class="btn btn-a" placeholder="비밀번호" id="userPw"> <br>
 							<input name="" type="password" class="btn btn-a" placeholder="비밀번호 확인" id="pwConfirm"> <br>
 							<input name="" type="text" class="btn btn-a" placeholder="이름"> <br>
@@ -132,7 +143,7 @@
 								<input name="" type="text" class="btn btn-a" placeholder="우편번호" id="addrZipNum" readonly> <br>
 								<input name="" type="text" class="btn btn-a" placeholder="전화번호" id="userTel"> <br>
 								<input name="" type="text" class="btn btn-a" placeholder="이메일" id="userEmail"> <br>
-								<input type="button" class="btn btn-lg btn-b btn-warning email-btn" onclick="" value="이메일 인증"> <br>
+								<input type="button" class="btn btn-lg btn-b btn-duck email-btn" onclick="" value="이메일 인증"> <br>
 							</div> <br> <br>
 							<input type="button" class="btn btn-sm btn-info btn-b" onclick="showUpdateModal()" value="수정하기" id="update"> &nbsp;&nbsp;
 							<input type="button" class="btn btn-sm btn-danger btn-b" onclick="showDeleteModal()" value="탈퇴하기" id="delete"> &nbsp;&nbsp;
@@ -140,7 +151,7 @@
 						</form>
 					</div>
 				</div>
-				
+		<div class="tab-content">
 		<c:choose>
 			<c:when test="${toggle == 2}">					
 				<div class="tab-pane active" id="myboard">
@@ -276,6 +287,67 @@
 						</div>
 					</div>
 				</div>
+		</div>
+		
+		<div class="tab-content">
+		<c:choose>
+			<c:when test="${toggle == 3}">					
+				<div class="tab-pane active" id="myBasket">
+			</c:when>
+			<c:otherwise>
+				<div class="tab-pane" id="myBasket">
+			</c:otherwise>
+		</c:choose>
+					<div class="container">
+				        <table class="table table-striped text-center ">
+				            <thead>
+				            <tr>
+				                <th scope="col"colspan="2">상품</th>
+				                <th scope="col">가격</th>
+				                <th scope="col">수량</th>
+				                <th scope="col">소계</th>
+				                <th scope="col">삭제</th>
+				            </tr>
+				            </thead>
+				            <tbody>
+				            <tr>
+				                <th scope="row" colspan="2" class="align-middle">프라모델프라</th>
+				                <td class="align-middle">10,000</td>
+				                <td class="align-middle">2 &nbsp;<a href="##"><i class="bi bi-plus-square"></i></a>
+				                    <a href="##"><i class="bi bi-dash-square"></i></a></td>
+				                <td class="align-middle">20,000</td>
+				                <td class="align-middle"><button type="button" class="btn btn-danger">삭제</button></td>
+				            </tr>
+				            <tr>
+				                <th scope="row" colspan="2" class="align-middle">프라모델</th>
+				                <td class="align-middle">10,000</td>
+				                <td class="align-middle">2&nbsp;<a href="##"><i class="bi bi-plus-square"></i></a>
+				                    <a href="##"><i class="bi bi-dash-square"></i></a></td>
+				                <td class="align-middle">20,000</td>
+				                <td class="align-middle"><button type="button" class="btn btn-danger">삭제</button></td>
+				            </tr>
+				            <tr>
+				                <th scope="row" colspan="2" class="align-middle">프라모델</th>
+				                <td class="align-middle">10,000</td>
+				                <td class="align-middle">2&nbsp;<a href="##"><i class="bi bi-plus-square"></i></a>
+				                    <a href="##"><i class="bi bi-dash-square"></i></a></td>
+				                <td class="align-middle">20,000</td>
+				                <td class="align-middle"><button type="button" class="btn btn-danger">삭제</button></td>
+				            </tr>
+				            </tbody>
+				        </table>
+				        <div>
+				            <div class="col-md-2 offset-md-10 text-end">
+				                <button type="button" class="btn btn-success">주문하기</button>
+				            </div>
+				        </div>
+				    </div>
+			</div>
+		</div>
+		
+		<div class="tab-content">
+		</div>
+				
 			</div>
 		</div>
 		</div>

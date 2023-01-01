@@ -144,6 +144,11 @@
 	#userJoinPage .join-container form #pwConfirm:hover::placeholder {
 		font-size: 18px;
 	}
+	
+	#userMyPage .join-container #del-category {
+		margin: 0 auto;
+		display: block;
+	}
 
 }
 

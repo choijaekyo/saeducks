@@ -32,7 +32,7 @@
 		        <div class="hr"></div>
 		        <div class="foot-lnk">
 		          <a href="<c:url value='/user/userJoin'/>">회원가입</a> <br>
-		          <a href="#">비밀번호 찾기</a>
+		          <a href="#">아이디 찾기</a>
 		        </div>
 		      </div>
 		    </form>
