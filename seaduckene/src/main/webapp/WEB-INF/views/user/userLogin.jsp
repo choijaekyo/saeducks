@@ -27,12 +27,12 @@
 		          <label for="check"><span class="icon"></span>&nbsp;&nbsp;자동 로그인</label>
 		        </div>
 		        <div class="group">
-		          <input type="button" class="button" value="로그인">
+		          <input type="button" class="button btn-duck" value="로그인">
 		        </div>
 		        <div class="hr"></div>
 		        <div class="foot-lnk">
 		          <a href="<c:url value='/user/userJoin'/>">회원가입</a> <br>
-		          <a href="#">비밀번호 찾기</a>
+		          <a href="<c:url value='/user/userFindAccount' />">아이디 찾기</a>
 		        </div>
 		      </div>
 		    </form>

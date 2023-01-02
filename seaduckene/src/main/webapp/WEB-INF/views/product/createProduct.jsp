@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -11,13 +11,13 @@
 
 <!-- 부트스트랩  CDM -->
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+   href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+   rel="stylesheet">
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <!--개인 디자인 추가-->
 <link href="${pageContext.request.contextPath }/resources/css/createProduct.css"
-	rel="stylesheet">
+   rel="stylesheet">
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
@@ -51,7 +51,7 @@
                                     <option value="nor3">소3</option>
                                   </select>
                             </div>
-                    	</div>
+                       </div>
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -94,7 +94,6 @@
                         <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple" required />
                     </div>
                 </div>
-				
                 <div class="input-group inputArea">
                     <div class="col-md-2 offset-md-1 col-sm-12 col-12">
                         <label for="productContent">상품설명</label>
@@ -105,14 +104,14 @@
                 </div>
 
                 <div class="inputArea input-group">
-					<div
-						class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
-						<button type="submit" class="order_btn btn btn-outline-success">상품등록</button>
-					</div>
-					<div class="col-md-3 col-sm-6 col-6">
-						<button type="button" class="cancel_btn btn btn-outline-secondary">취소</button>
-					</div>
-				</div>
+               <div
+                  class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
+                  <button type="submit" class="order_btn btn btn-outline-success">상품등록</button>
+               </div>
+               <div class="col-md-3 col-sm-6 col-6">
+                  <button type="button" class="cancel_btn btn btn-outline-secondary">취소</button>
+               </div>
+            </div>
                 
 
             </form>

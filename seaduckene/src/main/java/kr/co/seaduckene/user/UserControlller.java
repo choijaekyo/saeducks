@@ -37,6 +37,14 @@ public class UserControlller {
 		return modelAndView;
 	}
 	
+	@GetMapping("/userBasket")
+	public ModelAndView basket(ModelAndView modelAndView) {
+		
+		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		
+		return modelAndView;
+	}
+	
 	@ResponseBody
 	@PostMapping("/checkId")
 	public String checkId(@RequestBody String userId) {
@@ -71,9 +79,14 @@ public class UserControlller {
 		
 		return Integer.toString(1);
 	}
-	@GetMapping("/userBasket")
-	public void basket() {
+	
+	@GetMapping("/userJoinSuccess")
+	public void userJoinSuccess() {
 		
 	}
 	
+	@GetMapping("/userFindAccount")
+	public void userFindAccount() {
+		
+	}
 }
