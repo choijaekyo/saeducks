@@ -5,7 +5,18 @@
 
 <mapper namespace="kr.co.seaduckene.board.mapper.IBoardReplyMapper">
 	
-	
+	<!-- 수정 -->
+	<update id="update">
+		UPDATE board
+		SET board_title=#{boardTitle}, board_content=#{boardContent}, board_up_date = sysdate
+		WHERE board_no = #{boardNo}
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="delete">
+		DELETE FROM board
+		WHERE board_no = #{boardNo}
+	</delete>
 	
 </mapper>
 
