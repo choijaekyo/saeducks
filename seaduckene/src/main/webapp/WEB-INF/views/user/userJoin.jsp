@@ -70,7 +70,10 @@
 						<li id="dummy-category" style="display: none;">
 							<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
                                     <option selected disabled>대 카테고리</option>
-                                    <c:forEach var="i" begin="0" end="${categoryList.size() - 1}" step="1">
+                                    <%-- <c:forEach var="i" begin="0" end="${categoryList.size() - 1}" step="1"> --%>
+                                    <%-- <c:forEach var="i" items="${categoryList}" > --%>
+                                    <c:set var="n" value="${categoryList.size()}"  />
+                                    <c:forEach var="i" begin="0" end="${n}" step="1">
                                     	<option>${categoryList[i].categoryMajorTitle}</option>
                                     </c:forEach>
                             </select>

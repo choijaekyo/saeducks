@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.seaduckene.address.command.AddressVO;
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
+import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
 import kr.co.seaduckene.util.PageVO;
 import lombok.extern.log4j.Log4j;
@@ -44,6 +46,13 @@ public class UserController {
 		
 		request.setAttribute("categoryList", userService.getCategories());
 			
+	}
+	
+	@PostMapping("/userJoin")
+	public void userjoin(UserVO userVO, AddressVO addressVO) {
+		
+		userService.registUser(userVO);
+		
 	}
 
 	@GetMapping("/userMyPage/{head}")

@@ -17,7 +17,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void registUser(UserVO userVO) {
-
+		
 		userMapper.registUser(userVO);
 	}
 

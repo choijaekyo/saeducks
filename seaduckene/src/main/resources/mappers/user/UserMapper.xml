@@ -14,6 +14,13 @@
 		<result property="categoryMinorTitle" column="category_minor_title"/>
 	</resultMap>
 	
+	<insert id="registUser">
+		INSERT INTO duck_user 
+		(user_no, user_id, user_pw, user_nickname, user_name, user_tel, user_email)
+		VALUES (duck_user_seq.NEXTVAL, #{userId}, #{userPw}, #{userNickname},
+		 #{userName}, #{userTel}, #{userEmail})
+	</insert>
+	
 	<select id="getCategories" resultMap="categories">
 		SELECT category_major_title, category_minor_title From category
 	</select>
