@@ -25,7 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ProdcutVO {
+public class ProductVO {
 	
 	private int productNo;
 	private String productName;

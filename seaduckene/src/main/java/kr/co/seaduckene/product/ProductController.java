@@ -1,10 +1,21 @@
 package kr.co.seaduckene.product;
 
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.seaduckene.board.command.BoardCategoryVO;
+import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
 
 @Controller
@@ -15,13 +26,47 @@ public class ProductController {
 	private IProductService service;
 
 	@GetMapping("/createProduct")
-	public void createProduct() {}
+	public void createProduct(Model model) {
+		System.out.println("product/createProduct GET 요청");
+		List<BoardCategoryVO> list = service.getCategory();
+		LinkedHashSet<String> major = new LinkedHashSet<String>();
+		
+		for(BoardCategoryVO vo : list) {
+			major.add(vo.getCategoryMajorTitle());
+		}
+		System.out.println(major);
+		model.addAttribute("major", major);
+		model.addAttribute("category", list);
+		
+	}
 	
 	@GetMapping("/order")
 	public void orderSheet() {}
 	
 	@GetMapping("/productDetail")
 	public void detail( ) {}
+	
+	@ResponseBody
+	@GetMapping("/getCategory")
+	public List<String> getCategory(@RequestParam("major") String major){
+		System.out.println("/product/getCategory GET");
+		return service.getMinor(major);
+	}
+	
+	@PostMapping("/createProduct")
+	public void insertProduct(ProductVO vo,@RequestParam("majorCategory") String major,
+			@RequestParam("minorCategory") String minor) {
+		System.out.println("/product/createProduct POST");
+		System.out.println(major+minor);
+		System.out.println(vo);
+		Map<String, Object> map = new HashMap<>();
+		map.put("major", major);
+		map.put("minor", minor);
+		map.put("vo", vo);
+		int cnum = service.getCNum(map);
+		map.put("cnum", cnum);
+		service.insertProduct(map);
+	}
 	
 	
 	

@@ -194,7 +194,7 @@
 			
             const $option = document.createElement('option');
 			$($option).attr('name', 'dummy')
-            $option.textContent = '임시로 기능만 대충 구현';
+            $option.textContent = '시로 기능만임 대충 구현';
             $fragOpts.appendChild($option);            
 			// for (const f of /* 소분류 갖는 colltection */) {
 	        //    const $option = document.createElement('option');
