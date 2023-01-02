@@ -33,7 +33,7 @@
 					<div class="clearfix">
 						<div class="file-upload">
 							<span>+</span>
-							<input name="" type="file" class="upload" >
+							<input name="" type="file" class="upload" id="user-profile-pic" >
 						</div>
 					</div>
 					<span>기본 정보</span> <br>
@@ -72,8 +72,8 @@
                                     <option selected disabled>대 카테고리</option>
                                     <%-- <c:forEach var="i" begin="0" end="${categoryList.size() - 1}" step="1"> --%>
                                     <%-- <c:forEach var="i" items="${categoryList}" > --%>
-                                    <c:set var="n" value="${categoryList.size()}"  />
-                                    <c:forEach var="i" begin="0" end="${n}" step="1">
+                                    <%-- <c:set var="n" value="${categoryList.size()}"  /> --%>
+                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
                                     	<option>${categoryList[i].categoryMajorTitle}</option>
                                     </c:forEach>
                             </select>

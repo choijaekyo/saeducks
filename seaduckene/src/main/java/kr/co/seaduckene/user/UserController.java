@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.seaduckene.address.command.AddressVO;
+import kr.co.seaduckene.board.command.BoardCategoryVO;
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.user.command.UserVO;
@@ -45,13 +46,18 @@ public class UserController {
 		log.info(userService.getCategories());
 		
 		request.setAttribute("categoryList", userService.getCategories());
-			
+		request.setAttribute("majorLength", userService.getCategories().size() - 1);
+		log.info(userService.getCategories().size() - 1);
 	}
 	
 	@PostMapping("/userJoin")
-	public void userjoin(UserVO userVO, AddressVO addressVO) {
+	public void userjoin(UserVO userVO, AddressVO addressVO, BoardCategoryVO  boardCategoryVO) {
+		log.info(userVO);
+		log.info(addressVO);
+		log.info(boardCategoryVO);
 		
 		userService.registUser(userVO);
+		userService.updateUserFavorites(boardCategoryVO, userVO.getUserId());
 		
 	}
 

@@ -25,4 +25,16 @@
 		SELECT category_major_title, category_minor_title From category
 	</select>
 	
+	<select id="getCategoryNo" resultType="int">
+		SELECT category_no FROM category WHERE category_major_title =#{categoryMajorTitle} AND category_minor_title = #{categoryMinorList}
+	</select>
+	
+	<select id="getUserNo" resultType="int">
+		SELECT user_no FROM duck_user WHERE user_id = #{userId};
+	</select>
+	
+	<insert id="insertFavorite">
+		INSERT INTO favorite (favorite_no, favorite_category_no, favorite_user_no) VALUES (favorite_seq.NEXTVAL, #{categoryNo}, #{userNo})
+	</insert>
+	
 </mapper>
