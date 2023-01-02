@@ -28,7 +28,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <form action="#" method="post" class="productForm">
+            <form action="<c:url value='/product/createProduct'/>" method="post" class="productForm">
                 <div class="input-group inputArea">
                     <div class="col-md-2 offset-md-1 col-sm-12 col-12">
                         <label for="category">카테고리</label>
@@ -38,17 +38,14 @@
                             <div class="col-6">
                                 <select class="form-select" aria-label="Default select example" name="majorCategory" id="majorCategory">
                                     <option selected disabled>대 카테고리</option>
-                                    <option value="jor1">대1</option>
-                                    <option value="jor2">대2</option>
-                                    <option value="jor3">대3</option>
+                                    <c:forEach var="list" items="${major }">
+                                    	<option>${list }</option>
+                                    </c:forEach>
                                   </select>
                             </div>
                             <div class="col-6">
                                 <select class="form-select" aria-label="Default select example" name="minorCategory" id="minorCategory">
                                     <option selected disabled>소 카테고리</option>
-                                    <option value="nor1">소1</option>
-                                    <option value="nor2">소2</option>
-                                    <option value="nor3">소3</option>
                                   </select>
                             </div>
                        </div>
@@ -67,7 +64,7 @@
                         <label for="realPrice">판매가</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="text" name="realPrice" id="realPrice" required />
+                        <input class="form-control" type="text" name="productPriceNormal" id="realPrice" required />
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -75,7 +72,7 @@
                         <label for="salePrice">할인가</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="text" name="salePrice" id="salePrice" required />
+                        <input class="form-control" type="text" name="productPriceSelling" id="salePrice" required />
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -83,7 +80,7 @@
                         <label for="quantity">재고수량</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="text" name="quantity" id="quantity" required />
+                        <input class="form-control" type="text" name="productStock" id="quantity" required />
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -91,7 +88,7 @@
                         <label for="productImg">상품이미지</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple" required />
+                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple"  />
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -99,7 +96,7 @@
                         <label for="productContent">상품설명</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <textarea class="form-control" type="text" name="productContent" id="productContent" required></textarea>
+                        <textarea class="form-control" type="text" name="productDetail" id="productContent" required></textarea>
                     </div>
                 </div>
 
@@ -123,3 +120,38 @@
     
 </body>
 </html>
+
+	<script>
+	
+	const regprice = /^[0-9]$/;
+	
+	$(function(){
+		
+		//대카테고리 선택에 이은 소카테고리 분류
+		$('#majorCategory').on('change',function(e){
+			const major = $(this).val();
+			$('#minorCategory').empty();
+		$.getJSON(
+				'<c:url value="/product/getCategory?major='+major+'"/>',
+				function(list){
+					for(let i = 0;i<list.length;i++){
+						const $option = document.createElement('option');
+						$option.textContent=list[i];
+						$('#minorCategory').append($option);
+					}
+					
+				}
+		
+		);//endJSON
+		
+		
+		
+		
+		});//end 소카테고리
+		
+		
+		
+		
+	});//end jQuery
+	
+	</script>

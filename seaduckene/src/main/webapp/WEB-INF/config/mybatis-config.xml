@@ -20,7 +20,8 @@
 <!-- 경로랑 resultmap 알아서 설정하기  -->	
 	<typeAliases>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardVO" alias="board"/>
-		<typeAlias type="kr.co.seaduckene.product.command.ProdcutVO" alias="prodcut"/>
+		<typeAlias type="kr.co.seaduckene.product.command.ProductVO" alias="prodcut"/>
+		<typeAlias type="kr.co.seaduckene.board.command.BoardCategoryVO" alias="category"/>
 	</typeAliases>
 	
 	<!-- 인터페이스 mapper 구현체 xml 파일의 경로를 표시하는 태그.

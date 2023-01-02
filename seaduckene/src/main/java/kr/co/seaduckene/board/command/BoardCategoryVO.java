@@ -35,6 +35,7 @@ public class BoardCategoryVO {
 	private String categoryMajorTitle;
 	private String categoryMinorTitle;
 	private Timestamp categoryRegDate;
+
 	
 }
 

@@ -3,7 +3,7 @@ package kr.co.seaduckene.board.service;
 import java.util.List;
 
 import kr.co.seaduckene.board.command.BoardVO;
-import kr.co.seaduckene.product.command.ProdcutVO;
+import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.util.PageVO;
 
 public interface IBoardService {
@@ -24,7 +24,7 @@ public interface IBoardService {
 	void delete(int bno);
 	
 	// 상품 목록
-	List<ProdcutVO> proList();
+	List<ProductVO> proList();
 }
 
 

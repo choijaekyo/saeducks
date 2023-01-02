@@ -14,5 +14,27 @@
 	</insert>
 	
 	
+	<select id="getCategory" resultType="category">
+		SELECT * FROM category
+	</select>
+	
+	<select id="getMinor" resultType="String">
+		SELECT category_minor_title FROM category
+		WHERE category_major_title =#{major}
+	</select>
+	
+	<select id="getCNum" resultType="int">
+		SELECT category_no FROM category WHERE category_major_title=#{major} AND category_minor_title=#{minor}
+	
+	</select>
+	
+	<insert id="insertProduct">
+		INSERT INTO product
+		(product_no,product_name,product_price_normal,product_price_selling,product_detail,product_stock,product_category_no)
+		VALUES
+		(product_seq.NEXTVAL,#{vo.productName},#{vo.productPriceNormal},#{vo.productPriceSelling},#{vo.productDetail},#{vo.productStock},#{cnum})
+	</insert>
+	
+	
 </mapper>
     
