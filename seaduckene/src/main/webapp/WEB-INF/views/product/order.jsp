@@ -77,6 +77,16 @@
 				<div id="checkdeAccount">
 					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+						</div>
+						<div class="col-md-9 col-sm-12 col-12">
+							<p>
+							무통장입금 시 <strong>입금자명</strong>과 <strong>주문자명</strong>은 <strong>동일</strong>해야합니다. <br>
+							만일 입금자명과 주문자명이 상이한 경우 고객센터로 문의 부탁드립니다.
+							</p>
+						</div>
+					</div>
+					<div class="inputArea input-group">
+						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
 							<label for="refundBank">환불은행</label>
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
