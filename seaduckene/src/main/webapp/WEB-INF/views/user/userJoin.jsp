@@ -28,7 +28,7 @@
 				</ol>
 			</div>
 			<div class="join-container">
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="" method="post" enctype="multipart/form-data" id="user-join-form">
 					<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />">
 					<div class="clearfix">
 						<div class="file-upload">
@@ -39,28 +39,28 @@
 					<span>기본 정보</span> <br>
 					<div class="input-group inputArea">
 	                    <div class="col-md-12 col-sm-12 col-12">
-	                        <input name="" class="form-control join-input" type="text" placeholder="아이디" id="userId" required />
+	                        <input name="userId" class="form-control join-input" type="text" placeholder="아이디" id="userId" required />
 	                    </div>
                 	</div>
 					<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="account-check"> <br>
 					<div class="input-group inputArea">
 	                    <div class="col-md-12 col-sm-12 col-12">
-	                        <input name="" class="form-control join-input" type="password" placeholder="비밀번호" id="userPw" required />
+	                        <input name="userPw" class="form-control join-input" type="password" placeholder="비밀번호" id="userPw" required />
 	                    </div>
                 	</div>
 					<div class="input-group inputArea">
 	                    <div class="col-md-12 col-sm-12 col-12">
-	                        <input name="" class="form-control join-input" type="password" placeholder="비밀번호 확인" id="pwConfirm" required />
+	                        <input class="form-control join-input" type="password" placeholder="비밀번호 확인" id="pwConfirm" required />
 	                    </div>
                 	</div>
 					<div class="input-group inputArea">
 	                    <div class="col-md-12 col-sm-12 col-12">
-	                        <input name="" class="form-control join-input" type="text" placeholder="이름" id="name" required />
+	                        <input name="userName" class="form-control join-input" type="text" placeholder="이름" id="name" required />
 	                    </div>
                 	</div>
 					<div class="input-group inputArea">
 	                    <div class="col-md-12 col-sm-12 col-12">
-	                        <input name="" class="form-control join-input" type="text" placeholder="닉네임" id="userNickname" required />
+	                        <input name="userNickname" class="form-control join-input" type="text" placeholder="닉네임" id="userNickname" required />
 	                    </div>
                 	</div> <br>
 					
@@ -68,47 +68,14 @@
 					<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
 					<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
 						<li id="dummy-category" style="display: none;">
-							<select name="b" class="form-select join-category" aria-label="Default select example" name="majorCategory" id="majorCategory">
+							<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
                                     <option selected disabled>대 카테고리</option>
-                                    <option value="jor1">영화</option>
-                                    <option value="jor2">드라마</option>
-                                    <option value="jor3">음식</option>
+                                    <c:forEach var="i" begin="0" end="${categoryList.size() - 1}" step="1">
+                                    	<option>${categoryList[i].categoryMajorTitle}</option>
+                                    </c:forEach>
                             </select>
-                            <select class="form-select join-category " aria-label="Default select example" name="minorCategory" id="minorCategory">
+                            <select  name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
                                     <option selected disabled>소 카테고리</option>
-                                    <option value="nor1">아발타</option>
-                                    <option value="nor2">태극기휘</option>
-                                    <option value="nor3">워나소리</option>
-                            </select>
-                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
-						</li>
-						<li>
-							<select name="b" class="form-select join-category" aria-label="Default select example" name="majorCategory" id="majorCategory">
-                                    <option selected disabled>대 카테고리</option>
-                                    <option value="jor1">대1</option>
-                                    <option value="jor2">대2</option>
-                                    <option value="jor3">대3</option>
-                            </select>
-                            <select class="form-select join-category " aria-label="Default select example" name="minorCategory" id="minorCategory">
-                                    <option selected disabled>소 카테고리</option>
-                                    <option value="nor1">소1</option>
-                                    <option value="nor2">소2</option>
-                                    <option value="nor3">소3</option>
-                            </select>
-                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
-						</li>
-						<li>
-							<select name="b" class="form-select join-category" aria-label="Default select example" name="majorCategory" id="majorCategory">
-                                    <option selected disabled>대 카테고리</option>
-                                    <option value="jor1">대1</option>
-                                    <option value="jor2">대2</option>
-                                    <option value="jor3">대3</option>
-                            </select>
-                            <select class="form-select join-category " aria-label="Default select example" name="minorCategory" id="minorCategory">
-                                    <option selected disabled>소 카테고리</option>
-                                    <option value="nor1">소1</option>
-                                    <option value="nor2">소2</option>
-                                    <option value="nor3">소3</option>
                             </select>
                             <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 						</li>
@@ -124,32 +91,32 @@
 						<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
-		                        <input name="" class="form-control join-input" type="text" placeholder="주소" id="addrBasic2" required />
+		                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="주소" id="addrBasic" />
 		                    </div>
                 		</div>	
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
-		                        <input name="" class="form-control join-input" type="text" placeholder="상세주소" id="addrDetail2" required />
+		                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세주소" id="addrDetail" />
 		                    </div>
                 		</div>	
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
-		                        <input name="" class="form-control join-input" type="text" placeholder="우편번호" id="addrZipNum2" required />
+		                        <input name="addressZipNum" class="form-control join-input" type="text" placeholder="우편번호" id="addrZipNum" />
 		                    </div>
                 		</div>	
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
-		                        <input name="" class="form-control join-input" type="text" placeholder="전화번호" id="userTel2" required />
+		                        <input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" />
 		                    </div>
                 		</div>	
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
-		                        <input name="" class="form-control join-input" type="text" placeholder="이메일" id="userEmail2" required />
+		                        <input name="userEmail" class="form-control join-input" type="text" placeholder="이메일" id="userEmail" />
 		                    </div>
                 		</div>	
 						<input type="button" class="btn btn-lg btn-b btn-duck email-btn" onclick="" value="이메일 인증"> <br>
 					</div> <br> <br>
-					<input type="submit" class="btn btn-sm btn-info btn-b" value="가입하기"> &nbsp;&nbsp;
+					<input type="button" class="btn btn-sm btn-info btn-b" value="가입하기" id="user-join-submit"> &nbsp;&nbsp;
 					<input type="button" class="btn btn-sm btn-danger btn-b" value="뒤로가기">
 				</form>
 			</div>
@@ -179,11 +146,14 @@
 			}
 		});
 		
-		$('#category-wrap').on('change', 'select[name=b]', function(e) {
+		$('#category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
+			const major = $(this).val();
+			const minor1 = '${categoryList}';
+			const minor2 = minor1.split('), ');
+			
 			const $category2 = this.nextElementSibling;
 			$($category2).html('');
 			
-			const $optgroup = document.createElement('optgroup');
 			const $optDefault = document.createElement('option');
 			$($optDefault).attr('selected', 'true');			
 			$($optDefault).attr('disabled', 'true');			
@@ -193,17 +163,26 @@
 			$fragOpts.appendChild($optDefault);
 			
             const $option = document.createElement('option');
-			$($option).attr('name', 'dummy')
-            $option.textContent = '시로 기능만임 대충 구현';
-            $fragOpts.appendChild($option);            
-			// for (const f of /* 소분류 갖는 colltection */) {
-	        //    const $option = document.createElement('option');
-	        //    $($option).attr('name', '/* 파라미터 값 */')
-	        //    $option.textContent = /* 한글값 */;
-	        //    $fragOpts.appendChild($option);
-	        //}
+            
+			for (let minorText of minor2) {
+				if (minorText.indexOf(major) !== -1) {
+					
+					console.log(minorText);
+					
+					const minoList = minorText.substring(minorText.indexOf('=[') + 2, minorText.indexOf(']')).split(', ');
+					
+					 for (const f of minoList) {
+			            const $option = document.createElement('option');
+			            $option.textContent = f;
+			            $fragOpts.appendChild($option);
+			        }
+					 
+			        $category2.appendChild($fragOpts);
+			        
+					break;
+				}
+			}
 			
-	        $category2.appendChild($fragOpts);
 		});
 		
 		
@@ -282,7 +261,7 @@
 		});
 		
 		/*아이디 형식 검사 스크립트*/
-		$('#userId').keydown(function() {
+		$('#userId').keyup(function() {
             const regex = /^[A-Za-z0-9+]{4,12}$/; /* 영문 대/소문자, 숫자 4 ~ 12 */
 			
             if(regex.test($(this).val() )) {
@@ -362,13 +341,17 @@
 
 
 		$('#userTel').hover(function() {
-			$(this).attr('placeholder', '000-0000-0000');
+			$(this).attr('placeholder', '-(하이픈) 없이 입력하세요.');
 		}, function() {
 			$(this).attr('placeholder', '전화번호');			
 		});
 		
 
 
+        $('#user-join-submit').click(function() {
+        	
+        	$('#user-join-form').submit();
+        });
         
 	}); // end jQuery
 	
