@@ -54,6 +54,7 @@
 		<mybatis-spring:scan base-package="com.spring.myweb.snsboard.mapper"/>
 		 -->
 		
+		<mybatis-spring:scan base-package="kr.co.seaduckene.product.mapper"/>
 		
 		
 		
