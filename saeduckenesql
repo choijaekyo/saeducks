@@ -81,3 +81,91 @@ CREATE SEQUENCE board_image_no_seq
     MAXVALUE 10000
     NOCYCLE
     NOCACHE;
+
+---------------------- USER ----------------------------------------------------
+
+CREATE TABLE duck_user (
+    user_no NUMBER PRIMARY KEY,
+    user_id VARCHAR2(100) NOT NULL,
+    user_pw VARCHAR2(150) NOT NULL,
+    user_nickname VARCHAR2(200) NOT NULL,
+    user_name VARCHAR2(100) NOT NULL,
+    user_tel NUMBER NOT NULL,
+    user_admin_check NUMBER,
+    user_session_id VARCHAR2(300),
+    user_cookie_expire_date DATE,
+    user_email VARCHAR2(500),
+    user_profile_path VARCHAR2(500) DEFAULT '프로필 경로',
+    user_profile_folder VARCHAR2(500) DEFAULT '프로필 폴더',
+    user_profile_file_name VARCHAR2(1000) DEFAULT 'profile.png',
+    user_profile_uuid VARCHAR2(500) DEFAULT 'profile.png'
+    );
+
+CREATE SEQUENCE duck_user_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 10000
+    NOCACHE
+    NOCYCLE;
+    
+CREATE TABLE product (
+    product_no NUMBER PRIMARY KEY,
+    product_name VARCHAR2(100) NOT NULL,
+    product_price_normal NUMBER NOT NULL, -- 원래가격
+    product_price_selling NUMBER, -- 세일가격
+    product_detail VARCHAR2(2000)NOT NULL, -- 상품정보
+    product_stock NUMBER NOT NULL, -- 개수
+    product_reg_date DATE DEFAULT SYSDATE,
+    product_up_date DATE,
+    product_category_no NUMBER NOT NULL
+); 
+
+CREATE SEQUENCE product_seq
+    START WITH 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+
+-------------------------------------------------------------------------------
+SELECT * FROM board;
+INSERT INTO board (board_no, board_title, board_content, board_user_no, board_category_no) 
+VALUES (board_no_seq.NEXTVAL, '첫번째 글 입니다.20', '첫번째 글 임돠20.', 1, 1);
+
+INSERT INTO duck_user (user_no, user_id, user_pw, user_nickname ,user_name ,user_tel) 
+VALUES (duck_user_seq.NEXTVAL, 'aaa111', 'aaa11111', '테스트유저', '홍길동', '12345678');
+
+INSERT INTO category (category_no, category_major_title, category_minor_title)
+VALUES (category_no_seq.NEXTVAL, '영화', '태극기 휘날리며');
+
+INSERT INTO product (product_no, product_name, product_price_normal, product_detail, product_stock, product_category_no) 
+VALUES (product_seq.NEXTVAL, '3레벨 방탄', 98000, '뚝배기에 구멍난 방탄헬맷', 32, 1);
+
+commit;
+
+SELECT *
+FROM
+    (
+    SELECT ROWNUM AS rn, tbl.* FROM
+        (
+        SELECT * FROM board
+        ORDER BY board_no DESC
+        ) tbl
+    ) b
+<![CDATA[
+WHERE rn > (#{pageNum}-1) * #{cpp}
+AND rn <= #{pageNum} * #{cpp}
+]]>
+
+SELECT * FROM product ORDER BY product_no ASC ;
+
+SELECT *
+FROM
+    (
+    SELECT ROWNUM AS rn, tbl.* FROM
+        (
+        SELECT * FROM product
+        ORDER BY product_no ASC
+        ) tbl
+    ) b
+WHERE rn > 0
+AND rn <= 3
