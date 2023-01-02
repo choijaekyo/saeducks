@@ -1,6 +1,5 @@
 package kr.co.seaduckene.user.command;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;

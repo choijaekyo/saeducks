@@ -21,224 +21,211 @@
 
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
-<section class="py-5">
-	<div class="orderInfo container">
+	<%@ include file="../include/header.jsp"%>
+	<section class="py-5">
+		<div class="orderInfo container">
 
-		<div class="row">
-			<div class="col-md-12">
-				<h1 class="order-title h1 ">주문상세</h1>
-			</div>
-			<hr>
-			<div class="container">
-				<div class="productDetail ">
-					<div class="row">
-						<div
-							class="col-md-4 offset-md-1 col-sm-12 order-imgBox text-center">
-							<img src="" alt="상품이미지">
-						</div>
-						<div class="col-md-6 col-sm-12 order-detailBox">
-							<h5>내가 좋아하는 디즈니</h5>
-							<br>
-							<p>가격</p>
-							<p>수량</p>
-						</div>
-					</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="order-title h1 ">주문상세</h1>
 				</div>
 				<hr>
-			</div>
-			<form role="form" method="post" autocomplete="off" class="order-form">
+				<form method="post" action="<c:url value="/product/order" />"
+					class="order-form">
 
-				<input type="hidden" name="quantity" value="" />
-				<!--총주문수량-->
-				<input type="hidden" name="amount" value="" />
-				<!--총주문금액-->
-				<input type="hidden" name="productNo" value="" />
-				<!--상품번호-->
-
-				<div class="inputArea input-group">
-					<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-						<label for="payment">결제방법</label>
-					</div>
-					<div class="col-md-7 col-sm-12 col-12">
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="paymentOption"
-								id="account" value="account"> <label
-								class="form-check-label" for="account">무통장입금</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="paymentOption"
-								id="creditCard" value="creditCard"> <label
-								class="form-check-label" for="creditCard">신용카드</label>
-						</div>
-					</div>
-				</div>
-
-				<div id="checkdeAccount">
-					<div class="inputArea input-group">
-						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-						</div>
-						<div class="col-md-9 col-sm-12 col-12">
-							<p>
-							무통장입금 시 <strong>입금자명</strong>과 <strong>주문자명</strong>은 <strong>동일</strong>해야합니다. <br>
-							만일 입금자명과 주문자명이 상이한 경우 고객센터로 문의 부탁드립니다.
-							</p>
-						</div>
-					</div>
-					<div class="inputArea input-group">
-						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-							<label for="refundBank">환불은행</label>
-						</div>
-						<div class="col-md-7 col-sm-12 col-12">
-							<select class="form-select" aria-label="Default select example"
-								name="refundBank" id="refundBank">
-								<option selected disabled>은행명</option>
-								<option value="shinhan">신한은행</option>
-								<option value="kookmin">국민은행</option>
-								<option value="nonghyup">농협</option>
-							</select>
-						</div>
-					</div>
-					<div class="inputArea input-group">
-						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-							<label for="refundAccount">환불계좌번호</label>
-						</div>
-						<div class="col-md-7 col-sm-12 col-12">
-							<input class="form-control" type="text" name="refundAccount"
-								id="refundAccount" required placeholder=" 특수문자 없이 숫자만 입력해 주세요. " />
-						</div>
-					</div>
-				</div>
-
-				<div class="inputArea input-group">
-					<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-						<label for="email">인증메일</label>
-					</div>
-					<div class="col-md-7 col-sm-12 col-12">
-						<div class="row">
-							<div class="col-6">
-								<input type="text" class="form-control"
-									aria-label="Text input with dropdown button">
+					<!-- 반복문으로 상품목록!! -->
+					<div class="container">
+						<div class="productDetail ">
+							<div class="row">
+								<div
+									class="col-md-4 offset-md-1 col-sm-12 order-imgBox text-center">
+									<img src="" alt="상품이미지">
+								</div>
+								<div class="col-md-6 col-sm-12 order-detailBox">
+									<h5>내가 좋아하는 디즈니</h5>
+									<br>
+									<p>가격</p>
+									<p>수량</p>
+									<input type="hidden" name="orderQuantity" value="2" />
+									<!--상품번호 단위 주문수량-->
+									<input type="hidden" name="orderPrice" value="1000" />
+									<!--상품번호 단위 주문금액-->
+									<input type="hidden" name="orderProductNo" value="999" />
+									<!--상품번호-->
+								</div>
 							</div>
-							<div class="col-6">
-								<select class="form-select" aria-label="Default select example"
-									name="mail" id="mail">
-									<option selected disabled>도메인</option>
-									<option value="@naver.com">@naver.com</option>
-									<option value="@daum.com">@daum.com</option>
-									<option value="@hanmail.net">@hanmail.net</option>
+						</div>
+
+						<hr>
+					</div>
+
+					<div class="inputArea input-group">
+						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+							<label for="payment">결제방법</label>
+						</div>
+						<div class="col-md-7 col-sm-12 col-12">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio"
+									name="orderPaymentMethod" id="account" value="account">
+								<label class="form-check-label" for="account">무통장입금</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio"
+									name="orderPaymentMethod" id="creditCard" value="creditCard">
+								<label class="form-check-label" for="creditCard">신용카드</label>
+							</div>
+						</div>
+					</div>
+
+					<div id="checkdeAccount">
+						<div class="inputArea input-group">
+							<div class="col-md-2 offset-md-1 col-sm-12 col-12"></div>
+							<div class="col-md-9 col-sm-12 col-12">
+								<p>
+									무통장입금 시 <strong>입금자명</strong>과 <strong>주문자명</strong>은 <strong>동일</strong>해야합니다.
+									<br> 만일 입금자명과 주문자명이 상이한 경우 고객센터로 문의 부탁드립니다.
+								</p>
+							</div>
+						</div>
+						<div class="inputArea input-group">
+							<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+								<label for="refundBank">환불은행</label>
+							</div>
+							<div class="col-md-7 col-sm-12 col-12">
+								<select class="form-select" name="orderReturnBank"
+									id="orderReturnBank">
+									<option selected disabled>은행명</option>
+									<option value="shinhan">신한은행</option>
+									<option value="kookmin">국민은행</option>
+									<option value="nonghyup">농협</option>
 								</select>
 							</div>
 						</div>
-					</div>
-				</div>
-
-				<div class="inputArea input-group">
-					<div class="col-md-2 offset-md-1 col-sm-12 col-12"></div>
-					<div class="col-md-7 col-sm-12 col-12">
-						<div class="row">
-							<div class="col-3">
-								<input class="btn btn-outline-secondary" type="button"
-									name="confBtn" id="confBtn" value="인증하기" required />
+						<div class="inputArea input-group">
+							<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+								<label for="refundAccount">환불계좌번호</label>
 							</div>
-							<div class="col-5">
-								<input class="form-control" type="text" name="confNum"
-									id="confNum">
+							<div class="col-md-7 col-sm-12 col-12">
+								<input class="form-control" type="text"
+									name="orderReturnAccount" id="orderReturnAccount"
+									placeholder=" 특수문자 없이 숫자만 입력해 주세요. " />
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="inputArea input-group">
-					<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-						<label for="orderRec">수령인</label>
-					</div>
-					<div class="col-md-7 col-sm-12 col-12">
-						<input class="form-control" type="text" name="orderRec"
-							id="orderRec" required />
-					</div>
-				</div>
-
-				<div class="inputArea input-group">
-					<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-						<label for="orderPhon">수령인 연락처</label>
-					</div>
-					<div class="col-md-7 col-sm-12 col-12">
-						<input class="form-control" type="text" name="orderPhon"
-							id="orderPhon" required />
-					</div>
-				</div>
-
-				<div class="inputArea input-group">
-					<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-						<label for="userAddr1">우편번호</label>
-					</div>
-					<div class="col-md-7 col-sm-12 col-12">
-						<div class="btn-group" role="group"
-							aria-label="Button g roup with nested dropdown">
-							<div class="btn-group" role="group">
-								<input class="form-control" type="text" name="userAddr1"
-									id="userAddr1" required disabled />
-							</div>
-							<button type="button" class="btn btn-outline-secondary">우편번호
-								찾기</button>
-							<button type="button" class="btn btn-outline-secondary">주소록</button>
+					<div class="inputArea input-group">
+						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+							<label for="email">인증메일</label>
+						</div>
+						<div class="col-md-7 col-sm-12 col-12">
+							<input class="form-control" type="text" name="userEmail"
+								id="userEmail" required />
 						</div>
 					</div>
-				</div>
 
-				<div class="inputArea input-group">
-					<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-						<label for="userAddr2">주소</label>
+					<div class="inputArea input-group">
+						<div class="col-md-2 offset-md-1 col-sm-12 col-12"></div>
+						<div class="col-md-7 col-sm-12 col-12">
+							<div class="row">
+								<div class="col-3">
+									<input class="btn btn-outline-secondary" type="button"
+										name="confBtn" id="confBtn" value="인증하기" />
+								</div>
+								<div class="col-5">
+									<input class="form-control" type="text" name="confNum"
+										id="confNum">
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="col-md-7 col-sm-12 col-12">
-						<input class="form-control" type="text" name="userAddr2"
-							id="userAddr2" required disabled />
-					</div>
-				</div>
 
-				<div class="inputArea input-group">
-					<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-						<label for="userAddr3">상세주소</label>
+					<div class="inputArea input-group">
+						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+							<label for="orderRec">수령인</label>
+						</div>
+						<div class="col-md-7 col-sm-12 col-12">
+							<input class="form-control" type="text" name="orderRecipientName"
+								id="orderRecipientName" required />
+						</div>
 					</div>
-					<div class="col-md-7 col-sm-12 col-12">
-						<input class="form-control" type="text" name="userAddr3"
-							id="userAddr3" required />
-					</div>
-				</div>
 
-				<div class="inputArea input-group">
-					<div
-						class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
-						<button type="submit" class="order_btn btn btn-outline-success">주문</button>
+					<div class="inputArea input-group">
+						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+							<label for="orderPhon">수령인 연락처</label>
+						</div>
+						<div class="col-md-7 col-sm-12 col-12">
+							<input class="form-control" type="text" name="orderRecipientTel"
+								id="orderRecipientTel" placeholder="숫자만 입력해 주세요." maxlength="11"
+								required />
+						</div>
 					</div>
-					<div class="col-md-3 col-sm-6 col-6">
-						<button type="button" class="cancel_btn btn btn-outline-secondary">취소</button>
-					</div>
-				</div>
 
-			</form>
+					<div class="inputArea input-group">
+						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+							<label for="userAddr1">우편번호</label>
+						</div>
+						<div class="col-md-7 col-sm-12 col-12">
+							<div class="btn-group" role="group"
+								aria-label="Button g roup with nested dropdown">
+								<div class="btn-group" role="group">
+									<input class="form-control" type="text"
+										name="orderAddressZipNum" id="orderAddressZipNum" required
+										readonly/>
+								</div>
+								<button type="button"
+									class="btn btn-outline-secondary findAddrBtn"
+									onclick="searchAddress()">우편번호 찾기</button>
+								<button type="button"
+									class="btn btn-outline-secondary ListAddrBtn">주소록</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="inputArea input-group">
+						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+							<label for="userAddr2">주소</label>
+						</div>
+						<div class="col-md-7 col-sm-12 col-12">
+							<input class="form-control" type="text" name="orderAddressBasic"
+								id="orderAddressBasic" required readonly/>
+						</div>
+					</div>
+
+					<div class="inputArea input-group">
+						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
+							<label for="userAddr3">상세주소</label>
+						</div>
+						<div class="col-md-7 col-sm-12 col-12">
+							<input class="form-control" type="text" name="orderAddressDetail"
+								id="orderAddressDetail" required />
+						</div>
+					</div>
+
+					<div class="inputArea input-group">
+						<div
+							class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
+							<button type="submit" class="order_btn btn btn-outline-success">주문</button>
+						</div>
+						<div class="col-md-3 col-sm-6 col-6">
+							<button type="button"
+								class="cancel_btn btn btn-outline-secondary">취소</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
 		</div>
-	</div>
-</section>
-<%@ include file="../include/footer.jsp" %>
+	</section>
+	<%@ include file="../include/footer.jsp"%>
 </body>
 
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+
+
 <script>
-	$(function() {
-		$('#account').change(function() {
-			$('#checkdeAccount').css('display', 'block');
-		});
-
-		$('#creditCard').change(function() {
-			$('#checkdeAccount').css('display', 'none');
-		});
-	});
-
-	// 주소찾기 이벤트 변수명 수정 필수!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// 주소찾기
 	function searchAddress() {
 		new daum.Postcode({
 			oncomplete : function(data) {
@@ -257,20 +244,36 @@
 				}
 
 				// 우편번호와 주소 정보를 해당 필드에 넣는다.
-				document.getElementById("addrZipNum").value = data.zonecode;
-				document.getElementById("addrBasic").value = addr;
+				document.getElementById('orderAddressZipNum').value = data.zonecode;
+				console.log(data.zonecode);
+				document.getElementById('orderAddressBasic').value = addr;
+				console.log(addr);
 				// 커서를 상세주소 필드로 이동한다.
-				document.getElementById("addrDetail").focus();
+				document.getElementById('orderAddressDetail').focus();
 			}
 		}).open();
+
 	}
+
+	const regTel = /^[0-9]{8,13}$/;
+	const regName = /^[가-힣a-zA-Z]+$/;
+	const regEmail = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+
+	$(function() {
+		$('#account').change(function() {
+			$('#checkdeAccount').css('display', 'block');
+		});
+
+		$('#creditCard').change(function() {
+			$('#checkdeAccount').css('display', 'none');
+		});
+	});
 
 	// 이메일 인증 이벤트 변수명 수정 필수!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// 인증번호 이메일 전송
-	$('#mail-check-btn').click(function() {
-		openLoading();
-		const email = $('#userEmail1').val() + $('#userEmail2').val();
-		console.log('완성된 이메일: ' + email);
+	$('#confBtn').click(function() {
+		const email = $('#userEmail').val();
+		console.log('이메일: ' + email);
 
 		$.ajax({
 			type : 'get',
