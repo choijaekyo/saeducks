@@ -31,21 +31,6 @@ CREATE SEQUENCE board_no_seq
 @Getter
 @Setter
 @ToString
-<<<<<<< HEAD
-@NoArgsConstructor //매개변수 없는 생성자.
-@AllArgsConstructor 
-public class BoardVO {
-   
-   private int boardNo;
-   private String boardTitle;
-   private String boardContent;
-   private int boardViews;
-   private Timestamp boardRegDate;
-   private Timestamp boardUpDate;
-   private int boardUserNo;
-   private int boardCategoryNo;
-   
-=======
 @NoArgsConstructor // 메게변수 없는 생성자
 @AllArgsConstructor // 메게변수 다 있는 생성자
 public class BoardVO {
@@ -59,7 +44,6 @@ public class BoardVO {
 	private int boardUserNo;
 	private int boardCategoryNo;
 	
->>>>>>> refs/remotes/origin/master
 }
 
  

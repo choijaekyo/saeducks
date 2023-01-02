@@ -2,9 +2,7 @@ package kr.co.seaduckene.board.service;
 
 public interface IBoardService {
 
-<<<<<<< HEAD
-}
-=======
+
 
 }
 
@@ -12,10 +10,3 @@ public interface IBoardService {
 
 
 
-
-
-
-
-
-
->>>>>>> refs/remotes/origin/master
