@@ -20,7 +20,7 @@ public class ProductOrderVO {
 	CREATE TABLE duck_order (
     order_no NUMBER PRIMARY KEY,
     order_product_no NUMBER NOT NULL,
-    order_num NUMBER NOT NULL,
+    order_num VARCHAR2(100) NOT NULL,
     order_user_no NUMBER NOT NULL,
     order_reg_date DATE DEFAULT SYSDATE,
     order_quantity NUMBER NOT NULL,
@@ -39,19 +39,19 @@ public class ProductOrderVO {
 	
     private int orderNo;
     private int orderProductNo;
-    private int orderNum;
+    private String orderNum; //주문번호 
     private int orderUserNo;
     private Timestamp orderRegDate;
-    private int orderQuantity;
-    private int orderPrice;
+    private int orderQuantity; // 상품번호 단위 총 수량
+    private int orderPrice; // 상품번호 단위 총 가격
     private String orderStatus;
     private String orderRecipientName;
-    private int orderRecipientTel;
-    private int orderAddressZipNum;
+    private String orderRecipientTel;
+    private String orderAddressZipNum;
     private String orderAddressBasic;
     private String orderAddressDetail;
     private String orderPaymentMethod;
     private String orderReturnBank;
-    private int orderReturnAccount;
+    private String orderReturnAccount;
 
 }

@@ -1,7 +1,5 @@
 package kr.co.seaduckene.address.command;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +33,7 @@ public class AddressVO {
 	private int addressNo;
 	private String addressDetail;
 	private String addressBasic;
-	private int addressZipNum;
+	private String addressZipNum;
 	private int addressUserNo;
 	
 }

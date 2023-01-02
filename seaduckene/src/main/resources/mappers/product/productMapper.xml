@@ -4,6 +4,14 @@
     
 <mapper namespace="kr.co.seaduckene.product.mapper.IProductMapper">
 	
+	<insert id="order">
+		INSERT INTO duck_order (order_no,order_product_no,order_num,order_user_no,order_quantity,order_price,
+				orderRecipientName,orderRecipientTel,orderAddressZipNum,orderAddressBasic,orderAddressDetail,
+				orderPaymentMethod,orderReturnBank,orderReturnAccount) 
+		VALUES(order_seq.NEXTVAL,#{orderProductNo},#{orderNum},#{orderUserNo},#{orderQuantity},#{orderPrice},
+				#{orderRecipientName},#{orderRecipientTel},#{orderAddressZipNum},#{orderAddressBasic},#{orderAddressDetail},
+				#{orderPaymentMethod},#{orderReturnBank},#{orderReturnAccount})
+	</insert>
 	
 	
 </mapper>
