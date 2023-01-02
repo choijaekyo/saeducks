@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/product")
 public class ProductController {
 
-	@GetMapping("createProduct")
+	@GetMapping("/createProduct")
 	public void createProduct() {}
 	
-	@GetMapping("order")
+	@GetMapping("/order")
 	public void orderSheet() {}
+	
 	@GetMapping("/productDetail")
-	public void detail( ) {
-		
-	}
+	public void detail( ) {}
+	
+	
 	
 }
