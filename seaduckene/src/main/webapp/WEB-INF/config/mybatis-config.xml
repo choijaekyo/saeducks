@@ -17,15 +17,11 @@
 	</settings>
 	
 	
-<!-- 경로랑 resultmap 알아서 설정하기  -->
-<!-- 	
+<!-- 경로랑 resultmap 알아서 설정하기  -->	
 	<typeAliases>
-		<typeAlias type="com.spring.myweb.command.ReplyVO" alias="reply"/>
-		<typeAlias type="com.spring.myweb.command.FreeBoardVO" alias="board"/>
-		<typeAlias type="com.spring.myweb.command.UserVO" alias="user"/>
-		<typeAlias type="com.spring.myweb.command.SnsBoardVO" alias="sns"/>
-		
-	</typeAliases> -->
+		<typeAlias type="kr.co.seaduckene.board.command.BoardVO" alias="board"/>
+		<typeAlias type="kr.co.seaduckene.product.command.ProdcutVO" alias="prodcut"/>
+	</typeAliases>
 	
 	<!-- 인터페이스 mapper 구현체 xml 파일의 경로를 표시하는 태그.
 		우리는 SqlSessionFactoryBean을 등록할 때 이미 지정했기 때문에

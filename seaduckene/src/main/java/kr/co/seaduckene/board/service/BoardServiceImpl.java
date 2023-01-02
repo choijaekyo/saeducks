@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.mapper.IBoardMapper;
+import kr.co.seaduckene.product.command.ProdcutVO;
+import kr.co.seaduckene.util.PageVO;
 
 @Service
 public class BoardServiceImpl implements IBoardService {
@@ -15,15 +17,14 @@ public class BoardServiceImpl implements IBoardService {
 	private IBoardMapper mapper;
 
 	@Override
-	public void regist(BoardVO vo) {
+	public void write(BoardVO vo) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<BoardVO> list() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BoardVO> list(PageVO paging) {
+		return mapper.list(paging);
 	}
 
 	@Override
@@ -42,6 +43,11 @@ public class BoardServiceImpl implements IBoardService {
 	public void delete(int bno) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public List<ProdcutVO> proList() {
+		return mapper.proList();
 	}
 }
 
