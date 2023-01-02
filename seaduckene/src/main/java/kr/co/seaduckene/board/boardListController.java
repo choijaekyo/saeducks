@@ -32,8 +32,6 @@ public class boardListController {
 		
 		paging.setCpp(9);
 		
-		System.out.println(service.list(paging));
-		
 		return service.list(paging);
 	}
 	

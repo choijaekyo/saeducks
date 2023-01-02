@@ -2,6 +2,7 @@ package kr.co.seaduckene.user;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +15,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
+import kr.co.seaduckene.board.command.BoardVO;
+import kr.co.seaduckene.board.service.IBoardService;
+import kr.co.seaduckene.util.PageVO;
+
 @Controller
 @RequestMapping("/user")
 public class UserControlller {
+	
+	@Autowired
+	private IBoardService boardService;
 
 	@GetMapping("/userLogin")
 	public void userLogin() {
@@ -35,6 +43,15 @@ public class UserControlller {
 		modelAndView.setViewName("/user/userMyPage");
 		
 		return modelAndView;
+	}
+	
+	@GetMapping("/userMyPageBoardList")
+	@ResponseBody
+	public List<BoardVO> userBoardList(PageVO paging) {
+		
+		paging.setCpp(9);
+		
+		return boardService.list(paging);
 	}
 	
 	@GetMapping("/userBasket")
