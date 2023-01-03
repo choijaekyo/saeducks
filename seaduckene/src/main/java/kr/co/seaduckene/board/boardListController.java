@@ -22,7 +22,7 @@ public class boardListController {
 
 	@GetMapping("/boardList")
 	public void boardList(Model model) {
-		
+		// a태그 달때 ? 프로덕트 넘버 달아서 넘기기 GET
 		model.addAttribute("productList", service.proList());
 	}
 	
