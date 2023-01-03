@@ -27,6 +27,7 @@
 		그리고 내부 경로를 숨겨주는 역할도 합니다.  -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/img/**" location="/resources/img/" />
+	<resources mapping="/productImg/**" location="/resources/productImg/" />
 	
 	
 	<!-- 컨트롤러가 리턴한 문자열 앞, 뒤에 적절한 경로를 붙여서

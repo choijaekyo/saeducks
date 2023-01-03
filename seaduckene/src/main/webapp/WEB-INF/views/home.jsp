@@ -10,9 +10,9 @@
 	<div class="row">
 		<div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="C:/test/upload/" + fileLoca + "/" + fileName" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="C:/word/saeduckene/resources/" + fileLoca + "/" + fileName" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="<c:url value='/' /> "+ fileLoca + "/" + fileName" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="<c:url value='/${vo.fileLoca}/${vo.fileName}' />" alt=".."></a></div>
 	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
 	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
 	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>

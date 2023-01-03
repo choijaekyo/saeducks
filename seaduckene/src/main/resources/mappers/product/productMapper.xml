@@ -57,6 +57,10 @@
 		(product_image_seq.NEXTVAL,#{productImagePath},#{productImageFolder},#{productImageFileName},
 		#{prodcutImageFileRealName},product_seq.CURRVAL,#{productThumbnail})
 	</insert>
+	
+	<!-- <select id="mainImage" resultType="product">
+		#{productNo}
+	</select> -->
 
 </mapper>
     

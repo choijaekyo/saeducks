@@ -16,6 +16,7 @@ import kr.co.seaduckene.common.IAddressMapper;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
+import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.mapper.IProductMapper;
 import kr.co.seaduckene.user.command.UserVO;
 
@@ -120,5 +121,10 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public void insertImg(ProductImageVO vo) {
 		productMapper.insertImg(vo);
+	}
+	
+	@Override
+	public ProductVO mainImage(int productNo) {
+		return productMapper.mainImage(productNo);
 	}
 }
