@@ -18,6 +18,7 @@ import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
+import kr.co.seaduckene.user.command.UserVO;
 
 @Controller
 @RequestMapping("/product")
@@ -51,7 +52,8 @@ public class ProductController {
 	public void finishOrder() {}
 	
 	@PostMapping("/order")
-	public String order(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,ProductOrderVO orderVo ,String userEmail/*, HttpSession session*/) {
+	public String order(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,
+						ProductOrderVO orderVo ,String userEmail/*, HttpSession session*/) {
 		System.out.println("controller 동작");
 		System.out.println(orderVo);
 		System.out.println(userEmail);
@@ -60,7 +62,11 @@ public class ProductController {
 		//UserVO user = (UserVO)session.getAttribute("login");
 		//user.setUserNo(999);
 		//productService.order(orderList, userEmail, addrVo, user);
+
+		UserVO user = new UserVO();
+		user.setUserNo(999);
 		
+		productService.order(orderProductNoList, orderVo, userEmail, user);
 		
 		return "redirect:/product/finishOrder";
 		
@@ -91,14 +97,5 @@ public class ProductController {
 	
 	
 	
-	
-	@GetMapping("/test")
-	public void test() {}
-	
-	@PostMapping("/test2")
-	public void test2 (@RequestParam("test") List<String> tests) {
-		System.out.println("test2 POSt");
-		System.out.println(tests);
-	}
 	
 }
