@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
+import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.user.command.UserVO;
 
 public interface IProductService {
@@ -13,6 +14,7 @@ public interface IProductService {
 	// 상품등록
 	void insertProduct(Map<String, Object> map);
 	// 상품상세
+	ProductVO getContent(int num);
 	
 	// 상품리스트
 	
