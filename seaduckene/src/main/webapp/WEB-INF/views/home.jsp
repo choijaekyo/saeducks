@@ -10,15 +10,15 @@
 	<div class="row">
 		<div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
-	        <div class="swiper-slide">Slide 1</div>
-	        <div class="swiper-slide">Slide 2</div>
-	        <div class="swiper-slide">Slide 3</div>
-	        <div class="swiper-slide">Slide 4</div>
-	        <div class="swiper-slide">Slide 5</div>
-	        <div class="swiper-slide">Slide 6</div>
-	        <div class="swiper-slide">Slide 7</div>
-	        <div class="swiper-slide">Slide 8</div>
-	        <div class="swiper-slide">Slide 9</div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="C:/test/upload/" + fileLoca + "/" + fileName" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
+	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
 	      </div>
 	    </div>
 	</div>

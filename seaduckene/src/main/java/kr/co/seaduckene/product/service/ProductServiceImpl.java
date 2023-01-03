@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.IAddressMapper;
+import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
@@ -30,6 +31,7 @@ public class ProductServiceImpl implements IProductService {
 	
 	@Override
 	public void order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user) {
+		int userNo = user.getUserNo();
 		
 		// 주문번호 날짜 8자리
 		Date today = new Date();
@@ -41,39 +43,58 @@ public class ProductServiceImpl implements IProductService {
 			
 			// 주문번호 랜덤4자리
 			Random random = new Random();
-			int ranNum = random.nextInt(10000);
+			int ranNum = random.nextInt(8889)+1111;
 			// 12자리 주문번호 생성 및 setting
 			String orderNum = date+ranNum;
 			System.out.println("생성한 주문번호: " + orderNum);
 			
 			order.setOrderNum(orderNum);
-			order.setOrderUserNo(user.getUserNo());
+			order.setOrderUserNo(userNo);
 			order.setOrderProductNo(productNo);
 			
-			// basketVO에서 상품정보,가격 가져와서 OrderVO에 setting하기
+			//basketVO에서 상품정보,가격 가져와서 OrderVO에 setting하기
+			Map<String, Object> basketMap = new HashMap<String, Object>();
+			basketMap.put("userNo", userNo);
+			basketMap.put("productNo", productNo);
+			ProductBasketVO basket = productMapper.getBasket(basketMap);
+			
+			int quantity = basket.getBasketQuantity();
+			int price = basket.getBasketPrice();
+			
+			order.setOrderQuantity(quantity);
+			order.setOrderPrice(quantity*price);
 			
 			productMapper.order(order);
 		}
 		
 		// user TABLE UPDATE
+		updateEmail(userNo, userEmail);	
 		
 		// address TABLE INSERT
-		if(checkAddr(user.getUserNo(), order.getOrderAddressBasic())== 0) {
+		if(checkAddr(userNo, order.getOrderAddressDetail())== 0) {
 			AddressVO addrVo = new AddressVO(0,order.getOrderAddressDetail(),order.getOrderAddressBasic(),
-					order.getOrderAddressZipNum(),user.getUserNo());
+					order.getOrderAddressZipNum(),userNo);
 			addressMapper.addAddress(addrVo);
 		}
 	}
 	
+	// 주문user Email UPDATE
+	public void updateEmail(int userNo, String userEmail) {
+		Map<String, Object> userMap = new HashMap<String, Object>();
+		userMap.put("userNo", userNo);
+		userMap.put("userEmail", userEmail);
+		productMapper.updateEmail(userMap);
+	}
+	
 	// 기 등록된 주소인지 여부 확인
-	public int checkAddr(int userNo, String addressBasic) {
+	public int checkAddr(int userNo, String addressDetail) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
-		map.put("OrderAddressBasic", addressBasic);
+		map.put("OrderAddressDetail", addressDetail.trim());
 		return addressMapper.checkAddr(map);
 	}
 	
-	
+
 	//카테고리 가져오기
 	@Override
 	public List<CategoryVO> getCategory() {

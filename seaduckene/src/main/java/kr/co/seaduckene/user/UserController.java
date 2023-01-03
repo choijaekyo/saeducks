@@ -18,6 +18,7 @@ import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.common.IAddressMapper;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
 import kr.co.seaduckene.util.PageVO;
@@ -33,6 +34,7 @@ public class UserController {
 	
 	@Autowired
 	private IUserService userService;
+	
 	
 	
 
@@ -58,6 +60,11 @@ public class UserController {
 		
 		userService.registUser(userVO);
 		userService.updateUserFavorites(boardCategoryVO, userVO.getUserId());
+		
+		// 코드 병합 후에 productMapper에서 주소 등록 기능 사용하기.
+		if (addressVO.getAddressBasic() != null) {
+			
+		}
 		
 	}
 
@@ -90,7 +97,8 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/checkId")
 	public String checkId(@RequestBody String userId) {
-		System.out.println(userId);
+		log.info(userId);
+		
 		return "duplicated";
 	}
 	

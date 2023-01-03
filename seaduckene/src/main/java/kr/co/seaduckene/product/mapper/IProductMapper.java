@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
 
@@ -19,6 +20,12 @@ public interface IProductMapper {
 
 	// 상품주문
 	void order(ProductOrderVO orderVo);
+	
+	// 인증메일 등록
+	void updateEmail(Map<String, Object> map);
+	
+	// 장바구니수량,가격 가져오기
+	ProductBasketVO getBasket(Map<String, Object> map);
 
 	// 카테고리 리스트 갖고오기
 	List<CategoryVO> getCategory();
