@@ -143,6 +143,8 @@ CREATE SEQUENCE product_image_seq
     MAXVALUE 10000
     NOCYCLE
     NOCACHE;
+
+
 --------------------------------------------------------------------------------
 SELECT * FROM board;
 INSERT INTO board (board_no, board_title, board_content, board_user_no, board_category_no) 
@@ -188,4 +190,36 @@ WHERE rn > 0
 AND rn <= 3
 
 --------------------------------------------------------------------------------
+
+SELECT * FROM product_image WHERE product_image_product_no = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
