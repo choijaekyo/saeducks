@@ -126,6 +126,11 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ProductVO getContent(int num) {
 		
-		return null;
+		return productMapper.getContent(num);
+	}
+	
+	@Override
+	public List<ProductImageVO> getImg(int num) {
+		return productMapper.getImg(num);
 	}
 }

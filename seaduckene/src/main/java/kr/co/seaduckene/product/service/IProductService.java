@@ -34,5 +34,7 @@ public interface IProductService {
 	
 	//이미지 삽입
 	void insertImg(ProductImageVO vo);
-
+	
+	//이미지 정보
+	List<ProductImageVO> getImg(int num);
 }

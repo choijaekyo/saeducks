@@ -13,6 +13,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +54,35 @@ public class ProductController {
 	
 	@GetMapping("/productDetail")
 	public void detail(int productNo,Model model) {
-		System.out.println(productNo);
+		ProductVO vo = productService.getContent(productNo);
+		List<ProductImageVO> ivo = productService.getImg(productNo);
+		System.out.println(vo);
+		System.out.println(ivo);
+		model.addAttribute("vo", vo);
+		model.addAttribute("imgList", ivo);
+	}
+	
+	@GetMapping("/display")
+	@ResponseBody
+	public byte[] getFile(String fileLoca, String fileName){
+		System.out.println("/display:GET");
+		System.out.println("fileName:" + fileName);
+		System.out.println("fileLoca:" + fileLoca);
+		
+		File file = new File("c:/imgduck/product/" +fileLoca+"/"+fileName);
+		System.out.println(file);
+		
+		byte[] result = null;
+		try {
+			result = FileCopyUtils.copyToByteArray(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+				
+		
 	}
 	
 	@GetMapping("/finishOrder")
@@ -108,7 +137,7 @@ public class ProductController {
 		String today = simple.format(new Date());
 		ivo.setProductImageFolder(today);
 		
-		String uploadFolder ="C:/imgduck/"+today;
+		String uploadFolder ="C:/imgduck/product/"+today;
 		ivo.setProductImagePath("C:/imgduck/");
 		for(int i =0;i<list.size();i++ ) {
 				ivo.setProductThumbnail(0);
