@@ -46,10 +46,6 @@
 									<br>
 									<p>가격</p>
 									<p>수량</p>
-									<!-- <input type="hidden" name="orderQuantity" value="3" />
-									상품번호 단위 주문수량
-									<input type="hidden" name="orderPrice" value="1000" />
-									상품번호 단위 주문금액 -->
 									<input type="hidden" name="orderProductNo" value="999" />
 									<!--상품번호-->
 								</div>
@@ -61,7 +57,7 @@
 
 					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-							<label for="payment">결제방법</label>
+							<label for="orderPaymentMethod">결제방법</label>
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
 							<div class="form-check form-check-inline">
@@ -89,7 +85,7 @@
 						</div>
 						<div class="inputArea input-group">
 							<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-								<label for="refundBank">환불은행</label>
+								<label for="orderReturnBank">환불은행</label>
 							</div>
 							<div class="col-md-7 col-sm-12 col-12">
 								<select class="form-select" name="orderReturnBank"
@@ -103,7 +99,7 @@
 						</div>
 						<div class="inputArea input-group">
 							<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-								<label for="refundAccount">환불계좌번호</label>
+								<label for="orderReturnAccount">환불계좌번호</label>
 							</div>
 							<div class="col-md-7 col-sm-12 col-12">
 								<input class="form-control" type="text"
@@ -115,25 +111,27 @@
 
 					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-							<label for="email">인증메일</label>
+							<label for="userEmail">인증메일</label>
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
-							<input class="form-control" type="text" name="userEmail"
-								id="userEmail" required />
+							<div class="input-group">
+								<input class="form-control" type="text" name="userEmail"
+									id="userEmail" required />
+								<input class="btn btn-outline-secondary" type="button"
+											name="confBtn" id="confBtn" value="인증하기" />
+							</div>
 						</div>
 					</div>
 
-					<div class="inputArea input-group">
-						<div class="col-md-2 offset-md-1 col-sm-12 col-12"></div>
-						<div class="col-md-7 col-sm-12 col-12">
+					<div class="inputArea input-group" id="conf-group">
+						<div class="col-md-7 offset-md-3 col-sm-12 col-12">
 							<div class="row">
-								<div class="col-3">
-									<input class="btn btn-outline-secondary" type="button"
-										name="confBtn" id="confBtn" value="인증하기" />
+								<div class="col-md-7 input-group beforeConf">
+									<input class="form-control" type="text" name="confNum" id="confNum">
+									<button type="button" class="btn btn-outline-secondary" id="confCheckBtn">확인</button>
 								</div>
-								<div class="col-5">
-									<input class="form-control" type="text" name="confNum"
-										id="confNum">
+								<div class="col-md-7 input-group afterConf">
+									<p id="confMailRes"></p>
 								</div>
 							</div>
 						</div>
@@ -141,7 +139,7 @@
 
 					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-							<label for="orderRec">수령인</label>
+							<label for="orderRecipientName">수령인</label>
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
 							<input class="form-control" type="text" name="orderRecipientName"
@@ -151,7 +149,7 @@
 
 					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-							<label for="orderPhon">수령인 연락처</label>
+							<label for="orderRecipientTel">수령인 연락처</label>
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
 							<input class="form-control" type="text" name="orderRecipientTel"
@@ -162,11 +160,10 @@
 
 					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-							<label for="userAddr1">우편번호</label>
+							<label for="orderAddressZipNum">우편번호</label>
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
-							<div class="btn-group" role="group"
-								aria-label="Button g roup with nested dropdown">
+							<div class="btn-group" role="group">
 								<div class="btn-group" role="group">
 									<input class="form-control" type="text"
 										name="orderAddressZipNum" id="orderAddressZipNum" required
@@ -183,7 +180,7 @@
 
 					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-							<label for="userAddr2">주소</label>
+							<label for="orderAddressBasic">주소</label>
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
 							<input class="form-control" type="text" name="orderAddressBasic"
@@ -193,7 +190,7 @@
 
 					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
-							<label for="userAddr3">상세주소</label>
+							<label for="orderAddressDetail">상세주소</label>
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
 							<input class="form-control" type="text" name="orderAddressDetail"
@@ -202,8 +199,7 @@
 					</div>
 
 					<div class="inputArea input-group">
-						<div
-							class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
+						<div class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
 							<button type="submit" class="order_btn btn btn-outline-success">주문</button>
 						</div>
 						<div class="col-md-3 col-sm-6 col-6">
@@ -225,6 +221,8 @@
 
 
 <script>
+
+
 	// 주소찾기
 	function searchAddress() {
 		new daum.Postcode({
@@ -249,16 +247,17 @@
 				document.getElementById('orderAddressBasic').value = addr;
 				console.log(addr);
 				// 커서를 상세주소 필드로 이동한다.
-				document.getElementById('orderAddressDetail').focus();
+				document.getElementById('orderAddressDetail').focus();		
 			}
 		}).open();
-
 	}
 
+	// 정규식
 	const regTel = /^[0-9]{8,13}$/;
 	const regName = /^[가-힣a-zA-Z]+$/;
 	const regEmail = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 
+	// 무통장입금 선택 시 환불계좌 입력창 
 	$(function() {
 		$('#account').change(function() {
 			$('#checkdeAccount').css('display', 'block');
@@ -269,52 +268,53 @@
 		});
 	});
 
-	// 이메일 인증 이벤트 변수명 수정 필수!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// 인증번호 이메일 전송
+	let authCode = '';
 	$('#confBtn').click(function() {
 		const email = $('#userEmail').val();
 		console.log('이메일: ' + email);
+		
+		if(email.trim() === ''){
+			alert('인증받을 메일 주소를 먼저 입력해 주세요.');
+		} else {
+			$('#conf-group').css('display','block');
+			
+			$.ajax({
+				type: 'post',
+				url: '<c:url value="/user/userConfEmail" />',
+				data: email,
+				contentType: 'application/json',
+				success: function(data) {
+					alert('인증메일이 전송되었습니다. 입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
+					authCode=data;
+				},
+				error: function() {
+					alert('이메일 전송 실패');
+				}
+			});//end-ajax	
+		}
+	});//end 이메일 전송
 
-		$.ajax({
-			type : 'get',
-			url : '<c:url value="/user/mailCheck?email=" />' + email,
-			success : function(data) {
-				closeLoading();
-				console.log('컨트롤러가 전달한 인증번호: ' + data);
-				$('.mail-check-input').attr('disabled', false); // 비활성된 인증번호 입력창을 활성화
-				code = data; // 인증번호를 전역변수에 저장
-				alert('인증번호가 전송되었습니다. 확인 후 정확하게 입력해주세요.');
-			}
-		}); // end ajax(이메일 전송)
-
-	}); // end 이메일 전송
 
 	// 인증번호 비교
-	// blur -> focus가 벗어나는 경우 발생
-	$('.mail-check-input').blur(
+	$('#confCheckBtn').click(
 			function() {
-				const inputCode = $(this).val(); // 사용자가 입력한 인증번호
-				const $resultMsg = $('#mail-check-warn'); // span
-				if (inputCode === code) {
+				const inputCode = $('#confNum').val();
+				const $resultMsg = $('#confMailRes');
+				if (inputCode === authCode) {
+					$resultMsg.css('display', 'block');	
 					$resultMsg.html('인증이 완료되었습니다.');
+					$('.beforeConf').css('display','none');
 					$resultMsg.css('color', 'green');
-					$('#mail-check-btn').attr('disabled', true); // 이메일 인증을 더이상 하지 못하도록
-					$('#userEmail1').attr('readonly', true);
-					$('#userEmail2').attr('readonly', true);
-					$(this).css('display', 'none');
-
-					// 초기값을 사용자가 선택한 값으로 무조건 설정하는 방법(select에서 readonly 대용)
-					// 2개를 함께 써야함
-					// select에는 disabled 사용시 값이 전송되지 않아 사용 X, readonly는 먹히지 않음
-					$('#userEmail2').attr('onFocus',
-							'this.initialSelect = this.selectedIndex');
-					$('#userEmail2').attr('onChange',
-							'this.selectedIndex = this.initialSelect');
+					
+					$('#userEmail').attr('readonly',true);
+					$('#confBtn').attr('disabled',true);
+					
 				} else {
 					$resultMsg.html('인증번호를 다시 확인해주세요.');
 					$resultMsg.css('color', 'red');
-					$(this).focus();
+					$('#confNum').focus();
 				}
-			}); // 인증번호 이벤트 끝
+	}); //end 인증번호비교
 </script>
 </html>

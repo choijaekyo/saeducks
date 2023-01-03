@@ -22,8 +22,6 @@
 				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
 			</props>
 		</property>
-
-
 	</bean>
 
 

@@ -89,7 +89,7 @@ public class ProductServiceImpl implements IProductService {
 	public int checkAddr(int userNo, String addressDetail) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
-		map.put("OrderAddressDetail", addressDetail.trim());
+		map.put("OrderAddressDetail", addressDetail.replaceAll(" ", ""));
 		return addressMapper.checkAddr(map);
 	}
 	

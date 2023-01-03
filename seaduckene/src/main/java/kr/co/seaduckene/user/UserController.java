@@ -21,6 +21,7 @@ import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.IAddressMapper;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
+import kr.co.seaduckene.util.CertificationMailService;
 import kr.co.seaduckene.util.PageVO;
 import lombok.extern.log4j.Log4j;
 
@@ -35,7 +36,8 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 	
-	
+	@Autowired
+	private CertificationMailService mailService;
 	
 
 	@GetMapping("/userLogin")
@@ -64,8 +66,16 @@ public class UserController {
 		// 코드 병합 후에 productMapper에서 주소 등록 기능 사용하기.
 		if (addressVO.getAddressBasic() != null) {
 			
-		}
-		
+		}	
+	}
+	
+	// email인증
+	@ResponseBody
+	@PostMapping("/userConfEmail")
+	public String userConfEmail(@RequestBody String email) {
+		System.out.println("email인증요청 들어옴");
+		System.out.println(email);
+		return mailService.joinEmail(email);
 	}
 
 	@GetMapping("/userMyPage/{head}")
