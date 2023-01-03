@@ -6,8 +6,8 @@
 	
 	<insert id="order">
 		INSERT INTO duck_order (order_no,order_product_no,order_num,order_user_no,order_quantity,order_price,
-				orderRecipientName,orderRecipientTel,orderAddressZipNum,orderAddressBasic,orderAddressDetail,
-				orderPaymentMethod,orderReturnBank,orderReturnAccount) 
+				order_recipient_name,order_recipient_tel,order_address_zip_num,order_address_basic,order_address_detail,
+				order_payment_method,order_return_bank,order_return_account) 
 		VALUES(order_seq.NEXTVAL,#{orderProductNo},#{orderNum},#{orderUserNo},#{orderQuantity},#{orderPrice},
 				#{orderRecipientName},#{orderRecipientTel},#{orderAddressZipNum},#{orderAddressBasic},#{orderAddressDetail},
 				#{orderPaymentMethod},#{orderReturnBank},#{orderReturnAccount})

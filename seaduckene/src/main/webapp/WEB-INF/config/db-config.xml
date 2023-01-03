@@ -48,5 +48,5 @@
 		
 		<mybatis-spring:scan base-package="kr.co.seaduckene.board.mapper"/>
 		<mybatis-spring:scan base-package="kr.co.seaduckene.product.mapper"/>
-
+		<mybatis-spring:scan base-package="kr.co.seaduckene.address.mapper"/>
 </beans>

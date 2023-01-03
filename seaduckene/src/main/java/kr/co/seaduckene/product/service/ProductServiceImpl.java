@@ -2,6 +2,7 @@ package kr.co.seaduckene.product.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.seaduckene.address.command.AddressVO;
+import kr.co.seaduckene.address.mapper.IAddressMapper;
 import kr.co.seaduckene.board.command.BoardCategoryVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.mapper.IProductMapper;
@@ -20,8 +22,9 @@ public class ProductServiceImpl implements IProductService {
 
 	@Autowired
 	private IProductMapper productMapper;
-	//@Autowired
-	//private IAddressMapper addressMapper
+	@Autowired
+	private IAddressMapper addressMapper;
+	
 	
 	@Override
 	public void order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user) {
@@ -43,6 +46,9 @@ public class ProductServiceImpl implements IProductService {
 			
 			order.setOrderNum(orderNum);
 			order.setOrderUserNo(user.getUserNo());
+			order.setOrderProductNo(productNo);
+			
+			// basketVO에서 상품정보,가격 가져와서 OrderVO에 setting하기
 			
 			productMapper.order(order);
 		}
@@ -50,13 +56,21 @@ public class ProductServiceImpl implements IProductService {
 		// user TABLE UPDATE
 		
 		// address TABLE INSERT
-		AddressVO addrVo = new AddressVO();
-		addrVo.setAddressZipNum(order.getOrderAddressZipNum());
-		addrVo.setAddressBasic(order.getOrderAddressBasic());
-		addrVo.setAddressDetail(order.getOrderAddressDetail());
-		// addressMapper.addAddress(addrVo);
-		
+		if(checkAddr(user.getUserNo(), order.getOrderAddressBasic())== 0) {
+			AddressVO addrVo = new AddressVO(0,order.getOrderAddressDetail(),order.getOrderAddressBasic(),
+					order.getOrderAddressZipNum(),user.getUserNo());
+			addressMapper.addAddress(addrVo);
+		}
 	}
+	
+	// 기 등록된 주소인지 여부 확인
+	public int checkAddr(int userNo, String addressBasic) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNo", userNo);
+		map.put("OrderAddressBasic", addressBasic);
+		return addressMapper.checkAddr(map);
+	}
+	
 	
 	@Autowired
 	private IProductMapper mapper;
