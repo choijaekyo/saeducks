@@ -26,11 +26,11 @@
 	</select>
 	
 	<select id="getCategoryNo" resultType="int">
-		SELECT category_no FROM category WHERE category_major_title =#{categoryMajorTitle} AND category_minor_title = #{categoryMinorList}
+		SELECT category_no FROM category WHERE category_major_title =#{categoryMajorTitle} AND category_minor_title = #{categoryMinorTitle}
 	</select>
 	
 	<select id="getUserNo" resultType="int">
-		SELECT user_no FROM duck_user WHERE user_id = #{userId};
+		SELECT user_no FROM duck_user WHERE user_id = #{userId}
 	</select>
 	
 	<insert id="insertFavorite">

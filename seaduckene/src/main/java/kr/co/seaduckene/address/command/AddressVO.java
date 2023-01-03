@@ -11,7 +11,7 @@ CREATE TABLE address   (
     address_no NUMBER PRIMARY KEY,
     address_detail VARCHAR2(500) NOT NULL,
     address_basic VARCHAR2(500) NOT NULL,
-    address_zip_num NUMBER NOT NULL,
+    address_zip_num VARCHAR2(100) NOT NULL,
     address_user_no NUMBER NOT NULL
 );
 

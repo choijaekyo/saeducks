@@ -40,7 +40,6 @@ public class UserServiceImpl implements IUserService {
 		String[] minorList = boardCategoryVO.getCategoryMinorTitle().split(",");
 		log.info(minorList);
 		
-		List<BoardCategoryVO> categoryList = null;
 		
 		for (int i = 0; i < majorList.length; i++) {
 			BoardCategoryVO borVo = new BoardCategoryVO(0, majorList[i], minorList[i], null);
