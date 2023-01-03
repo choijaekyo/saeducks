@@ -41,6 +41,6 @@ public interface IProductMapper {
 	void insertImg(ProductImageVO vo);
 	
 	// 메인 상품 이미지 출력
-	ProductVO mainImage(int productNo);
+	List<ProductImageVO> mainImage(int productNo);
 
 }

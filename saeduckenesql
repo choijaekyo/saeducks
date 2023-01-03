@@ -135,7 +135,7 @@ CREATE TABLE product_image(
     product_image_file_name VARCHAR2(100) NOT NULL,
     prodcut_image_file_real_name VARCHAR2(100) NOT NULL,
     product_image_product_no NUMBER,
-    product_thumbnail NUMBER default 0
+    product_thumbnail NUMBER DEFAULT 0
 );
 
 CREATE SEQUENCE product_image_seq
@@ -143,6 +143,42 @@ CREATE SEQUENCE product_image_seq
     MAXVALUE 10000
     NOCYCLE
     NOCACHE;
+
+INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
+VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '1.jpg', '1.jpg', 1, 1);
+INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
+VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '2.jpg', '2.jpg', 1, 1);
+INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
+VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '3.jpg', '3.jpg', 1, 1);
+INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
+VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '4.jpg', '4.jpg', 2, 1);
+INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
+VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '5.jpg', '5.jpg', 2, 1);
+INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
+VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '6.jpg', '6.jpg', 2, 1);
+INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
+VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '7.jpg', '7.jpg', 3, 1);
+INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
+VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '8.jpg', '8.jpg', 3, 1);
+INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
+VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '9.jpg', '9.jpg', 3, 1);
+--------------------------------------------------------------------------------
+------------------------------favorite-------------------------------------------
+CREATE TABLE favorite (
+    favorite_no NUMBER PRIMARY KEY,
+    favorite_category_no NUMBER NOT NULL,
+    favorite_user_no NUMBER NOT NULL
+);
+
+CREATE SEQUENCE favorite_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 10000
+    NOCACHE
+    NOCYCLE;
+
+INSERT INTO favorite (favorite_no, favorite_category_no, favorite_user_no) 
+VALUES (favorite_seq.NEXTVAL, 3, 1);
 --------------------------------------------------------------------------------
 SELECT * FROM board;
 INSERT INTO board (board_no, board_title, board_content, board_user_no, board_category_no) 
@@ -152,7 +188,7 @@ INSERT INTO duck_user (user_no, user_id, user_pw, user_nickname ,user_name ,user
 VALUES (duck_user_seq.NEXTVAL, 'aaa111', 'aaa11111', 'Å×½ºÆ®À¯Àú', 'È«±æµ¿', '12345678');
 
 INSERT INTO category (category_no, category_major_title, category_minor_title)
-VALUES (category_no_seq.NEXTVAL, '¿µÈ­', 'ÅÂ±Ø±â ÈÖ³¯¸®¸ç');
+VALUES (category_no_seq.NEXTVAL, '¾ß±¸', 'È«¸íº¸');
 
 INSERT INTO product (product_no, product_name, product_price_normal, product_detail, product_stock, product_category_no) 
 VALUES (product_seq.NEXTVAL, '3·¹º§ ¹æÅº', 98000, '¶Ò¹è±â¿¡ ±¸¸Û³­ ¹æÅºÇï¸Ë', 32, 1);
@@ -188,4 +224,20 @@ WHERE rn > 0
 AND rn <= 3
 
 --------------------------------------------------------------------------------
+SELECT * FROM product_image WHERE product_image_product_no = 1 AND PRODUCT_THUMBNAIL = 1;
+
+SELECT * FROM favorite WHERE favorite_user_no = 1;
+
+-- ÀÌ³ÊÁ¶ÀÎ ¾Æ¿ôÅÍÁ¶ÀÓ
+
+SELECT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail
+FROM duck_user d INNER JOIN favorite f
+                 ON d.user_no = f.favorite_user_no
+                 INNER JOIN category c
+                 ON f.favorite_category_no = c.category_no
+                 INNER JOIN product p
+                 ON c.category_no = p.product_category_no
+                 INNER JOIN product_image i
+                 ON p.product_no = i.product_image_product_no
+
 
