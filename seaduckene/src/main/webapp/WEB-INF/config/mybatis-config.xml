@@ -19,6 +19,7 @@
 	
 <!-- 경로랑 resultmap 알아서 설정하기  -->	
 	<typeAliases>
+		<typeAlias type="kr.co.seaduckene.user.command.UserVO" alias="user"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardVO" alias="board"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductVO" alias="prodcut"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductImageVO" alias="productImage"/>

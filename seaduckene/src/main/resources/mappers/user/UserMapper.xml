@@ -21,12 +21,16 @@
 		 #{userName}, #{userTel}, #{userEmail})
 	</insert>
 	
+	<select id="getUserVo" resultType="user">
+		SELECT * FROM duck_user WHERE user_id = #{userId}
+	</select>
+	
 	<select id="getCategories" resultMap="categories">
 		SELECT category_major_title, category_minor_title From category
 	</select>
 	
 	<select id="getCategoryNo" resultType="int">
-		SELECT category_no FROM category WHERE category_major_title =#{categoryMajorTitle} AND category_minor_title = #{categoryMinorTitle}
+		SELECT category_no FROM category WHERE category_major_title = #{categoryMajorTitle} AND category_minor_title = #{categoryMinorTitle}
 	</select>
 	
 	<select id="getUserNo" resultType="int">

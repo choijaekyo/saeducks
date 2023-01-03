@@ -11,13 +11,6 @@
 	<!--Join 디자인 추가-->
     <link href="${pageContext.request.contextPath }/resources/css/userJoin.css" rel="stylesheet">
     
-    <!-- Join profile 프리뷰 -->
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
-	<link
-	    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-	    rel="stylesheet"
-	/>
-    
 </head>
 <body>
 
@@ -43,28 +36,6 @@
 							<span>+</span>
 							<input name="" type="file" class="upload" id="user-profile-pic" > <br>
 						</div>
-					</div>
-					<!-- 나중에 수정 -->
-					<div class="filepond--root filepond filepond--hopper" data-style-panel-layout="compact circle" data-style-button-remove-item-position="center bottom" data-style-button-process-item-position="right" data-style-load-indicator-position="center bottom" data-style-progress-indicator-position="right" data-style-button-remove-item-align="false" style="height: 170px;">
-						<input class="filepond--browser" type="file" id="filepond--browser-qgxqd8q09" name="filepond" aria-controls="filepond--assistant-qgxqd8q09" aria-labelledby="filepond--drop-label-qgxqd8q09" accept="image/png,image/jpeg,image/gif">
-						<a class="filepond--credits" aria-hidden="true" href="https://pqina.nl/" target="_blank" rel="noopener noreferrer" style="transform: translateY(170px);">Powered by PQINA</a>
-						<div class="filepond--drop-label" style="transform: translate3d(0px, 0px, 0px); opacity: 1;">
-							<label for="filepond--browser-qgxqd8q09" id="filepond--drop-label-qgxqd8q09" aria-hidden="true">
-								Drag &amp; Drop your picture or 
-								<span class="filepond--label-action" tabindex="0">Browse</span>
-							</label>
-						</div>
-						<div class="filepond--list-scroller" style="transform: translate3d(0px, 0px, 0px);">
-							<ul class="filepond--list" role="list"></ul>
-						</div>
-						<div class="filepond--panel filepond--panel-root" data-scalable="false">
-							<div class="filepond--panel-top filepond--panel-root"></div>
-							<div class="filepond--panel-center filepond--panel-root" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1.7, 1);"></div>
-							<div class="filepond--panel-bottom filepond--panel-root" style="transform: translate3d(0px, 170px, 0px);"></div>
-						</div>
-						<span class="filepond--assistant" id="filepond--assistant-qgxqd8q09" role="status" aria-live="polite" aria-relevant="additions"></span>
-						<div class="filepond--drip"></div>
-						<fieldset class="filepond--data"></fieldset>
 					</div>
 					<span>기본 정보</span> <br>
 					<div class="input-group inputArea">
@@ -92,7 +63,12 @@
 	                    <div class="col-md-12 col-sm-12 col-12">
 	                        <input name="userNickname" class="form-control join-input" type="text" placeholder="닉네임" id="userNickname" required />
 	                    </div>
-                	</div> <br>
+                	</div>
+   					<div class="input-group inputArea">
+		                <div class="col-md-12 col-sm-12 col-12">
+		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" />
+	                    </div>
+               		</div> <br>
 					
 					<span class="basic-info">상세 정보</span> <br> 
 					<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
@@ -129,17 +105,12 @@
                 		</div>	
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
-		                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세주소" id="addrDetail" readonly />
+		                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세주소" id="addrDetail" />
 		                    </div>
                 		</div>	
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
 		                        <input name="addressZipNum" class="form-control join-input" type="text" placeholder="우편번호" id="addrZipNum" readonly />
-		                    </div>
-                		</div>	
-						<div class="input-group inputArea">
-		                    <div class="col-md-12 col-sm-12 col-12">
-		                        <input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" />
 		                    </div>
                 		</div>	
 						<div class="input-group inputArea">
@@ -163,11 +134,9 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<!-- Join profile 프리뷰 -->
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 
 <script>
+
 	$(function() {
 		
 		$('.optional-container').click(function(e) {
@@ -393,13 +362,14 @@
 		}, function() {
 			$(this).attr('placeholder', '전화번호');			
 		});
-		
-
-
+	    
         $('#user-join-submit').click(function() {
         	
         	$('#user-join-form').submit();
         });
+        
+ 
+        
         
 	}); // end jQuery
 	
@@ -431,20 +401,9 @@
         }).open();
         
 	}
-	
-    // Register the plugin with FilePond
-    FilePond.registerPlugin(FilePondPluginImagePreview);
 
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('#filepond--browser-qgxqd8q09');
-
-    // Create the FilePond instance
-    const pond = FilePond.create(inputElement, {
-    	allowFileEncode: true
-    });
-    
-    FilePond.parse(document.body);
-    
+ 
+ 
 </script>
 </html>
 

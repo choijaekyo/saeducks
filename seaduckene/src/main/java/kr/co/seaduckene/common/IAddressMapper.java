@@ -10,8 +10,8 @@ public interface IAddressMapper {
 	// 기 등록 주소여부
 	int checkAddr(Map<String, Object> map);
 
-	
 	// 주소수정
+	void updateAddr(AddressVO addressVO);
 	
 	// 주소삭제
 }
