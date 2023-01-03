@@ -144,9 +144,6 @@ CREATE SEQUENCE product_image_seq
     NOCYCLE
     NOCACHE;
 
-<<<<<<< HEAD
-
-=======
 INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
 VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '1.jpg', '1.jpg', 1, 1);
 INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
@@ -182,7 +179,6 @@ CREATE SEQUENCE favorite_seq
 
 INSERT INTO favorite (favorite_no, favorite_category_no, favorite_user_no) 
 VALUES (favorite_seq.NEXTVAL, 3, 1);
->>>>>>> refs/heads/kyo
 --------------------------------------------------------------------------------
 SELECT * FROM board;
 INSERT INTO board (board_no, board_title, board_content, board_user_no, board_category_no) 
@@ -233,47 +229,40 @@ SELECT * FROM product_image WHERE product_image_product_no = 1 AND PRODUCT_THUMB
 SELECT * FROM favorite WHERE favorite_user_no = 1;
 
 -- 이너조인 아웃터조임
+SELECT *
+FROM
+    (
+    SELECT ROWNUM AS rn, tbl.* FROM
+        (
+            SELECT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail
+            FROM duck_user d INNER JOIN favorite f
+                             ON 1 = f.favorite_user_no
+                             INNER JOIN category c
+                             ON f.favorite_category_no = c.category_no
+                             INNER JOIN product p
+                             ON c.category_no = p.product_category_no
+                             INNER JOIN product_image i
+                             ON p.product_no = i.product_image_product_no
+            WHERE product_thumbnail = 1
+        ) tbl
+    ) b
+WHERE rn > 0
+AND rn <= 9;
 
-SELECT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail
-FROM duck_user d INNER JOIN favorite f
-                 ON d.user_no = f.favorite_user_no
-                 INNER JOIN category c
-                 ON f.favorite_category_no = c.category_no
-                 INNER JOIN product p
-                 ON c.category_no = p.product_category_no
-                 INNER JOIN product_image i
-                 ON p.product_no = i.product_image_product_no
-
-
-SELECT * FROM product_image WHERE product_image_product_no = 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+SELECT *
+FROM
+    (
+    SELECT ROWNUM AS rn, tbl.* FROM
+        (
+            SELECT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail
+            FROM board b INNER JOIN category c
+                             ON b.board_category_no = c.category_no
+                             INNER JOIN product p
+                             ON c.category_no = p.product_category_no
+                             INNER JOIN product_image i
+                             ON p.product_no = i.product_image_product_no
+            WHERE i.product_thumbnail = 1 AND b.board_views = 0
+        ) tbl
+    ) b
+WHERE rn > 0
+AND rn <= 9;

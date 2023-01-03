@@ -84,7 +84,7 @@
 		                             ON c.category_no = p.product_category_no
 		                             INNER JOIN product_image i
 		                             ON p.product_no = i.product_image_product_no
-		            WHERE product_thumbnail = 1
+		            WHERE i.product_thumbnail = 1
 		        ) tbl
 		    ) b
 		WHERE rn > 0
