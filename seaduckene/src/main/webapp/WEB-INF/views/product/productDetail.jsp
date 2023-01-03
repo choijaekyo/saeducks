@@ -12,7 +12,8 @@
             
         }
         .cimg{
-            object-fit: fill;
+        	min-height: 50vh;
+            object-fit: cover;
         }
 
 
@@ -34,15 +35,18 @@
                           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner">
+                        <c:forEach var="img" items="${imgList }" varStatus="status">
+                        <c:if test="${status.index ==0 }">
                           <div class="carousel-item active">
-                            <img src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" class="d-block w-100 cimg" alt="...">
+                            <img src="<c:url value='/product/display?fileLoca=${img.productImageFolder }&fileName=${img.productImageFileName }' />" class="d-block w-100 cimg" alt="...">
                           </div>
-                          <div class="carousel-item">
-                            <img src="" class="d-block w-100 cimg" alt="...">
-                          </div>
-                          <div class="carousel-item">
-                            <img src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" class="d-block w-100 cimg" alt="...">
-                          </div>
+                        </c:if>
+                        <c:if test="${status.index!=0 }">
+                        	<div class="carousel-item">
+                            	<img src="<c:url value='/product/display?fileLoca=${img.productImageFolder }&fileName=${img.productImageFileName }' />" class="d-block w-100 cimg" alt="...">
+                          	</div>
+                        </c:if>  
+                		</c:forEach>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -56,13 +60,13 @@
                   
                 </div>
                 <div class="col-md-6">
-                    <div class="small mb-1">SKU: BST-498</div>
-                    <h1 class="display-5 fw-bolder">Shop item template</h1>
+                    <div class="small mb-1">PNO:${vo.productNo }</div>
+                    <h1 class="display-5 fw-bolder">${vo.productName }</h1>
                     <div class="fs-5 mb-5">
-                        <span class="text-decoration-line-through">$45.00</span>
-                        <span>$40.00</span>
+                        <span class="text-decoration-line-through">&#8361;${vo.productPriceNormal }</span>
+                        <span>&#8361;${vo.productPriceSelling }</span>
                     </div>
-                    <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                    <p class="lead">${vo.productDetail }</p>
                     <div class="d-flex" >
                         <input class="form-control text-center" id="inputQuantity" type="number" value="1" min="1" max="100" style="max-width: 3rem">
                         <button class="btn btn-outline-dark flex-shrink-0" type="button">
