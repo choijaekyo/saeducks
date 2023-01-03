@@ -1,4 +1,4 @@
-package kr.co.seaduckene.address.command;
+package kr.co.seaduckene.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

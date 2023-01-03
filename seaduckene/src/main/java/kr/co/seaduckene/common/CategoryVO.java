@@ -1,4 +1,4 @@
-package kr.co.seaduckene.board.command;
+package kr.co.seaduckene.common;
 
 import java.sql.Timestamp;
 
@@ -29,7 +29,7 @@ CREATE SEQUENCE category_no_seq
 @ToString
 @NoArgsConstructor // 메게변수 없는 생성자
 @AllArgsConstructor // 메게변수 다 있는 생성자
-public class BoardCategoryVO {
+public class CategoryVO {
 	
 	private int categoryNo;
 	private String categoryMajorTitle;

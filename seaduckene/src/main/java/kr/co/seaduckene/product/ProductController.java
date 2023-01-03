@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.seaduckene.board.command.BoardCategoryVO;
+import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
@@ -29,10 +29,10 @@ public class ProductController {
 	@GetMapping("/createProduct")
 	public void createProduct(Model model) {
 		System.out.println("product/createProduct GET 요청");
-		List<BoardCategoryVO> list = productService.getCategory();
+		List<CategoryVO> list = productService.getCategory();
 		LinkedHashSet<String> major = new LinkedHashSet<String>();
 		
-		for(BoardCategoryVO vo : list) {
+		for(CategoryVO vo : list) {
 			major.add(vo.getCategoryMajorTitle());
 		}
 		System.out.println(major);
