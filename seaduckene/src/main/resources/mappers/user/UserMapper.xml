@@ -41,4 +41,8 @@
 		INSERT INTO favorite (favorite_no, favorite_category_no, favorite_user_no) VALUES (favorite_seq.NEXTVAL, #{categoryNo}, #{userNo})
 	</insert>
 	
+	<select id="checkId" resultType="int">
+		SELECT COUNT(*) FROM duck_user WHERE user_id = #{userId}
+	</select>
+	
 </mapper>

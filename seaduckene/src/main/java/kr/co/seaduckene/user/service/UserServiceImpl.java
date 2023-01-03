@@ -40,6 +40,7 @@ public class UserServiceImpl implements IUserService {
 	public void updateUserFavorites(CategoryVO boardCategoryVO, int userNo) {
 		
 		// 카테고리 한 개에서도 작동하는 지 봐야 함.
+		// -> 카테고리 한 개도 잘 동작 하는 듯.
 		String[] majorList = boardCategoryVO.getCategoryMajorTitle().split(",");
 		log.info(majorList);
 		String[] minorList = boardCategoryVO.getCategoryMinorTitle().split(",");
@@ -84,5 +85,9 @@ public class UserServiceImpl implements IUserService {
 		
 		addressMapper.updateAddr(addressVO);
 	}
-
+	
+	@Override
+	public int checkId(String userId) {
+		return userMapper.checkId(userId);
+	}
 }

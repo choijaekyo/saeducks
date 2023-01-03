@@ -15,7 +15,7 @@ CREATE TABLE duck_user (
     user_pw VARCHAR2(150) NOT NULL,
     user_nickname VARCHAR2(200) NOT NULL UNIQUE,
     user_name VARCHAR2(100) NOT NULL,
-    user_tel NUMBER NOT NULL,
+    user_tel VARCHAR2(100) NOT NULL,
     user_admin_check NUMBER,
     user_session_id VARCHAR2(300),
     user_cookie_expire_date DATE,
@@ -47,7 +47,7 @@ public class UserVO {
 	private String userPw;
 	private String userNickname;
 	private String userName;
-	private int userTel;
+	private String userTel;
 	private int userAdminCheck;
 	private String userSessionId;
 	private Timestamp userCookieExpireDate;

@@ -58,7 +58,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/userJoin")
-	public void userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO) {
+	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView) {
 		log.info(userVO);
 		log.info(addressVO);
 		log.info(boardCategoryVO);
@@ -80,8 +80,19 @@ public class UserController {
 			// address table 등록
 			userService.registAddr(addressVO);
 		}
+		
+		modelAndView.setViewName("redirect:/user/userJoinSuccess");
+		
+		return modelAndView;
 	}
 	
+	@GetMapping("/userJoinSuccess")
+	public void userJoinSuccess() {};
+	
+	@GetMapping("/userFindAccount")
+	public void userFindAccount() {
+		
+	}
 	// email인증
 	@ResponseBody
 	@PostMapping("/userConfEmail")
@@ -122,7 +133,15 @@ public class UserController {
 	public String checkId(@RequestBody String userId) {
 		log.info(userId);
 		
-		return "duplicated";
+		if (userService.checkId(userId) == 0) {
+
+			return "accepted";
+		} else {
+
+			return "duplicated";
+		}
+		
+		
 	}
 	
 	@ResponseBody
@@ -153,13 +172,5 @@ public class UserController {
 		return Integer.toString(1);
 	}
 	
-	@GetMapping("/userJoinSuccess")
-	public void userJoinSuccess() {
-		
-	}
-	
-	@GetMapping("/userFindAccount")
-	public void userFindAccount() {
-		
-	}
+
 }
