@@ -1,40 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-<mapper namespace="kr.co.seaduckene.product.mapper.IProductMapper">
-	
+
+<mapper
+	namespace="kr.co.seaduckene.product.mapper.IProductMapper">
+
 	<insert id="order">
-		INSERT INTO duck_order (order_no,order_product_no,order_num,order_user_no,order_quantity,order_price,
-				order_recipient_name,order_recipient_tel,order_address_zip_num,order_address_basic,order_address_detail,
-				order_payment_method,order_return_bank,order_return_account) 
+		INSERT INTO duck_order
+		(order_no,order_product_no,order_num,order_user_no,order_quantity,order_price,
+		order_recipient_name,order_recipient_tel,order_address_zip_num,order_address_basic,order_address_detail,
+		order_payment_method,order_return_bank,order_return_account)
 		VALUES(order_seq.NEXTVAL,#{orderProductNo},#{orderNum},#{orderUserNo},#{orderQuantity},#{orderPrice},
-				#{orderRecipientName},#{orderRecipientTel},#{orderAddressZipNum},#{orderAddressBasic},#{orderAddressDetail},
-				#{orderPaymentMethod},#{orderReturnBank},#{orderReturnAccount})
+		#{orderRecipientName},#{orderRecipientTel},#{orderAddressZipNum},#{orderAddressBasic},#{orderAddressDetail},
+		#{orderPaymentMethod},#{orderReturnBank},#{orderReturnAccount})
 	</insert>
-	
-	
+
+	<update id="updateEmail">
+		UPDATE duck_user SET user_email=#{userEmail}
+		WHERE
+		user_no=#{userNo}
+	</update>
+
+	<select id="getBasket" resultType="basket">
+		SELECT * FROM basket
+		WHERE basket_user_no=#{userNo} AND
+		basket_product_no=#{productNo}
+	</select>
+
+
 	<select id="getCategory" resultType="category">
 		SELECT * FROM category
 	</select>
-	
+
 	<select id="getMinor" resultType="String">
-		SELECT category_minor_title FROM category
+		SELECT category_minor_title
+		FROM category
 		WHERE category_major_title =#{major}
 	</select>
-	
+
 	<select id="getCNum" resultType="int">
-		SELECT category_no FROM category WHERE category_major_title=#{major} AND category_minor_title=#{minor}
-	
+		SELECT category_no FROM category
+		WHERE category_major_title=#{major} AND category_minor_title=#{minor}
+
 	</select>
-	
+
 	<insert id="insertProduct">
 		INSERT INTO product
 		(product_no,product_name,product_price_normal,product_price_selling,product_detail,product_stock,product_category_no)
 		VALUES
 		(product_seq.NEXTVAL,#{vo.productName},#{vo.productPriceNormal},#{vo.productPriceSelling},#{vo.productDetail},#{vo.productStock},#{cnum})
 	</insert>
-	
-	
+
+
 </mapper>
     

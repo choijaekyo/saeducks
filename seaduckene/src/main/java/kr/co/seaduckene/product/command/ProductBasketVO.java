@@ -25,7 +25,7 @@ public class ProductBasketVO {
 	private int basketNo;
 	private int basketProductNo;
 	private int basketUserNo;
-	private int basketQuanity;
+	private int basketQuantity;
 	private int basketPrice;
 
 }

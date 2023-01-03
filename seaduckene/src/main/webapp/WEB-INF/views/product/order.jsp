@@ -46,11 +46,11 @@
 									<br>
 									<p>가격</p>
 									<p>수량</p>
-									<input type="hidden" name="orderQuantity" value="11" />
-									<!--상품번호 단위 주문수량-->
-									<input type="hidden" name="orderPrice" value="2000" />
-									<!--상품번호 단위 주문금액-->
-									<input type="hidden" name="orderProductNo" value="998" />
+									<!-- <input type="hidden" name="orderQuantity" value="3" />
+									상품번호 단위 주문수량
+									<input type="hidden" name="orderPrice" value="1000" />
+									상품번호 단위 주문금액 -->
+									<input type="hidden" name="orderProductNo" value="999" />
 									<!--상품번호-->
 								</div>
 							</div>
