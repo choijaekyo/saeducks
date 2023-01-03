@@ -7,10 +7,10 @@ import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.util.PageVO;
 
 public interface IBoardMapper {
-	
+
 	// 글 등록
 	void write(BoardVO vo);
-	
+
 	// 글 목록
 	List<BoardVO> list(PageVO paging);
 	
@@ -27,14 +27,3 @@ public interface IBoardMapper {
 	List<ProductVO> proList();
 	
 }
-
-
-
-
-
-
-
-
-
-
-

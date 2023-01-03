@@ -15,11 +15,11 @@ public class BoardServiceImpl implements IBoardService {
 
 	@Autowired
 	private IBoardMapper mapper;
-
+	
 	@Override
 	public void write(BoardVO vo) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("서비스 vo 들어옮" + vo);
+		mapper.write(vo);
 	}
 
 	@Override
@@ -34,21 +34,25 @@ public class BoardServiceImpl implements IBoardService {
 	}
 
 	@Override
-	public void update(BoardVO bno) {
-		// TODO Auto-generated method stub
+	public void update(BoardVO vo) {
+		mapper.update(vo);
 		
 	}
 
 	@Override
 	public void delete(int bno) {
-		// TODO Auto-generated method stub
+		mapper.delete(bno);
 		
 	}
 	
 	@Override
 	public List<ProductVO> proList() {
 		return mapper.proList();
+
 	}
+
+	
+	
 }
 
 
