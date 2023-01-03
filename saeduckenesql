@@ -127,6 +127,23 @@ CREATE SEQUENCE product_seq
     NOCACHE;
 
 -------------------------------------------------------------------------------
+------------------------------product-------------------------------------------
+CREATE TABLE product_image(
+    product_image_no NUMBER PRIMARY KEY,
+    product_image_path VARCHAR2(100) NOT NULL,
+    product_image_folder VARCHAR2(100) NOT NULL,
+    product_image_file_name VARCHAR2(100) NOT NULL,
+    prodcut_image_file_real_name VARCHAR2(100) NOT NULL,
+    product_image_product_no NUMBER,
+    product_thumbnail NUMBER default 0
+);
+
+CREATE SEQUENCE product_image_seq
+    START WITH 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+--------------------------------------------------------------------------------
 SELECT * FROM board;
 INSERT INTO board (board_no, board_title, board_content, board_user_no, board_category_no) 
 VALUES (board_no_seq.NEXTVAL, '첫번째 글 입니다.20', '첫번째 글 임돠20.', 1, 1);
@@ -169,3 +186,6 @@ FROM
     ) b
 WHERE rn > 0
 AND rn <= 3
+
+--------------------------------------------------------------------------------
+
