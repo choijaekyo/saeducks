@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.IAddressMapper;
+import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.mapper.IProductMapper;
 import kr.co.seaduckene.user.command.UserVO;
@@ -93,5 +94,10 @@ public class ProductServiceImpl implements IProductService {
 	
 	public void insertProduct(Map<String, Object> map) {
 		productMapper.insertProduct(map);
+	}
+	
+	@Override
+	public void insertImg(ProductImageVO vo) {
+		productMapper.insertImg(vo);
 	}
 }

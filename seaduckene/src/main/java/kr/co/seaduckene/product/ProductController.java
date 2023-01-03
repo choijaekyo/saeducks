@@ -1,9 +1,14 @@
 package kr.co.seaduckene.product;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
@@ -36,7 +43,6 @@ public class ProductController {
 		for(CategoryVO vo : list) {
 			major.add(vo.getCategoryMajorTitle());
 		}
-		System.out.println(major);
 		model.addAttribute("major", major);
 		model.addAttribute("category", list);
 		
@@ -46,7 +52,9 @@ public class ProductController {
 	public void orderSheet() {}
 	
 	@GetMapping("/productDetail")
-	public void detail() {}
+	public void detail(int productNo,Model model) {
+		System.out.println(productNo);
+	}
 	
 	@GetMapping("/finishOrder")
 	public void finishOrder() {}
@@ -81,7 +89,8 @@ public class ProductController {
 	
 	@PostMapping("/createProduct")
 	public void insertProduct(ProductVO vo,@RequestParam("majorCategory") String major,
-			@RequestParam("minorCategory") String minor) {
+			@RequestParam("minorCategory") String minor,
+			@RequestParam("productImg") List<MultipartFile> list) {
 		System.out.println("/product/createProduct POST");
 		System.out.println(major+minor);
 		System.out.println(vo);
@@ -92,6 +101,43 @@ public class ProductController {
 		int cnum = productService.getCNum(map);
 		map.put("cnum", cnum);
 		productService.insertProduct(map);
+		
+		ProductImageVO ivo = new ProductImageVO();
+		
+		SimpleDateFormat simple = new SimpleDateFormat("yyyyMMdd");
+		String today = simple.format(new Date());
+		ivo.setProductImageFolder(today);
+		
+		String uploadFolder ="C:/imgduck/"+today;
+		ivo.setProductImagePath("C:/imgduck/");
+		for(int i =0;i<list.size();i++ ) {
+				ivo.setProductThumbnail(0);
+			if(i==0) {
+				ivo.setProductThumbnail(1);
+			}
+			String fileRealName = list.get(i).getOriginalFilename();
+			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+			ivo.setProdcutImageFileRealName(fileRealName);
+			
+			UUID uuid = UUID.randomUUID();
+			String uu = uuid.toString().replace("-","");
+			
+			ivo.setProductImageFileName(uu+fileExtension);
+			
+			File folder = new File(uploadFolder);
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
+			File saveFile = new File(uploadFolder+"/"+uu+fileExtension);
+			productService.insertImg(ivo);
+			try {
+				list.get(i).transferTo(saveFile);
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 	

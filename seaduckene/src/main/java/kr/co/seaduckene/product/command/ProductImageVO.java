@@ -28,7 +28,8 @@ public class ProductImageVO {
     private String productImagePath; 
     private String productImageFolder;
     private String productImageFileName; 
-    private String prodcutImageUuid;
+    private String prodcutImageFileRealName;
     private int productImageProductNo;
+    private int productThumbnail;
 
 }

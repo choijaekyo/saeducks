@@ -28,7 +28,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <form action="<c:url value='/product/createProduct'/>" method="post" class="productForm">
+            <form action="<c:url value='/product/createProduct'/>" method="post" class="productForm" enctype="multipart/form-data">
                 <div class="input-group inputArea">
                     <div class="col-md-2 offset-md-1 col-sm-12 col-12">
                         <label for="category">카테고리</label>
