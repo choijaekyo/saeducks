@@ -23,6 +23,10 @@
 	line-height: 38px;
 }
 
+#conf-group {
+	display: none;
+}
+
 .inputArea {
 	margin: 20px;
 }

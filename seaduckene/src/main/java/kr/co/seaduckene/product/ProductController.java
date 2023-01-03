@@ -26,6 +26,7 @@ import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.user.command.UserVO;
+import kr.co.seaduckene.util.CertificationMailService;
 
 @Controller
 @RequestMapping("/product")
@@ -76,8 +77,7 @@ public class ProductController {
 		
 		productService.order(orderProductNoList, orderVo, userEmail, user);
 		
-		return "redirect:/product/finishOrder";
-		
+		return "redirect:/product/finishOrder";	
 	}
 	
 	@ResponseBody
