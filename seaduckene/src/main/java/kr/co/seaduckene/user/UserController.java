@@ -2,6 +2,8 @@ package kr.co.seaduckene.user;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,20 +13,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
+import kr.co.seaduckene.common.AddressVO;
+import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.user.command.UserVO;
+import kr.co.seaduckene.user.service.IUserService;
 import kr.co.seaduckene.util.PageVO;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/user")
-public class UserControlller {
+@Log4j
+public class UserController {
 	
 	@Autowired
 	private IBoardService boardService;
+	
+	@Autowired
+	private IUserService userService;
+	
+	
 
 	@GetMapping("/userLogin")
 	public void userLogin() {
@@ -32,8 +42,23 @@ public class UserControlller {
 	}
 	
 	@GetMapping("/userJoin")
-	public void userJoin() {
-
+	public void userJoin(HttpServletRequest request) {
+		log.info(userService.getCategories());
+		
+		request.setAttribute("categoryList", userService.getCategories());
+		request.setAttribute("majorLength", userService.getCategories().size() - 1);
+		log.info(userService.getCategories().size() - 1);
+	}
+	
+	@PostMapping("/userJoin")
+	public void userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO) {
+		log.info(userVO);
+		log.info(addressVO);
+		log.info(boardCategoryVO);
+		
+		userService.registUser(userVO);
+		userService.updateUserFavorites(boardCategoryVO, userVO.getUserId());
+		
 	}
 
 	@GetMapping("/userMyPage/{head}")

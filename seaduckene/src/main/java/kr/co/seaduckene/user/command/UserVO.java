@@ -11,9 +11,9 @@ import lombok.ToString;
 /*
 CREATE TABLE duck_user (
     user_no NUMBER PRIMARY KEY,
-    user_id VARCHAR2(100) NOT NULL,
+    user_id VARCHAR2(100) NOT NULL UNIQUE,
     user_pw VARCHAR2(150) NOT NULL,
-    user_nickname VARCHAR2(200) NOT NULL,
+    user_nickname VARCHAR2(200) NOT NULL UNIQUE,
     user_name VARCHAR2(100) NOT NULL,
     user_tel NUMBER NOT NULL,
     user_admin_check NUMBER,
@@ -23,7 +23,8 @@ CREATE TABLE duck_user (
     user_profile_path VARCHAR2(500) DEFAULT '프로필 경로',
     user_profile_folder VARCHAR2(500) DEFAULT '프로필 폴더',
     user_profile_file_name VARCHAR2(1000) DEFAULT 'profile.png',
-    user_profile_uuid VARCHAR2(500) DEFAULT 'profile.png'
+    user_profile_uuid VARCHAR2(500) DEFAULT 'profile.png',
+    user_category_user_no
     );
 
 CREATE SEQUENCE duck_user_seq

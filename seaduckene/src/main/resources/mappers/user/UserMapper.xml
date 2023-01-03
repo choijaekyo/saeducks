@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.seaduckene.user.mapper.IUserMapper">
+	
+	<resultMap type="kr.co.seaduckene.user.command.Categories" id="categories">
+		<result property="categoryMajorTitle" column="category_major_title"/>
+		<collection property="categoryMinorList" resultMap="minorList"/>
+	</resultMap>
+	
+	<resultMap type="String" id="minorList">
+		<result property="categoryMinorTitle" column="category_minor_title"/>
+	</resultMap>
+	
+	<insert id="registUser">
+		INSERT INTO duck_user 
+		(user_no, user_id, user_pw, user_nickname, user_name, user_tel, user_email)
+		VALUES (duck_user_seq.NEXTVAL, #{userId}, #{userPw}, #{userNickname},
+		 #{userName}, #{userTel}, #{userEmail})
+	</insert>
+	
+	<select id="getCategories" resultMap="categories">
+		SELECT category_major_title, category_minor_title From category
+	</select>
+	
+	<select id="getCategoryNo" resultType="int">
+		SELECT category_no FROM category WHERE category_major_title =#{categoryMajorTitle} AND category_minor_title = #{categoryMinorTitle}
+	</select>
+	
+	<select id="getUserNo" resultType="int">
+		SELECT user_no FROM duck_user WHERE user_id = #{userId}
+	</select>
+	
+	<insert id="insertFavorite">
+		INSERT INTO favorite (favorite_no, favorite_category_no, favorite_user_no) VALUES (favorite_seq.NEXTVAL, #{categoryNo}, #{userNo})
+	</insert>
+	
+</mapper>
