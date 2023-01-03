@@ -17,5 +17,9 @@
 		TRIM(address_detail)=#{OrderAddressDetail}
 	</select>
 
+	<update id="updateAddr">
+		UPDATE address SET address_detail = #{addressDetail}, address_basic = #{addressBasic}, address_zip_num = #{addressZipNum}
+		WHERE address_no = #{addressNo}
+	</update>
 
 </mapper>
