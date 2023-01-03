@@ -121,4 +121,9 @@ public class ProductServiceImpl implements IProductService {
 	public void insertImg(ProductImageVO vo) {
 		productMapper.insertImg(vo);
 	}
+	
+	@Override
+	public List<ProductImageVO> mainImage(int productNo) {
+		return productMapper.mainImage(productNo);
+	}
 }

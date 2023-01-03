@@ -32,5 +32,8 @@ public interface IProductService {
 	
 	//이미지 삽입
 	void insertImg(ProductImageVO vo);
+	
+	// 메인 상품 이미지 출력
+	List<ProductImageVO> mainImage(int productNo);
 
 }

@@ -7,6 +7,7 @@ import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
+import kr.co.seaduckene.product.command.ProductVO;
 
 public interface IProductMapper {
 
@@ -38,5 +39,8 @@ public interface IProductMapper {
 
 	// 상품 이미지 삽입
 	void insertImg(ProductImageVO vo);
+	
+	// 메인 상품 이미지 출력
+	List<ProductImageVO> mainImage(int productNo);
 
 }

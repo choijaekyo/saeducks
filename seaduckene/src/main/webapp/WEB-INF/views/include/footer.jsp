@@ -76,21 +76,31 @@
 <script
 	src="${pageContext.request.contextPath }/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <script>
-
 	var swiper = new Swiper(".mySwiper", {
-		slidesPerView : 3,
+		slidesPerView : 1,
 		spaceBetween : 1,
+		breakpoints: {
+			'@0.75': {
+		      slidesPerView: 2,
+		      spaceBetween: 1,
+		    },
+		    '@1.00': {
+		      slidesPerView: 3,
+		      spaceBetween: 1,
+		    }
+		},
 		slidesPerGroup : 1,
 		loop : true,
 		loopFillGroupWithBlank : true,
 		autoplay : {
-			delay : 1000,
+			delay : 2500,
 			disableOnInteraction : false
 		},
 		pagination : {
 			el : ".swiper-pagination",
 			clickable : true
 		}
+		// https://swiperjs.com/swiper-api
 	});
 
 	$(document).ready(function() {
@@ -104,6 +114,7 @@
 			placeholder : '최대 2048자까지 쓸 수 있습니다' //placeholder 설정
 
 		});
+		
 	});
 
 	/*
