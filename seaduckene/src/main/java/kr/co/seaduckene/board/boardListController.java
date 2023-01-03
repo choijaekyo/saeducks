@@ -1,36 +1,81 @@
 package kr.co.seaduckene.board;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import kr.co.seaduckene.board.command.BoardVO;
-import kr.co.seaduckene.board.service.BoardServiceImpl;
+import kr.co.seaduckene.board.service.IBoardService;
+import kr.co.seaduckene.util.PageVO;
 
 @Controller
 @RequestMapping("/board")
 public class boardListController {
 	
 	@Autowired
-	private BoardServiceImpl service;
+	private IBoardService service;
 
 	//게시판 목록으로 이동
 	@GetMapping("/boardList")
-	public void boardList() {}
+	public void boardList(Model model) {
+		System.out.println("게시판 목록으로 이동!");
+		model.addAttribute("productList", service.proList());
+	}
+	
+	//페이징
+	@GetMapping("/boardLists")
+	@ResponseBody
+	public List<BoardVO> boardList(PageVO paging) {
+		
+		paging.setCpp(9);
+		
+		return service.list(paging);
+	}
 	
 	//내 글 목록으로 이동
 	@GetMapping("/boardMyList")
 	public void boardMyList() {}
 	
-	//글 등록 페이지
+	
+	//글쓰기 페이지로 이동 요청
 	@GetMapping("/boardWrite")
-	public void boardWrite() {}
+	public void boardWrite() {
+		System.out.println("/board/boardWrite: GET");
+	}
+	
+	
+	//게시글을 DB 등록 요청
+	@PostMapping("/boardWrite")
+	public String write( PageVO paging ,BoardVO vo) {
+		
+		
+		service.write(vo);
+		
+		return "redirect:/board/boardList";
+	}
+	
 	
 	//상세보기 페이지
 	@GetMapping("/boardDetail")
-	public void boardDetail() {}
+	public void boardDetail() {
+		
+	}
+	
+	//수정 페이지로 이동
+	@PostMapping("/boardModify")
+	public void modify(int boardNo, Model model) {
+		System.out.println();
+	}
 	
 	//글 수정 처리
 	@GetMapping("/boardUpdate")

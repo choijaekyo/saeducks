@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 <%@ include file="../include/header.jsp"%>
 
@@ -12,185 +11,108 @@
 	  		<button type="button" class="btn btn-success w-auto rounded">소소카테고리</button>
 	  		<button type="button" class="btn btn-info w-auto rounded">전체상품</button>
         </div>
-	  	</div>
 	</div>
-	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-	  <div class="col">
-	    <div class="card shadow-sm">
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	      <div class="card-body">
-	        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	        <div class="d-flex justify-content-between align-items-center">
-	          <small class="text-muted">9 mins</small>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col">
-	    <div class="card shadow-sm">
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	      <div class="card-body">
-	        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	        <div class="d-flex justify-content-between align-items-center">
-	          <small class="text-muted">9 mins</small>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col">
-	    <div class="card shadow-sm">
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	      <div class="card-body">
-	        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	        <div class="d-flex justify-content-between align-items-center">
-	          <small class="text-muted">9 mins</small>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	
-	  <div class="col">
-	    <div class="card shadow-sm">
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	      <div class="card-body">
-	        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	        <div class="d-flex justify-content-between align-items-center">
-	          <small class="text-muted">9 mins</small>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col">
-	    <div class="card shadow-sm">
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	      <div class="card-body">
-	        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	        <div class="d-flex justify-content-between align-items-center">
-	          <small class="text-muted">9 mins</small>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col">
-	    <div class="card shadow-sm">
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	      <div class="card-body">
-	        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	        <div class="d-flex justify-content-between align-items-center">
-	          <small class="text-muted">9 mins</small>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	
-	  <div class="col">
-	    <div class="card shadow-sm">
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	      <div class="card-body">
-	        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	        <div class="d-flex justify-content-between align-items-center">
-	          <small class="text-muted">9 mins</small>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col">
-	    <div class="card shadow-sm">
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	      <div class="card-body">
-	        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	        <div class="d-flex justify-content-between align-items-center">
-	          <small class="text-muted">9 mins</small>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col">
-	    <div class="card shadow-sm">
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	      <div class="card-body">
-	        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	        <div class="d-flex justify-content-between align-items-center">
-	          <small class="text-muted">9 mins</small>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
+	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contentDiv">
+
+			<!-- 비동기 방식으로 서버와 통신을 진행한 후 
+				목록을 만들어서 붙일 예정. -->
+
 	</div>
 	<div class="row justify-content-center m-5">
 	  	<div class="col-1 w-auto">
-	  		<button type="button" class="btn btn-primary rounded">더보기</button>
+	  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
 	  	</div>
 	</div>
 </div>
 
-
-
-
 <div class="container container-board-div2">
 	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-	  <div class="col">
-	    <div class="card mb-4 rounded-3 shadow-sm">
-	      <div class="card-header py-3">
-	        <h4 class="my-0 fw-normal">Free</h4>
-	      </div>
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	      <div class="card-body">
-	        <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
-	        <ul class="list-unstyled mt-3 mb-4">
-	          <li>10 users included</li>
-	          <li>2 GB of storage</li>
-	          <li>Email support</li>
-	          <li>Help center access</li>
-	        </ul>
-	        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col">
-	    <div class="card mb-4 rounded-3 shadow-sm">
-	      <div class="card-header py-3">
-	        <h4 class="my-0 fw-normal">Free</h4>
-	      </div>
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	      <div class="card-body">
-	        <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
-	        <ul class="list-unstyled mt-3 mb-4">
-	          <li>10 users included</li>
-	          <li>2 GB of storage</li>
-	          <li>Email support</li>
-	          <li>Help center access</li>
-	        </ul>
-	        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col">
-	    <div class="card mb-4 rounded-3 shadow-sm">
-	      <div class="card-header py-3">
-	        <h4 class="my-0 fw-normal">Free</h4>
-	      </div>
-	      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	      <div class="card-body">
-	        <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
-	        <ul class="list-unstyled mt-3 mb-4">
-	          <li>10 users included</li>
-	          <li>2 GB of storage</li>
-	          <li>Email support</li>
-	          <li>Help center access</li>
-	        </ul>
-	        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-	      </div>
-	    </div>
-	  </div>
+	<c:forEach var="proVo" items="${productList}">
+		  <div class="col">
+		    <div class="card mb-4 rounded-3 shadow-sm">
+		      <div class="card-header py-3">
+		        <h4 class="my-0 fw-normal">Free</h4>
+		      </div>
+		      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">${proVo.productName}</text></svg>
+		      <div class="card-body">
+		        <h1 class="card-title pricing-card-title">${proVo.productPriceNormal}<small class="text-muted fw-light">/won</small></h1>
+		        <ul class="list-unstyled mt-3 mb-4">
+		          <li>${proVo.productDetail}</li>
+		          <li>${proVo.productStock}</li>
+		        </ul>
+		        <button type="button" class="w-100 btn btn-lg btn-outline-primary">장바구니담기</button>
+		      </div>
+		    </div>
+		  </div>
+	  </c:forEach>
 	</div>
 </div>
 <%@ include file="../include/footer.jsp"%>
+
+<script>
+
+$(function() {
+	
+	//등록하기 버튼 클릭 이벤트
+	$('#the-btn').click(function() {
+		if(!isFinish) {
+			page++;
+			getList(page, false);
+		} else {
+			console.log('더이상 불러올 목록이 없다.');
+		}
+	});
+	
+	let str = '';
+	let page = 1;
+	let isFinish = false;
+	
+	getList(1, false);
+	
+	function getList(page, reset) {
+		
+		console.log('getList 함수 호출');
+		console.log('page: ' + page);
+		console.log('reset: ' + reset);
+		
+		if(reset === true) {
+			str = ''; //화면 리셋 여부가 true라면 str변수를 초기화.
+		}
+		
+		$.getJSON(
+			'<c:url value="/board/boardLists?pageNum='+ page +'" />',
+			function(list) {
+				console.log(list.length);
+				console.log(list);
+				
+				if(list.length === 0) isFinish = true;
+				
+				for(let i=0; i<list.length; i++) {
+					
+					str += 
+					`<div class="col">
+				    <div class="card shadow-sm">
+				      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">` + list[i].boardTitle + `</text></svg>
+				      <div class="card-body">
+				        <p class="card-text">` + list[i].boardContent + `</p>
+				        <div class="d-flex justify-content-between align-items-center">
+				          <small class="text-muted">9 mins</small>
+				        </div>
+				      </div>
+				    </div>
+			  		</div>`;		
+				}
+				
+				$('#contentDiv').html(str);
+			}
+			
+				
+		); //end getJSON()
+		
+	}; //end getList()
+	
+	
+});
+</script>
+
+

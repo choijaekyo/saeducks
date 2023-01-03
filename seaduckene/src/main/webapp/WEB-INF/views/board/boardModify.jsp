@@ -14,7 +14,7 @@
 				</div>
 
 				<form action="${pageContext.request.contextPath}/Board/boardUpdate"
-					method="post" name="updateForm">
+					method="get" name="updateForm">
 					<div class="form-group">
 						<label>번호</label> <input class="form-control" name="bno" value=""
 							readonly>
@@ -51,39 +51,5 @@
 
 
 <script>
-	$(function() {
-		//목록 이동 처리
-		$('#listBtn')
-				.click(
-						function() {
-							location.href = "${pageContext.request.contextPath}/board/boardList";
-						});
 
-		//수정 버튼 이벤트 처리
-		$('#updateBtn').click(function() {
-			if ($('input[name=title]').val().trim() === '') {
-				alert('제목은 필수 항목입니다.');
-				$('input[name=title]').focus();
-				return;
-			} else if ($('textarea[name=content]').val().trim() === '') {
-				alert('내용은 필수 항목입니다.');
-				$('textarea[name=content]').focus();
-				return;
-			} else {
-				document.updateForm.submit();
-			}
-		});
-
-		$('#delBtn')
-				.click(
-						function() {
-							if (confirm('정말 삭제하시겠습니까?')) {
-								$('form[name=updateForm]')
-										.attr('action',
-												'${pageContext.request.contextPath}/Board/boardDelete');
-								$('form[name=updateForm]').submit();
-							}
-						});
-
-	});
 </script>

@@ -3,7 +3,46 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.co.seaduckene.board.mapper.IBoardReplyMapper">
+<mapper namespace="kr.co.seaduckene.board.mapper.IBoardMapper">
+
+	<select id="list" resultType="board">
+		SELECT *
+		FROM
+		    (
+		    SELECT ROWNUM AS rn, tbl.* FROM
+		        (
+		        SELECT * FROM board
+		        ORDER BY board_no DESC
+		        ) tbl
+		    ) b
+		<![CDATA[
+		WHERE rn > (#{pageNum}-1) * #{cpp}
+		AND rn <= #{pageNum} * #{cpp}
+		]]>
+	</select>
+	
+	<select id="proList" resultType="prodcut">
+		SELECT *
+		FROM
+		    (
+		    SELECT ROWNUM AS rn, tbl.* FROM
+		        (
+		        SELECT * FROM product
+		        ORDER BY product_no ASC
+		        ) tbl
+		    ) b
+		<![CDATA[
+		WHERE rn > 0
+		AND rn <= 3
+		]]>
+	</select>
+	
+	<!-- 글 등록 -->
+	<insert id="write">
+		INSERT INTO board
+		(board_no, board_title, board_content , board_user_no, board_category_no)
+		VALUES(board_no_seq.NEXTVAL, #{boardTitle}, #{boardContent} ,#{boardUserNo}, #{boardCategoryNo})
+	</insert>
 	
 	<!-- 수정 -->
 	<update id="update">
@@ -17,6 +56,7 @@
 		DELETE FROM board
 		WHERE board_no = #{boardNo}
 	</delete>
+
 	
 </mapper>
 
