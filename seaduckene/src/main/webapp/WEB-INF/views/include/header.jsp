@@ -62,7 +62,7 @@
                         <li><a class="dropdown-item" href="<c:url value='/product/order' />">주문서</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/product/createProduct' />">상품등록</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/user/userBasket' />">장바구니</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/product/productDetail' />">상품상세</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/product/productDetail?productNo=4' />">상품상세</a></li>
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"

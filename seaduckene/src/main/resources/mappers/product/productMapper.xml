@@ -51,6 +51,12 @@
 		(product_seq.NEXTVAL,#{vo.productName},#{vo.productPriceNormal},#{vo.productPriceSelling},#{vo.productDetail},#{vo.productStock},#{cnum})
 	</insert>
 
+	<insert id="insertImg">
+		INSERT INTO product_image
+		VALUES
+		(product_image_seq.NEXTVAL,#{productImagePath},#{productImageFolder},#{productImageFileName},
+		#{prodcutImageFileRealName},product_seq.CURRVAL,#{productThumbnail})
+	</insert>
 
 </mapper>
     

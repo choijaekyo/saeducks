@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.user.command.UserVO;
 
@@ -28,5 +29,8 @@ public interface IProductService {
 	
 	//카테고리넘버
 	int getCNum(Map<String, Object> map);
+	
+	//이미지 삽입
+	void insertImg(ProductImageVO vo);
 
 }
