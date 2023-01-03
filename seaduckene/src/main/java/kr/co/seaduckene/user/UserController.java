@@ -56,13 +56,11 @@ public class UserController {
 	}
 	
 	@PostMapping("/userJoin")
-	public void userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, @RequestParam("filepond") MultipartFile filepond) {
+	public void userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO) {
 		log.info(userVO);
 		log.info(addressVO);
 		log.info(addressVO.getAddressBasic());
 		log.info(boardCategoryVO);
-		log.info(filepond);		
-		log.info(filepond.getOriginalFilename());		
 		
 		
 		//user table 등록
@@ -78,7 +76,7 @@ public class UserController {
 		userService.updateUserFavorites(boardCategoryVO, loginUserNo);
 		
 		// 코드 병합 후에 productMapper에서 주소 등록 기능 사용하기.
-		if (addressVO.getAddressBasic() != null) {
+		if (!addressVO.getAddressBasic().equals("")) {
 			// address table 등록
 			userService.registAddr(addressVO);
 		}
