@@ -3,6 +3,7 @@ package kr.co.seaduckene.user;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,6 +67,17 @@ public class UserController {
 		request.setAttribute("categoryList", userService.getCategories());
 		request.setAttribute("majorLength", userService.getCategories().size() - 1);
 		log.info(userService.getCategories().size() - 1);
+	}
+	
+	@GetMapping("/userLogout")
+	public ModelAndView userLogin(ModelAndView modelAndView, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("login");
+		
+		modelAndView.setViewName("redirect:/user/userLogin");
+		
+		return modelAndView;
 	}
 	
 	@PostMapping("/userJoin")

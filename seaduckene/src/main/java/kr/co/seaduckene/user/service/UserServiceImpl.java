@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public UserVO loginUser(UserVO userVO) {
-		return userMapper.loginUser(userId, userPw);
+		return userMapper.loginUser(userVO);
 	}
 
 	@Override

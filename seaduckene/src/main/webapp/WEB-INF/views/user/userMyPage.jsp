@@ -33,7 +33,14 @@
 			</c:choose>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-					  <li class="breadcrumb-item" data-head="1" ><a data-toggle="tab" href="#myinfo">내 정보</a></li>
+					<c:choose>
+						<c:when test="${toggle == 1}">		
+						  <li class="breadcrumb-item active" data-head="1"><a data-toggle="tab" href="#myinfo">내 정보</a></li>
+						</c:when>
+						<c:otherwise>
+						  <li class="breadcrumb-item" data-head="1"><a data-toggle="tab" href="#myinfo">내 정보</a></li>
+						</c:otherwise>
+					</c:choose>
 					<c:choose>
 						<c:when test="${toggle == 2}">		
 						  <li class="breadcrumb-item active" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
