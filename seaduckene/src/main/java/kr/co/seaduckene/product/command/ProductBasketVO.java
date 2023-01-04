@@ -23,6 +23,7 @@ import lombok.ToString;
 public class ProductBasketVO {
 	
 	private int basketNo;
+	private String basketProductName;
 	private int basketProductNo;
 	private int basketUserNo;
 	private int basketQuantity;

@@ -3,6 +3,7 @@ package kr.co.seaduckene.user;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
 import kr.co.seaduckene.util.CertificationMailService;
@@ -88,11 +90,22 @@ public class UserController {
 	}
 
 	@GetMapping("/userMyPage/{head}")
-	public ModelAndView userMyPage(ModelAndView modelAndView, @PathVariable int head) {
+	public ModelAndView userMyPage(ModelAndView modelAndView, @PathVariable int head,HttpSession session) {
 		modelAndView.addObject("toggle", head);
 		
 		modelAndView.setViewName("/user/userMyPage");
 		
+		int userNo = 10;//세션 만들시 세션으로 바꿀것
+		List<ProductBasketVO> bvo = userService.getBasket(userNo);
+		modelAndView.addObject("basket", bvo);
+		
+		return modelAndView;
+	}
+	
+	@GetMapping("/userBasket")
+	public ModelAndView basket(ModelAndView modelAndView) {
+		System.out.println("/userBasket GET");
+		modelAndView.setViewName("redirect:/user/userMyPage/3");
 		return modelAndView;
 	}
 	
@@ -105,14 +118,7 @@ public class UserController {
 		return boardService.list(paging);
 	}
 	
-	@GetMapping("/userBasket")
-	public ModelAndView basket(ModelAndView modelAndView) {
-		
-		modelAndView.setViewName("redirect:/user/userMyPage/3");
-		
-		return modelAndView;
-	}
-	
+
 	@ResponseBody
 	@PostMapping("/checkId")
 	public String checkId(@RequestBody String userId) {

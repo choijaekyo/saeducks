@@ -8,24 +8,17 @@
 	<!-- namespaces 탭에서 mvc 기능 추가 -->
 	<!-- web.xml에 초기 설정 파일로 이 파일을 추가 -->
 
-	<!-- <bean id="homeHandler" class="kr.co.seaduckene.util.interceptor.homeHandler" /> -->
 	<bean id="ProductOrderInterceptor" class="kr.co.seaduckene.util.interceptor.ProductOrderInterceptor" />
 	
 	<mvc:interceptors>
-		
-<!-- 		home postHandler
-		<mvc:interceptor>
-			<mvc:mapping path="/" />
-			<ref bean="homeHandler" />
-		</mvc:interceptor> -->
 		
 		<mvc:interceptor>
 			<mvc:mapping path="/product/order" />
 			<ref bean="ProductOrderInterceptor" />
 		</mvc:interceptor>
 
-		
 	</mvc:interceptors>
+
 
 </beans>
 

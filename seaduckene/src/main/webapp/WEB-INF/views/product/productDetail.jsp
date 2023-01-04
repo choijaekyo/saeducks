@@ -15,6 +15,9 @@
         	min-height: 50vh;
             object-fit: cover;
         }
+        #inputQuantity{
+			max-width:4rem;        
+        }
 
 
     </style>
@@ -68,8 +71,8 @@
                     </div>
                     <p class="lead">${vo.productDetail }</p>
                     <div class="d-flex" >
-                        <input class="form-control text-center" id="inputQuantity" type="number" value="1" min="1" max="100" style="max-width: 3rem">
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                        <input class="form-control text-center" id="inputQuantity" type="number" value="1" min="1" max="100">
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button" id="cartBtn">
                             <i class="bi-cart-fill me-1"></i>
                             Add to cart
                         </button>
@@ -82,3 +85,43 @@
 <%@ include file="../include/footer.jsp" %>
 </body>
 </html>
+
+	<script>
+		$(function(){
+			const userNo = 10; //나중에 login 세션아이디로 대체할것!
+			const pNo = '${vo.productNo}';
+			const price = '${vo.productPriceSelling}';
+			const pName ='${vo.productName}';
+			$('#cartBtn').click(function(){
+				let ea = $('#inputQuantity').val();
+				console.log(ea);
+				console.log(userNo);
+				console.log(pNo);
+				console.log(price);
+			$.ajax({
+				type:'post',
+				url:'<c:url value="/product/insertBasket"/>',
+				data: JSON.stringify({
+					"basketProductNo":pNo,
+					"basketProductName":pName,
+					"basketUserNo":userNo,
+					"basketQuantity":ea,
+					"basketPrice":price
+				}),
+				dataType:'text',
+				contentType: 'application/json',
+				success: function(){
+					alert('장바구니에 등록성공');
+				},
+				error:function(){
+					alert('장바구니 추가 실패. 관리자에게 문의하세요');
+				}
+			}); // 장바구니 등록 비동기 통신 끝
+				
+			
+				
+			});//장바구니 추가 끝
+			
+			
+		});// end jQuery
+	</script>

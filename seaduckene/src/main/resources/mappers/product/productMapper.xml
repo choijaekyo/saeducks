@@ -119,5 +119,15 @@
 		]]>
 	</select>
 	
+	<insert id="insertBasket">
+		INSERT INTO basket 
+		VALUES(basket_seq.NEXTVAL,#{basketProductName},#{basketProductNo},#{basketUserNo},#{basketQuantity},#{basketPrice})
+	</insert>
+	
+	<update id="cQuantity">
+		UPDATE basket SET basket_quantity=#{q} 
+		WHERE basket_no=#{basketNo}
+	</update>
+
 </mapper>
     

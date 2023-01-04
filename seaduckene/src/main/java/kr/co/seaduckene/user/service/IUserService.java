@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
 
@@ -26,5 +27,9 @@ public interface IUserService {
 	
 	// 유저에서 주소 테이블의 내용 수정
 	void updateAddr(AddressVO addressVO);
+	
+	//장바구니데이터 불러오기
+	List<ProductBasketVO> getBasket(int num);
+	
 	
 }
