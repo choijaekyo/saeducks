@@ -48,6 +48,17 @@ public class UserController {
 		
 	}
 	
+	@PostMapping("/userLoginAuth")
+	public ModelAndView userLogin(UserVO userVO, ModelAndView modelAndView) {
+		log.info(userVO);
+		
+		// 비밀번호 암호화는 나중에 구현할 것.
+		
+		modelAndView.addObject("userVo", userService.loginUser(userVO));
+		
+		return modelAndView;
+	}
+	
 	@GetMapping("/userJoin")
 	public void userJoin(HttpServletRequest request) {
 		log.info(userService.getCategories());

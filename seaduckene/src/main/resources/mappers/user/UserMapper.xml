@@ -21,6 +21,12 @@
 		 #{userName}, #{userTel}, #{userEmail})
 	</insert>
 	
+	
+	<select id="loginUser" resultType="user">
+		SELECT * FROM duck_user WHERE user_id = #{userId} AND user_pw = #{userPw}
+	</select>
+	
+	
 	<select id="getUserVo" resultType="user">
 		SELECT * FROM duck_user WHERE user_id = #{userId}
 	</select>

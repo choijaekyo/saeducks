@@ -457,7 +457,21 @@
 				alert('전화번호를 다시 확인하세요.');
 				$('#userTel').focus();				
 				return;
-			} else if (true) {
+			} else if (optionCheck === true) {
+				if ($('#addrBasic').val() === '') {
+					alert('기본 주소를 입력해주세요.');
+					$('#addrBasic').focus();
+					return;
+				} else if ($('#addrDetail').val() === '') {
+					alert('상세 주소를 입력해주세요.');
+					$('#addrBasic').focus();
+					return;
+				} /* else if ($('#userEmail'). === '') {
+					alert('상세 주소를 입력해주세요.');
+					$('#addrBasic').focus();
+					return;
+				} */
+			} else {
 				const majors = $('select[name=categoryMajorTitle]');
 				for (let i = 1; i < majors.length; i++) {
 					if (majors[i].value === '대 카테고리') {
@@ -474,23 +488,8 @@
 						minors[i].focus();				
 						return;						
 					}	  
-				}		
-			} else if (optionCheck === true) {
-				if ($('#addrBasic').val() === '') {
-					alert('기본 주소를 입력해주세요.');
-					$('#addrBasic').focus();
-					return;
-				} else if ($('#addrDetail').val() === '') {
-					alert('상세 주소를 입력해주세요.');
-					$('#addrBasic').focus();
-					return;
-				} /* else if ($('#userEmail'). === '') {
-					alert('상세 주소를 입력해주세요.');
-					$('#addrBasic').focus();
-					return;
-				} */
+				}
 			}
-        	
         	
         	$('#user-join-form').submit();
         });

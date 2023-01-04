@@ -30,6 +30,11 @@ public class UserServiceImpl implements IUserService {
 		
 		userMapper.registUser(userVO);
 	}
+	
+	@Override
+	public UserVO loginUser(UserVO userVO) {
+		return userMapper.loginUser(userId, userPw);
+	}
 
 	@Override
 	public List<Categories> getCategories() {
@@ -90,4 +95,6 @@ public class UserServiceImpl implements IUserService {
 	public int checkId(String userId) {
 		return userMapper.checkId(userId);
 	}
+	
+
 }

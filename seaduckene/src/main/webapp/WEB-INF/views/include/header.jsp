@@ -88,10 +88,20 @@
             </div>
 
             <ul class="nav login-box">
+            <c:choose>
+            <c:when test="${login == null}">
                <li class="nav-item"><a href="<c:url value='/user/userLogin' />"
                   class="nav-link link-dark px-2">Login</a></li>
                <li class="nav-item"><a href="<c:url value='/user/userJoin' />"
                   class="nav-link link-dark px-2">Sign up</a></li>
+            </c:when>
+			<c:otherwise>
+               <li class="nav-item"><a href="<c:url value='/user/userLogout' />"
+                  class="nav-link link-dark px-2">Logout</a></li>
+               <li class="nav-item"><a href="<c:url value='/user/userMyPage/1' />"
+                  class="nav-link link-dark px-2">My Page</a></li>
+			</c:otherwise>            
+            </c:choose>
             </ul>
          </div>
       </nav>
