@@ -34,7 +34,7 @@
 					<div class="clearfix">
 						<div class="file-upload">
 							<span>+</span>
-							<input name="profilePic" type="file" class="upload" id="user-profile-pic" > <br>
+							<input name="profilePic" type="file" class="upload" id="user-profile-pic" accept=".jpg, .jpeg, .png, .gif, .bmp" > <br>
 						</div>
 					</div>
 					<span>기본 정보</span> <br>
@@ -127,14 +127,14 @@
 		                        <input name="userEmail" class="form-control join-input" type="text" placeholder="이메일" id="userEmail" />
 		                    </div>
                 		</div>	
-						<input type="button" class="btn btn-lg btn-b btn-duck email-btn" onclick="" value="이메일 인증"> <br>
+						<input type="button" class="btn btn-lg btn-b btn-duck email-btn" value="이메일 인증" id="confBtn"> <br>
 						<div class="input-group inputArea" style="display: none;" id="emailConf">
-		                    <div class="col-md-12 col-sm-12 col-12">
-								<input class="form-control join-input" type="text" name=""
+		                    <div class="col-md-12 col-sm-12 col-12 beforeConf">
+								<input class="form-control join-input " type="text" name=""
 									id="email-auth-code" placeholder="이메일 인증 코드" required />
 								<input class="btn btn-outline-secondary" type="button"
-											name="confBtn" id="confBtn" value="인증하기" />
-		                    </div>
+											name="confCheckBtn" id="confCheckBtn" value="인증하기" />
+		                    </div> <br>
 		                    <p id="confMailRes"></p>
                 		</div>	
 					</div> <br> <br>
@@ -177,7 +177,6 @@
 			const major = $(this).val();
 			const minor1 = '${categoryList}';
 			const minor2 = minor1.split('), ');
-			
 			const $category2 = this.nextElementSibling;
 			$($category2).html('');
 			
@@ -212,7 +211,7 @@
 			
 		});
 		
-		let code;
+		let code = '';
 		// 인증번호 이메일 전송
 		$('.email-btn').click(() => {
 
@@ -227,23 +226,43 @@
 			} else {
 				$('#emailConf').css('display', 'block');
 				
-			$.ajax({
-				type: 'POST',
-				url: '<c:url value="/user/userConfEmail" />',
-				success: function(data) {
+				$.ajax({
+					type: 'POST',
+					url: '<c:url value="/user/userConfEmail" />',
+					data: email,
+					contentType: 'application/json',
+					success: function(data) {
+						code = data; // 인증번호를 전역변수에 저장.
+						alert('인증메일이 전송되었습니다.\n입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
+					},
+					error: function() {
+						alert('이메일 전송 실패');
+					}
+				}); // end ajax(이메일 전송)
 
-					$('#confMailRes').attr('disabled', false); // 비활성된 인증번호 입력창 활성화.
-					code = data; // 인증번호를 전역변수에 저장.
-					alert('인증메일이 전송되었습니다.\n입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
-				},
-				error: function() {
-					alert('이메일 전송 실패');
-				}
-			}
-
-			}); // end ajax(이메일 전송)
+			} 
 
 		}); // 이메일 전송 끝.
+		
+		// 인증번호 비교
+		$('#confCheckBtn').click(function() {
+				const inputCode = $('#email-auth-code').val();
+				const $resultMsg = $('#confMailRes');
+				
+				if (inputCode == code) {
+					$resultMsg.html('인증이 완료되었습니다.');
+					$('.beforeConf').css('display','none');
+					$resultMsg.css('color', 'green');
+					
+					$('#userEmail').attr('readonly', true);
+					$('#confBtn').css('display', 'none');
+					
+				} else {
+					$resultMsg.html('인증번호를 다시 확인해주세요.');
+					$resultMsg.css('color', 'red');
+					$('#confNum').focus();
+				}
+		}); //end 인증번호비교
 
 		let idCheck = false;
 		// 아이디 중복 확인.
@@ -429,6 +448,7 @@
 			}
         }); 
         
+        // 카테고리 추가
         $('#add-category').click(function() {
         	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true); 
         	$($cloneLi).css('display', 'list-item');
@@ -437,12 +457,13 @@
         	
         });
         
+        // 카테고리 제거
         $('#category-wrap').on('click', '#del-category' ,function() {
         	console.log(this);
         	this.parentNode.remove();
         });
 
-	    
+	    // 회원가입 정보 넘기기 전에 입력값 검증.
         $('#user-join-submit').click(function() {
         	
         	if (idCheck === false) {
@@ -469,20 +490,6 @@
 				alert('전화번호를 다시 확인하세요.');
 				$('#userTel').focus();				
 				return;
-			} else if (optionCheck === true) {
-				if ($('#addrBasic').val() === '') {
-					alert('기본 주소를 입력해주세요.');
-					$('#addrBasic').focus();
-					return;
-				} else if ($('#addrDetail').val() === '') {
-					alert('상세 주소를 입력해주세요.');
-					$('#addrBasic').focus();
-					return;
-				} /* else if ($('#userEmail'). === '') {
-					alert('상세 주소를 입력해주세요.');
-					$('#addrBasic').focus();
-					return;
-				} */
 			} else {
 				const majors = $('select[name=categoryMajorTitle]');
 				for (let i = 1; i < majors.length; i++) {
@@ -503,16 +510,48 @@
 				}
 			}
         	
+        	if (optionCheck === true) { 
+				if ($('#addrBasic').val() === '') {
+					alert('기본 주소를 입력해주세요.');
+					$('#addrBasic').focus();
+					return;
+				} else if ($('#addrDetail').val() === '') {
+					alert('상세 주소를 입력해주세요.');
+					$('#addrBasic').focus();
+					return;
+				} else if ($('#confBtn').css('display') !== 'none') {
+					alert('이메일 인증해주세요.');
+					$('#userEmail').focus();
+					return;
+				} 
+        	}
+        	
         	$('#user-join-form').submit();
         });
         
- 
+ 		
         
         
 	}); // end jQuery
 	
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function (e) {
+			 $('#image_section').attr('src', e.target.result);  
+			}
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	 
+	// 이벤트를 바인딩해서 input에 파일이 올라올때 (input에 change를 트리거할때) 위의 함수를 this context로 실행합니다.
+	$("#user-profile-pic").change(function(){
+	   readURL(this);
+	});	
+	
 	// 다음 주소 api 사용해보기
-
 	function searchAddress() {
         new daum.Postcode({
             oncomplete: function(data) {
