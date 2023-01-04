@@ -148,7 +148,7 @@ public class ProductController {
 		ivo.setProductImageFolder(today);
 		
 		String uploadFolder ="C:/imgduck/product/"+today;
-		ivo.setProductImagePath("C:/imgduck/");
+		ivo.setProductImagePath("C:/imgduck/product/");
 		for(int i =0;i<list.size();i++ ) {
 				ivo.setProductThumbnail(0);
 			if(i==0) {
