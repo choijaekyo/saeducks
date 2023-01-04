@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -176,7 +178,7 @@ public class ProductController {
 	@GetMapping("/mainDisplayImg")
 	public ResponseEntity<byte[]> mainDisplayImg(String fileLoca, String fileName) {
 		
-		File file = new File("C:/imgduck/" + fileLoca + "/" + fileName);
+		File file = new File("C:/imgduck/product/" + fileLoca + "/" + fileName);
 		ResponseEntity<byte[]>result = null;
 		HttpHeaders headers = new HttpHeaders();
 		try {

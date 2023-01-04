@@ -41,8 +41,11 @@ public interface IProductMapper {
 	// 상품 이미지 삽입
 	void insertImg(ProductImageVO vo);
 	
-	// 메인 상품 이미지 출력
+	// 메인 상품 이미지 출력 세션있음
 	List<ProductImageVO> mainImage(int productNo);
+	
+	// 메인 상품 이미지 출력 세션 없음
+	List<ProductImageVO> mainImageNo();
 
 	// 이미지 정보
 	List<ProductImageVO> getImg(int num);
