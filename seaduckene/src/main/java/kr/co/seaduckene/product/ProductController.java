@@ -20,12 +20,15 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
@@ -188,6 +191,40 @@ public class ProductController {
 		
 		return result;
 	}
+	
+	
+	
+	@PostMapping("/insertBasket")
+	@ResponseBody
+	public void insertBasket(@RequestBody ProductBasketVO vo) {
+		System.out.println(vo);
+		productService.insertBasket(vo);
+	}
+	@GetMapping("/plusQuantity")
+	public ModelAndView plusQ(ModelAndView modelAndView , int basketNo ,int q) {
+		System.out.println("/plusQuantity GET");
+		Map<String, Object> map = new HashMap<>();
+		map.put("basketNo",basketNo);
+		map.put("q",q+1);
+		productService.cQuantity(map);
+		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		return modelAndView;
+	}
+	
+	@GetMapping("/minusQuantity")
+	public ModelAndView minusQ(ModelAndView modelAndView , int basketNo,int q) {
+		System.out.println("/minusQuantity GET");
+		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		if(q==0) return modelAndView;
+		Map<String, Object> map = new HashMap<>();
+		map.put("basketNo",basketNo);
+		map.put("q",q-1);
+		productService.cQuantity(map);
+
+		
+		return modelAndView;
+	}
+	
 	
 	
 	

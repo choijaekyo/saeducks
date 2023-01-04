@@ -197,31 +197,16 @@
 				            </tr>
 				            </thead>
 				            <tbody>
+				            <c:forEach var="b" items="${basket }">
 				            <tr>
-				                <th scope="row" colspan="2" class="align-middle">프라모델프라</th>
-				                <td class="align-middle">10,000</td>
-				                <td class="align-middle">2 &nbsp;<a href="##"><i class="bi bi-plus-square"></i></a>
-				                    <a href="##"><i class="bi bi-dash-square"></i></a></td>
-				                <td class="align-middle">20,000</td>
-				                <td class="align-middle"><button type="button" class="btn btn-danger">삭제</button></td>
+				                <th scope="row" colspan="2" class="align-middle basket">${b.basketProductName }</th>
+				                <td class="align-middle basket">${b.basketPrice }</td>
+				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-plus-square"></i></a>
+				                    <a href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square"></i></a></td>
+				                <td class="align-middle basket">${b.basketQuantity*b.basketPrice }  </td>
+				                <td class="align-middle basket"><button type="button" class="btn btn-danger">삭제</button></td>
 				            </tr>
-				            <tr>
-				                <th scope="row" colspan="2" class="align-middle">프라모델</th>
-				                <td class="align-middle">10,000</td>
-				                <td class="align-middle">2&nbsp;<a href="##"><i class="bi bi-plus-square"></i></a>
-				                    <a href="##"><i class="bi bi-dash-square"></i></a></td>
-				                <td class="align-middle">20,000</td>
-				                <td class="align-middle"><button type="button" class="btn btn-danger">삭제</button></td>
-				            </tr>
-				            <tr>
-				                <th scope="row" colspan="2" class="align-middle">프라모델</th>
-				                <td class="align-middle">10,000</td>
-				                <td class="align-middle">2&nbsp;<a href="##"><i class="bi bi-plus-square"></i></a>
-				                    <a href="##"><i class="bi bi-dash-square"></i></a></td>
-				                <td class="align-middle">20,000</td>
-				                <td class="align-middle"><button type="button" class="btn btn-danger">삭제</button></td>
-				            </tr>
-				            </tbody>
+				            </c:forEach>
 				        </table>
 				        <div>
 				            <div class="col-md-2 offset-md-10 text-end">

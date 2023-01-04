@@ -40,11 +40,16 @@ public interface IProductMapper {
 
 	// 상품 이미지 삽입
 	void insertImg(ProductImageVO vo);
-	
+
 	// 메인 상품 이미지 출력
 	List<ProductImageVO> mainImage(int productNo);
 
 	// 이미지 정보
 	List<ProductImageVO> getImg(int num);
 
+	// 장바구니 등록
+	void insertBasket(ProductBasketVO vo);
+
+	// 장바구니 수량 변경
+	public void cQuantity(Map<String, Object> map);
 }

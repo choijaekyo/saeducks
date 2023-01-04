@@ -41,4 +41,9 @@
 		INSERT INTO favorite (favorite_no, favorite_category_no, favorite_user_no) VALUES (favorite_seq.NEXTVAL, #{categoryNo}, #{userNo})
 	</insert>
 	
+	<select id="getBasket" resultType="basket">
+		SELECT * FROM basket
+		WHERE basket_user_no=#{num}
+	</select>
+	
 </mapper>

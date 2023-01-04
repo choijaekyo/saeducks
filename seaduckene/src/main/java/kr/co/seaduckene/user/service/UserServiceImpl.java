@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.IAddressMapper;
+import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.mapper.IUserMapper;
@@ -84,5 +85,12 @@ public class UserServiceImpl implements IUserService {
 		
 		addressMapper.updateAddr(addressVO);
 	}
+	
+	@Override
+	public List<ProductBasketVO> getBasket(int num) {
+		
+		return userMapper.getBasket(num);
+	}
+	
 
 }

@@ -137,4 +137,16 @@ public class ProductServiceImpl implements IProductService {
 	public List<ProductImageVO> mainImage(int productNo) {
 		return productMapper.mainImage(productNo);
 	}
+	
+	@Override
+	public void insertBasket(ProductBasketVO vo) {
+		productMapper.insertBasket(vo);
+		
+	}
+	
+	@Override
+	public void cQuantity(Map<String, Object> map) {
+		productMapper.cQuantity(map);
+		
+	}
 }
