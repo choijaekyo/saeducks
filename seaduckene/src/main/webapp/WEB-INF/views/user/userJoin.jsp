@@ -30,7 +30,7 @@
 			</div>
 			<div class="join-container">
 				<form action="<c:url value='/user/userJoin' />" method="post" enctype="multipart/form-data" id="user-join-form">
-					<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />">
+					<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />" id="image_section">
 					<div class="clearfix">
 						<div class="file-upload">
 							<span>+</span>
@@ -534,9 +534,11 @@
         
 	}); // end jQuery
 	
+	const input = document.querySelector('#user-profile-pic');
+	
 	function readURL(input) {
 		if (input.files && input.files[0]) {
-			var reader = new FileReader();
+			let reader = new FileReader();
 			
 			reader.onload = function (e) {
 			 $('#image_section').attr('src', e.target.result);  

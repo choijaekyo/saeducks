@@ -23,8 +23,7 @@ CREATE TABLE duck_user (
     user_profile_path VARCHAR2(500) DEFAULT '프로필 경로',
     user_profile_folder VARCHAR2(500) DEFAULT '프로필 폴더',
     user_profile_file_name VARCHAR2(1000) DEFAULT 'profile.png',
-    user_profile_uuid VARCHAR2(500) DEFAULT 'profile.png',
-    user_category_user_no
+    user_profile_file_real_name VARCHAR2(500) DEFAULT 'profile.png'
     );
 
 CREATE SEQUENCE duck_user_seq
@@ -55,6 +54,6 @@ public class UserVO {
 	private String userProfilePath;
 	private String userProfileFolder;
 	private String userProfileFileName;
-	private String userProfileUuid;
+	private String userProfileFileRealName;
 
 }

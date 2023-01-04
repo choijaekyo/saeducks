@@ -1,6 +1,11 @@
 package kr.co.seaduckene.user;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -79,11 +84,42 @@ public class UserController {
 	}
 	
 	@PostMapping("/userJoin")
-	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile file) {
+	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
 		log.info(userVO);
 		log.info(addressVO);
 		log.info(boardCategoryVO);
+		log.info(profilePic);
 		
+		if (profilePic.getSize() != 0) {
+			SimpleDateFormat simple = new SimpleDateFormat("yyyyMMdd");
+			String today = simple.format(new Date());
+			
+			String fileRealName = profilePic.getOriginalFilename(); // 파일 원본명
+			String profilePath = "c:/imgduck/user/";
+			
+			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+			
+			UUID uuid = UUID.randomUUID();
+			String uu = uuid.toString().replace("-","");
+			
+			
+			userVO.setUserProfileFileRealName(fileRealName);
+			userVO.setUserProfilePath(profilePath);
+			userVO.setUserProfileFolder(today);
+			userVO.setUserProfileFileName(uu + fileExtension); 
+			
+			String uploadFolder = profilePath + today;
+			File folder = new File(uploadFolder);
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
+			File saveFile = new File(uploadFolder+"/"+uu+fileExtension);
+			try {
+				profilePic.transferTo(saveFile);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		//user table 등록
 		userService.registUser(userVO);
@@ -123,7 +159,7 @@ public class UserController {
 	}
 
 	@GetMapping("/userMyPage/{head}")
-	public ModelAndView userMyPage(ModelAndView modelAndView, @PathVariable int head,HttpSession session) {
+	public ModelAndView userMyPage(ModelAndView modelAndView, @PathVariable int head, HttpSession session) {
 		modelAndView.addObject("toggle", head);
 		
 		modelAndView.setViewName("/user/userMyPage");
