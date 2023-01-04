@@ -217,7 +217,7 @@
 				        </table>
 				        <div>
 				        	<div class="col-md-2 offset-md-10 text-end" style="line-height: 25px;">
-				                <span>총액:${total }</span>
+				                <span>총액:&nbsp;${total }</span>
 				            </div>
 				            <div class="col-md-2 offset-md-10 text-end">
 				                <button type="button" class="btn btn-success">주문하기</button>

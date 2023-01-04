@@ -177,7 +177,6 @@
 			const major = $(this).val();
 			const minor1 = '${categoryList}';
 			const minor2 = minor1.split('), ');
-			
 			const $category2 = this.nextElementSibling;
 			$($category2).html('');
 			

@@ -88,16 +88,12 @@
 
 	<script>
 		$(function(){
-			const userNo = 10; //나중에 login 세션아이디로 대체할것!
+			const userNo = '${login.userNo}';
 			const pNo = '${vo.productNo}';
 			const price = '${vo.productPriceSelling}';
 			const pName ='${vo.productName}';
 			$('#cartBtn').click(function(){
 				let ea = $('#inputQuantity').val();
-				console.log(ea);
-				console.log(userNo);
-				console.log(pNo);
-				console.log(price);
 			$.ajax({
 				type:'post',
 				url:'<c:url value="/product/insertBasket"/>',

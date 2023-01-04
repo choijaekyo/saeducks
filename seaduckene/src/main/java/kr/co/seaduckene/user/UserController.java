@@ -127,8 +127,8 @@ public class UserController {
 		modelAndView.addObject("toggle", head);
 		
 		modelAndView.setViewName("/user/userMyPage");
-		
-		int userNo = 10;//세션 만들시 세션으로 바꿀것
+		UserVO vo = (UserVO)session.getAttribute("login");
+		int userNo = vo.getUserNo();
 		List<ProductBasketVO> bvo = userService.getBasket(userNo);
 		int total = 0;
 		for(ProductBasketVO b : bvo) {
