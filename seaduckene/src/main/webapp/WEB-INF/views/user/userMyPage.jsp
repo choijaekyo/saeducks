@@ -193,7 +193,7 @@
 			</c:otherwise>
 		</c:choose>
 					<div class="container">
-				        <table class="table table-striped text-center ">
+				        <table class="table table-striped text-center " style="table-layout:fixed;">
 				            <thead>
 				            <tr>
 				                <th scope="col"colspan="2">상품</th>
@@ -210,12 +210,15 @@
 				                <td class="align-middle basket">${b.basketPrice }</td>
 				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-plus-square"></i></a>
 				                    <a href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square"></i></a></td>
-				                <td class="align-middle basket">${b.basketQuantity*b.basketPrice }  </td>
+				                <td class="align-middle basket">&#8361;${b.basketQuantity*b.basketPrice }  </td>
 				                <td class="align-middle basket"><button type="button" class="btn btn-danger">삭제</button></td>
 				            </tr>
 				            </c:forEach>
 				        </table>
 				        <div>
+				        	<div class="col-md-2 offset-md-10 text-end" style="line-height: 25px;">
+				                <span>총액:${total }</span>
+				            </div>
 				            <div class="col-md-2 offset-md-10 text-end">
 				                <button type="button" class="btn btn-success">주문하기</button>
 				            </div>

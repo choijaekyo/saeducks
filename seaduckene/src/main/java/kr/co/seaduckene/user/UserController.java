@@ -130,7 +130,12 @@ public class UserController {
 		
 		int userNo = 10;//세션 만들시 세션으로 바꿀것
 		List<ProductBasketVO> bvo = userService.getBasket(userNo);
+		int total = 0;
+		for(ProductBasketVO b : bvo) {
+			total += b.getBasketQuantity() * b.getBasketPrice();
+		}
 		modelAndView.addObject("basket", bvo);
+		modelAndView.addObject("total", total);
 		
 		return modelAndView;
 	}
