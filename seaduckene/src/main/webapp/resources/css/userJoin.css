@@ -189,10 +189,6 @@
 		font-size: 0.8rem;
 	}
 	
-	#userJoinPage .join-container #del-category {
-		margin: 0 auto;
-		display: block;
-	}
 
 }
 
@@ -221,6 +217,14 @@
 
 #userJoinPage .join-container form .join-category {
 	display: inline-block; 
+}
+
+@media screen and (max-width: 451px) {
+	#userJoinPage .join-container form .join-category {
+		display: block;
+		margin: 10px auto;
+	}
+	
 }
 
 #userJoinPage .join-container .category-button {
