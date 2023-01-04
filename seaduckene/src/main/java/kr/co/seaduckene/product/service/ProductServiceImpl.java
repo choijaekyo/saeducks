@@ -94,6 +94,9 @@ public class ProductServiceImpl implements IProductService {
 		return addressMapper.checkAddr(map);
 	}
 	
+	// 장바구니목록 가져오기
+	
+	// 상품목록 가져오기
 
 	//카테고리 가져오기
 	@Override

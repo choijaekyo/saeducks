@@ -16,10 +16,6 @@ public interface IProductService {
 	// 상품상세
 	ProductVO getContent(int num);
 	
-	// 상품리스트
-	
-	// 장바구니 목록
-	
 	// 상품주문
 	void order(List<Integer> orderProductNoList ,ProductOrderVO order, String userEmail, UserVO user);
 	

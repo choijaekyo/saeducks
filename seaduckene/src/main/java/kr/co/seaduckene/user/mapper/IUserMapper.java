@@ -3,7 +3,6 @@ package kr.co.seaduckene.user.mapper;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;

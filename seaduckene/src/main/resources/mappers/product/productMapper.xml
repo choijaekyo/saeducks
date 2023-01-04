@@ -17,9 +17,13 @@
 
 	<update id="updateEmail">
 		UPDATE duck_user SET user_email=#{userEmail}
-		WHERE
-		user_no=#{userNo}
+		WHERE user_no=#{userNo}
 	</update>
+	
+	<select id="checkEmail" resultType="String">
+		SELECT user_email FROM duck_user
+		WHERE user_no=#{userNo}
+	</select>
 
 	<select id="getBasket" resultType="basket">
 		SELECT * FROM basket
