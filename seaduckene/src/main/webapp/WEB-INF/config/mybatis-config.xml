@@ -27,6 +27,7 @@
 		<typeAlias type="kr.co.seaduckene.common.AddressVO" alias="address"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductBasketVO" alias="basket"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductImageVO" alias="image"/>
+		<typeAlias type="kr.co.seaduckene.util.BoardUserVO" alias="boardUser"/>
 	</typeAliases>
 	
 	<!-- 인터페이스 mapper 구현체 xml 파일의 경로를 표시하는 태그.

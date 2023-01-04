@@ -28,60 +28,20 @@
 		            <p>All the dig in this world that I chose</p>
 		        </div>
 		        <div class="row mb_30">
+		        	<c:forEach var="b" items="${boardList}">
 		            <div class="col-lg-4 col-md-6">
 		                <div class="facilities_item">
 		                    <h4 class="sec_h4">
 			                    <i class="bi bi-trophy-fill"></i>
-			                    Restaurant
+			                    ${b.boardTitle}
 		                    </h4>
-		                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+		                    <p class="col-9 text-truncate">내용 : ${b.boardContent}</p>
+		                    <p>조회수 : ${b.boardViews}</p>
+		                    <p>소카테고리 : ${b.categoryMinorTitle}</p>
+		                    <p>작성자 : ${b.userNickname}</p>
 		                </div>
 		            </div>
-		            <div class="col-lg-4 col-md-6">
-		                <div class="facilities_item">
-		                    <h4 class="sec_h4">
-			                    <i class="bi bi-trophy-fill"></i>
-			                    Sports CLub
-		                    </h4>
-		                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 col-md-6">
-		                <div class="facilities_item">
-		                    <h4 class="sec_h4">
-			                    <i class="bi bi-trophy-fill"></i>
-			                    Swimming Pool
-		                    </h4>
-		                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 col-md-6">
-		                <div class="facilities_item">
-		                    <h4 class="sec_h4">
-			                    <i class="bi bi-trophy-fill"></i>
-			                    Rent a Car
-		                    </h4>
-		                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 col-md-6">
-		                <div class="facilities_item">
-		                    <h4 class="sec_h4">
-			                    <i class="bi bi-trophy-fill"></i>
-			                    Gymnesium
-		                    </h4>
-		                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-		                </div>
-		            </div>
-		            <div class="col-lg-4 col-md-6">
-		                <div class="facilities_item">
-		                    <h4 class="sec_h4">
-			                    <i class="bi bi-trophy-fill"></i>
-			                    Bar
-		                    </h4>
-		                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
-		                </div>
-		            </div>
+		            </c:forEach>
 		        </div>
 		    </div>
 		</section>

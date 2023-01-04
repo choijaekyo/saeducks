@@ -15,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.service.IProductService;
+import kr.co.seaduckene.util.BoardUserVO;
 
 /**
  * Handles requests for the application home page.
@@ -28,6 +30,9 @@ public class HomeController {
 	
 	@Autowired
 	private IProductService service;
+	
+	@Autowired
+	private IBoardService bService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -42,15 +47,19 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		List<ProductImageVO> list;
+		List<BoardUserVO> bList;
 		
 		if(session.getAttribute("login") == null) {
 			System.out.println("login 세션 없음");
 			list = service.mainImageNo();
+			bList = bService.bUserNoList();
 		} else {
 			System.out.println("login 세션 있음");
 			list = service.mainImage(1);
+			bList = bService.bUserList(1);
 		}
 
+		model.addAttribute("boardList", bList );
 		model.addAttribute("mainListImg", list );
 		model.addAttribute("serverTime", formattedDate );
 		

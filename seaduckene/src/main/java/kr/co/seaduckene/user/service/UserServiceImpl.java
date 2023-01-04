@@ -102,5 +102,6 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.checkId(userId);
 	}
 	
+	
 
 }
