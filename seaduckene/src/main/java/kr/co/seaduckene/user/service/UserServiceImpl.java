@@ -31,6 +31,11 @@ public class UserServiceImpl implements IUserService {
 		
 		userMapper.registUser(userVO);
 	}
+	
+	@Override
+	public UserVO loginUser(UserVO userVO) {
+		return userMapper.loginUser(userVO);
+	}
 
 	@Override
 	public List<Categories> getCategories() {
@@ -41,6 +46,7 @@ public class UserServiceImpl implements IUserService {
 	public void updateUserFavorites(CategoryVO boardCategoryVO, int userNo) {
 		
 		// 카테고리 한 개에서도 작동하는 지 봐야 함.
+		// -> 카테고리 한 개도 잘 동작 하는 듯.
 		String[] majorList = boardCategoryVO.getCategoryMajorTitle().split(",");
 		log.info(majorList);
 		String[] minorList = boardCategoryVO.getCategoryMinorTitle().split(",");
@@ -88,8 +94,12 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public List<ProductBasketVO> getBasket(int num) {
-		
 		return userMapper.getBasket(num);
+	}
+
+	@Override
+	public int checkId(String userId) {
+		return userMapper.checkId(userId);
 	}
 	
 

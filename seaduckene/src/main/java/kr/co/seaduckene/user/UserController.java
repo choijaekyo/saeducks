@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.seaduckene.board.command.BoardVO;
@@ -46,6 +47,17 @@ public class UserController {
 		
 	}
 	
+	@PostMapping("/userLoginAuth")
+	public ModelAndView userLogin(UserVO userVO, ModelAndView modelAndView) {
+		log.info(userVO);
+		
+		// 비밀번호 암호화는 나중에 구현할 것.
+		
+		modelAndView.addObject("userVo", userService.loginUser(userVO));
+		
+		return modelAndView;
+	}
+	
 	@GetMapping("/userJoin")
 	public void userJoin(HttpServletRequest request) {
 		log.info(userService.getCategories());
@@ -55,8 +67,19 @@ public class UserController {
 		log.info(userService.getCategories().size() - 1);
 	}
 	
+	@GetMapping("/userLogout")
+	public ModelAndView userLogin(ModelAndView modelAndView, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("login");
+		
+		modelAndView.setViewName("redirect:/user/userLogin");
+		
+		return modelAndView;
+	}
+	
 	@PostMapping("/userJoin")
-	public void userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO) {
+	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile file) {
 		log.info(userVO);
 		log.info(addressVO);
 		log.info(boardCategoryVO);
@@ -78,14 +101,24 @@ public class UserController {
 			// address table 등록
 			userService.registAddr(addressVO);
 		}
+		
+		modelAndView.setViewName("redirect:/user/userJoinSuccess");
+		
+		return modelAndView;
 	}
 	
+	@GetMapping("/userJoinSuccess")
+	public void userJoinSuccess() {};
+	
+	@GetMapping("/userFindAccount")
+	public void userFindAccount() {
+		
+	}
 	// email인증
 	@ResponseBody
 	@PostMapping("/userConfEmail")
 	public String userConfEmail(@RequestBody String email) {
-		System.out.println("email인증요청 들어옴");
-		System.out.println(email);
+		log.info("email인증요청 들어옴" + email);
 		return mailService.joinEmail(email);
 	}
 
@@ -124,7 +157,15 @@ public class UserController {
 	public String checkId(@RequestBody String userId) {
 		log.info(userId);
 		
-		return "duplicated";
+		if (userService.checkId(userId) == 0) {
+
+			return "accepted";
+		} else {
+
+			return "duplicated";
+		}
+		
+		
 	}
 	
 	@ResponseBody
@@ -155,13 +196,5 @@ public class UserController {
 		return Integer.toString(1);
 	}
 	
-	@GetMapping("/userJoinSuccess")
-	public void userJoinSuccess() {
-		
-	}
-	
-	@GetMapping("/userFindAccount")
-	public void userFindAccount() {
-		
-	}
+
 }

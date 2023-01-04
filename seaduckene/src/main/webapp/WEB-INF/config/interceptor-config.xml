@@ -9,12 +9,20 @@
 	<!-- web.xml에 초기 설정 파일로 이 파일을 추가 -->
 
 	<bean id="ProductOrderInterceptor" class="kr.co.seaduckene.util.interceptor.ProductOrderInterceptor" />
+	<bean id="userLoginSuccessHandler" class="kr.co.seaduckene.util.interceptor.UserLoginSuccessHandler" />
 	
 	<mvc:interceptors>
 		
+		
+		<!-- userLogin postHandler -->
 		<mvc:interceptor>
 			<mvc:mapping path="/product/order" />
 			<ref bean="ProductOrderInterceptor" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/user/userLoginAuth" />
+			<ref bean="userLoginSuccessHandler" />
 		</mvc:interceptor>
 
 	</mvc:interceptors>

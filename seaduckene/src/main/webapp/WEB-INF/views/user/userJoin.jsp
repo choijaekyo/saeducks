@@ -29,12 +29,12 @@
 				</ol>
 			</div>
 			<div class="join-container">
-				<form action="" method="post" enctype="multipart/form-data" id="user-join-form">
+				<form action="<c:url value='/user/userJoin' />" method="post" enctype="multipart/form-data" id="user-join-form">
 					<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />">
 					<div class="clearfix">
 						<div class="file-upload">
 							<span>+</span>
-							<input name="" type="file" class="upload" id="user-profile-pic" > <br>
+							<input name="profilePic" type="file" class="upload" id="user-profile-pic" > <br>
 						</div>
 					</div>
 					<span>기본 정보</span> <br>
@@ -56,7 +56,7 @@
                 	</div>
 					<div class="input-group inputArea">
 	                    <div class="col-md-12 col-sm-12 col-12">
-	                        <input name="userName" class="form-control join-input" type="text" placeholder="이름" id="name" required />
+	                        <input name="userName" class="form-control join-input" type="text" placeholder="이름" id="userName" required />
 	                    </div>
                 	</div>
 					<div class="input-group inputArea">
@@ -66,19 +66,28 @@
                 	</div>
    					<div class="input-group inputArea">
 		                <div class="col-md-12 col-sm-12 col-12">
-		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" />
+		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" required/>
 	                    </div>
                		</div> <br>
 					
-					<span class="basic-info">상세 정보</span> <br> 
+					<span class="basic-info">카테고리 추가</span>
 					<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
 					<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
-						<li id="dummy-category" style="display: none;">
+						<li style="display: none;" >
 							<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
                                     <option selected disabled>대 카테고리</option>
-                                    <%-- <c:forEach var="i" begin="0" end="${categoryList.size() - 1}" step="1"> --%>
-                                    <%-- <c:forEach var="i" items="${categoryList}" > --%>
-                                    <%-- <c:set var="n" value="${categoryList.size()}"  /> --%>
+                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
+                                    	<option>${categoryList[i].categoryMajorTitle}</option>
+                                    </c:forEach>
+                            </select>
+                            <select  name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
+                                    <option selected disabled>소 카테고리</option>
+                            </select>
+                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
+						</li>
+						<li>
+							<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
+                                    <option selected disabled>대 카테고리</option>
                                     <c:forEach var="i" begin="0" end="${majorLength}" step="1">
                                     	<option>${categoryList[i].categoryMajorTitle}</option>
                                     </c:forEach>
@@ -100,12 +109,12 @@
 						<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
-		                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="주소" id="addrBasic" readonly />
+		                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="기본 주소" id="addrBasic" readonly />
 		                    </div>
                 		</div>	
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
-		                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세주소" id="addrDetail" />
+		                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세 주소" id="addrDetail" />
 		                    </div>
                 		</div>	
 						<div class="input-group inputArea">
@@ -119,6 +128,15 @@
 		                    </div>
                 		</div>	
 						<input type="button" class="btn btn-lg btn-b btn-duck email-btn" onclick="" value="이메일 인증"> <br>
+						<div class="input-group inputArea" style="display: none;" id="emailConf">
+		                    <div class="col-md-12 col-sm-12 col-12">
+								<input class="form-control join-input" type="text" name=""
+									id="email-auth-code" placeholder="이메일 인증 코드" required />
+								<input class="btn btn-outline-secondary" type="button"
+											name="confBtn" id="confBtn" value="인증하기" />
+		                    </div>
+		                    <p id="confMailRes"></p>
+                		</div>	
 					</div> <br> <br>
 					<input type="button" class="btn btn-sm btn-info btn-b" value="가입하기" id="user-join-submit"> &nbsp;&nbsp;
 					<input type="button" class="btn btn-sm btn-danger btn-b" value="뒤로가기">
@@ -137,6 +155,7 @@
 
 <script>
 
+	let optionCheck = false;
 	$(function() {
 		
 		$('.optional-container').click(function(e) {
@@ -145,10 +164,12 @@
 				$('#optional-checkbox').prop("checked",false);
 				$('.optional-info').css('display','none');
 				$('.addiction-description').text('쇼핑 서비스를 이용하시려면 클릭하세요~');
+				optionCheck = false;
 			} else {
 				$('#optional-checkbox').prop("checked",true);
 				$('.optional-info').css('display','block');
 				$('.addiction-description').text('쇼핑 서비스를 이용하시려면 추가 정보를 입력하세요!');
+				optionCheck = true;
 			}
 		});
 		
@@ -191,46 +212,52 @@
 			
 		});
 		
-		
+		let code;
 		// 인증번호 이메일 전송
-		$('#mail-check-btn').click(() => {
+		$('.email-btn').click(() => {
 
 			/* openLoading(); */
+			
 
-			const email = $('#userEmail1').val() + $('#userEmail2').val();
-
-			console.log('완성된 이메일' + email);
-
+			const email = $('#userEmail').val();
+			console.log('이메일: ' + email);
+			
+			if(email.trim() === ''){
+				alert('인증받을 메일 주소를 먼저 입력해 주세요.');
+			} else {
+				$('#emailConf').css('display', 'block');
+				
 			$.ajax({
-				type: 'GET',
-				url: '<c:url value="/user/mailCheck?email=" />' + email,
+				type: 'POST',
+				url: '<c:url value="/user/userConfEmail" />',
 				success: function(data) {
-					console.log('통신 성공!');
-					closeLoading();
-					console.log('컨트롤러가 전달한 인증번호: ' + data);
 
-					$('.mail-check-input').attr('disabled', false); // 비활성된 인증번호 입력창 활성화.
+					$('#confMailRes').attr('disabled', false); // 비활성된 인증번호 입력창 활성화.
 					code = data; // 인증번호를 전역변수에 저장.
-					alert('인증번호가 전송되었습니다. 확인 후 입력란에 정확하게 입력하세요!');
+					alert('인증메일이 전송되었습니다.\n입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
 				},
 				error: function() {
-					console.log('통신 실패!');
+					alert('이메일 전송 실패');
 				}
+			}
 
 			}); // end ajax(이메일 전송)
 
 		}); // 이메일 전송 끝.
 
+		let idCheck = false;
 		// 아이디 중복 확인.
 		$('#account-check').click(function() {
 			const userId = $('#userId').val();
 			console.log();
 			
 			if(userId === '') {
+				idCheck = false;
 				$('#userId').focus();
-				alert('아이디는 필수입니다.');
+				alert('아이디를 입력하세요.');
 				return;
 			} else if($('#userId').css('border-block-color') === 'rgb(255, 0, 0)') {
+				idCheck = false;
 				$('#userId').focus();
 				alert('유효하지 않는 아이디입니다.');
 				return;				
@@ -244,15 +271,18 @@
 				data:userId,
 				success: function(result) {
 					if (result === 'duplicated') {
+						idCheck = false;
 						$('#userId').css('border', '2px solid red');
 						$('#userId').focus();
 						alert('아이디가 이미 존재합니다.\n다른 아이디로 입력해주세요.');
 					} else {
+						idCheck = true;
 						$('#userId').css('border', '2px solid #ffc107');
 						alert('사용가능한 아이디입니다!');
 					}
 				},
 				error: function() {
+					idCheck = false;
 					alert('아이디 확인에 실패했습니다.\n관리자에게 문의해주세요.');						
 				}
 				
@@ -277,6 +307,24 @@
 			$(this).attr('placeholder', '비밀번호 확인');			
 		});
 		
+		$('#userName').hover(function() {
+			$(this).attr('placeholder', '한/영');
+		}, function() {
+			$(this).attr('placeholder', '이름');			
+		});
+		
+		$('#userNickname').hover(function() {
+			$(this).attr('placeholder', '한/영/숫자 10글자 이내, 특수문자 _ ! ?');
+		}, function() {
+			$(this).attr('placeholder', '닉네임');			
+		});
+		
+		$('#userTel').hover(function() {
+			$(this).attr('placeholder', '-(하이픈) 없이 입력하세요.');
+		}, function() {
+			$(this).attr('placeholder', '전화번호');			
+		});
+		
 		/*아이디 형식 검사 스크립트*/
 		$('#userId').keyup(function() {
             const regex = /^[A-Za-z0-9+]{4,12}$/; /* 영문 대/소문자, 숫자 4 ~ 12 */
@@ -289,6 +337,8 @@
                 $(this).css('border', '2px solid red');
                 /* document.getElementById("msgId").innerHTML = "유효하지 않은 아이디 입력방식입니다."; */
             }            
+            /* console.log($(this).css('border-block-color')); */
+            
             
 		});
 		/*비밀번호 형식 검사 스크립트*/
@@ -312,7 +362,6 @@
 		$('#pwConfirm').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
-            
             if(regex.test($(this).val() )) {
 	            if($(this).val() === $("#userPw").val()) {
 	                $(this).css('border', '2px solid #ffc107');
@@ -328,19 +377,56 @@
             }   
 		});
         
-        /* 이메일 확인검사 */
-        $('#userEmail').keyup(function() {
+        /* 이름 확인검사 */
+        $('#userName').keyup(function() {
         	$(this).css('color', 'black');
-			const regex = /^[A-Za-z0-9+]+@[A-Za-z+]+.[A-Za-z+]$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
+			const regex = /^[가-힣a-zA-Z]+$/;
 			
 			if (regex.test($(this).val())) {
                 $(this).css('border', '2px solid #ffc107');
 				
 			} else {
                 $(this).css('border', '2px solid red');
-				 
+			}	
+        });
+        
+        /* 닉네임 확인검사 */
+        $('#userNickname').keyup(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[A-Za-z0-9가-힣+]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid #ffc107');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+			}	
+        });
+        
+        /* 전화번호 확인검사 */
+        $('#userTel').keyup(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[0-9]{8,13}$/; /* 숫자 8~13 자리 */
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid #ffc107');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+			}	
+        });
+        
+        /* 이메일 확인검사 */
+        $('#userEmail').keyup(function() {
+        	$(this).css('color', 'black');
+			const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid #ffc107');
+				
+			} else {
+                $(this).css('border', '2px solid red');
 			}
-        	
         }); 
         
         $('#add-category').click(function() {
@@ -356,14 +442,66 @@
         	this.parentNode.remove();
         });
 
-
-		$('#userTel').hover(function() {
-			$(this).attr('placeholder', '-(하이픈) 없이 입력하세요.');
-		}, function() {
-			$(this).attr('placeholder', '전화번호');			
-		});
 	    
         $('#user-join-submit').click(function() {
+        	
+        	if (idCheck === false) {
+				alert('아이디 중복 확인이 필요합니다.');
+				$('#userId').focus();
+				return;
+			} else if ($('#userPw').css('border-block-color') !== 'rgb(255, 193, 7)') {
+				alert('비밀번호를 다시 확인하세요.');
+				$('#userPw').focus();				
+				return;
+			} else if ($('#pwConfirm').css('border-block-color') !== 'rgb(255, 193, 7)') {
+				alert('비밀번호를 다시 확인하세요.');
+				$('#pwConfirm').focus();				
+				return;
+			} else if ($('#userName').css('border-block-color') !== 'rgb(255, 193, 7)') {
+				alert('이름을 다시 확인하세요.');
+				$('#userName').focus();				
+				return;
+			} else if ($('#userNickname').css('border-block-color') !== 'rgb(255, 193, 7)') {
+				alert('닉네임을 다시 확인하세요.');
+				$('#userNickname').focus();				
+				return;
+			} else if ($('#userTel').css('border-block-color') !== 'rgb(255, 193, 7)') {
+				alert('전화번호를 다시 확인하세요.');
+				$('#userTel').focus();				
+				return;
+			} else if (optionCheck === true) {
+				if ($('#addrBasic').val() === '') {
+					alert('기본 주소를 입력해주세요.');
+					$('#addrBasic').focus();
+					return;
+				} else if ($('#addrDetail').val() === '') {
+					alert('상세 주소를 입력해주세요.');
+					$('#addrBasic').focus();
+					return;
+				} /* else if ($('#userEmail'). === '') {
+					alert('상세 주소를 입력해주세요.');
+					$('#addrBasic').focus();
+					return;
+				} */
+			} else {
+				const majors = $('select[name=categoryMajorTitle]');
+				for (let i = 1; i < majors.length; i++) {
+					if (majors[i].value === '대 카테고리') {
+						alert('대 카테고리를 선택하세요.');
+						majors[i].focus();				
+						return;						
+					}	  
+				}
+				
+				const minors = $('select[name=categoryMinorTitle]');
+				for (let i = 1; i < minors.length; i++) {
+					if (minors[i].value === '소 카테고리') {
+						alert('소 카테고리를 선택하세요.');
+						minors[i].focus();				
+						return;						
+					}	  
+				}
+			}
         	
         	$('#user-join-form').submit();
         });

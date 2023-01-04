@@ -152,10 +152,19 @@
 	margin-top: 10px; 
 }
 
+#userJoinPage .join-container form #email-auth-code { 
+	width: 205px;
+}
+
+#userJoinPage .join-container form .btn-outline-secondary { 
+	vertical-align: unset;
+	
+}
+
 #userJoinPage .input-group .join-input:focus,
 #userJoinPage #category-wrap .join-category:focus {
-	border: 1px solid rgb(244, 198, 33);
-	box-shadow: 0 0 5px 0.20rem rgba(244, 198, 33, 0.475);
+	border: 1px solid rgb(255, 193, 7);
+	box-shadow: 0 0 5px 0.20rem rgba(255, 193, 7, 0.475);
 }
 
 @media screen and (min-width: 768px) {
@@ -174,8 +183,10 @@
 	
 	#userJoinPage .join-container form #userId:hover::placeholder,
 	#userJoinPage .join-container form #userPw:hover::placeholder,
-	#userJoinPage .join-container form #pwConfirm:hover::placeholder {
-		font-size: 1rem;
+	#userJoinPage .join-container form #userName:hover::placeholder,
+	#userJoinPage .join-container form #userNickname:hover::placeholder,
+	#userJoinPage .join-container form #userTel:hover::placeholder {
+		font-size: 0.8rem;
 	}
 	
 	#userJoinPage .join-container #del-category {

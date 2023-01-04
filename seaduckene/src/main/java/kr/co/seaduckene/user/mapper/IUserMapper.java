@@ -12,9 +12,15 @@ public interface IUserMapper {
 
 	// 유저 생성
 	void registUser(UserVO userVO);
-
+	
+	// 유저 로그인 시 객체 반환
+	UserVO loginUser(UserVO userVO);
+	
 	// 유저 정보 가져오기
 	UserVO getUserVo(String userId);
+	
+	// 유저 아이디 중복 확인
+	int checkId(String userId);
 
 	// 카테고리 정보 가져오기
 	List<Categories> getCategories();
