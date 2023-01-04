@@ -30,7 +30,7 @@
 
 	<header>
       <div class="container" id="main-img">
-         <a class="navbar-brand" href="#"> <img
+         <a class="navbar-brand" href="${pageContext.request.contextPath}/"> <img
             src="${pageContext.request.contextPath }/resources/img/saeduckene.png"
             alt="Logo" class="d-inline-block align-text-top">
          </a>

@@ -33,8 +33,8 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public UserVO loginUser(UserVO userVO) {
-		return userMapper.loginUser(userVO);
+	public UserVO getUserVo(UserVO userVO) {
+		return userMapper.getUserVo(userVO);
 	}
 
 	@Override
@@ -61,11 +61,6 @@ public class UserServiceImpl implements IUserService {
 			
 			userMapper.insertFavorite(map);
 		}
-	}
-	
-	@Override
-	public UserVO getUserVo(String userId) {
-		return userMapper.getUserVo(userId);
 	}
 	
 	@Override

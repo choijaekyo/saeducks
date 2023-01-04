@@ -192,9 +192,10 @@
             const $option = document.createElement('option');
             
 			for (let minorText of minor2) {
-				if (minorText.indexOf(major) !== -1) {
-					
-					console.log(minorText);
+				
+				let majorText = minorText.substring(1, minorText.indexOf(' '));
+				
+				if (majorText.indexOf(major) !== -1) {
 					
 					const minoList = minorText.substring(minorText.indexOf('=[') + 2, minorText.indexOf(']')).split(', ');
 					
@@ -493,6 +494,12 @@
 				return;
 			} else {
 				const majors = $('select[name=categoryMajorTitle]');
+				
+				if (majors.length <= 1) {
+					alert('카테고리를 선택은 필수입니다.');
+					return;
+				}
+				
 				for (let i = 1; i < majors.length; i++) {
 					if (majors[i].value === '대 카테고리') {
 						alert('대 카테고리를 선택하세요.');
