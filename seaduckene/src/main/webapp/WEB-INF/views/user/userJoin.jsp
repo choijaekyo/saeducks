@@ -34,7 +34,7 @@
 					<div class="clearfix">
 						<div class="file-upload">
 							<span>+</span>
-							<input name="" type="file" class="upload" id="user-profile-pic" > <br>
+							<input name="profilePic" type="file" class="upload" id="user-profile-pic" > <br>
 						</div>
 					</div>
 					<span>기본 정보</span> <br>
@@ -240,10 +240,12 @@
 			console.log();
 			
 			if(userId === '') {
+				idCheck = false;
 				$('#userId').focus();
 				alert('아이디를 입력하세요.');
 				return;
 			} else if($('#userId').css('border-block-color') === 'rgb(255, 0, 0)') {
+				idCheck = false;
 				$('#userId').focus();
 				alert('유효하지 않는 아이디입니다.');
 				return;				
@@ -473,7 +475,7 @@
 						return;						
 					}	  
 				}		
-			} else if (optionCheck == true) {
+			} else if (optionCheck === true) {
 				if ($('#addrBasic').val() === '') {
 					alert('기본 주소를 입력해주세요.');
 					$('#addrBasic').focus();

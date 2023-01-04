@@ -58,7 +58,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/userJoin")
-	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView) {
+	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile file) {
 		log.info(userVO);
 		log.info(addressVO);
 		log.info(boardCategoryVO);

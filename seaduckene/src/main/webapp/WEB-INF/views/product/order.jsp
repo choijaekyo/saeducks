@@ -285,7 +285,7 @@
 				data: email,
 				contentType: 'application/json',
 				success: function(data) {
-					alert('인증메일이 전송되었습니다. 입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
+					alert('인증메일이 전송되었습니다.\n입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
 					authCode=data;
 				},
 				error: function() {

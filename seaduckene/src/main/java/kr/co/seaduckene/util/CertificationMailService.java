@@ -26,7 +26,7 @@ public class CertificationMailService {
 	public String joinEmail(String email) {
 		makeAuthNum(); 
 		System.out.println("joinEmail: " + authNum);
-		String setFrom = "waytogo_816@naver.com"; // email-config에 설정한 발신용 이메일 주소
+		String setFrom = "rhwkwk789@naver.com"; // email-config에 설정한 발신용 이메일 주소
 		String toMail = email;
 		String title = "회원 가입 인증 이메일 입니다.";
 		String content = "홈페이지를 방문해 주셔서 감사합니다." + 
