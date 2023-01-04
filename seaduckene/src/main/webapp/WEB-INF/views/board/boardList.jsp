@@ -91,7 +91,7 @@ $(function() {
 					
 					str += 
 					`<div class="col">
-				    <div class="card shadow-sm">
+				    <div class="card shadow-sm detailButton" data-bno="` + list[i].boardNo + `">
 				      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">` + list[i].boardTitle + `</text></svg>
 				      <div class="card-body">
 				        <p class="card-text">` + list[i].boardContent + `</p>
@@ -108,6 +108,15 @@ $(function() {
 			
 				
 		); //end getJSON()
+		
+		$('#contentDiv').on('click', '.detailButton', function(e) {
+			console.log($(this)[0]);
+			const bno = $(this).data('bno');
+			console.log(bno);
+			location.href='${pageContext.request.contextPath}/board/boardDetail/' + bno;
+			
+			
+		})
 		
 	}; //end getList()
 	

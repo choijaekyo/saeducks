@@ -41,13 +41,19 @@
 	<insert id="write">
 		INSERT INTO board
 		(board_no, board_title, board_content , board_user_no, board_category_no)
-		VALUES(board_no_seq.NEXTVAL, #{boardTitle}, #{boardContent} ,#{boardUserNo}, #{boardCategoryNo})
+		VALUES(board_no_seq.NEXTVAL, #{boardTitle}, #{boardContent}, #{boardUserNo}, #{boardCategoryNo})
 	</insert>
+	
+	<!-- 글 상세 보기 -->
+	<select id="content" resultType="board">
+		SELECT * FROM board
+		WHERE board_no = #{boardNo}
+	</select> 
 	
 	<!-- 수정 -->
 	<update id="update">
 		UPDATE board
-		SET board_title=#{boardTitle}, board_content=#{boardContent}, board_up_date = sysdate
+		SET board_title=#{boardTitle}, board_content=#{boardContent}, board_reg_date = sysdate
 		WHERE board_no = #{boardNo}
 	</update>
 
