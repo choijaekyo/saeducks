@@ -58,7 +58,7 @@ public class UserController {
 		
 		// 비밀번호 암호화는 나중에 구현할 것.
 		
-		modelAndView.addObject("userVo", userService.loginUser(userVO));
+		modelAndView.addObject("userVo", userService.getUserVo(userVO));
 		
 		return modelAndView;
 	}
@@ -126,12 +126,12 @@ public class UserController {
 		
 		// 다른 곳에서 user정보가 필요할 시, 로그인 중인 세션에서 uservo 갖고 올 예정.
 		// 계정 생성중에는 세션 정보가 없다.
-		UserVO loginUserVO = userService.getUserVo(userVO.getUserId());
-		int loginUserNo = loginUserVO.getUserNo();
-		addressVO.setAddressUserNo(loginUserNo);
+		UserVO registeredUserVO = userService.getUserVo(userVO);
+		int registerdUserNo = registeredUserVO.getUserNo();
+		addressVO.setAddressUserNo(registerdUserNo);
 		
 		//favorite table 등록
-		userService.updateUserFavorites(boardCategoryVO, loginUserNo);
+		userService.updateUserFavorites(boardCategoryVO, registerdUserNo);
 		
 		if (!addressVO.getAddressBasic().equals("")) {
 			// address table 등록
