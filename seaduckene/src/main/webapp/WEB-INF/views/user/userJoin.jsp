@@ -174,9 +174,9 @@
 		});
 		
 		$('#category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
-			const major = $(this).val();
-			const minor1 = '${categoryList}';
-			const minor2 = minor1.split('), ');
+			const chosenMajor= $(this).val();
+			const minorText1 = '${categoryList}';
+			const minorText2 = minorText1.split('), ');
 			const $category2 = this.nextElementSibling;
 			$($category2).html('');
 			
@@ -190,17 +190,18 @@
 			
             const $option = document.createElement('option');
             
-			for (let minorText of minor2) {
+			for (let minorText3 of minorText2) {
 				
-				let majorText = minorText.substring(1, minorText.indexOf(' '));
+				let majorText = minorText3.substring(1, minorText3.indexOf(' '));
+				let serverMajor = majorText.substring(majorText.indexOf('=') + 1, majorText.indexOf(','));
 				
-				if (majorText.indexOf(major) !== -1) {
+				if (chosenMajor === serverMajor) {
 					
-					const minoList = minorText.substring(minorText.indexOf('=[') + 2, minorText.indexOf(']')).split(', ');
+					const minorList = minorText3.substring(minorText3.indexOf('=[') + 2, minorText3.indexOf(']')).split(', ');
 					
-					 for (const f of minoList) {
+					 for (const minor of minorList) {
 			            const $option = document.createElement('option');
-			            $option.textContent = f;
+			            $option.textContent = minor;
 			            $fragOpts.appendChild($option);
 			        }
 					 
