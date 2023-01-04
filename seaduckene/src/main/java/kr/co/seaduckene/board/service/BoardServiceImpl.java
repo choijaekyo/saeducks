@@ -66,6 +66,11 @@ public class BoardServiceImpl implements IBoardService {
 	public List<NoticeVO> noticeList() {
 		return mapper.noticeList();
 	}
+	
+	@Override
+	public List<NoticeVO> noticeLists(PageVO paging) {
+		return mapper.noticeLists(paging);
+	}
 }
 
 

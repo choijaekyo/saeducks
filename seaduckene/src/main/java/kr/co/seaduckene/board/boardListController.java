@@ -99,5 +99,19 @@ public class boardListController {
 	public List<NoticeVO> noticeList() {
 		return service.noticeList();
 	}
+	
+	// 공지사항페이지 이동
+	@GetMapping("/notice")
+	public void notice() {}
+	
+	// 공지사항 페이징
+	@GetMapping("/noticeLists")
+	@ResponseBody
+	public List<NoticeVO> noticeLists(PageVO paging) {
+		
+		paging.setCpp(9);
+
+		return service.noticeLists(paging);
+	}
 
 }

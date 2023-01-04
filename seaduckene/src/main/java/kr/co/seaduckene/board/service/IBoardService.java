@@ -36,4 +36,7 @@ public interface IBoardService {
 	
 	// 푸터 공지사항 리스트
 	List<NoticeVO> noticeList();
+	
+	// 공지사항 리스트
+	List<NoticeVO> noticeLists(PageVO paging);
 }

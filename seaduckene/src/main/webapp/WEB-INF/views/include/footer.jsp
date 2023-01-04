@@ -41,7 +41,7 @@
 			<div class="col-md-4">
 				<div class="f_box text-center">
 					<h3>
-						<a><strong>공지사항</strong></a>
+						<a class="text-danger" href="<c:url value='/board/notice' />"><strong>공지사항</strong></a>
 					</h3>
 					<ul id="contentUl">
 						<!-- <li><a href="">공지사항1 안녕하세요오</a></li>
