@@ -33,6 +33,7 @@
 	</div>
 </div>
 
+
 <form action="${pageContext.request.contextPath}/board/boardModify"
 	id="writeForm" method="post">
 
