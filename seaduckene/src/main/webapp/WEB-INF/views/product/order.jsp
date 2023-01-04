@@ -90,7 +90,7 @@
 							<div class="col-md-7 col-sm-12 col-12">
 								<select class="form-select" name="orderReturnBank"
 									id="orderReturnBank">
-									<option selected disabled>은행명</option>
+									<option selected disabled value="none">은행명</option>
 									<option value="shinhan">신한은행</option>
 									<option value="kookmin">국민은행</option>
 									<option value="nonghyup">농협</option>
@@ -109,7 +109,7 @@
 						</div>
 					</div>
 
-					<div class="inputArea input-group">
+					<div class="inputArea input-group" id="conf-email">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
 							<label for="userEmail">인증메일</label>
 						</div>
@@ -200,7 +200,7 @@
 
 					<div class="inputArea input-group">
 						<div class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
-							<button type="submit" class="order_btn btn btn-outline-success">주문</button>
+							<button type="submit" class="order_btn btn btn-outline-success" id="orderBtn">주문</button>
 						</div>
 						<div class="col-md-3 col-sm-6 col-6">
 							<button type="button"
@@ -221,6 +221,16 @@
 
 
 <script>
+
+
+
+	
+	// 사전 이메일 인증여부 확인
+	const msg = '${msg}';
+	console.log(msg);
+	if(msg !== 'null') {
+		$('#conf-email').css('display','none');
+	} 
 
 
 	// 주소찾기
@@ -253,9 +263,53 @@
 	}
 
 	// 정규식
-	const regTel = /^[0-9]{8,13}$/;
+	const regAccount = /^[0-9]+$/;
 	const regName = /^[가-힣a-zA-Z]+$/;
+	const regTel = /^[0-9]{8,13}$/;
 	const regEmail = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+	
+	// 정규식 만족여부 확인
+	let accountFlag = false;
+	let telFlag = false;
+	let nameFlag = false;
+	let emailFlag = false;
+	
+	const $orderReturnAccount = $('#orderReturnAccount');
+	$orderReturnAccount.keyup(function() {
+		if(regAccount.test($('#orderReturnAccount').val())){
+			$orderReturnAccount.css('border' ,'2px solid rgb(255, 193, 7)');
+			accountFlag = true;
+		} else {
+			$orderReturnAccount.css('border' , '2px solid red');
+		}
+	});
+	const $orderRecipientTel = $('#orderRecipientTel');
+	$orderRecipientTel.keyup(function() {
+		if(regTel.test($('#orderRecipientTel').val())){
+			$orderRecipientTel.css('border' ,'2px solid rgb(255, 193, 7)');
+			telFlag = true;
+		} else {
+			$orderRecipientTel.css('border' , '2px solid red');
+		}
+	});
+	const $orderRecipientName = $('#orderRecipientName');
+	$orderRecipientName.keyup(function() {
+		if(regName.test($('#orderRecipientName').val())){
+			$orderRecipientName.css('border' ,'2px solid rgb(255, 193, 7)');
+			nameFlag = true;
+		} else {
+			$orderRecipientName.css('border' , '2px solid red');
+		}
+	});
+	const $userEmail = $('#userEmail');
+	$userEmail.keyup(function() {
+		if(regEmail.test($('#userEmail').val())){
+			$userEmail.css('border' ,'2px solid rgb(255, 193, 7)');
+			emailFlag = true;
+		} else {
+			$userEmail.css('border' , '2px solid red');
+		}
+	});
 
 	// 무통장입금 선택 시 환불계좌 입력창 
 	$(function() {

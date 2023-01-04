@@ -14,19 +14,15 @@ public interface IProductMapper {
 	// 상품등록
 	void insertProduct(Map<String, Object> map);
 
-
-	// 장바구니목록 가져오기
-	//List<ProductBasketVO> getBasketList();
-		
-	// 상품목록 가져오기
-	//List<ProductVO> getproductList();
-
 	// 상품상세
 	ProductVO getContent(int num);
 	
 	// 상품리스트
 
 
+	// user email 등록여부 확인
+	String checkEmail(int userNo);
+	
 	// 상품주문
 	void order(ProductOrderVO orderVo);
 

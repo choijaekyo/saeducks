@@ -31,7 +31,6 @@ import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.user.command.UserVO;
-import kr.co.seaduckene.util.CertificationMailService;
 
 @Controller
 @RequestMapping("/product")
@@ -56,6 +55,7 @@ public class ProductController {
 	
 	@GetMapping("/order")
 	public void orderSheet() {
+		System.out.println("controller동작 order/GET");
 	}
 	
 	@GetMapping("/productDetail")
