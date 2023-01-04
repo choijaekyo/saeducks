@@ -23,7 +23,7 @@
             </thead>
             <tbody>
             <tr>
-                <th scope="row" colspan="2" class="align-middle">프라모델프라</th>
+                <th scope="row" colspan="2" class="align-middle">프라모델프라<input type="hidden" value="999" name="basketProductNo"></th>
                 <td class="align-middle">10,000</td>
                 <td class="align-middle">2 &nbsp;<a href="##"><i class="bi bi-plus-square"></i></a>
                     <a href="##"><i class="bi bi-dash-square"></i></a></td>
@@ -31,7 +31,7 @@
                 <td class="align-middle"><button type="button" class="btn btn-danger">삭제</button></td>
             </tr>
             <tr>
-                <th scope="row" colspan="2" class="align-middle">프라모델</th>
+                <th scope="row" colspan="2" class="align-middle">프라모델<input type="hidden" value="998" name="basketProductNo"></th>
                 <td class="align-middle">10,000</td>
                 <td class="align-middle">2&nbsp;<a href="##"><i class="bi bi-plus-square"></i></a>
                     <a href="##"><i class="bi bi-dash-square"></i></a></td>
@@ -39,7 +39,7 @@
                 <td class="align-middle"><button type="button" class="btn btn-danger">삭제</button></td>
             </tr>
             <tr>
-                <th scope="row" colspan="2" class="align-middle">프라모델</th>
+                <th scope="row" colspan="2" class="align-middle">프라모델<input type="hidden" value="997" name="basketProductNo"></th>
                 <td class="align-middle">10,000</td>
                 <td class="align-middle">2&nbsp;<a href="##"><i class="bi bi-plus-square"></i></a>
                     <a href="##"><i class="bi bi-dash-square"></i></a></td>
@@ -50,7 +50,7 @@
         </table>
         <div>
             <div class="col-md-2 offset-md-10 text-end">
-                <button type="button" class="btn btn-success">주문하기</button>
+                <button type="button" class="btn btn-success" id="orderBtn">주문하기</button>
             </div>
         </div>
     </div>
@@ -58,4 +58,21 @@
 
 <%@ include file="../include/footer.jsp" %>
 </body>
+
+<script>
+
+	$(function() {
+		
+		// 주문하기
+		$('#orderBtn').click(function() {
+			
+		});
+		
+		
+		
+		
+	});// end.jQuery
+
+</script>
+
 </html>

@@ -7,6 +7,7 @@ import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.command.ProductOrderVO;
+import kr.co.seaduckene.product.command.ProductVO;
 
 public interface IProductMapper {
 
@@ -14,9 +15,11 @@ public interface IProductMapper {
 	void insertProduct(Map<String, Object> map);
 	// 상품상세
 
-	// 상품리스트
-
-	// 장바구니 목록
+	// 장바구니목록 가져오기
+	//List<ProductBasketVO> getBasketList();
+		
+	// 상품목록 가져오기
+	//List<ProductVO> getproductList();
 
 	// 상품주문
 	void order(ProductOrderVO orderVo);

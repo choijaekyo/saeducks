@@ -50,7 +50,8 @@ public class ProductController {
 	}
 	
 	@GetMapping("/order")
-	public void orderSheet() {}
+	public void orderSheet() {
+	}
 	
 	@GetMapping("/productDetail")
 	public void detail(int productNo,Model model) {
