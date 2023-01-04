@@ -82,6 +82,22 @@ CREATE SEQUENCE board_image_no_seq
     NOCYCLE
     NOCACHE;
 
+CREATE TABLE notice(
+    notice_no NUMBER PRIMARY KEY,
+    notice_title VARCHAR2(60) NOT NULL,
+    notice_content VARCHAR2(4000) NOT NULL,
+    notice_views  NUMBER DEFAULT 0,
+    notice_reg_date DATE DEFAULT sysdate,
+    notice_up_date DATE
+);
+
+CREATE SEQUENCE notice_no_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+
 ---------------------- USER ----------------------------------------------------
 
 CREATE TABLE duck_user (
@@ -307,5 +323,27 @@ WHERE rn > 0
 AND rn <= 9
 ORDER BY s.category_minor_title DESC, s.board_views DESC;
 
-commit;
--- 다음은 무었
+-- 공지사항
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '첫번째 공지 제목 입니다.', '첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다.');
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '두번째 공지 제목 입니다.', '두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다.');
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '세번째 공지 제목 입니다.', '세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다.');
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '네번째 공지 제목 입니다.', '네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다.');
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '다섯번째 공지 제목 입니다.', '다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다.');
+
+SELECT *
+FROM
+    (
+    SELECT ROWNUM AS rn, tbl.* FROM
+        (
+            SELECT *
+            FROM notice
+        ) tbl
+    ) s
+WHERE rn > 0
+AND rn <= 5
+ORDER BY notice_no DESC;

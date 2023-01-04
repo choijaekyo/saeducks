@@ -98,6 +98,23 @@
 		ORDER BY s.category_minor_title DESC, s.board_views DESC
 		]]>
 	</select>
+	
+	<select id="noticeList" resultType="notice">
+		<![CDATA[
+		SELECT *
+		FROM
+		    (
+		    SELECT ROWNUM AS rn, tbl.* FROM
+		        (
+		            SELECT *
+		            FROM notice
+		        ) tbl
+		    ) s
+		WHERE rn > 0
+		AND rn <= 5
+		ORDER BY notice_no DESC
+		]]>
+	</select>
 </mapper>
 
 

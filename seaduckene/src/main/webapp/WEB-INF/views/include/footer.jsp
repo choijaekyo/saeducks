@@ -43,12 +43,12 @@
 					<h3>
 						<a><strong>공지사항</strong></a>
 					</h3>
-					<ul>
-						<li><a href="">공지사항1 안녕하세요오</a></li>
+					<ul id="contentUl">
+						<!-- <li><a href="">공지사항1 안녕하세요오</a></li>
 						<li><a href="">공지사항2 세덕이네입니다.</a></li>
 						<li><a href="">공지사항3 세상 모든덕질을</a></li>
 						<li><a href="">공지사항4 열심히할수있는</a></li>
-						<li><a href="">공지사항5 좋은사이트</a></li>
+						<li><a href="">공지사항5 좋은사이트</a></li> -->
 					</ul>
 					<br> <br> <br>
 				</div>
@@ -138,6 +138,34 @@
 		// 앞으로가기
 		$('#summernote').summernote('redo');
 	 */
+	 
+	 $(function() {
+		 
+		let str = '';
+
+		$.getJSON(
+			'<c:url value="/board/noticeList" />',
+			function(list) {
+				
+				if(list.length === 0) {
+						
+						str += 
+						`<li><a href="#">공지 사항이 없습니다.</a></li>`;		
+
+				} else {
+					for(let i=0; i<list.length; i++) {
+						
+						str += 
+						`<li><a href="">`+ list[i].noticeTitle +`</a></li>`;		
+					}
+				}
+
+				$('#contentUl').html(str);
+			}
+			
+				
+		); //end getJSON()
+	});
 </script>
 </body>
 </html>

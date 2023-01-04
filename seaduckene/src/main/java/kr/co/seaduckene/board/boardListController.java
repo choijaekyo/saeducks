@@ -9,13 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
+import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.util.PageVO;
 
 @Controller
@@ -92,6 +90,13 @@ public class boardListController {
 		service.delete(bno);
 		
 		return "redirect:/board/boardList";
+	}
+	
+	// 공지사항 리스트
+	@GetMapping("/noticeList")
+	@ResponseBody
+	public List<NoticeVO> noticeList() {
+		return service.noticeList();
 	}
 
 }

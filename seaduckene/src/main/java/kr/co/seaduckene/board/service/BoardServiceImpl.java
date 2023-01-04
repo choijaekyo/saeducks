@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.mapper.IBoardMapper;
+import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.util.BoardUserVO;
 import kr.co.seaduckene.util.PageVO;
@@ -62,6 +63,10 @@ public class BoardServiceImpl implements IBoardService {
 		return mapper.bUserNoList();
 	}
 	
+	@Override
+	public List<NoticeVO> noticeList() {
+		return mapper.noticeList();
+	}
 }
 
 
