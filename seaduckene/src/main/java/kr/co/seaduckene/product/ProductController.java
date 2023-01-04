@@ -2,6 +2,7 @@ package kr.co.seaduckene.product;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,8 +12,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +60,35 @@ public class ProductController {
 	
 	@GetMapping("/productDetail")
 	public void detail(int productNo,Model model) {
-		System.out.println(productNo);
+		ProductVO vo = productService.getContent(productNo);
+		List<ProductImageVO> ivo = productService.getImg(productNo);
+		System.out.println(vo);
+		System.out.println(ivo);
+		model.addAttribute("vo", vo);
+		model.addAttribute("imgList", ivo);
+	}
+	
+	@GetMapping("/display")
+	@ResponseBody
+	public byte[] getFile(String fileLoca, String fileName){
+		System.out.println("/display:GET");
+		System.out.println("fileName:" + fileName);
+		System.out.println("fileLoca:" + fileLoca);
+		
+		File file = new File("c:/imgduck/product/" +fileLoca+"/"+fileName);
+		System.out.println(file);
+		
+		byte[] result = null;
+		try {
+			result = FileCopyUtils.copyToByteArray(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+				
+		
 	}
 	
 	@GetMapping("/finishOrder")
@@ -109,7 +142,7 @@ public class ProductController {
 		String today = simple.format(new Date());
 		ivo.setProductImageFolder(today);
 		
-		String uploadFolder ="C:/imgduck/"+today;
+		String uploadFolder ="C:/imgduck/product/"+today;
 		ivo.setProductImagePath("C:/imgduck/");
 		for(int i =0;i<list.size();i++ ) {
 				ivo.setProductThumbnail(0);
@@ -139,6 +172,22 @@ public class ProductController {
 			}
 			
 		}
+	}
+	
+	@GetMapping("/mainDisplayImg")
+	public ResponseEntity<byte[]> mainDisplayImg(String fileLoca, String fileName) {
+		
+		File file = new File("C:/imgduck/" + fileLoca + "/" + fileName);
+		ResponseEntity<byte[]>result = null;
+		HttpHeaders headers = new HttpHeaders();
+		try {
+			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	

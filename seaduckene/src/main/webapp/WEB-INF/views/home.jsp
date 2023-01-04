@@ -6,19 +6,13 @@
 <%@ include file="include/header.jsp"%>
 
 <!--================ side =================-->
-<div class="container">
+<div class="container" id="main_container_one">
 	<div class="row">
 		<div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="C:/test/upload/" + fileLoca + "/" + fileName" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
-	        <div class="swiper-slide"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="" alt=".."></a></div>
+	      	<c:forEach var="i" items="${mainListImg}">
+	        	<div class="swiper-slide img-fluid"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="<c:url value='${pageContext.request.contextPath}/product/mainDisplayImg?fileLoca=${i.productImageFolder}&fileName=${i.productImageFileName}' />" alt=".."></a></div>
+	        </c:forEach>
 	      </div>
 	    </div>
 	</div>
@@ -28,11 +22,11 @@
 <!--================ board list content =================-->
 <div class="container">
 	<div class="row">
-		<section class="facilities_area section_gap">
+		<section class="facilities_area section_gap" id="section_gap_id">
 		    <div class="container">
 		        <div class="section_title text-center">
-		            <h2 class="title_w">Royal Facilities</h2>
-		            <p>Who are in extremely love with eco friendly system.</p>
+		            <h2 class="title_w">내가 선택한 덕질</h2>
+		            <p>All the dig in this world that I chose</p>
 		        </div>
 		        <div class="row mb_30">
 		            <div class="col-lg-4 col-md-6">

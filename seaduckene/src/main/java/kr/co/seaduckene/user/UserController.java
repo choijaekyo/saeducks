@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.seaduckene.board.command.BoardVO;
@@ -60,13 +63,23 @@ public class UserController {
 		log.info(addressVO);
 		log.info(boardCategoryVO);
 		
-		userService.registUser(userVO);
-		userService.updateUserFavorites(boardCategoryVO, userVO.getUserId());
 		
-		// 코드 병합 후에 productMapper에서 주소 등록 기능 사용하기.
-		if (addressVO.getAddressBasic() != null) {
-			
-		}	
+		//user table 등록
+		userService.registUser(userVO);
+		
+		// 다른 곳에서 user정보가 필요할 시, 로그인 중인 세션에서 uservo 갖고 올 예정.
+		// 계정 생성중에는 세션 정보가 없다.
+		UserVO loginUserVO = userService.getUserVo(userVO.getUserId());
+		int loginUserNo = loginUserVO.getUserNo();
+		addressVO.setAddressUserNo(loginUserNo);
+		
+		//favorite table 등록
+		userService.updateUserFavorites(boardCategoryVO, loginUserNo);
+		
+		if (!addressVO.getAddressBasic().equals("")) {
+			// address table 등록
+			userService.registAddr(addressVO);
+		}
 	}
 	
 	// email인증

@@ -19,11 +19,14 @@
 	
 <!-- 경로랑 resultmap 알아서 설정하기  -->	
 	<typeAliases>
+		<typeAlias type="kr.co.seaduckene.user.command.UserVO" alias="user"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardVO" alias="board"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductVO" alias="prodcut"/>
+		<typeAlias type="kr.co.seaduckene.product.command.ProductImageVO" alias="productImage"/>
 		<typeAlias type="kr.co.seaduckene.common.CategoryVO" alias="category"/>
 		<typeAlias type="kr.co.seaduckene.common.AddressVO" alias="address"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductBasketVO" alias="basket"/>
+		<typeAlias type="kr.co.seaduckene.product.command.ProductImageVO" alias="image"/>
 	</typeAliases>
 	
 	<!-- 인터페이스 mapper 구현체 xml 파일의 경로를 표시하는 태그.

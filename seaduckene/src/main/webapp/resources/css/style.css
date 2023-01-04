@@ -113,8 +113,12 @@ ul, ol, dl, li {
   }
 }
 
-.section_gap {
-  padding: 120px 0;
+#main_container_one {
+	margin-bottom: 70px
+}
+
+#section_gap_id {
+	background: #fff9d6;
 }
 
 .section_title {
@@ -184,7 +188,6 @@ ul, ol, dl, li {
 .swiper {
   width: 100%;
   height: 500px;
-  background: red;
 }
 
 .swiper-slide {
