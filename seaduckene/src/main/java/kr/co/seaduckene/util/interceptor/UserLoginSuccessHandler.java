@@ -11,8 +11,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import jdk.internal.org.jline.utils.Log;
 import kr.co.seaduckene.user.command.UserVO;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 public class UserLoginSuccessHandler implements HandlerInterceptor {
 
 	//컨트롤러가 동작한 이후에 실행되는 핸들러 (postHandle) 오버라이딩.
@@ -25,14 +28,14 @@ public class UserLoginSuccessHandler implements HandlerInterceptor {
 
 
 		if (user == null) {
-			FlashMap fm =new FlashMap();
+			FlashMap fm = new FlashMap();
 			fm.put("msg", "loginFail");
 			FlashMapManager fmm = RequestContextUtils.getFlashMapManager(request);
 			fmm.saveOutputFlashMap(fm, request, response);
 			modelAndView.setViewName("redirect:/user/userLogin");
 
 		} else {
-			System.out.println("로그인 성공!");
+			log.info("로그인 성공!");
 			/* 쿠키는 자동로그인. 나중에 구현  
 			 * Cookie cookie = new Cookie("login", user.getUserId());
 			 * cookie.setPath(request.getContextPath() + "/");

@@ -128,6 +128,15 @@
 		                    </div>
                 		</div>	
 						<input type="button" class="btn btn-lg btn-b btn-duck email-btn" onclick="" value="이메일 인증"> <br>
+						<div class="input-group inputArea" style="display: none;" id="emailConf">
+		                    <div class="col-md-12 col-sm-12 col-12">
+								<input class="form-control join-input" type="text" name=""
+									id="email-auth-code" placeholder="이메일 인증 코드" required />
+								<input class="btn btn-outline-secondary" type="button"
+											name="confBtn" id="confBtn" value="인증하기" />
+		                    </div>
+		                    <p id="confMailRes"></p>
+                		</div>	
 					</div> <br> <br>
 					<input type="button" class="btn btn-sm btn-info btn-b" value="가입하기" id="user-join-submit"> &nbsp;&nbsp;
 					<input type="button" class="btn btn-sm btn-danger btn-b" value="뒤로가기">
@@ -203,31 +212,34 @@
 			
 		});
 		
-		
+		let code;
 		// 인증번호 이메일 전송
-		$('#mail-check-btn').click(() => {
+		$('.email-btn').click(() => {
 
 			/* openLoading(); */
+			
 
 			const email = $('#userEmail').val();
-
-			console.log('완성된 이메일' + email);
-
+			console.log('이메일: ' + email);
+			
+			if(email.trim() === ''){
+				alert('인증받을 메일 주소를 먼저 입력해 주세요.');
+			} else {
+				$('#emailConf').css('display', 'block');
+				
 			$.ajax({
-				type: 'GET',
-				url: '<c:url value="/user/userConfEmail?email=" />' + email,
+				type: 'POST',
+				url: '<c:url value="/user/userConfEmail" />',
 				success: function(data) {
-					console.log('통신 성공!');
-					closeLoading();
-					console.log('컨트롤러가 전달한 인증번호: ' + data);
 
-					$('.mail-check-input').attr('disabled', false); // 비활성된 인증번호 입력창 활성화.
+					$('#confMailRes').attr('disabled', false); // 비활성된 인증번호 입력창 활성화.
 					code = data; // 인증번호를 전역변수에 저장.
-					alert('인증번호가 전송되었습니다. 확인 후 입력란에 정확하게 입력하세요!');
+					alert('인증메일이 전송되었습니다.\n입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
 				},
 				error: function() {
-					console.log('통신 실패!');
+					alert('이메일 전송 실패');
 				}
+			}
 
 			}); // end ajax(이메일 전송)
 

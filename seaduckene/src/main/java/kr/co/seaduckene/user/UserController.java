@@ -120,8 +120,7 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/userConfEmail")
 	public String userConfEmail(@RequestBody String email) {
-		System.out.println("email인증요청 들어옴");
-		System.out.println(email);
+		log.info("email인증요청 들어옴" + email);
 		return mailService.joinEmail(email);
 	}
 

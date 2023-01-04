@@ -14,7 +14,7 @@
 <section id="userLoginPage">
 	<div class="login-wrap">
 	  <div class="login-html">
-	    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">로그인 페이지</label>
+	    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">로그인</label>
 	    <div class="login-form">
 		    <form action="<c:url value='/user/userLoginAuth' />" method="post" id="user-login-form">
 		      <div class="sign-in-htm">

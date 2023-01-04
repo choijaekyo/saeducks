@@ -152,6 +152,15 @@
 	margin-top: 10px; 
 }
 
+#userJoinPage .join-container form #email-auth-code { 
+	width: 205px;
+}
+
+#userJoinPage .join-container form .btn-outline-secondary { 
+	vertical-align: unset;
+	
+}
+
 #userJoinPage .input-group .join-input:focus,
 #userJoinPage #category-wrap .join-category:focus {
 	border: 1px solid rgb(255, 193, 7);
