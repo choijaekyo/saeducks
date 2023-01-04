@@ -465,10 +465,19 @@
         	this.parentNode.remove();
         });
 
-	    // 회원가입 정보 넘기기 전에 입력값 검증.
-        $('#user-join-submit').click(function() {
-        	
-        	if (idCheck === false) {
+        // 버튼 클릭, 버튼 엔터 이벤트 시 submit 실행 코드.
+        $('#user-join-submit').click(login);
+        $('#user-join-form').on('keyup', 'input', keyPressEnter);
+	    
+	    function keyPressEnter() {
+	    	if (window.event.keyCode == 13) {
+		    	join();				
+			}
+	    }
+        
+	    // 회원가입 정보 넘기기 전에 입력값 검증. 함수 선언.
+ 		function join() {
+ 			if (idCheck === false) {
 				alert('아이디 중복 확인이 필요합니다.');
 				$('#userId').focus();
 				return;
@@ -535,9 +544,7 @@
         	}
         	
         	$('#user-join-form').submit();
-        });
-        
- 		
+ 		}
         
         
 	}); // end jQuery

@@ -24,7 +24,6 @@ public class UserLoginSuccessHandler implements HandlerInterceptor {
 
 		UserVO user = (UserVO) modelAndView.getModel().get("userVo");
 
-
 		if (user == null) {
 			FlashMap fm = new FlashMap();
 			fm.put("msg", "loginFail");
