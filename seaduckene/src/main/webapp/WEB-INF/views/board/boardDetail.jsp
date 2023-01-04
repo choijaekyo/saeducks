@@ -24,40 +24,42 @@
 	<div class="row">
 		<div class="col d-flex flex-row justify-content-end"
 			id="board-detail-item">
-			<ul class="nav nav-pills">
-				<li class="nav-item"><a href="#" class="nav-link">글쓴이</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">날짜</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">조회</a></li>
-			</ul>
+			
+				<p><fmt:formatDate value="${list.boardRegDate}" pattern="MM-dd HH:mm" /></p>
+	<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">조회</a></li> -->
+				
 		</div>
 	</div>
 </div>
 
-<div class="container">
+<form action="${pageContext.request.contextPath}/board/boardModify"
+	id="writeForm" method="post">
 
-	<div class="card mb-4">
-		<div class="card-body">
-			<form>
+	<div class="container">
+		<div class="card mb-4">
+			<div class="card-body">
 				<div class="mb-3">
-					<label for="title" class="form-label">제목</label> <input type="text"
-						class="form-control" id="title" name="title"
-						value="${board.title}" readonly>
+					<input type="hidden" name="boardNo" value="${ list.boardNo }">
+					<label for="title" class="form-label">제목</label>
+					<input type="text"
+						class="form-control" id="title" name="boardTitle"
+						value="${list.boardTitle}" readonly>
 				</div>
 				<div class="mb-3" id="board-detail-content">
 					<label for="content" class="form-label">내용</label>
-					<textarea class="form-control" id="content" name="content"
-						rows="15">${board.content}</textarea>
+					<textarea class="form-control" id="content" name="boardContent"
+						readonly rows="15">${list.boardContent}</textarea>
 				</div>
 				<div id="board-detail-button">
-					<button class="right btn btn-info" id="modallistBtn">목록가기</button>
-					<button class="right btn btn-info" id="modalModBtn">수정하기</button>
-					<button class="right btn btn-info" id="modalDelBtn">삭제하기</button>
+					<a href='<c:url value='/board/boardList'/>'
+						class="right btn btn-info" id="modallistBtn">목록가기</a>
+					<button type="submit" class="right btn btn-info" id="modalModBtn">수정하기</button>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
-</div>
+</form>
 
 <div class="container">
 	<div class="card-body">
@@ -91,43 +93,8 @@
 
 <%@ include file="../include/footer.jsp"%>
 
-					
+
 <script>
-	$(function() {
-
-		//목록 이동 처리
-		$('#modallistBtn')
-				.click(
-						function() {
-							location.href = "${pageContext.request.contextPath}/board/boardList";
-						});
-
-		//수정 버튼 이벤트 처리
-		$('#modalModBtn').click(function() {
-			if ($('input[name=title]').val().trim() === '') {
-				alert('제목은 필수 항목입니다.');
-				$('input[name=title]').focus();
-				return;
-			} else if ($('textarea[name=content]').val().trim() === '') {
-				alert('내용은 필수 항목입니다.');
-				$('textarea[name=content]').focus();
-				return;
-			} else {
-				document.updateForm.submit();
-			}
-		});
-
-		$('#modalDelBtn')
-				.click(
-						function() {
-							if (confirm('정말 삭제하시겠습니까?')) {
-								$('form[name=updateForm]')
-										.attr('action',
-												'${pageContext.request.contextPath}/Board/boardDelete');
-								$('form[name=updateForm]').submit();
-							}
-						});
-
-	});
+	
 </script>
 

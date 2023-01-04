@@ -29,8 +29,7 @@ public class BoardServiceImpl implements IBoardService {
 
 	@Override
 	public BoardVO content(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.content(bno);
 	}
 
 	@Override
