@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,38 +58,37 @@ public class boardListController {
 	
 	//게시글을 DB 등록 요청
 	@PostMapping("/boardWrite")
-	public String write( PageVO paging ,BoardVO vo) {
-		
-		
+	public String boardWrite(PageVO paging, BoardVO vo) {
 		service.write(vo);
-		
 		return "redirect:/board/boardList";
 	}
 	
 	
 	//상세보기 페이지
-	@GetMapping("/boardDetail")
-	public void boardDetail() {
-		
+	@GetMapping("/boardDetail/{boardNo}")
+	public String boardDetail(@PathVariable int boardNo, PageVO vo, Model model) {
+		model.addAttribute("list", service.content(boardNo));
+		return "board/boardDetail";
 	}
 	
 	//수정 페이지로 이동
 	@PostMapping("/boardModify")
-	public void modify(int boardNo, Model model) {
-		System.out.println();
+	public void modify(@ModelAttribute("list") BoardVO vo) {
+		System.out.println(vo);
 	}
 	
 	//글 수정 처리
-	@GetMapping("/boardUpdate")
+	@PostMapping("/boardUpdate")
 	public String boardUpdate(BoardVO vo) {
+		System.out.println(vo);
 		service.update(vo);
 		return "redirect:/board/boardDetail/" + vo.getBoardNo();
 	}
 	
 	//글 삭제 처리
 	@PostMapping("/boardDelete")
-	public String boardDelete(int bno) {
-		service.delete(bno);
+	public String boardDelete(int boardNo) {
+		service.delete(boardNo);
 		
 		return "redirect:/board/boardList";
 	}
