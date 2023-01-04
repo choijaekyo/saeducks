@@ -95,8 +95,8 @@ CREATE TABLE duck_user (
     user_session_id VARCHAR2(300),
     user_cookie_expire_date DATE,
     user_email VARCHAR2(500),
-    user_profile_path VARCHAR2(500) DEFAULT 'ÇÁ·ÎÇÊ °æ·Î',
-    user_profile_folder VARCHAR2(500) DEFAULT 'ÇÁ·ÎÇÊ Æú´õ',
+    user_profile_path VARCHAR2(500) DEFAULT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½',
+    user_profile_folder VARCHAR2(500) DEFAULT 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½',
     user_profile_file_name VARCHAR2(1000) DEFAULT 'profile.png',
     user_profile_uuid VARCHAR2(500) DEFAULT 'profile.png'
     );
@@ -111,10 +111,10 @@ CREATE SEQUENCE duck_user_seq
 CREATE TABLE product (
     product_no NUMBER PRIMARY KEY,
     product_name VARCHAR2(100) NOT NULL,
-    product_price_normal NUMBER NOT NULL, -- ¿ø·¡°¡°Ý
-    product_price_selling NUMBER, -- ¼¼ÀÏ°¡°Ý
-    product_detail VARCHAR2(2000)NOT NULL, -- »óÇ°Á¤º¸
-    product_stock NUMBER NOT NULL, -- °³¼ö
+    product_price_normal NUMBER NOT NULL, -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    product_price_selling NUMBER, -- ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
+    product_detail VARCHAR2(2000)NOT NULL, -- ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
+    product_stock NUMBER NOT NULL, -- ï¿½ï¿½ï¿½ï¿½
     product_reg_date DATE DEFAULT SYSDATE,
     product_up_date DATE,
     product_category_no NUMBER NOT NULL
@@ -184,16 +184,16 @@ VALUES (favorite_seq.NEXTVAL, 3, 1);
 --------------------------------------------------------------------------------
 SELECT * FROM board;
 INSERT INTO board (board_no, board_title, board_content, board_user_no, board_category_no) 
-VALUES (board_no_seq.NEXTVAL, 'Ã¹¹øÂ° ±Û ÀÔ´Ï´Ù.20', 'Ã¹¹øÂ° ±Û ÀÓµÂ20.', 1, 1);
+VALUES (board_no_seq.NEXTVAL, 'Ã¹ï¿½ï¿½Â° ï¿½ï¿½ ï¿½Ô´Ï´ï¿½.20', 'Ã¹ï¿½ï¿½Â° ï¿½ï¿½ ï¿½Óµï¿½20.', 1, 1);
 
 INSERT INTO duck_user (user_no, user_id, user_pw, user_nickname ,user_name ,user_tel) 
-VALUES (duck_user_seq.NEXTVAL, 'aaa111', 'aaa11111', 'Å×½ºÆ®À¯Àú', 'È«±æµ¿', '12345678');
+VALUES (duck_user_seq.NEXTVAL, 'aaa111', 'aaa11111', 'ï¿½×½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½', 'È«ï¿½æµ¿', '12345678');
 
 INSERT INTO category (category_no, category_major_title, category_minor_title)
-VALUES (category_no_seq.NEXTVAL, '¾ß±¸', 'È«¸íº¸');
+VALUES (category_no_seq.NEXTVAL, 'ï¿½ß±ï¿½', 'È«ï¿½ï¿½');
 
 INSERT INTO product (product_no, product_name, product_price_normal, product_detail, product_stock, product_category_no) 
-VALUES (product_seq.NEXTVAL, '3·¹º§ ¹æÅº', 98000, '¶Ò¹è±â¿¡ ±¸¸Û³­ ¹æÅºÇï¸Ë', 32, 1);
+VALUES (product_seq.NEXTVAL, '3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åº', 98000, 'ï¿½Ò¹ï¿½â¿¡ ï¿½ï¿½ï¿½Û³ï¿½ ï¿½ï¿½Åºï¿½ï¿½ï¿½', 32, 1);
 
 commit;
 
@@ -230,7 +230,7 @@ SELECT * FROM product_image WHERE product_image_product_no = 1 AND PRODUCT_THUMB
 
 SELECT * FROM favorite WHERE favorite_user_no = 1;
 
--- ³»°¡ ¼±ÅÃÇÑ Ä«Å×°í¸®ÀÇ »óÇ° 
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° 
 SELECT *
 FROM
     (
@@ -251,7 +251,7 @@ FROM
 WHERE rn > 0
 AND rn <= 9;
 
--- ÀüÃ¼ °Ô½ÃÆÇ ÁÁ¾Æ¿ä ³ôÀº ¼ø »óÇ°
+-- ï¿½ï¿½Ã¼ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ç°
 SELECT *
 FROM
     (
@@ -271,27 +271,38 @@ FROM
 WHERE rn > 0
 AND rn <= 9;
 
--- ³»°¡ ¼±ÅÃÇÑ Ä«Å×°í¸®ÀÇ º¸´õ 
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 SELECT *
 FROM
     (
     SELECT ROWNUM AS rn, tbl.* FROM
         (
-            SELECT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail
+            SELECT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname
             FROM duck_user d INNER JOIN favorite f
                              ON 1 = f.favorite_user_no
                              INNER JOIN category c
                              ON f.favorite_category_no = c.category_no
-                             INNER JOIN product p
-                             ON c.category_no = p.product_category_no
-                             INNER JOIN product_image i
-                             ON p.product_no = i.product_image_product_no
-            WHERE product_thumbnail = 1
+                             INNER JOIN board b
+                             ON c.category_no = b.board_category_no
         ) tbl
-    ) b
+    ) s
 WHERE rn > 0
-AND rn <= 9;
+AND rn <= 9
+ORDER BY s.category_minor_title DESC, s.board_views DESC;
 
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ä°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 SELECT *
-FROM board b, category c, favorite f
-WHERE b.board_category_no = c.category_no OR c.category_no = f.favorite_category_no
+FROM
+    (
+    SELECT ROWNUM AS rn, tbl.* FROM
+        (
+            SELECT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname
+            FROM board b INNER JOIN category c
+                             ON b.board_category_no = c.category_no
+                             INNER JOIN duck_user d
+                             ON b.board_user_no = d.user_no
+        ) tbl
+    ) s
+WHERE rn > 0
+AND rn <= 9
+ORDER BY s.category_minor_title DESC, s.board_views DESC;
