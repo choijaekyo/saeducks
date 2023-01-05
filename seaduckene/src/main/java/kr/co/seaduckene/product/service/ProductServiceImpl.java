@@ -29,6 +29,16 @@ public class ProductServiceImpl implements IProductService {
 	private IAddressMapper addressMapper;
 	
 	
+	// 장바구니 상품 불러오기
+	public List<ProductBasketVO> getBasketList(int userNo){
+		return productMapper.getBasketList(userNo);
+	}
+	
+	// 썸네일 가져오기
+	public ProductImageVO getThumbnailImg(int productNo) {
+		return productMapper.getThumbnailImg(productNo);
+	}
+	
 	@Override
 	public void order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user) {
 		int userNo = user.getUserNo();

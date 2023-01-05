@@ -30,7 +30,16 @@
 		WHERE basket_user_no=#{userNo} AND
 		basket_product_no=#{productNo}
 	</select>
-
+	
+	<select id="getBasketList" resultType="basket">
+		SELECT * FROM basket
+		WHERE basket_user_no=#{userNo}
+	</select>
+	
+	<select id="getThumbnailImg">
+		SELECT * FROM product_image
+		WHERE product_image_product_no=#{productNo} AND product_thumbnail = 1
+	</select>
 
 	<select id="getCategory" resultType="category">
 		SELECT * FROM category

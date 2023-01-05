@@ -17,10 +17,13 @@ public interface IProductMapper {
 	// 상품상세
 	ProductVO getContent(int num);
 	
-	// 상품리스트
-
-
-	// user email 등록여부 확인
+	// 장바구니 상품 불러오기
+	List<ProductBasketVO> getBasketList(int userNo);
+	
+	// 썸네일 가져오기
+	ProductImageVO getThumbnailImg(int productNo);
+	
+	// user 인증메일 등록여부 확인
 	String checkEmail(int userNo);
 	
 	// 상품주문
