@@ -369,6 +369,32 @@
 			
 		});
 	
+		// 카테고리 선택 시 중복 방지
+		$('#category-wrap').on('change', 'select[name=categoryMinorTitle]', function(e) {
+			const chosenMinor = $(this).val();
+			const chosenMajor = $(this.previousElementSibling).val();
+			
+			const chosenLiIndex = $(this.parentNode).data('index');
+			
+			const selectedMajors = $('select[name=categoryMajorTitle]');
+			const selectedMajorsMaxIndex = selectedMajors.length;
+			
+			// 현재 선택된 모든 대 카테고리의 값을 반복문으로 조회.
+			for (let i = 1; i < selectedMajorsMaxIndex; i++) {
+				
+				let selectedLiIndex = $(selectedMajors[i].parentNode).data('index');
+				
+				if (selectedLiIndex !== chosenLiIndex) {
+					if (selectedMajors[i].value === chosenMajor && selectedMajors[i].nextElementSibling.value === chosenMinor) {
+						alert('이미 선택된 카테고리입니다.');
+						this.selectedIndex = 0;
+						return;
+					}
+				}
+			}
+		});
+		
+	
 		let code = '';
 		// 인증번호 이메일 전송
 		$('.email-btn').click(() => {
