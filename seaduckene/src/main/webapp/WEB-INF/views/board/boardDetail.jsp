@@ -24,11 +24,13 @@
 	<div class="row">
 		<div class="col d-flex flex-row justify-content-end"
 			id="board-detail-item">
-			
-				<p><fmt:formatDate value="${list.boardRegDate}" pattern="MM-dd HH:mm" /></p>
-	<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
+
+			<p>
+				<fmt:formatDate value="${list.boardRegDate}" pattern="MM-dd HH:mm" />
+			</p>
+			<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">조회</a></li> -->
-				
+
 		</div>
 	</div>
 </div>
@@ -42,8 +44,7 @@
 			<div class="card-body">
 				<div class="mb-3">
 					<input type="hidden" name="boardNo" value="${ list.boardNo }">
-					<label for="title" class="form-label">제목</label>
-					<input type="text"
+					<label for="title" class="form-label">제목</label> <input type="text"
 						class="form-control" id="title" name="boardTitle"
 						value="${list.boardTitle}" readonly>
 				</div>
@@ -85,17 +86,64 @@
 						<span>3</span>
 					</div>
 				</div>
+				<br>
+				<div>
+					<button type="button" id="replyRegist">등록하기</button>
+					<button type="button" id="replyCancel">취소하기</button>
+				</div>
 			</div>
 		</div>
 	</div>
-
 	<hr>
 </div>
+
+<!-- 모달 -->
+<div class="modal fade" id="replyModal" role="dialog">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="btn btn-default pull-right"
+					data-dismiss="modal">닫기</button>
+				<h4 class="modal-title">댓글수정</h4>
+			</div>
+			<div class="modal-body">
+				<!-- 수정폼 id값을 확인하세요-->
+				<div class="reply-content">
+					<textarea class="form-control" rows="4" id="modalReply"
+						placeholder="내용입력"></textarea>
+					<div class="reply-group">
+						<div class="reply-input">
+							<input type="hidden" id="modalRno"> <input
+								type="password" class="form-control" placeholder="비밀번호"
+								id="modalPw">
+						</div>
+						<button class="right btn btn-info" id="modalModBtn">수정하기</button>
+						<button class="right btn btn-info" id="modalDelBtn">삭제하기</button>
+					</div>
+				</div>
+				<!-- 수정폼끝 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+
 
 <%@ include file="../include/footer.jsp"%>
 
 
 <script>
+
+	$(document).ready(function() {
+		$('#replyRegist').click(function() {
+			
+			const replyNo = '${list.replyNo}';
+			
+			
+		})
+		
+		
+	})
 	
 </script>
 

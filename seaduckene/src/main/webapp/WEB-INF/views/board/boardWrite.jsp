@@ -38,8 +38,8 @@
 		<input type="hidden" name="boardUserNo" value="1"> <input
 			type="hidden" name="boardCategoryNo" value="1"> <br>
 
-		<div id="board-Write-button">
-			<button type="button" class="btn btn-info">등록하기</button>
+		<div>
+			<button type="button" class="btn btn-info" id="board-Write-button">등록하기</button>
 			<a href='<c:url value='/board/boardList'/>' class="btn btn-secondary"
 				id="WritelistBtn">목록으로</a>
 		</div>
@@ -66,11 +66,7 @@
 				$('#writeForm').submit();
 			}
 		});
-		
-		
-		
-		
-		
+			
 		$('.summernote').summernote({
 			height : 300, // 에디터 높이
 			minHeight : null, // 최소 높이

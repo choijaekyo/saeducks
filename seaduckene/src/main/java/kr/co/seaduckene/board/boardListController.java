@@ -60,6 +60,7 @@ public class boardListController {
 	@PostMapping("/boardWrite")
 	public String boardWrite(PageVO paging, BoardVO vo) {
 		service.write(vo);
+		
 		return "redirect:/board/boardList";
 	}
 	
