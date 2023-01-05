@@ -131,10 +131,6 @@
 		                            </select>
 		                            <select name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
 		                                    <option selected disabled>소 카테고리</option>
-					                        <c:forEach var="minorCategory" items="${userCategoryList}">
-					                        <option>${minorCategory.categoryMinorTitle}</option>
-					                        </c:forEach>     	       
-		                                    
 		                            </select>
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>
@@ -562,62 +558,66 @@
 	// 즉시 실행 함수 - 유저의 카테고리로 select의 options에서 .selectedIndex 적용
 	(function() {
 		const userCategoryList = ('${userCategoryList}').split('), ');
+		console.log(userCategoryList);
 		const userCategoryIndex = +('${userMinorLength}') + 1;
 		console.log(userCategoryIndex);
 		
-		const minorText1 = '${categoryList}';
-		const minorText2 = minorText1.split('), ');
-		
-		for (let minorText3 of minorText2) {
-			
-			console.log(minorText3);
-			
-			const minorList = minorText3.substring(minorText3.indexOf('=[') + 2, minorText3.indexOf(']')).split(', ');
-			console.log(minorList);
-			/* let majorText = minorText3.substring(1, minorText3.indexOf(' '));
-			let serverMajor = majorText.substring(majorText.indexOf('=') + 1, majorText.indexOf(','));
-			
-			if (chosenMajor === serverMajor) {
-				
-				const minorList = minorText3.substring(minorText3.indexOf('=[') + 2, minorText3.indexOf(']')).split(', ');
-				
-				 for (const minor of minorList) {
-		            const $option = document.createElement('option');
-		            $option.textContent = minor;
-		            $fragOpts.appendChild($option);
-		        }
-				 
-		        $category2.appendChild($fragOpts);
-		        
-				break;
-			} */
-		}
-
-		
+		// 서버에서 favorite의 대 카테고리만 모아서 보냄.
 		const userMajorCategories = ('${userMajorCategories}').substring(1, ('${userMajorCategories}').length - 1).split(', ');
 		console.log(userMajorCategories);
 		
 		let i = 1;
-		for (let userCategoryText of userCategoryList) {
-			let userCategoryText2 = userCategoryText.substring(userCategoryText.indexOf('jor') + 9, userCategoryText.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
-			console.log(userCategoryText2);
+		for (let userCategoryText1 of userCategoryList) {
+			let userCategoryMajorAndMinor1 = userCategoryText1.substring(userCategoryText1.indexOf('jor') + 9, userCategoryText1.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
+			console.log(userCategoryMajorAndMinor1);
 			
-			console.log(userMajorCategories.indexOf(userCategoryText2[0]));
-			console.log(userMajorCategories.indexOf(userCategoryText2[1]));
+			const serverMajorCategory = userCategoryMajorAndMinor1[0];
+			const serverMinorCategory = userCategoryMajorAndMinor1[1];
+			
+			console.log(userMajorCategories.indexOf(serverMajorCategory));
+			console.log(userMajorCategories.indexOf(userCategoryMajorAndMinor1[1]));
 			
 			const selectorLi = 'li[data-index=' + i + '] > select';
-			console.log($(selectorLi)[0].selectedIndex = userMajorCategories.indexOf(userCategoryText2[0]) + 1);
-			console.log($(selectorLi)[1].selectedIndex = userMajorCategories.indexOf(userCategoryText2[1]) + 1);
 			
-			i = i + 1;
+			// ======= 대 카테고리 favorite에 선택된 option태그 selected 처리 코드=========
+			console.log($(selectorLi));
+			console.log($(selectorLi)[0]);
+			const serverMajorSelectNode =$(selectorLi)[0];
+			console.log(userMajorCategories.indexOf(serverMajorCategory) + 1);
+			serverMajorSelectNode.selectedIndex = userMajorCategories.indexOf(serverMajorCategory) + 1;
+			
+	/* 		// ======= 소 카테고리 option태그들 append 코드 =========
+			console.log($(selectorLi)[0].value);
+			
+			const $serverMinorSelectNode = $(selectorLi)[0].nextElementSibling;
+			$($serverMinorSelectNode).html('');
+			
+			const $optDefault = document.createElement('option');
+			$($optDefault).attr('selected', 'true');			
+			$($optDefault).attr('disabled', 'true');			
+			$($optDefault).text('소 카테고리');			
+			
+			const $fragOpts = document.createDocumentFragment();
+			$fragOpts.appendChild($optDefault); */
+			/* 
+			for (let userCategoryText2 of userCategoryList) {
+				const userCategoryMajorAndMinor2 = userCategoryText2.substring(userCategoryText2.indexOf('jor') + 9, userCategoryText2.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
+				
+				if (userCategoryMajorAndMinor2[0] === serverMajorCategory) {
+			        const $option = document.createElement('option');					
+		            $option.textContent = userCategoryMajorAndMinor2[1];
+		            $fragOpts.appendChild($option);
+				}
+			}
+	        $serverMinorSelectNode.appendChild($fragOpts); */
+	        
+	        
+			/* console.log($(selectorLi)[1]);
+			console.log(userMajorCategories.indexOf(userCategoryMajorAndMinor1[1]) + 1);
+			$(selectorLi)[1].selectedIndex = userMajorCategories.indexOf(userCategoryMajorAndMinor1[1]) + 1
+			i = i + 1; */
 		}
-		
-		for (let i = 1; i < userCategoryIndex; i++) {
-			
-			
-			
 
-		}
 		
 	}());
 	
