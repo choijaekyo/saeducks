@@ -5,7 +5,12 @@
 
 <mapper namespace="kr.co.seaduckene.board.mapper.IBoardCategoryMapper">
 	
+	<insert id="replyRegist">
+		INSERT INTO reply(reply_no, reply_content, reply_board_no, reply_user_no)
+		VALUES(reply_seq.NEXTVAL, #{replyNo}, #{replyContent}, #{replyBoardNo}, #{replyUserNo})
 	
+		
+	</insert>
 	
 </mapper>
 
