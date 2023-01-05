@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page buffer="64kb" autoFlush="false" %>
 
 <!DOCTYPE html>
 <html>
@@ -72,93 +71,148 @@
 				<div class="tab-pane" id="myinfo" >
 				</c:otherwise>
 			</c:choose>
-					<div class="join-container">
-						<form action="" method="post" enctype="multipart/form-data">
-							<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />">
+					<div class="update-container">
+						<form action="" method="post" enctype="multipart/form-data" id="user-update-form">
+							<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />" id="image_section">
 							<div class="clearfix">
 								<div class="file-upload">
 									<span>+</span>
-									<input name="" type="file" class="upload" >
+									<input name="profilePic" type="file" class="upload" id="user-profile-pic" accept=".jpg, .jpeg, .png, .gif, .bmp" > <br>
 								</div>
 							</div>
-							<span>기본 정보</span> <br>
-							<input name="" type="text" class="btn btn-a" placeholder="아이디" readonly> <br>
-							<input type="button" class="btn btn-b btn-duck btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 변경하기" id=""> <br>
-							<input name="" type="password" class="btn btn-a" placeholder="비밀번호" id="userPw"> <br>
-							<input name="" type="password" class="btn btn-a" placeholder="비밀번호 확인" id="pwConfirm"> <br>
-							<input name="" type="text" class="btn btn-a" placeholder="이름"> <br>
-							<input name="" type="text" class="btn btn-a" placeholder="닉네임"> <br> <br> <br>
-							
-							<span class="basic-info">상세 정보</span> 
-							<span class="category-button" id="add-category">+</span>
+							<span>기본 정보</span> <br> <br>
+							<p>아이디</p>
+							<div class="input-group inputArea">
+			                    <div class="col-md-12 col-sm-12 col-12">
+			                        <input name="userId" class="form-control join-input" type="text" placeholder="아이디" value="${user.userId}" id="userId" readonly />
+			                    </div>
+		                	</div>							
+							<input type="button" class="btn btn-b btn-duck btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 변경하기" id=""> <br> <br>
+							<p>이름</p>
+							<div class="input-group inputArea">
+			                    <div class="col-md-12 col-sm-12 col-12">
+			                        <input name="userName" class="form-control join-input" type="text" placeholder="이름" value="${user.userName}" id="userName" required />
+			                    </div>
+		                	</div> <br>							
+							<p>닉네임</p>
+							<div class="input-group inputArea">
+			                    <div class="col-md-12 col-sm-12 col-12">
+			                        <input name="userNickname" class="form-control join-input" type="text" placeholder="닉네임" value="${user.userNickname}" id="userNickname" required />
+			                    </div>
+		                	</div>
+							<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="nickname-check"> <br>
+		   					<div class="input-group inputArea">
+				                <div class="col-md-12 col-sm-12 col-12">
+				            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" value="${user.userTel}" id="userTel" required/>
+			                    </div>
+		               		</div> <br>
+							<span class="basic-info">카테고리 추가</span> 
+							<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
 							<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
-								<li id="dummy-category" style="display: none;">
-									<select name="a">
-										<optgroup  label="대분류">
-											<option value="movie">영화</option>
-											<option value="food">음식</option>
-										</optgroup>
-									</select>
-									<select name="">
-										<optgroup label="소분류">
-										<!-- 대분류 선택에 따라 select 삭제후 다시 만들어서 추가한다  -->
-											<option value="">태극기휘</option>
-											<option value="">아발타</option>
-										</optgroup>
-									</select> 
-									<span class="category-button" id="del-category">-</span>
+								<li style="display: none;" >
+									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
+		                                    <option selected disabled>대 카테고리</option>
+		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
+		                                    	<option>${categoryList[i].categoryMajorTitle}</option>
+		                                    </c:forEach>
+		                            </select>
+		                            <select  name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
+		                                    <option selected disabled>소 카테고리</option>
+		                            </select>
+		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>
 								<li>
-									<select name="a">
-										<optgroup  label="대분류">
-											<option value="movie">영화</option>
-											<option value="food">음식</option>
-										</optgroup>
-									</select>
-									<select name="">
-										<optgroup label="소분류">
-										<!-- 대분류 선택에 따라 select 삭제후 다시 만들어서 추가한다  -->
-											<option value="">태극기휘</option>
-											<option value="">아발타</option>
-										</optgroup>
-									</select> 
-									<span class="category-button" id="del-category">-</span>
+									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
+		                                    <option selected disabled>대 카테고리</option>
+		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
+		                                    	<option>${categoryList[i].categoryMajorTitle}</option>
+		                                    </c:forEach>
+		                            </select>
+		                            <select  name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
+		                                    <option selected disabled>소 카테고리</option>
+		                            </select>
+		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>
-								<li>
-									<select name="">
-										<optgroup  label="대분류">
-											<option value="movie">영화</option>
-										</optgroup>
-									</select>
-									<select name="">
-										<optgroup label="소분류">
-											<option value="">태극기휘</option>
-											<option value="">아발타</option>
-										</optgroup>
-									</select> 
-									<span class="category-button" id="del-category">-</span>
-								</li>
-							</ul>
-								
-							<br>
-							<label for="optional-checkbox"></label><br><span class="addiction-description">쇼핑 서비스를 이용하시려면 추가 정보를 입력하세요~</span>
-							<br> <br>
-							<div class="optional-info">
+							</ul> <br>
+							
+							<div class="optional-info"">
 								<span class="basic-info">추가 정보</span> <br>
 								<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
-								<input name="" type="text" class="btn btn-a" placeholder="주소" id="addrBasic" readonly> <br>
-								<input name="" type="text" class="btn btn-a" placeholder="상세주소" id="addrDetail"> <br>
-								<input name="" type="text" class="btn btn-a" placeholder="우편번호" id="addrZipNum" readonly> <br>
-								<input name="" type="text" class="btn btn-a" placeholder="전화번호" id="userTel"> <br>
-								<input name="" type="text" class="btn btn-a" placeholder="이메일" id="userEmail"> <br>
-								<input type="button" class="btn btn-lg btn-b btn-duck email-btn" onclick="" value="이메일 인증"> <br>
-							</div> <br> <br>
+								<div class="input-group inputArea">
+				                    <div class="col-md-12 col-sm-12 col-12">
+				                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="기본 주소" value="" id="addrBasic" readonly />
+				                    </div>
+		                		</div>	
+								<div class="input-group inputArea">
+				                    <div class="col-md-12 col-sm-12 col-12">
+				                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세 주소" value="" id="addrDetail" />
+				                    </div>
+		                		</div>	
+								<div class="input-group inputArea">
+				                    <div class="col-md-12 col-sm-12 col-12">
+				                        <input name="addressZipNum" class="form-control join-input" type="text" placeholder="우편번호" value="" id="addrZipNum" readonly />
+				                    </div>
+		                		</div>	
+								<div class="input-group inputArea">
+				                    <div class="col-md-12 col-sm-12 col-12">
+				                        <input name="userEmail" class="form-control join-input" type="text" placeholder="이메일" value="${user.userEmail}" id="userEmail" />
+				                    </div>
+		                		</div>	
+								<input type="button" class="btn btn-lg btn-b btn-duck email-btn" value="이메일 인증" id="confBtn"> <br>
+								<div class="input-group inputArea" style="display: none;" id="emailConf">
+				                    <div class="col-md-12 col-sm-12 col-12 beforeConf">
+										<input class="form-control join-input " type="text" name=""
+											id="email-auth-code" placeholder="이메일 인증 코드" required />
+										<input class="btn btn-outline-secondary" type="button"
+													name="confCheckBtn" id="confCheckBtn" value="인증하기" />
+				                    </div>
+				                    <p id="confMailRes"></p>
+		                		</div>	
+	                		</div> <br>
 							<input type="button" class="btn btn-sm btn-info btn-b" onclick="showUpdateModal()" value="수정하기" id="update"> &nbsp;&nbsp;
 							<input type="button" class="btn btn-sm btn-danger btn-b" onclick="showDeleteModal()" value="탈퇴하기" id="delete"> &nbsp;&nbsp;
 							<input type="button" class="btn btn-sm btn-b" onclick="history.back()" value="뒤로가기" id="back">
 						</form>
 					</div>
 				</div>
+				
+			<div class="modal" id="myPageModal">
+			  <div class="modal-dialog modalDesign">
+			    <div class="modal-content" id="myPage-modal-content">
+			      <div class="modal-header pt-3" id="myPage-modal-header">
+			        <h4 class="modal-title mx-auto">비밀번호 인증</h4>
+			      </div>
+			      <div class="modal-body" id="myPage-modal-footer">
+			      	<form action="" method="post" id="modal-submit">
+				        <!-- <p>One fine body&hellip;</p> -->
+						<div class="input-group inputArea">
+		                    <div class="col-md-12 col-sm-12 col-12">
+		                        <input name="currPw" class="form-control join-input" type="password" placeholder="현재 비밀번호" id="currPw" />
+		                    </div>
+	                	</div>					        
+						<div class="input-group inputArea">
+		                    <div class="col-md-12 col-sm-12 col-12">
+		                        <input name="modiPw" class="form-control join-input modiPw" type="password" placeholder="변경 비밀번호" id="modiPw" />
+		                    </div>
+	                	</div>					        
+						<div class="input-group inputArea">
+		                    <div class="col-md-12 col-sm-12 col-12">
+		                        <input name="checkPw" class="form-control join-input" type="password" placeholder="비밀번호 확인" id="checkPw" />
+		                    </div>
+	                	</div>					        
+						<input type="submit" style="display: none" >							
+			      	</form>
+			      </div>
+			      <div class="modal-footer" id="myPage-modal-footer">
+			        <button type="button" class="btn btn-primary modal-submit-btn">내용 수정하기</button>
+			        <button type="button" class="btn btn-light modal-cancel" onclick="hideModal()" data-dismiss="modal">돌아가기</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			  
+				<div id="modalMask"></div>
+			</div><!-- /.modal -->
+				
 		<div class="tab-content">
 		<c:choose>
 			<c:when test="${toggle == 2}">					
@@ -236,34 +290,7 @@
 		</div>
 	 </div>
 	</section>
-	
-	<section>
-		<div class="modal" id="myPageModal">
-		  <div class="modal-dialog modalDesign">
-		    <div class="modal-content" id="myPage-modal-content">
-		      <div class="modal-header pt-3" id="myPage-modal-header">
-		        <h4 class="modal-title mx-auto">비밀번호 인증</h4>
-		      </div>
-		      <div class="modal-body" id="myPage-modal-footer">
-		      	<form action="" method="post" id="modal-submit">
-			        <!-- <p>One fine body&hellip;</p> -->
-			        <input name="" type="password" class="btn btn-a currPw" placeholder="현재 비밀번호" id="currPw"> <br>
-					<input name="" type="password" class="btn btn-a modiPw" placeholder="변경 비밀번호" id="modiPw"> <br class="modiPw">
-					<input name="" type="password" class="btn btn-a checkPw" placeholder="비밀번호 확인" id="checkPw"> <br>
-					<input type="submit" style="display: none" >							
-		      	</form>
-		      </div>
-		      <div class="modal-footer" id="myPage-modal-footer">
-		        <button type="button" class="btn btn-primary modal-submit-btn">내용 수정하기</button>
-		        <button type="button" class="btn btn-light modal-cancel" onclick="hideModal()" data-dismiss="modal">돌아가기</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		  
-			<div id="modalMask"></div>
-		</div><!-- /.modal -->
-		
-	</section>
+
 
 	<%@ include file="../include/footer.jsp" %>
 </body>
@@ -301,59 +328,98 @@
 			
 		}); 
 		
-		$('#category-wrap').on('change', 'select[name=a]', function(e) {
-			
+		$('#category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
+			const chosenMajor= $(this).val();
+			const minorText1 = '${categoryList}';
+			const minorText2 = minorText1.split('), ');
 			const $category2 = this.nextElementSibling;
+			$($category2).html('');
 			
-			const $optgroup = document.createElement('optgroup');
-			$($optgroup).attr('label', '소분류');
+			const $optDefault = document.createElement('option');
+			$($optDefault).attr('selected', 'true');			
+			$($optDefault).attr('disabled', 'true');			
+			$($optDefault).text('소 카테고리');			
 			
-			const $fragOPt = document.createDocumentFragment();
+			const $fragOpts = document.createDocumentFragment();
+			$fragOpts.appendChild($optDefault);
 			
             const $option = document.createElement('option');
-            $($option).attr('name', 'a')
-            $option.textContent = '임시로 기능만 대충 구현';
-            $fragOPt.appendChild($option);
-			// for (const f of /* 소분류 갖는 colltection */) {
-	        //    const $option = document.createElement('option');
-	        //    $($option).attr('name', '/* 파라미터 값 */')
-	        //    $option.textContent = /* 한글값 */;
-	        //    $frag.appendChild($option);
-	        //} 
-
-	        $optgroup.appendChild($fragOPt);
+            
+			for (let minorText3 of minorText2) {
+				
+				let majorText = minorText3.substring(1, minorText3.indexOf(' '));
+				let serverMajor = majorText.substring(majorText.indexOf('=') + 1, majorText.indexOf(','));
+				
+				if (chosenMajor === serverMajor) {
+					
+					const minorList = minorText3.substring(minorText3.indexOf('=[') + 2, minorText3.indexOf(']')).split(', ');
+					
+					 for (const minor of minorList) {
+			            const $option = document.createElement('option');
+			            $option.textContent = minor;
+			            $fragOpts.appendChild($option);
+			        }
+					 
+			        $category2.appendChild($fragOpts);
+			        
+					break;
+				}
+			}
 			
-	        $category2.replaceChild($optgroup, $category2.firstElementChild);
 		});
-		
+	
+		let code = '';
 		// 인증번호 이메일 전송
-		$('#mail-check-btn').click(() => {
+		$('.email-btn').click(() => {
 
 			/* openLoading(); */
+			
 
-			const email = $('#userEmail1').val() + $('#userEmail2').val();
+			const email = $('#userEmail').val();
+			console.log('이메일: ' + email);
+			
+			if(email.trim() === ''){
+				alert('인증받을 메일 주소를 먼저 입력해 주세요.');
+			} else {
+				$('#emailConf').css('display', 'block');
+				
+				$.ajax({
+					type: 'POST',
+					url: '<c:url value="/user/userConfEmail" />',
+					data: email,
+					contentType: 'application/json',
+					success: function(data) {
+						code = data; // 인증번호를 전역변수에 저장.
+						alert('인증메일이 전송되었습니다.\n입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
+					},
+					error: function() {
+						alert('이메일 전송 실패');
+					}
+				}); // end ajax(이메일 전송)
 
-			console.log('완성된 이메일' + email);
-
-			$.ajax({
-				type: 'GET',
-				url: '<c:url value="/user/mailCheck?email=" />' + email,
-				success: function(data) {
-					console.log('통신 성공!');
-					closeLoading();
-					console.log('컨트롤러가 전달한 인증번호: ' + data);
-
-					$('.mail-check-input').attr('disabled', false); // 비활성된 인증번호 입력창 활성화.
-					code = data; // 인증번호를 전역변수에 저장.
-					alert('인증번호가 전송되었습니다. 확인 후 입력란에 정확하게 입력하세요!');
-				},
-				error: function() {
-					console.log('통신 실패!');
-				}
-
-			}); // end ajax(이메일 전송)
+			} 
 
 		}); // 이메일 전송 끝.
+		
+		// 인증번호 비교
+		$('#confCheckBtn').click(function() {
+				const inputCode = $('#email-auth-code').val();
+				const $resultMsg = $('#confMailRes');
+				
+				if (inputCode == code) {
+					$resultMsg.html('인증이 완료되었습니다.');
+					$('.beforeConf').css('display','none');
+					$resultMsg.css('color', 'green');
+					
+					$('#userEmail').attr('readonly', true);
+					$('#confBtn').css('display', 'none');
+					
+				} else {
+					$resultMsg.html('인증번호를 다시 확인해주세요.');
+					$resultMsg.css('color', 'red');
+					$('#confNum').focus();
+				}
+		}); //end 인증번호비교
 		
 		$('#userPw').hover(function() {
 			$(this).attr('placeholder', '영문 대/소문자, 숫자 8 ~ 16 자리');
@@ -480,6 +546,8 @@
 	function showModiPwModal() {
 		$('.modal-submit-btn').text('비밀번호 변경하기');
 		$('.modal-submit-btn').attr('onclick', 'ModiPwModal()');
+		$('.modiPw').css('display', 'inline-block');
+		$('.modiPw').attr('disabled', false);
 		
 		$('#myPageModal').show();
 	}
@@ -488,6 +556,7 @@
 	function showUpdateModal() {
 		$('.modal-submit-btn').text('내용 수정하기');
 		$('.modiPw').css('display', 'none');
+		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'UpdateModal()');
 
 		$('#myPageModal').show();
@@ -497,6 +566,7 @@
 	function showDeleteModal() {
 		$('.modal-submit-btn').text('탈퇴하기');
 		$('.modiPw').css('display', 'none');
+		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'DeleteModal()');
 		
 		$('#myPageModal').show();
@@ -609,7 +679,24 @@
 		$('#myPageModal').hide();
 	}
 	
+	const input = document.querySelector('#user-profile-pic');
 	
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			let reader = new FileReader();
+			
+			reader.onload = function (e) {
+			 $('#image_section').attr('src', e.target.result);  
+			}
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	// 이벤트를 바인딩해서 input에 파일이 올라올때 (input에 change를 트리거할때) 위의 함수를 this context로 실행합니다.
+	$("#user-profile-pic").change(function(){
+	   readURL(this);
+	});	
 	
 	
 	$(function() {

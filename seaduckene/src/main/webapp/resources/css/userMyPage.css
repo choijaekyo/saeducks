@@ -61,19 +61,19 @@
 	text-decoration: none;
 }
 
-#userMyPage .join-container {
+#userMyPage .update-container {
 	text-align: center;
 	margin-bottom: 500px;
 }
 
-#userMyPage .join-container img {
+#userMyPage .update-container img {
 	width: 200px;
 	height: 200px;
 	/* display: inline-block; */
 	border-radius: 50%;
 }
 
-#userMyPage .join-container .file-upload span {
+#userMyPage .update-container .file-upload span {
 	font-size: 105px;
 	position: relative;
 
@@ -82,7 +82,7 @@
 	
 }
 
-#userMyPage .join-container .file-upload {
+#userMyPage .update-container .file-upload {
 	position: relative;
 	overflow: hidden;
 
@@ -105,7 +105,7 @@
 	opacity: 0.95;
 }
 
-#userMyPage .join-container .file-upload .upload {
+#userMyPage .update-container .file-upload .upload {
 	position: absolute;
 
 	border:1px solid red !important;
@@ -119,7 +119,7 @@
 	filter: alpha(opacity=0);
 }
 
-#userMyPage .join-container form input.btn-a {
+#userMyPage .update-container form input.btn-a {
 
 	border-radius: 20px;
 	margin-top: 10px;
@@ -134,35 +134,58 @@
 	background-color: white;
 }
 
+#userMyPage .update-container form .join-input {
+	display: inline-block;
+	width: 300px;
+	text-align: center;
+	
+	margin-top: 10px; 
+}
+
+#myPageModal form .join-input {
+	display: inline-block;
+	width: 300px;
+	text-align: center;
+	
+	margin-top: 10px; 
+}
+
+#userMyPage .update-container form #email-auth-code { 
+	width: 205px;
+}
+
+#userMyPage .update-container form .btn-outline-secondary { 
+	vertical-align: unset;
+	
+}
+
+#userMyPage .input-group .join-input:focus,
+#userMyPage #category-wrap .join-category:focus,
+#myPageModal form .join-input:focus {
+	border: 1px solid rgb(255, 193, 7);
+	box-shadow: 0 0 5px 0.20rem rgba(255, 193, 7, 0.475);
+}
+
 @media screen and (min-width: 768px) {
 	
-	#userMyPage .join-container form input.btn-a:hover {
-	
+	#userMyPage .update-container form input.btn-a:hover {
 		width: 500px;
-	
 	}
 
 }
 
+#userMyPage .update-container form #userId:hover::placeholder,
+#userMyPage .update-container form #userPw:hover::placeholder,
+#userMyPage .update-container form #userName:hover::placeholder,
+#userMyPage .update-container form #userNickname:hover::placeholder,
+#userMyPage .update-container form #userTel:hover::placeholder {
+	font-size: 0.9rem;
+}
+
 @media screen and (max-width: 767px) {
 	
-	#userMyPage .join-container form input.btn-a:hover {
-		
-		opacity: 0.9;
-	
-	}
-
-	#userMyPage .join-container form #userPw:hover::placeholder {
-		font-size: 18px;
-	}
-	
-	#userMyPage .join-container form #pwConfirm:hover::placeholder {
-		font-size: 18px;
-	}
-	
-	#userMyPage .join-container #del-category {
-		margin: 0 auto;
-		display: block;
+	#userMyPage .update-container form input.btn-a:hover {
+		opacity: 0.9;	
 	}
 }
 
@@ -172,12 +195,24 @@
 
 } */
 
-#userMyPage .join-container .optional-container {
+#userMyPage .update-container .optional-container {
 	text-align: center;
 	line-height: 35px;
 } 
 
-#userMyPage .join-container .category-button {
+#userMyPage .update-container form .join-category {
+	display: inline-block; 
+}
+
+@media screen and (max-width: 451px) {
+	#userMyPage .update-container form .join-category {
+		display: block;
+		margin: 10px auto;
+	}
+	
+}
+
+#userMyPage .update-container .category-button {
 	display: inline-block;
 	
 	width: 20px;
@@ -185,71 +220,75 @@
 	border: 1px solid white;
 }
 
-#userMyPage .join-container .category-button:hover {
+#userMyPage .update-container .category-button:hover {
 	cursor: pointer;
 }
 
 
-#userMyPage .join-container select {
-	color: #000000;
-	
+#userMyPage .update-container select {
 	width: 200px; /* 원하는 너비설정 */
-    padding: .8em .5em; /* 여백으로 높이 설정 */
-    font-family: inherit;  /* 폰트 상속 */
-    background-image: url('../img/expand_more_select.png'); /* 네이티브 화살표를 커스텀 화살표로 대체 */
-    background-repeat: no-repeat;
-    background-position: right;
-    border: 1px solid #999;
-    border-radius: 0px; /* iOS 둥근모서리 제거 */
     margin: 10px 0 0;
 }
 
 /* IE 10, 11의 네이티브 화살표 숨기기 */
-#userMyPage .join-container select::-ms-expand {
+#userMyPage .update-container select::-ms-expand {
     display: none;
 }
 
+#userMyPage .update-container input[type="checkbox"] + label{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
 
-#userMyPage .join-container form input.btn {
-    padding: 0;
-}
+	top: 11px;
 
-#userMyPage .join-container form input.btn-b {
+	border:3px solid #707070;
+	position: relative;
+  }
+#userMyPage .update-container input[id="optional-checkbox"]:checked + label::after{
+	content:'✔';
+	font-size: 40px;
+	line-height: 20px;
+	width: 10px;
+	height: 10px;
+	text-align: center;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+ }
+
+#userMyPage .update-container form input.btn-b {
 
 	border-radius: 20px;
 	margin-top: 10px;
 	
-	line-height: 30px;
-	
 	width: 120px;
 	height: 30px;
-	/* font-size: 20px; */
+	font-size: 20px;
 	color: black;
-	font-size: 1.1em;
+	line-height: 1px;
 
 }
 
-#userMyPage .join-container form input.btn-pw-modi {
+#userMyPage .update-container form input.btn-pw-modi {
 	width: 190px;
 	
 	border-radius: 17px;
-	
-	
 }
 
-#userMyPage .join-container form input.email-btn {
+#userMyPage .update-container form input.email-btn {
 	width: 150px;
 }
 
-#userMyPage .join-container form #update:hover {
+#userMyPage .update-container form #update:hover {
 	background-color: #0ca0f1;
 }
 
-#userMyPage .join-container form #back {
+#userMyPage .update-container form #back {
 	background: #ff8000;
 }
 
-#userMyPage .join-container form #back:hover {
+#userMyPage .update-container form #back:hover {
 	background: #f2680d;
 }
 

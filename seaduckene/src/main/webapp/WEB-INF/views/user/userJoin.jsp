@@ -64,6 +64,7 @@
 	                        <input name="userNickname" class="form-control join-input" type="text" placeholder="닉네임" id="userNickname" required />
 	                    </div>
                 	</div>
+					<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="nickname-check"> <br>
    					<div class="input-group inputArea">
 		                <div class="col-md-12 col-sm-12 col-12">
 		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" required/>
@@ -310,6 +311,50 @@
 			});
 		});
 		
+		let nicknameCheck = false;
+		// 닉네임 중복 확인.
+		$('#nickname-check').click(function() {
+			const userNickname = $('#userNickname').val();
+			console.log();
+			
+			if(userNickname === '') {
+				nicknameCheck = false;
+				$('#userNickname').focus();
+				alert('닉네임를 입력하세요.');
+				return;
+			} else if($('#userNickname').css('border-block-color') === 'rgb(255, 0, 0)') {
+				nicknameCheck = false;
+				$('#userNickname').focus();
+				alert('유효하지 않는 아이디입니다.');
+				return;				
+			}
+			
+			$.ajax({
+				type:'POST',
+				url:'${pageContext.request.contextPath}/user/checkNickname',
+				contentType:'application/json',
+				dataType: 'text',
+				data:userNickname,
+				success: function(result) {
+					if (result === 'duplicated') {
+						nicknameCheck = false;
+						$('#userNickname').css('border', '2px solid red');
+						$('#userNickname').focus();
+						alert('이 닉네임은 이미 사용 중입니다.');
+					} else {
+						nicknameCheck = true;
+						$('#userNickname').css('border', '2px solid #ffc107');
+						alert('사용가능한 닉네임입니다!');
+					}
+				},
+				error: function() {
+					nicknameCheck = false;
+					alert('닉네임 확인에 실패했습니다.\n관리자에게 문의해주세요.');						
+				}
+				
+			});
+		});
+		
 		$('#userId').hover(function() {
 			$(this).attr('placeholder', '영문 대/소문자, 숫자 4 ~ 12 자리');
 		}, function() {
@@ -466,7 +511,7 @@
         });
 
         // 버튼 클릭, 버튼 엔터 이벤트 시 submit 실행 코드.
-        $('#user-join-submit').click(login);
+        $('#user-join-submit').click(join);
         $('#user-join-form').on('keyup', 'input', keyPressEnter);
 	    
 	    function keyPressEnter() {

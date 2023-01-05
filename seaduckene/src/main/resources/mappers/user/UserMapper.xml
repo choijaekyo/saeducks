@@ -53,11 +53,19 @@
 
 	<select id="getBasket" resultType="basket">
 		SELECT * FROM basket
-		WHERE basket_user_no=#{num}
+		WHERE basket_user_no = #{num}
 	</select>
 
 	<select id="checkId" resultType="int">
 		SELECT COUNT(*) FROM duck_user WHERE user_id = #{userId}
+	</select>
+	
+	<select id="checkNickname" resultType="int">
+		SELECT COUNT(*) FROM duck_user WHERE user_nickname = #{userNickname}
+	</select>
+	
+	<select id="">
+		SELECT categoryMajorTitle, categoryMinorTitle FROM 
 	</select>
 	
 </mapper>

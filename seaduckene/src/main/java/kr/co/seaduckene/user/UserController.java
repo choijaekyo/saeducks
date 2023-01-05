@@ -170,6 +170,15 @@ public class UserController {
 		}
 		modelAndView.addObject("basket", bvo);
 		modelAndView.addObject("total", total);
+		modelAndView.addObject("user", vo);
+		
+		log.info(userService.getCategories());
+		
+		modelAndView.addObject("categoryList", userService.getCategories());
+		modelAndView.addObject("majorLength", userService.getCategories().size() - 1);
+		log.info(userService.getCategories().size() - 1);
+		
+		
 		
 		return modelAndView;
 	}
@@ -201,6 +210,22 @@ public class UserController {
 			return "accepted";
 		} else {
 
+			return "duplicated";
+		}
+		
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("/checkNickname")
+	public String checkNickname(@RequestBody String userNickname) {
+		log.info(userNickname);
+		
+		if (userService.checkNickname(userNickname) == 0) {
+			
+			return "accepted";
+		} else {
+			
 			return "duplicated";
 		}
 		
