@@ -12,32 +12,31 @@ import kr.co.seaduckene.user.command.UserVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class UserLoginAccessHandler implements HandlerInterceptor {
+public class UserLoginVerifHandler implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
 		HttpSession session = request.getSession();
 		UserVO loginUser = (UserVO) session.getAttribute("login");
-		
-		if (loginUser == null) {
-			log.info(loginUser + ": 로그인 세션 없음.");
+		if (loginUser != null) {
+			log.info("로그인 세션: " + loginUser);
 			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			String contPath = request.getContextPath();
 			
 			String htmlCodes = "	<script>\r\n"
-					+ "	alert('로그인이 필요한 페이지입니다.');\r\n"
-					+ "	location.href='" + contPath + "/user/userLogin';\r\n"
+					+ "	alert('이미 로그인한 정보가 있습니다.\n 홈 화면으로 이동합니다.');\r\n"
+					+ "	location.href='" + contPath + "/';\r\n"
 					+ "</script>";
 			out.print(htmlCodes);
 			out.flush();
 			
-			out.close();
+			out.close();	
 			return false;
 		}
-		log.info("로그인 세션: " + loginUser);
 		
 		return true;
 	}

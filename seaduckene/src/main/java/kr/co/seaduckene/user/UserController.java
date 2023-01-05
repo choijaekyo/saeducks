@@ -48,9 +48,7 @@ public class UserController {
 	
 
 	@GetMapping("/userLogin")
-	public void userLogin() {
-		
-	}
+	public void userLogin() {}
 	
 	@PostMapping("/userLoginAuth")
 	public ModelAndView userLogin(UserVO userVO, ModelAndView modelAndView) {

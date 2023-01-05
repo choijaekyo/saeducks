@@ -21,7 +21,7 @@ public class UserLoginSuccessHandler implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-
+		
 		UserVO user = (UserVO) modelAndView.getModel().get("userVo");
 
 		if (user == null) {
