@@ -59,8 +59,23 @@ public class ProductController {
 	}
 	
 	@GetMapping("/order")
-	public void orderSheet() {
+	public void orderSheet(HttpSession session,Model model) {
 		System.out.println("controller동작 order/GET");
+		
+//		UserVO user = (UserVO)session.getAttribute("login");
+//		int userNo = user.getUserNo();
+		
+		int userNo=999;
+		
+		// 장바구니 상품 불러오기
+		List<ProductBasketVO> basketList = productService.getBasketList(userNo);
+		model.addAttribute("basketList",basketList);
+		System.out.println(basketList);
+//		for(ProductBasketVO product : basketList) {
+//			ProductImageVO thumbnail = productService.getThumbnailImg(product.getBasketProductNo());
+//			modelAndView.addObject("thumbnail",thumbnail);
+//		}
+		
 	}
 	
 	@GetMapping("/productDetail")
