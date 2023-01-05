@@ -74,7 +74,7 @@
 					<span class="basic-info">카테고리 추가</span>
 					<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
 					<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
-						<li style="display: none;" >
+						<li style="display: none;" data-index='0' >
 							<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
                                     <option selected disabled>대 카테고리</option>
                                     <c:forEach var="i" begin="0" end="${majorLength}" step="1">
@@ -86,7 +86,7 @@
                             </select>
                             <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 						</li>
-						<li>
+						<li data-index='1'>
 							<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
                                     <option selected disabled>대 카테고리</option>
                                     <c:forEach var="i" begin="0" end="${majorLength}" step="1">
@@ -175,7 +175,7 @@
 		});
 		
 		$('#category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
-			const chosenMajor= $(this).val();
+			const chosenMajor = $(this).val();
 			const minorText1 = '${categoryList}';
 			const minorText2 = minorText1.split('), ');
 			const $category2 = this.nextElementSibling;
@@ -211,6 +211,32 @@
 					break;
 				}
 			}
+			
+		});
+	
+		$('#category-wrap').on('change', 'select[name=categoryMinorTitle]', function(e) {
+			const chosenMinor = $(this).val();
+			const chosenMajor = $(this.previousElementSibling).val();
+			
+			const chosenLiIndex = $(this.parentNode).data('index');
+			
+			const selectedMajors = $('select[name=categoryMajorTitle]');
+			const selectedMajorsMaxIndex = selectedMajors.length;
+			
+			// 현재 선택된 모든 대 카테고리의 값을 반복문으로 조회.
+			for (let i = 1; i < selectedMajorsMaxIndex; i++) {
+				
+				let selectedLiIndex = $(selectedMajors[i].parentNode).data('index');
+				
+				if (selectedLiIndex !== chosenLiIndex) {
+					if (selectedMajors[i].value === chosenMajor && selectedMajors[i].nextElementSibling.value === chosenMinor) {
+						alert('이미 선택된 카테고리입니다.');
+						this.selectedIndex = 0;
+						return;
+					}
+				}
+			}
+			
 			
 		});
 		
@@ -495,9 +521,12 @@
 			}
         }); 
         
+        let indexLi = 1;
         // 카테고리 추가
         $('#add-category').click(function() {
-        	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true); 
+        	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true);
+        	indexLi = indexLi + 1;
+        	$($cloneLi).data('index', indexLi);
         	$($cloneLi).css('display', 'list-item');
         	
         	$('#category-wrap').append($cloneLi);
