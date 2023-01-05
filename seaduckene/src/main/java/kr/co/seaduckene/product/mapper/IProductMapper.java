@@ -28,6 +28,12 @@ public interface IProductMapper {
 	
 	// 상품주문
 	void order(ProductOrderVO orderVo);
+	
+	// 상품 재고수량 수정
+	void updateStock(Map<String, Object> map);
+	
+	// 장바구니 비우기
+	void deleteBasket(int userNo);
 
 	// 인증메일 등록
 	void updateEmail(Map<String, Object> map);

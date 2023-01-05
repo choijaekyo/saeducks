@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
@@ -62,20 +63,22 @@ public class ProductController {
 	public void orderSheet(HttpSession session,Model model) {
 		System.out.println("controller동작 order/GET");
 		
-//		UserVO user = (UserVO)session.getAttribute("login");
-//		int userNo = user.getUserNo();
-		
-		int userNo=999;
-		
+		UserVO user = (UserVO)session.getAttribute("login");
+		int userNo = user.getUserNo();
+
 		// 장바구니 상품 불러오기
 		List<ProductBasketVO> basketList = productService.getBasketList(userNo);
 		model.addAttribute("basketList",basketList);
-		System.out.println(basketList);
-//		for(ProductBasketVO product : basketList) {
-//			ProductImageVO thumbnail = productService.getThumbnailImg(product.getBasketProductNo());
-//			modelAndView.addObject("thumbnail",thumbnail);
-//		}
 		
+		int total = 0;
+		// 상품 썸네일 가져오기
+		for(ProductBasketVO product : basketList) {
+			ProductImageVO thumbnail = productService.getThumbnailImg(product.getBasketProductNo());
+			model.addAttribute("thumbnail",thumbnail);
+			// 총액 계산하기
+			total += product.getBasketQuantity()*product.getBasketPrice();
+		}
+		model.addAttribute("total",total);
 	}
 	
 	@GetMapping("/productDetail")
@@ -116,22 +119,22 @@ public class ProductController {
 	
 	@PostMapping("/order")
 	public String order(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,
-						ProductOrderVO orderVo ,String userEmail/*, HttpSession session*/) {
+						ProductOrderVO orderVo ,String userEmail, HttpSession session,
+						RedirectAttributes ra) {
 		System.out.println("controller 동작");
 		System.out.println(orderVo);
 		System.out.println(userEmail);
 		
 		// order TABLE INSERT
-		//UserVO user = (UserVO)session.getAttribute("login");
-		//user.setUserNo(999);
-		//productService.order(orderList, userEmail, addrVo, user);
-
-		UserVO user = new UserVO();
-		user.setUserNo(999);
+		UserVO user = (UserVO)session.getAttribute("login");	
+		String result = productService.order(orderProductNoList, orderVo, userEmail, user);
+		ra.addFlashAttribute("result", result);
+		if(result.equals("lack")) {
+			return "redirect:/product/order";	
+		}else {
+			return "redirect:/product/finishOrder";	
+		}
 		
-		productService.order(orderProductNoList, orderVo, userEmail, user);
-		
-		return "redirect:/product/finishOrder";	
 	}
 	
 	@ResponseBody

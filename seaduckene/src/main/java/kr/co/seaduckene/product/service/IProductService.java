@@ -24,7 +24,7 @@ public interface IProductService {
 	// 썸네일 가져오기
 	ProductImageVO getThumbnailImg(int productNo);
 	// 상품주문
-	void order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user);
+	String order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user);
 
 	// 카테고리 리스트 불러오기
 	List<CategoryVO> getCategory();
