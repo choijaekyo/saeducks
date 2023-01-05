@@ -130,7 +130,7 @@
 		                                    </c:forEach>
 		                            </select>
 		                            <select name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
-		                                    <option selected disabled>소 카테고리</option>
+		                                    <!-- <option selected disabled>소 카테고리</option> -->
 		                            </select>
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>
@@ -536,11 +536,14 @@
         // 카테고리 추가
         $('#add-category').click(function() {
         	const $lastLi = this.nextElementSibling.lastElementChild;
+        	
+        	console.log($lastLi);
      		
-        	let indexLi = $($lastLi).data('index') + 1;
+        	let indexLi = +($($lastLi).data('index')) + 1;
+        	console.log(indexLi);
         	
         	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true);
-        	$($cloneLi).data('index', indexLi);
+        	$($cloneLi).attr('data-index', indexLi);
         	$($cloneLi).css('display', 'list-item');
         	
         	$('#category-wrap').append($cloneLi);
@@ -555,7 +558,7 @@
 		
 	}); // end jQuery
 	
-	// 즉시 실행 함수 - 유저의 카테고리로 select의 options에서 .selectedIndex 적용
+	// 즉시 실행 함수 
 	(function() {
 		const userCategoryList = ('${userCategoryList}').split('), ');
 		console.log(userCategoryList);
@@ -586,11 +589,11 @@
 			console.log(userMajorCategories.indexOf(serverMajorCategory) + 1);
 			serverMajorSelectNode.selectedIndex = userMajorCategories.indexOf(serverMajorCategory) + 1;
 			
-	/* 		// ======= 소 카테고리 option태그들 append 코드 =========
+			// ======= 소 카테고리 option태그들 append 코드 =========
 			console.log($(selectorLi)[0].value);
 			
 			const $serverMinorSelectNode = $(selectorLi)[0].nextElementSibling;
-			$($serverMinorSelectNode).html('');
+			/* $($serverMinorSelectNode).html(''); */
 			
 			const $optDefault = document.createElement('option');
 			$($optDefault).attr('selected', 'true');			
@@ -598,8 +601,10 @@
 			$($optDefault).text('소 카테고리');			
 			
 			const $fragOpts = document.createDocumentFragment();
-			$fragOpts.appendChild($optDefault); */
-			/* 
+			$fragOpts.appendChild($optDefault);
+			
+			let arr = [];
+			
 			for (let userCategoryText2 of userCategoryList) {
 				const userCategoryMajorAndMinor2 = userCategoryText2.substring(userCategoryText2.indexOf('jor') + 9, userCategoryText2.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
 				
@@ -607,18 +612,17 @@
 			        const $option = document.createElement('option');					
 		            $option.textContent = userCategoryMajorAndMinor2[1];
 		            $fragOpts.appendChild($option);
+		            
+		            arr.push(userCategoryMajorAndMinor2[1]);
 				}
 			}
-	        $serverMinorSelectNode.appendChild($fragOpts); */
+	        $serverMinorSelectNode.appendChild($fragOpts);
 	        
+	        $serverMinorSelectNode.selectedIndex = arr.indexOf(serverMinorCategory) + 1;
 	        
-			/* console.log($(selectorLi)[1]);
-			console.log(userMajorCategories.indexOf(userCategoryMajorAndMinor1[1]) + 1);
-			$(selectorLi)[1].selectedIndex = userMajorCategories.indexOf(userCategoryMajorAndMinor1[1]) + 1
-			i = i + 1; */
+	        i = i + 1;
 		}
 
-		
 	}());
 	
 	// 다음 주소 api 사용해보기

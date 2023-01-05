@@ -527,7 +527,7 @@
         	let indexLi = $($lastLi).data('index') + 1;
         	
         	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true);
-        	$($cloneLi).data('index', indexLi);
+        	$($cloneLi).attr('data-index', indexLi);
         	$($cloneLi).css('display', 'list-item');
         	
         	$('#category-wrap').append($cloneLi);
