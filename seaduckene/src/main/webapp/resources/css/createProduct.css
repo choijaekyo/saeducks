@@ -9,6 +9,7 @@
 
 .inputArea {
 	margin: 20px;
+	line-height:38px;
 }
 
 .container .input-group .form-control:focus,

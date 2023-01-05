@@ -266,7 +266,8 @@
 				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-plus-square"></i></a>
 				                    <a href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square"></i></a></td>
 				                <td class="align-middle basket">&#8361;${b.basketQuantity*b.basketPrice }  </td>
-				                <td class="align-middle basket"><button type="button" class="btn btn-danger">삭제</button></td>
+				                <td class="align-middle basket"><button type="button" class="btn btn-danger basketDel" >삭제</button></td>
+				                <td style="display:none">${b.basketNo} </td> 
 				            </tr>
 				            </c:forEach>
 				        </table>
@@ -678,6 +679,18 @@
 		
 		$('#myPageModal').hide();
 	}
+	//장바구니 삭제
+	$('.basketDel').on('click',function(e){
+		console.log('장바구니삭제 클릭')
+		const bno = $(e.target.parentNode.nextElementSibling).html();
+		console.log(bno);
+		if(confirm('삭제하시겠습니까?')){
+			location.href="<c:url value='/product/basketDel?basketNo="+bno+"'/>"
+		}else{
+			return;
+		}
+		
+	});
 	
 	const input = document.querySelector('#user-profile-pic');
 	
