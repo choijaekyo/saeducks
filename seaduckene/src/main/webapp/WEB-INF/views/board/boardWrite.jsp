@@ -32,8 +32,7 @@
 
 		<div class="row">
 			<div class="col">
-				<textarea class="summernote" id="exampleFormControlTextarea1"
-					name="boardContent" rows="10"></textarea>
+				<textarea class="summernote" name="boardContent" rows="10"></textarea>
 			</div>
 		</div>
 		<input type="hidden" name="boardUserNo" value="1"> <input

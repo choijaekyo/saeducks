@@ -114,4 +114,6 @@ public class boardListController {
 		return service.noticeLists(paging);
 	}
 
+	@GetMapping("/testPage")
+	public void testPage() {}
 }
