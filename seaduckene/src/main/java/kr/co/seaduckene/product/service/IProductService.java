@@ -51,5 +51,11 @@ public interface IProductService {
 
 	// 장바구니 수량 변경
 	public void cQuantity(Map<String, Object> map);
+	
+	//장바구니 중복 체크
+	public int basketChk(ProductBasketVO vo);
+	
+	//장바구니 삭제
+	public void delBasekt(int basketNo);
 
 }

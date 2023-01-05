@@ -128,6 +128,14 @@
 		UPDATE basket SET basket_quantity=#{q} 
 		WHERE basket_no=#{basketNo}
 	</update>
+	
+	<select id="basketChk" resultType="int">
+		SELECT count(*) FROM basket WHERE basket_product_no=#{basketProductNo} AND basket_user_no =#{basketUserNo}
+	</select>
+	
+	<delete id="delBasekt">
+		DELETE FROM basket WHERE basket_no=#{basketNo} 
+	</delete>
 
 </mapper>
     

@@ -85,7 +85,15 @@
                 </div>
                 <div class="input-group inputArea">
                     <div class="col-md-2 offset-md-1 col-sm-12 col-12">
-                        <label for="productImg">상품이미지</label>
+                        <label for="thumbnailImg">썸네일이미지</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <input class="form-control" type="file" name="thumbnailImg" id="thumbnailImg"  />
+                    </div>
+                </div>
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="productImg">상품이미지(최대2개)</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
                         <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple"  />

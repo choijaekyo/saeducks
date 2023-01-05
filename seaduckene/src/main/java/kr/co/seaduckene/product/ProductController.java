@@ -129,7 +129,8 @@ public class ProductController {
 	@PostMapping("/createProduct")
 	public void insertProduct(ProductVO vo,@RequestParam("majorCategory") String major,
 			@RequestParam("minorCategory") String minor,
-			@RequestParam("productImg") List<MultipartFile> list) {
+			@RequestParam("productImg") List<MultipartFile> list,
+			@RequestParam("thumbnailImg") MultipartFile thumb) {
 		System.out.println("/product/createProduct POST");
 		System.out.println(major+minor);
 		System.out.println(vo);
@@ -146,12 +147,12 @@ public class ProductController {
 		SimpleDateFormat simple = new SimpleDateFormat("yyyyMMdd");
 		String today = simple.format(new Date());
 		ivo.setProductImageFolder(today);
-		
+		list.add(thumb);
 		String uploadFolder ="C:/imgduck/product/"+today;
 		ivo.setProductImagePath("C:/imgduck/product/");
 		for(int i =0;i<list.size();i++ ) {
 				ivo.setProductThumbnail(0);
-			if(i==0) {
+			if(i==(list.size()-1)) {
 				ivo.setProductThumbnail(1);
 			}
 			String fileRealName = list.get(i).getOriginalFilename();
@@ -199,9 +200,11 @@ public class ProductController {
 	
 	@PostMapping("/insertBasket")
 	@ResponseBody
-	public void insertBasket(@RequestBody ProductBasketVO vo) {
+	public String insertBasket(@RequestBody ProductBasketVO vo) {
 		System.out.println(vo);
+		if(productService.basketChk(vo)==1) return"fail";
 		productService.insertBasket(vo);
+		return"seccess";
 	}
 	@GetMapping("/plusQuantity")
 	public ModelAndView plusQ(ModelAndView modelAndView , int basketNo ,int q) {
@@ -227,8 +230,15 @@ public class ProductController {
 		
 		return modelAndView;
 	}
-	
-	
+	@GetMapping("/basketDel")
+	public ModelAndView basketDel(ModelAndView modelAndView , int basketNo) {
+		
+		productService.delBasekt(basketNo);
+		
+		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		
+		return modelAndView;
+	}
 	
 	
 	

@@ -155,4 +155,15 @@ public class ProductServiceImpl implements IProductService {
 	public void cQuantity(Map<String, Object> map) {
 		productMapper.cQuantity(map);
 	}
+	@Override
+	public int basketChk(ProductBasketVO vo) {
+		
+		return productMapper.basketChk(vo);
+	}
+	@Override
+	public void delBasekt(int basketNo) {
+		productMapper.delBasekt(basketNo);
+		
+	}
+	
 }
