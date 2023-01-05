@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -176,9 +178,21 @@ public class UserController {
 		
 		modelAndView.addObject("categoryList", userService.getCategories());
 		modelAndView.addObject("majorLength", userService.getCategories().size() - 1);
-		log.info(userService.getCategories().size() - 1);
 		
+		List<CategoryVO> categoryVOs = userService.getUserCategories(userNo);
 		
+		Set<String> set = new TreeSet<String>();
+		
+		for (int i = 0; i < categoryVOs.size(); i++) {
+			set.add(categoryVOs.get(i).getCategoryMajorTitle());
+		}
+		
+		modelAndView.addObject("userCategoryList", categoryVOs);
+		log.info(categoryVOs);
+		modelAndView.addObject("userMinorLength", categoryVOs.size());
+		modelAndView.addObject("userMajorCategories", set);
+		
+		log.info(userService.getUserCategories(userNo).toString());
 		
 		return modelAndView;
 	}

@@ -1,6 +1,8 @@
 package kr.co.seaduckene.user.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -102,6 +104,10 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.checkNickname(userNickname);
 	}
 	
-	
+	@Override
+	public List<CategoryVO> getUserCategories(int userNo) {
+		
+		return userMapper.getUserCategories(userNo);
+	}
 
 }
