@@ -25,10 +25,11 @@ public class UserLoginVerifHandler implements HandlerInterceptor {
 			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
+			
 			String contPath = request.getContextPath();
 			
 			String htmlCodes = "	<script>\r\n"
-					+ "	alert('이미 로그인한 정보가 있습니다.\n 홈 화면으로 이동합니다.');\r\n"
+					+ "	alert('유효하지 않은 접근입니다.\\n이미 로그인한 정보가 있습니다.\\n홈 화면으로 이동합니다.');\r\n"
 					+ "	location.href='" + contPath + "/';\r\n"
 					+ "</script>";
 			out.print(htmlCodes);

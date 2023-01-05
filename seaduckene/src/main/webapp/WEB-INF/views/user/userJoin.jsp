@@ -367,11 +367,11 @@
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
+                $(this).css('border', '2px solid #ffc107');
+                
 	            if($("#pwConfirm").val() === $(this).val() ) {
-	                $(this).css('border', '2px solid #ffc107');
 	                $("#pwConfirm").css('border', '2px solid #ffc107');
 	            } else {
-	            	$(this).css('border', '2px solid red');
 	            	$("#pwConfirm").css('border', '2px solid red');
 	            }
             } else {

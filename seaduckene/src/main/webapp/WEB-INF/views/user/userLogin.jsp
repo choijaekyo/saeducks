@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page autoFlush="false" %>
+<%@ page buffer="64kb" autoFlush="false" %>
 <!DOCTYPE html>
 <html>
 <head>
