@@ -11,6 +11,7 @@
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
+	
 <section id="userLoginPage">
 	<div class="login-wrap">
 	  <div class="login-html">
@@ -46,11 +47,23 @@
 
 <script>
 	$(function() {
-		$('#user-login-submit').click(function() {
-			
-			
-			$('#user-login-form').submit();
-		});
+		$('#user-login-submit').click(login);
+		$('#user-login-form').on('keyup', 'input', keyPressEnter);
+				
+		function keyPressEnter() {
+			if (window.event.keyCode == 13) {
+				login();
+			}
+		}
+		
+		function login() {
+			$('#user-login-form').submit();	
+		}
 	});
+			
+	
+	if ('${msg}' === 'loginFail') {
+		alert('로그인 아이디 또는 비밀번호가 틀렸습니다.\n다시 입력하세요.');		
+	}
 </script>
 </html>

@@ -19,6 +19,9 @@ public interface IUserService {
 	// 유저 아이디 중복 확인
 	int checkId(String userId);
 	
+	// 유저 닉네임 중복 확인
+	int checkNickname(String userNickname);
+	
 	// 카테고리 정보 가져오기
 	List<Categories> getCategories();
 	

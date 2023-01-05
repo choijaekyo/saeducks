@@ -10,6 +10,8 @@
 
 	<bean id="ProductOrderInterceptor" class="kr.co.seaduckene.util.interceptor.ProductOrderInterceptor" />
 	<bean id="userLoginSuccessHandler" class="kr.co.seaduckene.util.interceptor.UserLoginSuccessHandler" />
+	<bean id="userLoginAccessHandler" class="kr.co.seaduckene.util.interceptor.UserLoginAccessHandler" />
+	<bean id="userLoginVerifHandler" class="kr.co.seaduckene.util.interceptor.UserLoginVerifHandler" />
 	
 	<mvc:interceptors>
 		
@@ -25,6 +27,16 @@
 			<ref bean="userLoginSuccessHandler" />
 		</mvc:interceptor>
 
+		<mvc:interceptor>
+			<mvc:mapping path="/user/userMyPage/**" />
+			<ref bean="userLoginAccessHandler" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/user/userLogin" />
+			<ref bean="userLoginVerifHandler" />
+		</mvc:interceptor>
+		
 	</mvc:interceptors>
 
 

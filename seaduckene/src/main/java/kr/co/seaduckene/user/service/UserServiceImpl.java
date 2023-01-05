@@ -97,6 +97,11 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.checkId(userId);
 	}
 	
+	@Override
+	public int checkNickname(String userNickname) {
+		return userMapper.checkNickname(userNickname);
+	}
+	
 	
 
 }

@@ -64,6 +64,7 @@
 	                        <input name="userNickname" class="form-control join-input" type="text" placeholder="닉네임" id="userNickname" required />
 	                    </div>
                 	</div>
+					<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="nickname-check"> <br>
    					<div class="input-group inputArea">
 		                <div class="col-md-12 col-sm-12 col-12">
 		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" required/>
@@ -73,7 +74,7 @@
 					<span class="basic-info">카테고리 추가</span>
 					<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
 					<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
-						<li style="display: none;" >
+						<li style="display: none;" data-index='0' >
 							<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
                                     <option selected disabled>대 카테고리</option>
                                     <c:forEach var="i" begin="0" end="${majorLength}" step="1">
@@ -85,7 +86,7 @@
                             </select>
                             <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 						</li>
-						<li>
+						<li data-index='1'>
 							<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
                                     <option selected disabled>대 카테고리</option>
                                     <c:forEach var="i" begin="0" end="${majorLength}" step="1">
@@ -174,9 +175,9 @@
 		});
 		
 		$('#category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
-			const major = $(this).val();
-			const minor1 = '${categoryList}';
-			const minor2 = minor1.split('), ');
+			const chosenMajor = $(this).val();
+			const minorText1 = '${categoryList}';
+			const minorText2 = minorText1.split('), ');
 			const $category2 = this.nextElementSibling;
 			$($category2).html('');
 			
@@ -190,17 +191,18 @@
 			
             const $option = document.createElement('option');
             
-			for (let minorText of minor2) {
+			for (let minorText3 of minorText2) {
 				
-				let majorText = minorText.substring(1, minorText.indexOf(' '));
+				let majorText = minorText3.substring(1, minorText3.indexOf(' '));
+				let serverMajor = majorText.substring(majorText.indexOf('=') + 1, majorText.indexOf(','));
 				
-				if (majorText.indexOf(major) !== -1) {
+				if (chosenMajor === serverMajor) {
 					
-					const minoList = minorText.substring(minorText.indexOf('=[') + 2, minorText.indexOf(']')).split(', ');
+					const minorList = minorText3.substring(minorText3.indexOf('=[') + 2, minorText3.indexOf(']')).split(', ');
 					
-					 for (const f of minoList) {
+					 for (const minor of minorList) {
 			            const $option = document.createElement('option');
-			            $option.textContent = f;
+			            $option.textContent = minor;
 			            $fragOpts.appendChild($option);
 			        }
 					 
@@ -209,6 +211,32 @@
 					break;
 				}
 			}
+			
+		});
+	
+		$('#category-wrap').on('change', 'select[name=categoryMinorTitle]', function(e) {
+			const chosenMinor = $(this).val();
+			const chosenMajor = $(this.previousElementSibling).val();
+			
+			const chosenLiIndex = $(this.parentNode).data('index');
+			
+			const selectedMajors = $('select[name=categoryMajorTitle]');
+			const selectedMajorsMaxIndex = selectedMajors.length;
+			
+			// 현재 선택된 모든 대 카테고리의 값을 반복문으로 조회.
+			for (let i = 1; i < selectedMajorsMaxIndex; i++) {
+				
+				let selectedLiIndex = $(selectedMajors[i].parentNode).data('index');
+				
+				if (selectedLiIndex !== chosenLiIndex) {
+					if (selectedMajors[i].value === chosenMajor && selectedMajors[i].nextElementSibling.value === chosenMinor) {
+						alert('이미 선택된 카테고리입니다.');
+						this.selectedIndex = 0;
+						return;
+					}
+				}
+			}
+			
 			
 		});
 		
@@ -309,6 +337,50 @@
 			});
 		});
 		
+		let nicknameCheck = false;
+		// 닉네임 중복 확인.
+		$('#nickname-check').click(function() {
+			const userNickname = $('#userNickname').val();
+			console.log();
+			
+			if(userNickname === '') {
+				nicknameCheck = false;
+				$('#userNickname').focus();
+				alert('닉네임를 입력하세요.');
+				return;
+			} else if($('#userNickname').css('border-block-color') === 'rgb(255, 0, 0)') {
+				nicknameCheck = false;
+				$('#userNickname').focus();
+				alert('유효하지 않는 아이디입니다.');
+				return;				
+			}
+			
+			$.ajax({
+				type:'POST',
+				url:'${pageContext.request.contextPath}/user/checkNickname',
+				contentType:'application/json',
+				dataType: 'text',
+				data:userNickname,
+				success: function(result) {
+					if (result === 'duplicated') {
+						nicknameCheck = false;
+						$('#userNickname').css('border', '2px solid red');
+						$('#userNickname').focus();
+						alert('이 닉네임은 이미 사용 중입니다.');
+					} else {
+						nicknameCheck = true;
+						$('#userNickname').css('border', '2px solid #ffc107');
+						alert('사용가능한 닉네임입니다!');
+					}
+				},
+				error: function() {
+					nicknameCheck = false;
+					alert('닉네임 확인에 실패했습니다.\n관리자에게 문의해주세요.');						
+				}
+				
+			});
+		});
+		
 		$('#userId').hover(function() {
 			$(this).attr('placeholder', '영문 대/소문자, 숫자 4 ~ 12 자리');
 		}, function() {
@@ -366,11 +438,11 @@
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
+                $(this).css('border', '2px solid #ffc107');
+                
 	            if($("#pwConfirm").val() === $(this).val() ) {
-	                $(this).css('border', '2px solid #ffc107');
 	                $("#pwConfirm").css('border', '2px solid #ffc107');
 	            } else {
-	            	$(this).css('border', '2px solid red');
 	            	$("#pwConfirm").css('border', '2px solid red');
 	            }
             } else {
@@ -449,9 +521,12 @@
 			}
         }); 
         
+        let indexLi = 1;
         // 카테고리 추가
         $('#add-category').click(function() {
-        	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true); 
+        	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true);
+        	indexLi = indexLi + 1;
+        	$($cloneLi).data('index', indexLi);
         	$($cloneLi).css('display', 'list-item');
         	
         	$('#category-wrap').append($cloneLi);
@@ -464,10 +539,19 @@
         	this.parentNode.remove();
         });
 
-	    // 회원가입 정보 넘기기 전에 입력값 검증.
-        $('#user-join-submit').click(function() {
-        	
-        	if (idCheck === false) {
+        // 버튼 클릭, 버튼 엔터 이벤트 시 submit 실행 코드.
+        $('#user-join-submit').click(join);
+        $('#user-join-form').on('keyup', 'input', keyPressEnter);
+	    
+	    function keyPressEnter() {
+	    	if (window.event.keyCode == 13) {
+		    	join();				
+			}
+	    }
+        
+	    // 회원가입 정보 넘기기 전에 입력값 검증. 함수 선언.
+ 		function join() {
+ 			if (idCheck === false) {
 				alert('아이디 중복 확인이 필요합니다.');
 				$('#userId').focus();
 				return;
@@ -534,9 +618,7 @@
         	}
         	
         	$('#user-join-form').submit();
-        });
-        
- 		
+ 		}
         
         
 	}); // end jQuery
