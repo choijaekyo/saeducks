@@ -29,10 +29,10 @@
 				<div class="col-md-12">
 					<h1 class="order-title h1 ">주문상세</h1>
 				</div>
-				<hr>
+				
 				<form method="post" action="<c:url value="/product/order" />"
 					class="order-form" id="orderform">
-
+					<hr>
 					<!-- 반복문으로 상품목록!! -->
 					<c:forEach var="product" items="${basketList }">
 						<div class="container">
@@ -40,21 +40,29 @@
 								<div class="row">
 									<div
 										class="col-md-4 offset-md-1 col-sm-12 order-imgBox text-center">
-										<img src="" alt="상품이미지">
+										<img src="<c:url value='/product/display?fileLoca=${thumbnail.productImageFolder }&fileName=${thumbnail.productImageFileName }' />" alt="상품이미지">
 									</div>
 									<div class="col-md-6 col-sm-12 order-detailBox">
-										<h5>${product.basketProductName }</h5>
+										<h5 class="h5">${product.basketProductName }</h5>
 										<br>
-										<p>${product.basketPrice }</p>
-										<p>${product.basketQuantity }</p>
+										<p>${product.basketPrice }&nbsp;원</p>
+										<p>${product.basketQuantity }&nbsp;개</p>
 										<!--상품번호-->
 										<input type="hidden" name="orderProductNo" value="${product.basketProductNo }" />		
 									</div>
 								</div>
 							</div>
-						<hr>	
+							<hr>
 						</div>
 					</c:forEach>
+					
+					<div class="container">
+						<div class="col-md-3 offset-md-8 col-sm-12">
+							<span class="h5">구매 상품 총 액&nbsp;</span><span>${total}&nbsp;원</span>
+						</div>
+						<hr>
+					</div>
+					
 					<div class="inputArea input-group" id="conf-email">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
 							<label for="userEmail">인증메일</label>
@@ -83,7 +91,7 @@
 						</div>
 					</div>
 					
-															<div class="inputArea input-group">
+					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
 							<label for="orderPaymentMethod">결제방법</label>
 						</div>
@@ -387,29 +395,35 @@
 				alert('주문 시 본인인증을 위해 메일 인증을 꼭 진행해 주셔야 합니다.');
 				return;
 			}
-		} else if(!$('#account').is(":checked") && !$('#creditCard').is(":checked")){
+		}
+		if(!$('#account').is(":checked") && !$('#creditCard').is(":checked")){
 			alert('결제방법을 선택해 주세요.');
 			return;
 		}
-		else if($('#account').is(":checked")&&($('#orderReturnBank > option:selected').val() === 'none' || $('#orderReturnAccount').val() === '')){
+		if($('#account').is(":checked")&&($('#orderReturnBank > option:selected').val() === 'none' || $('#orderReturnAccount').val() === '')){
 			alert('무통장입금 선택 시 환불은행과 계좌번호는 꼭 등록해 주셔야합니다.');
 			return; 
 		}
 		
-		else if(!telFlag || !nameFlag || !emailFlag){
+		if(!telFlag || !nameFlag || !emailFlag){
 			alert('입력양식을 확인해 주세요.');
 			return;
 		} 
-		else if($('#orderAddressDetail').val() === ''){
+		if($('#orderAddressDetail').val() === ''){
 			alert('상품을 수령할 주소지를 입력해주세요.');
 			return;
 		}
-		else{
+		
 			console.log(1);
 			$('#orderform').submit();
-		}
+
 	});
 
+	const checkStock = '${result}';
+	console.log(checkStock);
+	if(checkStock === 'lack'){
+		alert('상품의 재고수량이 부족합니다.\n 상품의 재고수량 이하로 주문해 주세요.')
+	}
 
 </script>
 </html>

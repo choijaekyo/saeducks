@@ -40,7 +40,7 @@ public class ProductServiceImpl implements IProductService {
 	}
 	
 	@Override
-	public void order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user) {
+	public String order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user) {
 		int userNo = user.getUserNo();
 		
 		// 주문번호 날짜 8자리
@@ -74,7 +74,22 @@ public class ProductServiceImpl implements IProductService {
 			order.setOrderQuantity(quantity);
 			order.setOrderPrice(quantity*price);
 			
-			productMapper.order(order);
+			ProductVO product = productMapper.getContent(productNo);
+			int stock = product.getProductStock();
+			
+			if(quantity > stock) {
+				return "lack";
+			}else {
+				productMapper.order(order);
+				
+				// 상품 재고 수량 수정			
+				int newStock = stock - quantity;
+
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("stock", newStock);
+				map.put("productNo", productNo);
+				productMapper.updateStock(map);			
+			}
 		}
 		
 		// user TABLE UPDATE
@@ -82,10 +97,13 @@ public class ProductServiceImpl implements IProductService {
 		
 		// address TABLE INSERT
 		if(checkAddr(userNo, order.getOrderAddressDetail())== 0) {
-			AddressVO addrVo = new AddressVO(0,order.getOrderAddressDetail(),order.getOrderAddressBasic(),
-					order.getOrderAddressZipNum(),userNo);
-			addressMapper.addAddress(addrVo);
+			addAddress(order, userNo);
 		}
+		
+		// 장바구니 비우기
+		productMapper.deleteBasket(userNo);
+		
+		return "done";
 	}
 	
 	// 주문user Email UPDATE
@@ -104,10 +122,19 @@ public class ProductServiceImpl implements IProductService {
 		return addressMapper.checkAddr(map);
 	}
 	
-	// 장바구니목록 가져오기
+	// 주소테이블에 신규주소 등록
+	public void addAddress(ProductOrderVO order,int userNo) {
+		AddressVO addrVo = new AddressVO(0,order.getOrderAddressDetail(),
+				order.getOrderAddressBasic(),
+				order.getOrderAddressZipNum(),userNo);
+		addressMapper.addAddress(addrVo);
+	}
 	
-	// 상품목록 가져오기
+	// 주문성공 시 재고수량 수정
+	public void updateStock(int productNo,int quantity) {
 
+	}
+	
 	//카테고리 가져오기
 	@Override
 	public List<CategoryVO> getCategory() {

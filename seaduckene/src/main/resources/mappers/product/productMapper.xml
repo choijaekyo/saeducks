@@ -36,10 +36,20 @@
 		WHERE basket_user_no=#{userNo}
 	</select>
 	
-	<select id="getThumbnailImg">
+	<select id="getThumbnailImg" resultType="image">
 		SELECT * FROM product_image
 		WHERE product_image_product_no=#{productNo} AND product_thumbnail = 1
 	</select>
+	
+	<update id="updateStock">
+		UPDATE product SET product_stock=#{stock}
+		WHERE product_no = #{productNo}
+	</update>
+	
+	<delete id="deleteBasket">
+		DELETE basket 
+		WHERE basket_user_no = #{userNo}
+	</delete>
 
 	<select id="getCategory" resultType="category">
 		SELECT * FROM category
