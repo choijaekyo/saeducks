@@ -561,9 +561,7 @@
 	// 즉시 실행 함수 
 	(function() {
 		const userCategoryList = ('${userCategoryList}').split('), ');
-		console.log(userCategoryList);
 		const userCategoryIndex = +('${userMinorLength}') + 1;
-		console.log(userCategoryIndex);
 		
 		// 서버에서 favorite의 대 카테고리만 모아서 보냄.
 		const userMajorCategories = ('${userMajorCategories}').substring(1, ('${userMajorCategories}').length - 1).split(', ');
@@ -572,25 +570,17 @@
 		let i = 1;
 		for (let userCategoryText1 of userCategoryList) {
 			let userCategoryMajorAndMinor1 = userCategoryText1.substring(userCategoryText1.indexOf('jor') + 9, userCategoryText1.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
-			console.log(userCategoryMajorAndMinor1);
 			
 			const serverMajorCategory = userCategoryMajorAndMinor1[0];
 			const serverMinorCategory = userCategoryMajorAndMinor1[1];
 			
-			console.log(userMajorCategories.indexOf(serverMajorCategory));
-			console.log(userMajorCategories.indexOf(userCategoryMajorAndMinor1[1]));
-			
 			const selectorLi = 'li[data-index=' + i + '] > select';
 			
 			// ======= 대 카테고리 favorite에 선택된 option태그 selected 처리 코드=========
-			console.log($(selectorLi));
-			console.log($(selectorLi)[0]);
 			const serverMajorSelectNode =$(selectorLi)[0];
-			console.log(userMajorCategories.indexOf(serverMajorCategory) + 1);
 			serverMajorSelectNode.selectedIndex = userMajorCategories.indexOf(serverMajorCategory) + 1;
 			
 			// ======= 소 카테고리 option태그들 append 코드 =========
-			console.log($(selectorLi)[0].value);
 			
 			const $serverMinorSelectNode = $(selectorLi)[0].nextElementSibling;
 			/* $($serverMinorSelectNode).html(''); */
