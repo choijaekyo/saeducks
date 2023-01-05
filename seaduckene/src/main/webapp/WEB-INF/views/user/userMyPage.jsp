@@ -276,7 +276,7 @@
 				                <span>총액:&nbsp;${total }</span>
 				            </div>
 				            <div class="col-md-2 offset-md-10 text-end">
-				                <button type="button" class="btn btn-success">주문하기</button>
+				                <button type="button" class="btn btn-success" id="orderBtn">주문하기</button>
 				            </div>
 				        </div>
 				    </div>
@@ -772,6 +772,9 @@
 			
 		}; //end getList()
 		
+		$('#orderBtn').click(function() {
+			location.href ="<c:url value = '/product/order' />";
+		});
 		
 	});
 	

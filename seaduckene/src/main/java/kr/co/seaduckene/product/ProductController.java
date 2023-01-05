@@ -74,7 +74,7 @@ public class ProductController {
 		// 상품 썸네일 가져오기
 		for(ProductBasketVO product : basketList) {
 			ProductImageVO thumbnail = productService.getThumbnailImg(product.getBasketProductNo());
-			model.addAttribute("thumbnail",thumbnail);
+			
 			// 총액 계산하기
 			total += product.getBasketQuantity()*product.getBasketPrice();
 		}
@@ -105,7 +105,6 @@ public class ProductController {
 		try {
 			result = FileCopyUtils.copyToByteArray(file);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -113,6 +112,33 @@ public class ProductController {
 				
 		
 	}
+	
+	@GetMapping("/display2")
+	@ResponseBody
+	public byte[] getFile2(int no){
+		System.out.println("/display2:GET");
+		System.out.println(no);
+		
+		ProductImageVO vo = productService.getThumbnailImg(no);
+		String fileLoca = vo.getProductImageFolder();
+		String fileName = vo.getProductImageFileName();
+		
+		
+		File file = new File("c:/imgduck/product/" +fileLoca+"/"+fileName);
+		System.out.println(file);
+		
+		byte[] result = null;
+		try {
+			result = FileCopyUtils.copyToByteArray(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+				
+		
+	}
+	
 	
 	@GetMapping("/finishOrder")
 	public void finishOrder() {}

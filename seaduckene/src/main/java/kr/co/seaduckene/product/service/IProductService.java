@@ -58,5 +58,6 @@ public interface IProductService {
 	
 	//장바구니 삭제
 	public void delBasekt(int basketNo);
+	
 
 }

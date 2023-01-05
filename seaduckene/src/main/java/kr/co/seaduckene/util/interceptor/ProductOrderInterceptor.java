@@ -1,5 +1,7 @@
 package kr.co.seaduckene.util.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,12 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.seaduckene.product.mapper.IProductMapper;
 import kr.co.seaduckene.user.command.UserVO;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Component
 public class ProductOrderInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	private IProductMapper mapper;
+	
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
