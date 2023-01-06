@@ -106,24 +106,11 @@
 				            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" value="${user.userTel}" id="userTel" required/>
 			                    </div>
 		               		</div> <br>
-							<span class="basic-info">카테고리 추가</span> 
-							<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
-							<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
-								<li style="display: none;" data-index='0' >
-									<select name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
-		                                    <option selected disabled>대 카테고리</option>
-		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
-		                                    	<option>${categoryList[i].categoryMajorTitle}</option>
-		                                    </c:forEach>
-		                            </select>
-		                            <select name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
-		                                    <option selected disabled>소 카테고리</option>
-		                            </select>
-		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
-								</li>
+		               		<span class="basic-info">카테고리 정보</span> 
+							<ul class="category-wrap">
 							<c:forEach var="userCategory" items="${userCategoryList}" varStatus="status">
-								<li data-index='${status.count}'>
-									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
+								<li data-index='${status.index}'>
+									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example" >
 		                                    <option selected disabled>대 카테고리</option>
 		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
 		                                    	<option>${categoryList[i].categoryMajorTitle}</option>
@@ -134,7 +121,23 @@
 		                            </select>
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>
-							</c:forEach>					
+							</c:forEach>	               		
+							</ul> <br>
+							<span class="basic-info">카테고리 추가</span> 
+							<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
+							<ul id="category-wrap" class="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
+								<li style="display: none;" >
+									<select name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
+		                                    <option selected disabled>대 카테고리</option>
+		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
+		                                    	<option>${categoryList[i].categoryMajorTitle}</option>
+		                                    </c:forEach>
+		                            </select>
+		                            <select name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
+		                                    <option selected disabled>소 카테고리</option>
+		                            </select>
+		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
+								</li>					
 							</ul> <br>
 							
 							<div class="optional-info"">
@@ -331,7 +334,8 @@
 			
 		}); 
 		
-		$('#category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
+		// 대 카테고리 선택시 소 카테고리 바뀜.
+		$('.category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
 			const chosenMajor= $(this).val();
 			const minorText1 = '${categoryList}';
 			const minorText2 = minorText1.split('), ');
@@ -372,19 +376,21 @@
 		});
 	
 		// 카테고리 선택 시 중복 방지
-		$('#category-wrap').on('change', 'select[name=categoryMinorTitle]', function(e) {
+		$('.category-wrap').on('change', 'select[name=categoryMinorTitle]', function(e) {
+		/* $('select[name=categoryMinorTitle]').change( function(e) { */
 			const chosenMinor = $(this).val();
 			const chosenMajor = $(this.previousElementSibling).val();
-			
+			console.log(chosenMinor);
 			const chosenLiIndex = $(this.parentNode).data('index');
 			
 			const selectedMajors = $('select[name=categoryMajorTitle]');
 			const selectedMajorsMaxIndex = selectedMajors.length;
 			
 			// 현재 선택된 모든 대 카테고리의 값을 반복문으로 조회.
-			for (let i = 1; i < selectedMajorsMaxIndex; i++) {
+			for (let i = 0; i < selectedMajorsMaxIndex; i++) {
 				
 				let selectedLiIndex = $(selectedMajors[i].parentNode).data('index');
+				console.log(selectedLiIndex);
 				
 				if (selectedLiIndex !== chosenLiIndex) {
 					if (selectedMajors[i].value === chosenMajor && selectedMajors[i].nextElementSibling.value === chosenMinor) {
@@ -534,12 +540,12 @@
         }); 
         
         // 카테고리 추가
+       	const $lastLi = document.querySelector('#add-category').previousElementSibling.previousElementSibling.previousElementSibling.lastElementChild;
+       	let indexLi = +($($lastLi).data('index'));
         $('#add-category').click(function() {
-        	const $lastLi = this.nextElementSibling.lastElementChild;
         	
         	console.log($lastLi);
-     		
-        	let indexLi = +($($lastLi).data('index')) + 1;
+     		indexLi = indexLi + 1;
         	console.log(indexLi);
         	
         	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true);
@@ -551,7 +557,7 @@
         });
      	   
     	 // 카테고리 제거
-        $('#category-wrap').on('click', '#del-category' ,function() {
+        $('.category-wrap').on('click', '#del-category' ,function() {
         	console.log(this);
         	this.parentNode.remove();
         });
@@ -567,7 +573,7 @@
 		const userMajorCategories = ('${userMajorCategories}').substring(1, ('${userMajorCategories}').length - 1).split(', ');
 		console.log(userMajorCategories);
 		
-		let i = 1;
+		let i = 0;
 		for (let userCategoryText1 of userCategoryList) {
 			let userCategoryMajorAndMinor1 = userCategoryText1.substring(userCategoryText1.indexOf('jor') + 9, userCategoryText1.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
 			
