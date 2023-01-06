@@ -26,22 +26,25 @@ public class boardListController {
 	private IBoardService service;
 
 	//게시판 목록으로 이동
-	@GetMapping("/boardList")
-	public void boardList(Model model) {
+	@GetMapping("/boardList/{categoryNo}")
+	public String boardList(Model model, @PathVariable int categoryNo) {
 
 		// a태그 달때 ? 프로덕트 넘버 달아서 넘기기 GET
 		System.out.println("게시판 목록으로 이동!");
-		model.addAttribute("productList", service.proList());
+		model.addAttribute("categoryNo", categoryNo);
+		model.addAttribute("productList", service.proList(categoryNo));
+		
+		return "board/boardList";
 	}
 	
 	//페이징
 	@GetMapping("/boardLists")
 	@ResponseBody
-	public List<BoardVO> boardList(PageVO paging) {
+	public List<BoardVO> boardList(PageVO paging, int categoryNo) {
 		
 		paging.setCpp(9);
 		
-		return service.list(paging);
+		return service.list(paging,categoryNo);
 	}
 	
 	//내 글 목록으로 이동

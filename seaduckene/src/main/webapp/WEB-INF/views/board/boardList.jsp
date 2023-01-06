@@ -65,10 +65,11 @@ $(function() {
 		}
 	});
 	
+	const categoryNo = '${categoryNo}';
 	let str = '';
 	let page = 1;
 	let isFinish = false;
-	
+	console.log(categoryNo);
 	getList(1, false);
 	
 	function getList(page, reset) {
@@ -82,7 +83,7 @@ $(function() {
 		}
 		
 		$.getJSON(
-			'<c:url value="/board/boardLists?pageNum='+ page +'" />',
+			'<c:url value="/board/boardLists?pageNum='+ page +'&categoryNo='+ categoryNo +'" />',
 			function(list) {
 				console.log(list.length);
 				console.log(list);

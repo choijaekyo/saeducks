@@ -74,8 +74,8 @@
                      class="nav-link dropdown-toggle" href="#" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false"> 미디어 </a>
                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">영화</a></li>
-                        <li><a class="dropdown-item" href="#">드라마</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/1' />">영화</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/2' />">드라마</a></li>
                         <li><a class="dropdown-item" href="#">애니</a></li>
                         <li><a class="dropdown-item" href="#">책</a></li>
                      </ul></li>
