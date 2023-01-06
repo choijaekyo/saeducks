@@ -12,7 +12,7 @@
 
 .cimg {
 	min-height: 50vh;
-	object-fit: fill;
+	object-fit: cover;
 }
 
 #inputQuantity {
@@ -83,7 +83,7 @@
 					<p class="lead">${vo.productDetail }</p>
 					<div class="d-flex">
 						<input class="form-control text-center" id="inputQuantity"
-							type="number" value="1" min="1" max="100">
+							type="number" value="1" min="1" max="${vo.productStock }">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
 							id="cartBtn">
 							<i class="bi-cart-fill me-1"></i> Add to cart
