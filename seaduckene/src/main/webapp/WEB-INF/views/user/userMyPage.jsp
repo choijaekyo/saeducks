@@ -575,11 +575,20 @@
 		
 		// 서버에서 favorite의 대 카테고리만 모아서 보냄.
 		const userMajorCategories = ('${userMajorCategories}').substring(1, ('${userMajorCategories}').length - 1).split(', ');
-		console.log(userMajorCategories);
 		
 		let i = 0;
 		for (let userCategoryText1 of userCategoryList) {
 			let userCategoryMajorAndMinor1 = userCategoryText1.substring(userCategoryText1.indexOf('jor') + 9, userCategoryText1.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
+			
+			// 서버에서 대 카테고리 전체를 받아서 선택된 대 카테고리 값과 매칭한다.
+			const majorss = ('${categoryList}').split('), ');
+			/* console.log(majorss); */
+			
+			let arrMajor = [];
+			
+			for (let majors of majorss) {
+				arrMajor.push(majors.substring(majors.indexOf('e=') + 2, majors.indexOf(', c')));
+			}
 			
 			const serverMajorCategory = userCategoryMajorAndMinor1[0];
 			const serverMinorCategory = userCategoryMajorAndMinor1[1];
@@ -587,12 +596,12 @@
 			const selectorLi = 'li[data-index=' + i + '] > select';
 			
 			// ======= 대 카테고리 favorite에 선택된 option태그 selected 처리 코드=========
-			const serverMajorSelectNode =$(selectorLi)[0];
-			serverMajorSelectNode.selectedIndex = userMajorCategories.indexOf(serverMajorCategory) + 1;
+			const $serverMajorSelectNode = $(selectorLi)[0];
+			$serverMajorSelectNode.selectedIndex = arrMajor.indexOf(serverMajorCategory) + 1;
 			
 			// ======= 소 카테고리 option태그들 append 코드 =========
 			
-			const $serverMinorSelectNode = $(selectorLi)[0].nextElementSibling;
+			const $serverMinorSelectNode = $(selectorLi)[1];
 			/* $($serverMinorSelectNode).html(''); */
 			
 			const $optDefault = document.createElement('option');
@@ -601,24 +610,32 @@
 			$($optDefault).text('소 카테고리');			
 			
 			const $fragOpts = document.createDocumentFragment();
+			
 			$fragOpts.appendChild($optDefault);
 			
-			let arr = [];
+			let arrMinor1 = [];
 			
-			for (let userCategoryText2 of userCategoryList) {
-				const userCategoryMajorAndMinor2 = userCategoryText2.substring(userCategoryText2.indexOf('jor') + 9, userCategoryText2.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
+	       	for (let minorss of majorss) {
+       			let minors =  minorss.substring(minorss.indexOf('=[') + 2, minorss.indexOf(']')).split(', ');
+       			let majors =  minorss.substring(minorss.indexOf('e=') + 2, minorss.indexOf(','));
 				
-				if (userCategoryMajorAndMinor2[0] === serverMajorCategory) {
-			        const $option = document.createElement('option');					
-		            $option.textContent = userCategoryMajorAndMinor2[1];
-		            $fragOpts.appendChild($option);
-		            
-		            arr.push(userCategoryMajorAndMinor2[1]);
-				}
+	       		if ($serverMajorSelectNode.value === serverMajorCategory && serverMajorCategory === majors) {
+
+	       			
+	       			for (let minorOfMajor of minors) {
+				        const $option = document.createElement('option');					
+			            $option.textContent = minorOfMajor;
+			            $fragOpts.appendChild($option);	
+			            
+			            arrMinor1.push(minorOfMajor);
+					}
+	       			
+	       			$serverMinorSelectNode.appendChild($fragOpts);
+	       			$serverMinorSelectNode.selectedIndex = arrMinor1.indexOf(serverMinorCategory) + 1;
+	       			
+	       		}
 			}
-	        $serverMinorSelectNode.appendChild($fragOpts);
-	        
-	        $serverMinorSelectNode.selectedIndex = arr.indexOf(serverMinorCategory) + 1;
+
 	        
 	        i = i + 1;
 		}
