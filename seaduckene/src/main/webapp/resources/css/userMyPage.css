@@ -1,14 +1,18 @@
 @charset "UTF-8";
 
 /*============= 마이페이지 페이지 ==============*/
-
-
 #userMyPage {
 	padding: 0;
 }
 
 #userMyPage .col-lg-12, #userMyPage .col-md-12, #userMyPage .col-sm-12 {
 	/* height: 1650px; */
+	
+}
+
+#userMyPage .basketA {
+	text-decoration: none;
+	color: black;
 }
 
 #userMyPage .location-wrap {
@@ -34,7 +38,6 @@
 	padding: 30px 0;
 	font-size: 40px;
 	font-weight: 500;
-	
 }
 
 #userMyPage .title .breadcrumb {
@@ -48,7 +51,6 @@
 #userMyPage .title a {
 	padding: 20px 0;
 	font-weight: 400;
-	
 	text-decoration: none;
 }
 
@@ -76,29 +78,25 @@
 #userMyPage .update-container .file-upload span {
 	font-size: 105px;
 	position: relative;
-
 	top: -38px;
 	left: -16px;
-	
 }
 
 #userMyPage .update-container .file-upload {
 	position: relative;
 	overflow: hidden;
-
 	width: 60px;
 	height: 60px;
-   
 	top: -60px;
 	left: 65px;
 	border-radius: 50% !important;
 	background: #76b1de;
 	text-transform: uppercase;
 	font-size: 13px;
-	border:none !important;
+	border: none !important;
 	box-shadow: none !important;
 	color: #fff !important;
-	text-shadow:none;
+	text-shadow: none;
 	padding: 5px 10px !important;
 	display: inline-block;
 	vertical-align: middle;
@@ -107,8 +105,7 @@
 
 #userMyPage .update-container .file-upload .upload {
 	position: absolute;
-
-	border:1px solid red !important;
+	border: 1px solid red !important;
 	top: 0px;
 	right: 0;
 	margin: 0;
@@ -116,21 +113,17 @@
 	font-size: 100px;
 	cursor: pointer;
 	opacity: 0;
-	filter: alpha(opacity=0);
+	filter: alpha(opacity = 0);
 }
 
 #userMyPage .update-container form input.btn-a {
-
 	border-radius: 20px;
 	margin-top: 10px;
-
 	width: 300px;
 	height: 50px;
 	font-size: 20px;
 	color: black;
 	cursor: auto;
-	
-	
 	background-color: white;
 }
 
@@ -138,70 +131,61 @@
 	display: inline-block;
 	width: 300px;
 	text-align: center;
-	
-	margin-top: 10px; 
+	margin-top: 10px;
 }
 
 #myPageModal form .join-input {
 	display: inline-block;
 	width: 300px;
 	text-align: center;
-	
-	margin-top: 10px; 
+	margin-top: 10px;
 }
 
-#userMyPage .update-container form #email-auth-code { 
+#userMyPage .update-container form #email-auth-code {
 	width: 205px;
 }
 
-#userMyPage .update-container form .btn-outline-secondary { 
+#userMyPage .update-container form .btn-outline-secondary {
 	vertical-align: unset;
-	
 }
 
-#userMyPage .input-group .join-input:focus,
-#userMyPage #category-wrap .join-category:focus,
-#myPageModal form .join-input:focus {
+#userMyPage .input-group .join-input:focus, #userMyPage #category-wrap .join-category:focus,
+	#myPageModal form .join-input:focus {
 	border: 1px solid rgb(255, 193, 7);
 	box-shadow: 0 0 5px 0.20rem rgba(255, 193, 7, 0.475);
 }
 
 @media screen and (min-width: 768px) {
-	
 	#userMyPage .update-container form input.btn-a:hover {
 		width: 500px;
 	}
-
 }
 
 #userMyPage .update-container form #userId:hover::placeholder,
-#userMyPage .update-container form #userPw:hover::placeholder,
-#userMyPage .update-container form #userName:hover::placeholder,
-#userMyPage .update-container form #userNickname:hover::placeholder,
-#userMyPage .update-container form #userTel:hover::placeholder {
+	#userMyPage .update-container form #userPw:hover::placeholder,
+	#userMyPage .update-container form #userName:hover::placeholder,
+	#userMyPage .update-container form #userNickname:hover::placeholder,
+	#userMyPage .update-container form #userTel:hover::placeholder {
 	font-size: 0.9rem;
 }
 
 @media screen and (max-width: 767px) {
-	
 	#userMyPage .update-container form input.btn-a:hover {
-		opacity: 0.9;	
+		opacity: 0.9;
 	}
 }
-
 
 /* #userMyPage .container .join-container form input.btn-a::placeholder {
 	font-size: 30px;
 
 } */
-
 #userMyPage .update-container .optional-container {
 	text-align: center;
 	line-height: 35px;
-} 
+}
 
 #userMyPage .update-container form .join-category {
-	display: inline-block; 
+	display: inline-block;
 }
 
 @media screen and (max-width: 451px) {
@@ -209,12 +193,10 @@
 		display: block;
 		margin: 10px auto;
 	}
-	
 }
 
 #userMyPage .update-container .category-button {
 	display: inline-block;
-	
 	width: 20px;
 	height: 20px;
 	border: 1px solid white;
@@ -224,29 +206,28 @@
 	cursor: pointer;
 }
 
-
 #userMyPage .update-container select {
 	width: 200px; /* 원하는 너비설정 */
-    margin: 10px 0 0;
+	margin: 10px 0 0;
 }
 
 /* IE 10, 11의 네이티브 화살표 숨기기 */
 #userMyPage .update-container select::-ms-expand {
-    display: none;
+	display: none;
 }
 
-#userMyPage .update-container input[type="checkbox"] + label{
+#userMyPage .update-container input[type="checkbox"]+label {
 	display: inline-block;
 	width: 35px;
 	height: 35px;
-
 	top: 11px;
-
-	border:3px solid #707070;
+	border: 3px solid #707070;
 	position: relative;
-  }
-#userMyPage .update-container input[id="optional-checkbox"]:checked + label::after{
-	content:'✔';
+}
+
+#userMyPage .update-container input[id="optional-checkbox"]:checked+label::after
+	{
+	content: '✔';
 	font-size: 40px;
 	line-height: 20px;
 	width: 10px;
@@ -255,24 +236,20 @@
 	position: absolute;
 	left: 0px;
 	top: 0px;
- }
+}
 
 #userMyPage .update-container form input.btn-b {
-
 	border-radius: 20px;
 	margin-top: 10px;
-	
 	width: 120px;
 	height: 30px;
 	font-size: 20px;
 	color: black;
 	line-height: 1px;
-
 }
 
 #userMyPage .update-container form input.btn-pw-modi {
 	width: 190px;
-	
 	border-radius: 17px;
 }
 
@@ -293,15 +270,12 @@
 }
 
 /*============= 모달 페이지 ==============*/
-
 #modalMask {
 	width: 100%;
 	height: 100%;
-	
 	background-color: black;
 	z-index: 999;
 	opacity: 0.1;
-	
 }
 
 #myPageModal #myPage-modal-header {
@@ -312,7 +286,6 @@
 #myPageModal #myPage-modal-header .close {
 	position: absolute;
 	right: 0;
-	
 }
 
 #myPageModal #myPage-modal-header h4 {
@@ -325,50 +298,41 @@
 }
 
 #myPageModal .modalDesign {
-	width:	350px;
-
+	width: 350px;
 	background-color: #E6E1C1;
 	color: black;
-	
 	position: absolute;
 	left: 50%;
 	top: 35%;
 	transform: translate(-50%, -50%);
-	
 	z-index: 1000;
-	
 }
 
 #myPageModal .modalDesign form input.btn-a {
-
 	border-radius: 20px;
 	margin-top: 10px;
-
 	width: 300px;
 	height: 50px;
 	font-size: 20px;
 	color: white;
 	cursor: auto;
-	
 	background-color: white;
-
-
 }
 
 #myPageModal .modalDesign form input.btn-a:hover {
- 	opacity: 0.9;	 
+	opacity: 0.9;
 }
 
 #myPageModal .modalDesign form input.btn-a:focus {
- 	border: 1px solid white;
-}
-#myPageModal .modalDesign form input.btn-a:hover {
- 	opacity: 0.9;	 
+	border: 1px solid white;
 }
 
-#myPageModal .modal-submit-btn, #myPageModal .modal-cancel{
+#myPageModal .modalDesign form input.btn-a:hover {
+	opacity: 0.9;
+}
+
+#myPageModal .modal-submit-btn, #myPageModal .modal-cancel {
 	border-radius: 12px;
-	
 }
 
 #myPageModal .modalDesign #myPage-modal-footer {
@@ -379,8 +343,6 @@
 #myPageModal .modalDesign #myPage-modal-footer {
 	justify-content: center;
 }
-
-
 
 /*============= END 모달 페이지 ==============*/
 

@@ -88,7 +88,7 @@
                         <label for="thumbnailImg">썸네일이미지</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="file" name="thumbnailImg" id="thumbnailImg"  />
+                        <input class="form-control" type="file" name="thumbnailImg" id="thumbnailImg" required />
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -96,7 +96,7 @@
                         <label for="productImg">상품이미지(최대2개)</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple"  />
+                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple"   />
                     </div>
                 </div>
                 <div class="input-group inputArea">

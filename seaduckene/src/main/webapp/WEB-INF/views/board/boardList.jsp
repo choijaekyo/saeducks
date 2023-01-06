@@ -33,7 +33,9 @@
 		      <div class="card-header py-3">
 		        <h4 class="my-0 fw-normal">Free</h4>
 		      </div>
-		      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">${proVo.productName}</text></svg>
+		      
+		      		<img id="productThumb" src="<c:url value='/product/display2?no=${proVo.productNo }' />" alt="상품이미지" style="height:225px;">
+		      
 		      <div class="card-body">
 		        <h1 class="card-title pricing-card-title">${proVo.productPriceNormal}<small class="text-muted fw-light">/won</small></h1>
 		        <ul class="list-unstyled mt-3 mb-4">
