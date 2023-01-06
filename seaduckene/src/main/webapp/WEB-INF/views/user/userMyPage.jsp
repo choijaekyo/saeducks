@@ -267,10 +267,10 @@
 				            <tbody>
 				            <c:forEach var="b" items="${basket }" varStatus="status">
 				            <tr>
-				                <th scope="row" colspan="2" class="align-middle basket"> <a href="${pageContext.request.contextPath}/product/productDetail?productNo=${b.basketProductNo}"> ${b.basketProductName } </a></th>
+				                <th scope="row" colspan="2" class="align-middle basket"> <a class="basketA" href="${pageContext.request.contextPath}/product/productDetail?productNo=${b.basketProductNo}"> ${b.basketProductName } </a></th>
 				                <td class="align-middle basket">${b.basketPrice }</td>
-				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-plus-square"></i></a>
-				                    <a href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square"></i></a></td>
+				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a class="basketA" href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-plus-square"></i></a>
+				                    <a class="basketA" href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square"></i></a></td>
 				                <td class="align-middle basket" ><fmt:formatNumber value="${b.basketQuantity*b.basketPrice}" pattern="#,###" /> </td>
 				                <td class="align-middle basket"><button type="button" class="btn btn-danger basketDel" >삭제</button></td>
 				                <td style="display:none">${b.basketNo} </td> 

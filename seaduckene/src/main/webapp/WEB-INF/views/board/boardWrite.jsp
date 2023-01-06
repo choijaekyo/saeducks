@@ -9,10 +9,6 @@
 	<div class="row">
 		<div class="col mb-1">
 			<button type="button" class="btn btn-outline-secondary rounded"
-				disabled>대카테고리</button>
-			<button type="button" class="btn btn-outline-secondary rounded"
-				disabled>소카테고리</button>
-			<button type="button" class="btn btn-outline-secondary rounded"
 				disabled>작성자</button>
 			<button type="button" class="btn btn-outline-secondary rounded"
 				disabled>날짜</button>
@@ -22,7 +18,32 @@
 
 <form action="${pageContext.request.contextPath}/board/boardWrite"
 	id="writeForm" method="post">
-
+	<div class="input-group inputArea">
+		<div class="container">
+			<div class="col-12">
+				<label for="category">카테고리</label>
+			</div>
+			<div class="col-12">
+				<div class="row">
+					<div class="col-md-3 col-sm-12">
+						<select class="form-select" aria-label="Default select example"
+							name="majorCategory" id="majorCategory">
+							<option selected disabled>대 카테고리</option>
+							<c:forEach var="list" items="${major }">
+								<option>${list }</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-md-3 col-sm-12">
+						<select class="form-select" aria-label="Default select example"
+							name="minorCategory" id="minorCategory">
+							<option selected disabled>소 카테고리</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<div class="form-group">
 			<label for="exampleFormControlInput1">제목</label> <input type="text"
@@ -48,13 +69,13 @@
 
 <script>
 	$(function() {
-		
+
 		$('#board-Write-button').click(function() {
-			if($('input[name=boardTitle]').val().trim() === '') {
+			if ($('input[name=boardTitle]').val().trim() === '') {
 				alert('제목은 필수 항목입니다.');
 				$('input[name=boardTitle]')
 				return;
-			} else if($('textarea[name=boardContent]').val().trim() === '') {
+			} else if ($('textarea[name=boardContent]').val().trim() === '') {
 				alert('내용은 필수 항목입니다.');
 				$('textarea[name=boardContent]')
 				return;
@@ -63,45 +84,62 @@
 			}
 		});
 	});
-	
-	$(document).ready(function() {
-		
-		
-		
-		//Bootstrap 4 + daemonite material UI + Summernote wysiwyg text editor
-		//doc : https://github.com/summernote/summernote
 
-		$('#summernote').summernote({
-		  minHeight: 200,
-		  placeholder: 'Write here ...',
-		  focus: false,
-		  airMode: false,
-		  fontNames: ['Roboto', 'Calibri', 'Times New Roman', 'Arial'],
-		  fontNamesIgnoreCheck: ['Roboto', 'Calibri'],
-		  dialogsInBody: true,
-		  dialogsFade: true,
-		  disableDragAndDrop: false,
-		  toolbar: [
-		    // [groupName, [list of button]]
-		    ['para', ['style', 'ul', 'ol', 'paragraph']],
-		    ['fontsize', ['fontsize']],
-		    ['style', ['bold', 'italic', 'underline', 'clear']],
-		    ['font', ['strikethrough', 'superscript', 'subscript']],
-		    ['height', ['height']],
-		    ['misc', ['undo', 'redo', 'print', 'help', 'fullscreen']]
-		  ],
-		  popover: {
-		    air: [
-		      ['color', ['color']],
-		      ['font', ['bold', 'underline', 'clear']]
-		    ]
-		  },
-		  print: {
-		    //'stylesheetUrl': 'url_of_stylesheet_for_printing'
-		  }
-		});
-	 });
-	
-	
+	$(document).ready(
+			function() {
+
+				//Bootstrap 4 + daemonite material UI + Summernote wysiwyg text editor
+				//doc : https://github.com/summernote/summernote
+
+				$('#summernote')
+						.summernote(
+								{
+									minHeight : 200,
+									placeholder : 'Write here ...',
+									focus : false,
+									airMode : false,
+									fontNames : [ 'Roboto', 'Calibri',
+											'Times New Roman', 'Arial' ],
+									fontNamesIgnoreCheck : [ 'Roboto',
+											'Calibri' ],
+									dialogsInBody : true,
+									dialogsFade : true,
+									disableDragAndDrop : false,
+									toolbar : [
+											// [groupName, [list of button]]
+											[
+													'para',
+													[ 'style', 'ul', 'ol',
+															'paragraph' ] ],
+											[ 'fontsize', [ 'fontsize' ] ],
+											[
+													'style',
+													[ 'bold', 'italic',
+															'underline',
+															'clear' ] ],
+											[
+													'font',
+													[ 'strikethrough',
+															'superscript',
+															'subscript' ] ],
+											[ 'height', [ 'height' ] ],
+											[
+													'misc',
+													[ 'undo', 'redo', 'print',
+															'help',
+															'fullscreen' ] ] ],
+									popover : {
+										air : [
+												[ 'color', [ 'color' ] ],
+												[
+														'font',
+														[ 'bold', 'underline',
+																'clear' ] ] ]
+									},
+									print : {
+									//'stylesheetUrl': 'url_of_stylesheet_for_printing'
+									}
+								});
+			});
 </script>
 

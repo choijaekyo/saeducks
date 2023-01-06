@@ -11,6 +11,11 @@
 	/* height: 1650px; */
 }
 
+.basketA {
+	text-decoration: none;
+	color: black;
+}
+
 #userMyPage .location-wrap {
 	text-align: center;
 	padding: 20px 0;

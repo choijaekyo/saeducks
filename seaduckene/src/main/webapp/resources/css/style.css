@@ -1,5 +1,7 @@
 ﻿
 
+
+
 a:hover {
 	color: #ffc107;	
 }
@@ -234,6 +236,17 @@ header{
 .nav-category li .dropdown-toggle::after {
    display: none;
 }
+
+
+.container input:focus,
+.container select:focus,
+.login-form #userId:focus,
+.login-form #userPw:focus {
+   border: 1px solid rgb(255, 193, 7);
+   box-shadow: 0 0 5px 0.20rem rgba(255, 193, 7, 0.475);
+}
+
+
 /*============= END header ==============*/
 /*=============== footer ================*/
 .f-wrap{
@@ -243,4 +256,10 @@ header{
 .f_box{
    line-height:25px;
 }
+
+.f_box a {
+	text-decoration: none;
+	color: black;
+}
+
 /*============= END footer ==============*/

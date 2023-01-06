@@ -356,7 +356,7 @@
 	const $orderReturnAccount = $('#orderReturnAccount');
 	$orderReturnAccount.keyup(function() {
 		if(regAccount.test($('#orderReturnAccount').val())){
-			$orderReturnAccount.css('border' ,'2px solid rgb(255, 193, 7)');
+			$orderReturnAccount.css('border' ,'2px solid rgb(34, 139, 34)');
 			accountFlag = true;
 		} else {
 			$orderReturnAccount.css('border' , '2px solid red');
@@ -365,7 +365,7 @@
 	const $orderRecipientTel = $('#orderRecipientTel');
 	$orderRecipientTel.keyup(function() {
 		if(regTel.test($('#orderRecipientTel').val())){
-			$orderRecipientTel.css('border' ,'2px solid rgb(255, 193, 7)');
+			$orderRecipientTel.css('border' ,'2px solid rgb(34, 139, 34)');
 			telFlag = true;
 		} else {
 			$orderRecipientTel.css('border' , '2px solid red');
@@ -374,7 +374,7 @@
 	const $orderRecipientName = $('#orderRecipientName');
 	$orderRecipientName.keyup(function() {
 		if(regName.test($('#orderRecipientName').val())){
-			$orderRecipientName.css('border' ,'2px solid rgb(255, 193, 7)');
+			$orderRecipientName.css('border' ,'2px solid rgb(34, 139, 34)');
 			nameFlag = true;
 		} else {
 			$orderRecipientName.css('border' , '2px solid red');
@@ -383,7 +383,7 @@
 	const $userEmail = $('#userEmail');
 	$userEmail.keyup(function() {
 		if(regEmail.test($('#userEmail').val())){
-			$userEmail.css('border' ,'2px solid rgb(255, 193, 7)');
+			$userEmail.css('border' ,'2px solid rgb(34, 139, 34)');
 			emailFlag = true;
 		} else {
 			$userEmail.css('border' , '2px solid red');
