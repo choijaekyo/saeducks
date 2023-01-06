@@ -11,6 +11,7 @@
 
 	<!--MyPage 디자인 추가-->
     <link href="${pageContext.request.contextPath }/resources/css/userMyPage.css" rel="stylesheet">
+    
 </head>
 <body>
 
