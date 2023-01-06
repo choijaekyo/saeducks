@@ -143,6 +143,22 @@ CREATE SEQUENCE product_seq
     NOCACHE;
 
 -------------------------------------------------------------------------------
+
+CREATE TABLE basket(
+    basket_no NUMBER PRIMARY KEY,
+    basket_product_name varchar2(1000),
+    basket_product_no NUMBER NOT NULL,
+    basket_user_no NUMBER NOT NULL,
+    basket_quantity NUMBER NOT NULL,
+    basket_price NUMBER NOT NULL
+);
+
+CREATE SEQUENCE basket_seq
+    START WITH 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+
 ------------------------------product-------------------------------------------
 CREATE TABLE product_image(
     product_image_no NUMBER PRIMARY KEY,

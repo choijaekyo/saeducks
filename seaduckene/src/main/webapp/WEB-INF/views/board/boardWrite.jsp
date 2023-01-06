@@ -30,11 +30,7 @@
 				placeholder="제목을 작성해주세요.">
 		</div>
 
-		<div class="row">
-			<div class="col">
-				<textarea class="summernote" name="boardContent" rows="10"></textarea>
-			</div>
-		</div>
+		<div id="summernote" class="summernote"></div>
 		<input type="hidden" name="boardUserNo" value="1"> <input
 			type="hidden" name="boardCategoryNo" value="1"> <br>
 
@@ -47,8 +43,8 @@
 	</div>
 </form>
 
-
 <%@ include file="../include/footer.jsp"%>
+
 
 <script>
 	$(function() {
@@ -66,15 +62,46 @@
 				$('#writeForm').submit();
 			}
 		});
-			
-		$('.summernote').summernote({
-			height : 300, // 에디터 높이
-			minHeight : null, // 최소 높이
-			maxHeight : null, // 최대 높이
-			focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-			lang : "ko-KR", // 한글 설정
-			placeholder : '최대 2048자까지 쓸 수 있습니다. 내용을 꼭 작성해주세요!' //placeholder 설정
-
-		});
 	});
+	
+	$(document).ready(function() {
+		
+		
+		
+		//Bootstrap 4 + daemonite material UI + Summernote wysiwyg text editor
+		//doc : https://github.com/summernote/summernote
+
+		$('#summernote').summernote({
+		  minHeight: 200,
+		  placeholder: 'Write here ...',
+		  focus: false,
+		  airMode: false,
+		  fontNames: ['Roboto', 'Calibri', 'Times New Roman', 'Arial'],
+		  fontNamesIgnoreCheck: ['Roboto', 'Calibri'],
+		  dialogsInBody: true,
+		  dialogsFade: true,
+		  disableDragAndDrop: false,
+		  toolbar: [
+		    // [groupName, [list of button]]
+		    ['para', ['style', 'ul', 'ol', 'paragraph']],
+		    ['fontsize', ['fontsize']],
+		    ['style', ['bold', 'italic', 'underline', 'clear']],
+		    ['font', ['strikethrough', 'superscript', 'subscript']],
+		    ['height', ['height']],
+		    ['misc', ['undo', 'redo', 'print', 'help', 'fullscreen']]
+		  ],
+		  popover: {
+		    air: [
+		      ['color', ['color']],
+		      ['font', ['bold', 'underline', 'clear']]
+		    ]
+		  },
+		  print: {
+		    //'stylesheetUrl': 'url_of_stylesheet_for_printing'
+		  }
+		});
+	 });
+	
+	
 </script>
+

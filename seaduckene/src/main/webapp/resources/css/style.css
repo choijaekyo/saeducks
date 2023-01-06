@@ -1,22 +1,4 @@
-﻿a, abbr, acronym, address, applet, article, aside, audio, b, big,
-   blockquote, body, canvas, caption, center, cite, code, dd, del, details,
-   dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form,
-   h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd,
-   label, legend, li, main, mark, menu, nav, object, ol, output, p, pre, q,
-   ruby, s, samp, section, small, span, strike,sub, summary, sup,
-   table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
-   margin: 0;
-   padding: 0;
-   border: 0;
-   font-size: 100%;
-   font: inherit;
-   vertical-align: baseline
-}
-
-a{
-	color:black;
-	text-decoration-line:none;
-}
+﻿
 
 a:hover {
 	color: #ffc107;	
@@ -63,7 +45,7 @@ table {
 
 
 /*=========웹폰트 선언=========*/
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 /*===========================*/
 
 /*디자인 시작시 기본 선언*/
@@ -76,7 +58,7 @@ table {
 body, html {
 	width: 100%;
 	min-width: 320px;
-	font-family: 'Noto Sans KR', sans-serif; /*웹폰트 사용*/
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 img {
@@ -262,4 +244,3 @@ header{
    line-height:25px;
 }
 /*============= END footer ==============*/
-

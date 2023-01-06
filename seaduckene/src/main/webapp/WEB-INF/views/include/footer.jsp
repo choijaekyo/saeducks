@@ -65,16 +65,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- 제이쿼리 js -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- 스와이프 js -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
 <!-- summernote script -->
-<script
-	src="${pageContext.request.contextPath }/resources/js/summernote/summernote-lite.js"></script>
-<script
-	src="${pageContext.request.contextPath }/resources/js/summernote/lang/summernote-ko-KR.js"></script>
+<%-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js" defer></script>
+<script src="${pageContext.request.contextPath }/resources/js/summernote/summernote-lite.js" defer></script>
+<script src="${pageContext.request.contextPath }/resources/js/summernote/lang/summernote-ko-KR.js" defer></script> --%>
+
 <script>
 	var swiper = new Swiper(".mySwiper", {
 		slidesPerView : 1,
@@ -101,20 +103,6 @@
 			clickable : true
 		}
 		// https://swiperjs.com/swiper-api
-	});
-
-	$(document).ready(function() {
-		//여기 아래 부분
-		$('#summernote').summernote({
-			height : 300, // 에디터 높이
-			minHeight : null, // 최소 높이
-			maxHeight : null, // 최대 높이
-			focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-			lang : "ko-KR", // 한글 설정
-			placeholder : '최대 2048자까지 쓸 수 있습니다' //placeholder 설정
-
-		});
-		
 	});
 
 	/*
