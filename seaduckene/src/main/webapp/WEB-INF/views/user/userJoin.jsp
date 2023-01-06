@@ -214,6 +214,7 @@
 			
 		});
 	
+		// 카테고리 선택 시 중복 방지
 		$('#category-wrap').on('change', 'select[name=categoryMinorTitle]', function(e) {
 			const chosenMinor = $(this).val();
 			const chosenMajor = $(this.previousElementSibling).val();
@@ -236,8 +237,6 @@
 					}
 				}
 			}
-			
-			
 		});
 		
 		let code = '';
