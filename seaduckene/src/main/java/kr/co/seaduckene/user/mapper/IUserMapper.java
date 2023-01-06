@@ -34,6 +34,7 @@ public interface IUserMapper {
 	// 장바구니데이터 불러오기
 	List<ProductBasketVO> getBasket(int num);
 
-	
+	// 유저의 카테고리 정보를 불러오기
+	List<CategoryVO> getUserCategories(int userNo);
 
 }

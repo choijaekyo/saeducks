@@ -520,12 +520,14 @@
 			}
         }); 
         
-        let indexLi = 1;
         // 카테고리 추가
         $('#add-category').click(function() {
+        	const $lastLi = this.nextElementSibling.lastElementChild;
+     		
+        	let indexLi = $($lastLi).data('index') + 1;
+        	
         	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true);
-        	indexLi = indexLi + 1;
-        	$($cloneLi).data('index', indexLi);
+        	$($cloneLi).attr('data-index', indexLi);
         	$($cloneLi).css('display', 'list-item');
         	
         	$('#category-wrap').append($cloneLi);

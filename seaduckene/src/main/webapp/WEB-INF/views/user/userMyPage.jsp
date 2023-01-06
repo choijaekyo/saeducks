@@ -106,33 +106,38 @@
 				            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" value="${user.userTel}" id="userTel" required/>
 			                    </div>
 		               		</div> <br>
+		               		<span class="basic-info">카테고리 정보</span> 
+							<ul class="category-wrap">
+							<c:forEach var="userCategory" items="${userCategoryList}" varStatus="status">
+								<li data-index='${status.index}'>
+									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example" >
+		                                    <option selected disabled>대 카테고리</option>
+		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
+		                                    	<option>${categoryList[i].categoryMajorTitle}</option>
+		                                    </c:forEach>
+		                            </select>
+		                            <select name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
+		                                    <!-- <option selected disabled>소 카테고리</option> -->
+		                            </select>
+		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
+								</li>
+							</c:forEach>	               		
+							</ul> <br>
 							<span class="basic-info">카테고리 추가</span> 
 							<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
-							<ul id="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
+							<ul id="category-wrap" class="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
 								<li style="display: none;" >
-									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
+									<select name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
 		                                    <option selected disabled>대 카테고리</option>
 		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
 		                                    	<option>${categoryList[i].categoryMajorTitle}</option>
 		                                    </c:forEach>
 		                            </select>
-		                            <select  name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
+		                            <select name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
 		                                    <option selected disabled>소 카테고리</option>
 		                            </select>
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
-								</li>
-								<li>
-									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
-		                                    <option selected disabled>대 카테고리</option>
-		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
-		                                    	<option>${categoryList[i].categoryMajorTitle}</option>
-		                                    </c:forEach>
-		                            </select>
-		                            <select  name="categoryMinorTitle" class="form-select join-category " aria-label="Default select example" >
-		                                    <option selected disabled>소 카테고리</option>
-		                            </select>
-		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
-								</li>
+								</li>					
 							</ul> <br>
 							
 							<div class="optional-info"">
@@ -329,7 +334,8 @@
 			
 		}); 
 		
-		$('#category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
+		// 대 카테고리 선택시 소 카테고리 바뀜.
+		$('.category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
 			const chosenMajor= $(this).val();
 			const minorText1 = '${categoryList}';
 			const minorText2 = minorText1.split('), ');
@@ -370,19 +376,21 @@
 		});
 	
 		// 카테고리 선택 시 중복 방지
-		$('#category-wrap').on('change', 'select[name=categoryMinorTitle]', function(e) {
+		$('.category-wrap').on('change', 'select[name=categoryMinorTitle]', function(e) {
+		/* $('select[name=categoryMinorTitle]').change( function(e) { */
 			const chosenMinor = $(this).val();
 			const chosenMajor = $(this.previousElementSibling).val();
-			
+			console.log(chosenMinor);
 			const chosenLiIndex = $(this.parentNode).data('index');
 			
 			const selectedMajors = $('select[name=categoryMajorTitle]');
 			const selectedMajorsMaxIndex = selectedMajors.length;
 			
 			// 현재 선택된 모든 대 카테고리의 값을 반복문으로 조회.
-			for (let i = 1; i < selectedMajorsMaxIndex; i++) {
+			for (let i = 0; i < selectedMajorsMaxIndex; i++) {
 				
 				let selectedLiIndex = $(selectedMajors[i].parentNode).data('index');
+				console.log(selectedLiIndex);
 				
 				if (selectedLiIndex !== chosenLiIndex) {
 					if (selectedMajors[i].value === chosenMajor && selectedMajors[i].nextElementSibling.value === chosenMinor) {
@@ -459,13 +467,25 @@
 		}, function() {
 			$(this).attr('placeholder', '비밀번호 확인');			
 		});
+		
+		$('#userName').hover(function() {
+			$(this).attr('placeholder', '한/영');
+		}, function() {
+			$(this).attr('placeholder', '이름');			
+		});
+		
+		$('#userNickname').hover(function() {
+			$(this).attr('placeholder', '한/영/숫자 10글자 이내, 특수문자 _ ! ?');
+		}, function() {
+			$(this).attr('placeholder', '닉네임');			
+		});
 
 		$('#userTel').hover(function() {
-			$(this).attr('placeholder', '000-0000-0000');
+			$(this).attr('placeholder', '-(하이픈) 없이 입력하세요.');
 		}, function() {
 			$(this).attr('placeholder', '전화번호');			
 		});
-
+		
 		/*비밀번호 형식 검사 스크립트*/
 		$('#userPw').keydown(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
@@ -483,6 +503,7 @@
             }            
 
 		});
+		
         /*비밀번호 확인검사*/
 		$('#pwConfirm').keydown(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
@@ -518,27 +539,87 @@
         	
         }); 
         
+        // 카테고리 추가
+       	const $lastLi = document.querySelector('#add-category').previousElementSibling.previousElementSibling.previousElementSibling.lastElementChild;
+       	let indexLi = +($($lastLi).data('index'));
         $('#add-category').click(function() {
-        	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true); 
+        	
+        	console.log($lastLi);
+     		indexLi = indexLi + 1;
+        	console.log(indexLi);
+        	
+        	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true);
+        	$($cloneLi).attr('data-index', indexLi);
         	$($cloneLi).css('display', 'list-item');
         	
         	$('#category-wrap').append($cloneLi);
         	
         });
-        
-        $('#category-wrap').on('click', '#del-category' ,function() {
+     	   
+    	 // 카테고리 제거
+        $('.category-wrap').on('click', '#del-category' ,function() {
         	console.log(this);
         	this.parentNode.remove();
         });
-
-
-		$('#userTel').hover(function() {
-			$(this).attr('placeholder', '000-0000-0000');
-		}, function() {
-			$(this).attr('placeholder', '전화번호');			
-		});
 		
 	}); // end jQuery
+	
+	// 즉시 실행 함수 
+	(function() {
+		const userCategoryList = ('${userCategoryList}').split('), ');
+		const userCategoryIndex = +('${userMinorLength}') + 1;
+		
+		// 서버에서 favorite의 대 카테고리만 모아서 보냄.
+		const userMajorCategories = ('${userMajorCategories}').substring(1, ('${userMajorCategories}').length - 1).split(', ');
+		console.log(userMajorCategories);
+		
+		let i = 0;
+		for (let userCategoryText1 of userCategoryList) {
+			let userCategoryMajorAndMinor1 = userCategoryText1.substring(userCategoryText1.indexOf('jor') + 9, userCategoryText1.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
+			
+			const serverMajorCategory = userCategoryMajorAndMinor1[0];
+			const serverMinorCategory = userCategoryMajorAndMinor1[1];
+			
+			const selectorLi = 'li[data-index=' + i + '] > select';
+			
+			// ======= 대 카테고리 favorite에 선택된 option태그 selected 처리 코드=========
+			const serverMajorSelectNode =$(selectorLi)[0];
+			serverMajorSelectNode.selectedIndex = userMajorCategories.indexOf(serverMajorCategory) + 1;
+			
+			// ======= 소 카테고리 option태그들 append 코드 =========
+			
+			const $serverMinorSelectNode = $(selectorLi)[0].nextElementSibling;
+			/* $($serverMinorSelectNode).html(''); */
+			
+			const $optDefault = document.createElement('option');
+			$($optDefault).attr('selected', 'true');			
+			$($optDefault).attr('disabled', 'true');			
+			$($optDefault).text('소 카테고리');			
+			
+			const $fragOpts = document.createDocumentFragment();
+			$fragOpts.appendChild($optDefault);
+			
+			let arr = [];
+			
+			for (let userCategoryText2 of userCategoryList) {
+				const userCategoryMajorAndMinor2 = userCategoryText2.substring(userCategoryText2.indexOf('jor') + 9, userCategoryText2.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
+				
+				if (userCategoryMajorAndMinor2[0] === serverMajorCategory) {
+			        const $option = document.createElement('option');					
+		            $option.textContent = userCategoryMajorAndMinor2[1];
+		            $fragOpts.appendChild($option);
+		            
+		            arr.push(userCategoryMajorAndMinor2[1]);
+				}
+			}
+	        $serverMinorSelectNode.appendChild($fragOpts);
+	        
+	        $serverMinorSelectNode.selectedIndex = arr.indexOf(serverMinorCategory) + 1;
+	        
+	        i = i + 1;
+		}
+
+	}());
 	
 	// 다음 주소 api 사용해보기
 

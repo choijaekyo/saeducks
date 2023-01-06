@@ -14,6 +14,7 @@
 		<result property="categoryMinorTitle" column="category_minor_title"/>
 	</resultMap>
 	
+	
 	<sql id="profile_column">
 		<if test="userProfilePath != null">, user_profile_path, user_profile_folder,
 		 user_profile_file_name, user_profile_file_real_name, user_email</if>
@@ -23,6 +24,22 @@
 		<if test="userProfilePath != null">, #{userProfilePath}, #{userProfileFolder},
 		 #{userProfileFileName}, #{userProfileFileRealName}, #{userEmail}</if>
 	</sql>
+	
+	
+	<!-- <resultMap type="kr.co.seaduckene.user.command.UserCategories" id="userCategories">
+		<result property="userNo" column="user_no" />
+		<collection property="categoryMajorList" resultMap="userMajorList"/>
+		<collection property="categoryMinorList" resultMap="userMinorList"/>
+	</resultMap>
+	
+	<resultMap type="String" id="userMajorList">
+		<result property="categoryMajorTitle" column="category_major_title"/>
+	</resultMap>
+
+	<resultMap type="String" id="userMinorList">
+		<result property="categoryMinorTitle" column="category_minor_title"/>
+	</resultMap> -->
+	
 	
 	<insert id="registUser">
 		INSERT INTO duck_user 
@@ -36,7 +53,8 @@
 	</select>
 	
 	<select id="getCategories" resultMap="categories">
-		SELECT category_major_title, category_minor_title From category
+		SELECT category_major_title, category_minor_title FROM category
+		ORDER BY category_major_title, category_minor_title 
 	</select>
 	
 	<select id="getCategoryNo" resultType="int">
@@ -64,8 +82,12 @@
 		SELECT COUNT(*) FROM duck_user WHERE user_nickname = #{userNickname}
 	</select>
 	
-	<select id="">
-		SELECT categoryMajorTitle, categoryMinorTitle FROM 
+	<select id="getUserCategories" resultType="category">
+		SELECT *
+		FROM favorite f JOIN duck_user u ON f.favorite_user_no = u.user_no
+		                JOIN category c ON f.favorite_category_no = c.category_no
+		WHERE u.user_no = #{userNo}
+		ORDER BY u.user_no, c.category_major_title, c.category_minor_title
 	</select>
 	
 </mapper>
