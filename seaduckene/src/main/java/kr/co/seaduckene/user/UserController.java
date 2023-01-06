@@ -194,6 +194,14 @@ public class UserController {
 		
 		log.info(userService.getUserCategories(userNo).toString());
 		
+		AddressVO userAddr = userService.getUserAddr(userNo);
+		
+		log.info(userAddr);
+		if (userAddr != null) {
+			modelAndView.addObject("userAddr", userAddr);			
+		}
+		
+		
 		return modelAndView;
 	}
 	

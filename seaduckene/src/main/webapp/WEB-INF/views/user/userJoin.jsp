@@ -324,7 +324,7 @@
 						alert('아이디가 이미 존재합니다.\n다른 아이디로 입력해주세요.');
 					} else {
 						idCheck = true;
-						$('#userId').css('border', '2px solid #ffc107');
+						$('#userId').css('border', '2px solid rgb(34, 139, 34)');
 						alert('사용가능한 아이디입니다!');
 					}
 				},
@@ -368,7 +368,7 @@
 						alert('이 닉네임은 이미 사용 중입니다.');
 					} else {
 						nicknameCheck = true;
-						$('#userNickname').css('border', '2px solid #ffc107');
+						$('#userNickname').css('border', '2px solid rgb(34, 139, 34)');
 						alert('사용가능한 닉네임입니다!');
 					}
 				},
@@ -421,7 +421,7 @@
             const regex = /^[A-Za-z0-9+]{4,12}$/; /* 영문 대/소문자, 숫자 4 ~ 12 */
 			
             if(regex.test($(this).val() )) {
-                $(this).css('border', '2px solid #ffc107');
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
                 /* document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다."; */
 
             } else {
@@ -437,10 +437,10 @@
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
-                $(this).css('border', '2px solid #ffc107');
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
                 
 	            if($("#pwConfirm").val() === $(this).val() ) {
-	                $("#pwConfirm").css('border', '2px solid #ffc107');
+	                $("#pwConfirm").css('border', '2px solid rgb(34, 139, 34)');
 	            } else {
 	            	$("#pwConfirm").css('border', '2px solid red');
 	            }
@@ -455,8 +455,8 @@
             
             if(regex.test($(this).val() )) {
 	            if($(this).val() === $("#userPw").val()) {
-	                $(this).css('border', '2px solid #ffc107');
-	                $("#userPw").css('border', '2px solid #ffc107');        
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+	                $("#userPw").css('border', '2px solid rgb(34, 139, 34)');        
 	
 	            } else {
 	                $(this).css('border', '2px solid red');
@@ -474,7 +474,7 @@
 			const regex = /^[가-힣a-zA-Z]+$/;
 			
 			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid #ffc107');
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
 				
 			} else {
                 $(this).css('border', '2px solid red');
@@ -487,7 +487,7 @@
 			const regex = /^[A-Za-z0-9가-힣+]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
 			
 			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid #ffc107');
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
 				
 			} else {
                 $(this).css('border', '2px solid red');
@@ -500,7 +500,7 @@
 			const regex = /^[0-9]{8,13}$/; /* 숫자 8~13 자리 */
 			
 			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid #ffc107');
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
 				
 			} else {
                 $(this).css('border', '2px solid red');
@@ -513,7 +513,7 @@
 			const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
 			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid #ffc107');
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
 				
 			} else {
                 $(this).css('border', '2px solid red');
@@ -556,23 +556,23 @@
 				alert('아이디 중복 확인이 필요합니다.');
 				$('#userId').focus();
 				return;
-			} else if ($('#userPw').css('border-block-color') !== 'rgb(255, 193, 7)') {
+			} else if ($('#userPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
 				alert('비밀번호를 다시 확인하세요.');
 				$('#userPw').focus();				
 				return;
-			} else if ($('#pwConfirm').css('border-block-color') !== 'rgb(255, 193, 7)') {
+			} else if ($('#pwConfirm').css('border-block-color') !== 'rgb(34, 139, 34)') {
 				alert('비밀번호를 다시 확인하세요.');
 				$('#pwConfirm').focus();				
 				return;
-			} else if ($('#userName').css('border-block-color') !== 'rgb(255, 193, 7)') {
+			} else if ($('#userName').css('border-block-color') !== 'rgb(34, 139, 34)') {
 				alert('이름을 다시 확인하세요.');
 				$('#userName').focus();				
 				return;
-			} else if ($('#userNickname').css('border-block-color') !== 'rgb(255, 193, 7)') {
+			} else if ($('#userNickname').css('border-block-color') !== 'rgb(34, 139, 34)') {
 				alert('닉네임을 다시 확인하세요.');
 				$('#userNickname').focus();				
 				return;
-			} else if ($('#userTel').css('border-block-color') !== 'rgb(255, 193, 7)') {
+			} else if ($('#userTel').css('border-block-color') !== 'rgb(34, 139, 34)') {
 				alert('전화번호를 다시 확인하세요.');
 				$('#userTel').focus();				
 				return;
