@@ -619,7 +619,8 @@
        			let minors =  minorss.substring(minorss.indexOf('=[') + 2, minorss.indexOf(']')).split(', ');
        			let majors =  minorss.substring(minorss.indexOf('e=') + 2, minorss.indexOf(','));
 				
-	       		if ($serverMajorSelectNode.value === serverMajorCategory && serverMajorCategory === majors) {
+       			// 현재 li의 선택된 대 카테고리 === 서버에서 favorite의 대 카테고리
+	       		if (serverMajorCategory === majors) {
 
 	       			
 	       			for (let minorOfMajor of minors) {
