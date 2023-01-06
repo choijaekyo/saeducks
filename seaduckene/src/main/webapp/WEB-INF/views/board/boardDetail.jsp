@@ -74,12 +74,12 @@
 
 			<div class="col">
 				<div class="d-flex align-items-center mb-3">
-					<h5 class="me-auto mb-0">Ollie Chandler</h5>
+					<h5 class="me-auto mb-0" id="replyId">Ollie Chandler</h5>
 					<span class="text-muted extra-small ms-2">08:45 PM</span>
 				</div>
 
 				<div class="d-flex align-items-center">
-					<div class="line-clamp me-auto">Hello! Yeah, I'm going to
+					<div class="line-clamp me-auto" id="reply">Hello! Yeah, I'm going to
 						meet friend of mine at the departments stores now.</div>
 
 					<div class="badge badge-circle bg-primary ms-5">
@@ -137,10 +137,40 @@
 	$(document).ready(function() {
 		$('#replyRegist').click(function() {
 			
-			const replyNo = '${list.replyNo}';
+			const boardNo = '${list.boardNo}';
+			const reply = $('#reply').val();
+			const replyId = $('#replyId').val();
+			
+			if(reply === '') {
+				alert('내용을 입력하세요!')
+				return;
+			}
+			
+			$.ajax({
+				type: 'post',
+				url: '<c:url value="/reply/replyRegist" />',
+				data: JSON.stringify({
+					"boardNo":boardNo,
+					"reply":reply,
+					"replyId":replyId
+				}),
+				dataType: 'text',
+				contentType: 'application/json',
+				success: function(data) {
+					console.log('통신 성공!: ' + data);
+					$('#boardNo').val('');
+					$('#reply').val('');
+					$('#replyId').val('');
+					getList(1, true);
+				},
+				error: function() {
+					alert('등록에 실패했습니다. 관리자에게 문의해주세요.');
+				}
+				
+			}); //ajax 끝.
 			
 			
-		})
+		});//댓글 등록 이벤트 끝.
 		
 		
 	})
