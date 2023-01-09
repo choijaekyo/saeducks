@@ -349,7 +349,7 @@
 	// 정규식
 	const regAccount = /^[0-9]+$/;
 	const regName = /^[가-힣a-zA-Z]+$/;
-	const regTel = /^[0-9]{8,13}$/;
+	const regTel = /^(010)[0-9]{8}$/; /* 010포함 숫자 11자리 */
 	const regEmail = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 
 	

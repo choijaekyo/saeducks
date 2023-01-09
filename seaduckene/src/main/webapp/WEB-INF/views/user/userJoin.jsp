@@ -497,7 +497,7 @@
         /* 전화번호 확인검사 */
         $('#userTel').keyup(function() {
         	$(this).css('color', 'black');
-			const regex = /^[0-9]{8,13}$/; /* 숫자 8~13 자리 */
+			const regex = /^(010)[0-9]{8}$/; /* 숫자 010포함 11 자리 */
 			
 			if (regex.test($(this).val())) {
                 $(this).css('border', '2px solid rgb(34, 139, 34)');

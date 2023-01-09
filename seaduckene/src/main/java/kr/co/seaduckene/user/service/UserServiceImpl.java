@@ -114,5 +114,20 @@ public class UserServiceImpl implements IUserService {
 	public AddressVO getUserAddr(int userNo) {
 		return userMapper.getUserAddr(userNo);
 	}
+	
+	public List<String> findAccount (String userName, String userEmail) {
+		log.info(userEmail);
+		log.info(userName);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("userName", userName);
+		map.put("userEmail", userEmail);
+		
+		List<String> userIds = userMapper.findAccount(map);
+		log.info(userIds);
+		
+		return userIds;
+	}
+	
 
 }
