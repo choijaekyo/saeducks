@@ -50,8 +50,10 @@
 				</div>
 				<div class="mb-3" id="board-detail-content">
 					<label for="content" class="form-label">내용</label>
-					<textarea class="form-control" id="content" name="boardContent"
-						readonly rows="15">${list.boardContent}</textarea>
+					<ul class="list-unstyled mt-3 mb-4">
+                		<li class="form-control">${list.boardContent}</li>
+              		</ul>
+              		<input type="hidden" value="'${list.boardContent}'" name="boardContent" style="display: none;">
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList'/>'
@@ -129,12 +131,14 @@
 
 
 
-<%@ include file="../include/footer.jsp"%>
+
 
 
 <script>
 
 	$(document).ready(function() {
+
+		
 		$('#replyRegist').click(function() {
 			
 			const boardNo = '${list.boardNo}';
@@ -176,4 +180,4 @@
 	})
 	
 </script>
-
+<%@ include file="../include/footer.jsp"%>

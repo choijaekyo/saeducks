@@ -34,7 +34,7 @@
 					<div class="form-group boardContent-summernote">
 						<label>내용</label>
 						<textarea class="form-control" id="summernote" rows="10"
-							name="boardContent">${list.boardContent}</textarea>
+							name="boardContent"></textarea>
 					</div>
 
 					<br>
@@ -81,7 +81,7 @@
 				$('#modifyForm').submit();
 			}
 		}); //수정 버튼 이벤트 처리 끝. */
-
+		$('#summernote').summernote('pasteHTML', '${list.boardContent}');
 		$('#delBtn')
 				.click(
 						function() {
