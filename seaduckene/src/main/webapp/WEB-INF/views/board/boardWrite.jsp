@@ -65,6 +65,7 @@
 	 });
 	
 	$(document).ready(function() {
+		// https://programmer93.tistory.com/31 여기서 봄
     $('#summernote').summernote({
       height: 500,                 // 에디터 높이
       minHeight: null,             // 최소 높이
@@ -98,8 +99,10 @@
       fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
       callbacks: {	//여기 부분이 이미지를 첨부하는 부분
 			onImageUpload : function(files) {
-				uploadSummernoteImageFile(files[0],this);
-				console.log('files : ' + files[0]);
+				/* uploadSummernoteImageFile(files[0],this);*/
+				for (var i = files.length - 1; i >= 0; i--) {
+                    uploadSummernoteImageFile(files[i], this);
+                }
 			},
 			onPaste: function (e) {
 				var clipboardData = e.originalEvent.clipboardData;
@@ -114,6 +117,8 @@
     });
     
     function uploadSummernoteImageFile(file, editor) {
+    	
+    	
 		data = new FormData();
 		data.append("file", file);
 		$.ajax({
@@ -124,13 +129,7 @@
 			processData : false,
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
-            	console.log('data : '+ data);
 				$(editor).summernote('insertImage', data.url);
-			},
-			error: function(request, status, error) {
-				console.log("에러에러", request);
-				console.log("에러에러", status);
-				console.log("에러에러", error);
 			}
 		});
 	}
