@@ -59,7 +59,7 @@
 						</c:otherwise>
 					</c:choose>
 					  
-					  <li class="breadcrumb-item" data-head="4"><a data-toggle="tab" href="#">주문정보</a></li>
+					  <li class="breadcrumb-item" data-head="4"><a data-toggle="tab" href="#myOrder">주문정보</a></li>
 					</ol>
 				</nav>				
 			</div>
@@ -181,6 +181,7 @@
 						</form>
 					</div>
 				</div>
+			</div>
 				
 			<div class="modal" id="myPageModal">
 			  <div class="modal-dialog modalDesign">
@@ -219,32 +220,32 @@
 				<div id="modalMask"></div>
 			</div><!-- /.modal -->
 				
-		<div class="tab-content">
-		<c:choose>
-			<c:when test="${toggle == 2}">					
-				<div class="tab-pane active" id="myboard">
-			</c:when>
-			<c:otherwise>
-				<div class="tab-pane" id="myboard">
-			</c:otherwise>
-		</c:choose>
-					<div class="container">
-						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contentDiv">
-
-								<!-- 비동기 방식으로 서버와 통신을 진행한 후 
-									목록을 만들어서 붙일 예정. -->
-					
-						</div>
-						<div class="row justify-content-center row-div-2">
-						  	<div class="col-1 w-auto mt-3">
-						  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
-						  	</div>
+			<div class="tab-content">
+			<c:choose>
+				<c:when test="${toggle == 2}">					
+					<div class="tab-pane active" id="myboard">
+				</c:when>
+				<c:otherwise>
+					<div class="tab-pane" id="myboard">
+				</c:otherwise>
+			</c:choose>
+						<div class="container">
+							<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contentDiv">
+	
+									<!-- 비동기 방식으로 서버와 통신을 진행한 후 
+										목록을 만들어서 붙일 예정. -->
+						
+							</div>
+							<div class="row justify-content-center row-div-2">
+							  	<div class="col-1 w-auto mt-3">
+							  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
+							  	</div>
+							</div>
 						</div>
 					</div>
-				</div>
-		</div>
+			</div>
 		
-		<div class="tab-content">
+			<div class="tab-content">
 		<c:choose>
 			<c:when test="${toggle == 3}">					
 				<div class="tab-pane active" id="myBasket">
@@ -276,6 +277,7 @@
 				                <td style="display:none">${b.basketNo} </td> 
 				            </tr>
 				            </c:forEach>
+				            </tbody>
 				        </table>
 				        <div>
 				        	<div class="col-md-2 offset-md-10 text-end" style="line-height: 25px;">
@@ -286,16 +288,15 @@
 				            </div>
 				        </div>
 				    </div>
+				</div>
 			</div>
-		</div>
 		
-		<div class="tab-content">
-		</div>
-				
+			<div class="tab-content">
+				<div class="tab-pane active" id="myOrder">
+				</div>
 			</div>
-		</div>
-		</div>
-	 </div>
+					
+	</div>
 	</section>
 
 
@@ -306,10 +307,6 @@
 
 <script>
 	$(function() {
-		
-		
-		
-		
 		
 		 $('.title').on('click', 'li', function(e) {
 			
@@ -332,7 +329,7 @@
 				$('#userMyPage .title h2').text('내 게시판');
 			} else if($(this).data('head') == '3') {
 				$('#userMyPage .title h2').text('장바구니');
-			} else {
+			} else if($(this).data('head') == '4') {
 				$('#userMyPage .title h2').text('주문정보');
 			}
 			
@@ -528,10 +525,50 @@
             }   
 		});
         
+        /* 이름 확인검사 */
+        $('#userName').keyup(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[가-힣a-zA-Z]+$/;
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+			}	
+        });
+        
+        /* 닉네임 확인검사 */
+        $('#userNickname').keyup(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[\w가-힣\_\!\?]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+			}	
+        });
+        
+        /* 전화번호 확인검사 */
+        $('#userTel').keyup(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[0-9]{8,13}$/; /* 숫자 8~13 자리 */
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+			}	
+        });
+               
+        
         /* 이메일 확인검사 */
         $('#userEmail').keydown(function() {
         	$(this).css('color', 'black');
-			const regex = /^[A-Za-z0-9+]+@[A-Za-z+]+.[A-Za-z+]{1,4}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
+        	const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
 			if (regex.test($(this).val())) {
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
@@ -571,10 +608,6 @@
 	// 즉시 실행 함수 
 	(function() {
 		const userCategoryList = ('${userCategoryList}').split('), ');
-		const userCategoryIndex = +('${userMinorLength}') + 1;
-		
-		// 서버에서 favorite의 대 카테고리만 모아서 보냄.
-		const userMajorCategories = ('${userMajorCategories}').substring(1, ('${userMajorCategories}').length - 1).split(', ');
 		
 		let i = 0;
 		for (let userCategoryText1 of userCategoryList) {

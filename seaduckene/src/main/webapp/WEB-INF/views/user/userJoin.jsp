@@ -484,7 +484,7 @@
         /* 닉네임 확인검사 */
         $('#userNickname').keyup(function() {
         	$(this).css('color', 'black');
-			const regex = /^[A-Za-z0-9가-힣+]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
+			const regex = /^[\w가-힣\_\!\?]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
 			
 			if (regex.test($(this).val())) {
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
