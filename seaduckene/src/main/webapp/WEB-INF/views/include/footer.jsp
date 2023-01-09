@@ -60,22 +60,8 @@
 
 </footer>
 
-
-<!-- 부트스트랩 js -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- 제이쿼리 js -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
-<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <!-- 스와이프 js -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
-<!-- summernote script -->
-<%-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js" defer></script>
-<script src="${pageContext.request.contextPath }/resources/js/summernote/summernote-lite.js" defer></script>
-<script src="${pageContext.request.contextPath }/resources/js/summernote/lang/summernote-ko-KR.js" defer></script> --%>
 
 <script>
 	var swiper = new Swiper(".mySwiper", {
@@ -154,6 +140,7 @@
 				
 		); //end getJSON()
 	});
+
 </script>
 </body>
 </html>

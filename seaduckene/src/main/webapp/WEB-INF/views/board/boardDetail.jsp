@@ -50,8 +50,8 @@
 				</div>
 				<div class="mb-3" id="board-detail-content">
 					<label for="content" class="form-label">내용</label>
-					<textarea class="form-control" id="content" name="boardContent"
-						readonly rows="15">${list.boardContent}</textarea>
+					<textarea class="form-control" id="summernote" name="boardContent"
+						readonly rows="15"></textarea>
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList'/>'
@@ -135,6 +135,20 @@
 <script>
 
 	$(document).ready(function() {
+		
+		
+		
+		
+		$(function() {
+			$('#summernote').summernote({
+				toolbar: false
+			});
+			$('#summernote').summernote('disable');
+			$('#summernote').summernote('pasteHTML', '${list.boardContent}');
+			$('.note-statusbar').hide();
+			$('.note-editable').css('background', '	#FFFFFF');
+		});
+		
 		$('#replyRegist').click(function() {
 			
 			const boardNo = '${list.boardNo}';

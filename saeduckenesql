@@ -363,3 +363,86 @@ FROM
 WHERE rn > 0
 AND rn <= 5
 ORDER BY notice_no DESC;
+
+
+drop table duck_user;
+drop SEQUENCE duck_user_seq;
+drop table address;
+drop SEQUENCE address_seq;
+drop table board;
+drop SEQUENCE board_no_seq;
+drop table reply;
+drop SEQUENCE reply_no_seq;
+drop table replyLike;
+drop SEQUENCE reply_like_no_seq;
+drop table category;
+drop SEQUENCE category_no_seq;
+drop table boardImage;
+drop SEQUENCE board_image_no_seq;
+drop table favorite;
+drop SEQUENCE favorite_seq;
+drop table basket;
+drop SEQUENCE basket_seq;
+drop table product_image;
+drop SEQUENCE product_image_seq;
+drop table product;
+drop SEQUENCE product_seq;
+drop table duck_order;
+drop SEQUENCE order_seq;
+
+commit;
+
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'미디어','영화');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'미디어','드라마');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'미디어','애니');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'미디어','책');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'인물','배우');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'인물','아이돌');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'인물','유튜버');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'인물','가수');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'인물','운동선수');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'여행','아프리카');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'여행','중동');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'여행','유럽');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'여행','아시아');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'여행','북아메리카');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'여행','남아메리카');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'여행','오세아니아');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'패션','상의');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'패션','하의');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'패션','신발');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'패션','액세서리');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'패션','화장품');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'음식','한식');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'음식','중식');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'음식','양식');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'음식','일식');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'음식','인도식');
+INSERT INTO category (category_no,category_major_title,category_minor_title)
+VALUES (category_no_seq.NEXTVAL,'음식','동남아식');
