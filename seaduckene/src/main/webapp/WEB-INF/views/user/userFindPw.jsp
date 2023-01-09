@@ -116,7 +116,8 @@
 					const inputCode = $('#confNum').val();
 					const $resultMsg = $('#confMailRes');
 					if (inputCode === authCode) {
-						$('.findAccountForm').submit();
+						alert('임시 비밀번호가 인증받은 메일로 전송됩니다. \n 메일에서 임시 비밀번호를 확인하신 후 로그인 해주세요.');
+						$('.findPwForm').submit();
 						
 					} else {
 						$resultMsg.html('인증번호를 다시 확인해주세요.');
@@ -126,12 +127,8 @@
 		}); //end 인증번호비교
 		
 		
-		$('#joinBtn').click(function() {
-			location.href="<c:url value='/user/userJoin' />";
-		});
-		
 	});
 </script>
 
-</script>
+
 </html>

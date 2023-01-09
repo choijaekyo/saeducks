@@ -115,6 +115,7 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.getUserAddr(userNo);
 	}
 	
+	@Override
 	public List<String> findAccount (String userName, String userEmail) {
 		log.info(userEmail);
 		log.info(userName);
@@ -128,6 +129,18 @@ public class UserServiceImpl implements IUserService {
 		
 		return userIds;
 	}
+
+	@Override
+	public void updatePw(String userId, String tmpPw) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("tmpPw", tmpPw);
+		
+		userMapper.updatePw(map);
+		
+	}
+	
+	
 	
 
 }
