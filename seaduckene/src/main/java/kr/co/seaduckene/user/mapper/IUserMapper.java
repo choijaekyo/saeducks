@@ -3,6 +3,7 @@ package kr.co.seaduckene.user.mapper;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.user.command.Categories;
@@ -36,5 +37,8 @@ public interface IUserMapper {
 
 	// 유저의 카테고리 정보를 불러오기
 	List<CategoryVO> getUserCategories(int userNo);
+	
+	// 유저의 주소 정보를 불러오기
+	AddressVO getUserAddr(int userNo);
 
 }

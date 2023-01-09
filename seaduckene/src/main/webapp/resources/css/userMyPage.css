@@ -5,12 +5,21 @@
 	padding: 0;
 }
 
+#userMyPage p {
+	margin: 0;
+}
+
 #userMyPage .col-lg-12, #userMyPage .col-md-12, #userMyPage .col-sm-12 {
 	/* height: 1650px; */
 	
 }
 
 #userMyPage .basketA {
+	text-decoration: none;
+	color: black;
+}
+
+.basketA {
 	text-decoration: none;
 	color: black;
 }

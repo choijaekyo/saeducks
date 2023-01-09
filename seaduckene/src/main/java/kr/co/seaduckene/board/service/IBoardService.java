@@ -14,7 +14,10 @@ public interface IBoardService {
 	void write(BoardVO vo);
 
 	// 글 목록
-	List<BoardVO> list(PageVO paging);
+	List<BoardVO> list(PageVO paging , int categoryNo);
+	
+	// 내가 쓴 글 목록
+	List<BoardVO> myList(PageVO paging);
 
 	// 상세보기
 	BoardVO content(int bno);
@@ -26,7 +29,7 @@ public interface IBoardService {
 	void delete(int bno);
 
 	// 상품 목록
-	List<ProductVO> proList();
+	List<ProductVO> proList(int categoryNo);
 	
 	// 메인 리스트 유저 세션 있는
 	List<BoardUserVO> bUserList(int userNo);

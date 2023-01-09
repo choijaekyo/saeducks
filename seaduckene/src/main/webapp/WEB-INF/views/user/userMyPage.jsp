@@ -60,7 +60,7 @@
 						</c:otherwise>
 					</c:choose>
 					  
-					  <li class="breadcrumb-item" data-head="4"><a data-toggle="tab" href="#">주문정보</a></li>
+					  <li class="breadcrumb-item" data-head="4"><a data-toggle="tab" href="#myOrder">주문정보</a></li>
 					</ol>
 				</nav>				
 			</div>
@@ -147,17 +147,17 @@
 								<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="기본 주소" value="" id="addrBasic" readonly />
+				                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="기본 주소" value="${userAddr.addressBasic}" id="addrBasic" readonly />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세 주소" value="" id="addrDetail" />
+				                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세 주소" value="${userAddr.addressDetail}" id="addrDetail" />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressZipNum" class="form-control join-input" type="text" placeholder="우편번호" value="" id="addrZipNum" readonly />
+				                        <input name="addressZipNum" class="form-control join-input" type="text" placeholder="우편번호" value="${userAddr.addressZipNum}" id="addrZipNum" readonly />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
@@ -182,6 +182,7 @@
 						</form>
 					</div>
 				</div>
+			</div>
 				
 			<div class="modal" id="myPageModal">
 			  <div class="modal-dialog modalDesign">
@@ -220,32 +221,32 @@
 				<div id="modalMask"></div>
 			</div><!-- /.modal -->
 				
-		<div class="tab-content">
-		<c:choose>
-			<c:when test="${toggle == 2}">					
-				<div class="tab-pane active" id="myboard">
-			</c:when>
-			<c:otherwise>
-				<div class="tab-pane" id="myboard">
-			</c:otherwise>
-		</c:choose>
-					<div class="container">
-						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contentDiv">
-
-								<!-- 비동기 방식으로 서버와 통신을 진행한 후 
-									목록을 만들어서 붙일 예정. -->
-					
-						</div>
-						<div class="row justify-content-center row-div-2">
-						  	<div class="col-1 w-auto mt-3">
-						  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
-						  	</div>
+			<div class="tab-content">
+			<c:choose>
+				<c:when test="${toggle == 2}">					
+					<div class="tab-pane active" id="myboard">
+				</c:when>
+				<c:otherwise>
+					<div class="tab-pane" id="myboard">
+				</c:otherwise>
+			</c:choose>
+						<div class="container">
+							<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contentDiv">
+	
+									<!-- 비동기 방식으로 서버와 통신을 진행한 후 
+										목록을 만들어서 붙일 예정. -->
+						
+							</div>
+							<div class="row justify-content-center row-div-2">
+							  	<div class="col-1 w-auto mt-3">
+							  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
+							  	</div>
+							</div>
 						</div>
 					</div>
-				</div>
-		</div>
+			</div>
 		
-		<div class="tab-content">
+			<div class="tab-content">
 		<c:choose>
 			<c:when test="${toggle == 3}">					
 				<div class="tab-pane active" id="myBasket">
@@ -277,6 +278,7 @@
 				                <td style="display:none">${b.basketNo} </td> 
 				            </tr>
 				            </c:forEach>
+				            </tbody>
 				        </table>
 				        <div>
 				        	<div class="col-md-2 offset-md-10 text-end" style="line-height: 25px;">
@@ -287,16 +289,15 @@
 				            </div>
 				        </div>
 				    </div>
+				</div>
 			</div>
-		</div>
 		
-		<div class="tab-content">
-		</div>
-				
+			<div class="tab-content">
+				<div class="tab-pane active" id="myOrder">
+				</div>
 			</div>
-		</div>
-		</div>
-	 </div>
+					
+	</div>
 	</section>
 
 
@@ -307,10 +308,6 @@
 
 <script>
 	$(function() {
-		
-		
-		
-		
 		
 		 $('.title').on('click', 'li', function(e) {
 			
@@ -333,7 +330,7 @@
 				$('#userMyPage .title h2').text('내 게시판');
 			} else if($(this).data('head') == '3') {
 				$('#userMyPage .title h2').text('장바구니');
-			} else {
+			} else if($(this).data('head') == '4') {
 				$('#userMyPage .title h2').text('주문정보');
 			}
 			
@@ -497,8 +494,8 @@
             
             if(regex.test($(this).val() )) {
 	            if($("#pwConfirm").val() === $(this).val() ) {
-	                $(this).css('border', '2px solid #ffc107');
-	                $("#pwConfirm").css('border', '2px solid #ffc107');
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+	                $("#pwConfirm").css('border', '2px solid rgb(34, 139, 34)');
 	            } else {
 	            	$(this).css('border', '2px solid red');
 	            	$("#pwConfirm").css('border', '2px solid red');
@@ -516,8 +513,8 @@
             
             if(regex.test($(this).val() )) {
 	            if($(this).val() === $("#userPw").val()) {
-	                $(this).css('border', '2px solid #ffc107');
-	                $("#userPw").css('border', '2px solid #ffc107');        
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+	                $("#userPw").css('border', '2px solid rgb(34, 139, 34)');        
 	
 	            } else {
 	                $(this).css('border', '2px solid red');
@@ -529,13 +526,53 @@
             }   
 		});
         
+        /* 이름 확인검사 */
+        $('#userName').keyup(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[가-힣a-zA-Z]+$/;
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+			}	
+        });
+        
+        /* 닉네임 확인검사 */
+        $('#userNickname').keyup(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[\w가-힣\_\!\?]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+			}	
+        });
+        
+        /* 전화번호 확인검사 */
+        $('#userTel').keyup(function() {
+        	$(this).css('color', 'black');
+			const regex = /^[0-9]{8,13}$/; /* 숫자 8~13 자리 */
+			
+			if (regex.test($(this).val())) {
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				
+			} else {
+                $(this).css('border', '2px solid red');
+			}	
+        });
+               
+        
         /* 이메일 확인검사 */
         $('#userEmail').keydown(function() {
         	$(this).css('color', 'black');
-			const regex = /^[A-Za-z0-9+]+@[A-Za-z+]+.[A-Za-z+]{1,4}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
+        	const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
 			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid #ffc107');
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
 				
 			} else {
                 $(this).css('border', '2px solid red');
@@ -572,15 +609,20 @@
 	// 즉시 실행 함수 
 	(function() {
 		const userCategoryList = ('${userCategoryList}').split('), ');
-		const userCategoryIndex = +('${userMinorLength}') + 1;
-		
-		// 서버에서 favorite의 대 카테고리만 모아서 보냄.
-		const userMajorCategories = ('${userMajorCategories}').substring(1, ('${userMajorCategories}').length - 1).split(', ');
-		console.log(userMajorCategories);
 		
 		let i = 0;
 		for (let userCategoryText1 of userCategoryList) {
 			let userCategoryMajorAndMinor1 = userCategoryText1.substring(userCategoryText1.indexOf('jor') + 9, userCategoryText1.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
+			
+			// 서버에서 대 카테고리 전체를 받아서 선택된 대 카테고리 값과 매칭한다.
+			const majorss = ('${categoryList}').split('), ');
+			/* console.log(majorss); */
+			
+			let arrMajor = [];
+			
+			for (let majors of majorss) {
+				arrMajor.push(majors.substring(majors.indexOf('e=') + 2, majors.indexOf(', c')));
+			}
 			
 			const serverMajorCategory = userCategoryMajorAndMinor1[0];
 			const serverMinorCategory = userCategoryMajorAndMinor1[1];
@@ -588,12 +630,12 @@
 			const selectorLi = 'li[data-index=' + i + '] > select';
 			
 			// ======= 대 카테고리 favorite에 선택된 option태그 selected 처리 코드=========
-			const serverMajorSelectNode =$(selectorLi)[0];
-			serverMajorSelectNode.selectedIndex = userMajorCategories.indexOf(serverMajorCategory) + 1;
+			const $serverMajorSelectNode = $(selectorLi)[0];
+			$serverMajorSelectNode.selectedIndex = arrMajor.indexOf(serverMajorCategory) + 1;
 			
 			// ======= 소 카테고리 option태그들 append 코드 =========
 			
-			const $serverMinorSelectNode = $(selectorLi)[0].nextElementSibling;
+			const $serverMinorSelectNode = $(selectorLi)[1];
 			/* $($serverMinorSelectNode).html(''); */
 			
 			const $optDefault = document.createElement('option');
@@ -602,24 +644,33 @@
 			$($optDefault).text('소 카테고리');			
 			
 			const $fragOpts = document.createDocumentFragment();
+			
 			$fragOpts.appendChild($optDefault);
 			
-			let arr = [];
+			let arrMinor1 = [];
 			
-			for (let userCategoryText2 of userCategoryList) {
-				const userCategoryMajorAndMinor2 = userCategoryText2.substring(userCategoryText2.indexOf('jor') + 9, userCategoryText2.indexOf(', categoryRegDate')).split(', categoryMinorTitle=');
+	       	for (let minorss of majorss) {
+       			let minors =  minorss.substring(minorss.indexOf('=[') + 2, minorss.indexOf(']')).split(', ');
+       			let majors =  minorss.substring(minorss.indexOf('e=') + 2, minorss.indexOf(','));
 				
-				if (userCategoryMajorAndMinor2[0] === serverMajorCategory) {
-			        const $option = document.createElement('option');					
-		            $option.textContent = userCategoryMajorAndMinor2[1];
-		            $fragOpts.appendChild($option);
-		            
-		            arr.push(userCategoryMajorAndMinor2[1]);
-				}
+       			// 현재 li의 선택된 대 카테고리 === 서버에서 favorite의 대 카테고리
+	       		if (serverMajorCategory === majors) {
+
+	       			
+	       			for (let minorOfMajor of minors) {
+				        const $option = document.createElement('option');					
+			            $option.textContent = minorOfMajor;
+			            $fragOpts.appendChild($option);	
+			            
+			            arrMinor1.push(minorOfMajor);
+					}
+	       			
+	       			$serverMinorSelectNode.appendChild($fragOpts);
+	       			$serverMinorSelectNode.selectedIndex = arrMinor1.indexOf(serverMinorCategory) + 1;
+	       			
+	       		}
 			}
-	        $serverMinorSelectNode.appendChild($fragOpts);
-	        
-	        $serverMinorSelectNode.selectedIndex = arr.indexOf(serverMinorCategory) + 1;
+
 	        
 	        i = i + 1;
 		}

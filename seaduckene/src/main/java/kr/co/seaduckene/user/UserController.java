@@ -181,18 +181,19 @@ public class UserController {
 		
 		List<CategoryVO> categoryVOs = userService.getUserCategories(userNo);
 		
-		Set<String> set = new TreeSet<String>();
-		
-		for (int i = 0; i < categoryVOs.size(); i++) {
-			set.add(categoryVOs.get(i).getCategoryMajorTitle());
-		}
 		
 		modelAndView.addObject("userCategoryList", categoryVOs);
 		log.info(categoryVOs);
-		modelAndView.addObject("userMinorLength", categoryVOs.size());
-		modelAndView.addObject("userMajorCategories", set);
 		
 		log.info(userService.getUserCategories(userNo).toString());
+		
+		AddressVO userAddr = userService.getUserAddr(userNo);
+		
+		log.info(userAddr);
+		if (userAddr != null) {
+			modelAndView.addObject("userAddr", userAddr);			
+		}
+		
 		
 		return modelAndView;
 	}
@@ -210,7 +211,7 @@ public class UserController {
 		
 		paging.setCpp(9);
 		
-		return boardService.list(paging);
+		return boardService.myList(paging);
 	}
 	
 

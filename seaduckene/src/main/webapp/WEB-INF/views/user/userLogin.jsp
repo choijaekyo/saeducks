@@ -46,6 +46,11 @@
 </body>
 
 <script>
+
+	if ('${msg}' === 'loginFail') {
+		alert('로그인 아이디 또는 비밀번호가 틀렸습니다.\n다시 입력하세요.');		
+	}
+	
 	$(function() {
 		$('#user-login-submit').click(login);
 		$('#user-login-form').on('keyup', 'input', keyPressEnter);
@@ -62,8 +67,8 @@
 	});
 			
 	
-	if ('${msg}' === 'loginFail') {
-		alert('로그인 아이디 또는 비밀번호가 틀렸습니다.\n다시 입력하세요.');		
-	}
+	
+	
+	
 </script>
 </html>

@@ -40,4 +40,7 @@ public interface IUserService {
 	// 유저의 카테고리 정보를 불러오기
 	List<CategoryVO> getUserCategories(int userNo);
 	
+	// 유저의 주소 정보를 불러오기
+	AddressVO getUserAddr(int userNo);
+	
 }
