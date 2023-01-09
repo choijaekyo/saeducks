@@ -125,5 +125,9 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.getUserBySessionId(sessionId);
 	}
 	
+	@Override
+	public void undoAutoLogin(int userNo) {
+		userMapper.undoAutoLogin(userNo);
+	}
 
 }

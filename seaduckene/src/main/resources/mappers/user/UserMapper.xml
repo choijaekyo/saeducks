@@ -102,4 +102,8 @@
 		SELECT * FROM duck_user WHERE user_session_id = #{sessionId}
 	</select>
 	
+	<update id="undoAutoLogin">
+		UPDATE duck_user SET user_session_id = null, user_cookie_expire_date = null WHERE user_no = #{userNo}
+	</update>
+	
 </mapper>

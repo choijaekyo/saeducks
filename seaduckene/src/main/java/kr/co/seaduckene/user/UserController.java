@@ -94,9 +94,11 @@ public class UserController {
 				autoLoginCookie.setPath(request.getContextPath() + "/");
 				autoLoginCookie.setMaxAge(0);
 				response.addCookie(autoLoginCookie);
+				userService.undoAutoLogin(userVo.getUserNo());
 			}
 			
 		}
+		
 		
 		session.removeAttribute("login");
 		modelAndView.setViewName("redirect:/user/userLogin");

@@ -49,5 +49,6 @@ public interface IUserService {
 	// 쿠키의 sessionId로 session userVO 얻기
 	UserVO getUserBySessionId(String sessionId);
 	
-	
+	// 자동 로그인 해제
+	void undoAutoLogin(int userNo);
 }
