@@ -90,6 +90,8 @@
       }
       // https://swiperjs.com/swiper-api
    });
+   
+   let str = '';
     
     $(document).ready(function() {
        

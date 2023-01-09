@@ -2,8 +2,14 @@
 
 /*============= 아이디 찾기 ==============*/
 
+
+
 #userFindAccount .find-account {
 	margin: 0;
+	text-align: center;
+}
+
+#userFindAccount .middleBox{
 	text-align: center;
 }
 
@@ -16,7 +22,6 @@
 	font-size: 16px;
 	
 }
-
 
 #userFindAccount form .find-input {
 	display: inline-block;
@@ -40,13 +45,67 @@
 
 #userFindAccount form .btn-outline-secondary { 
 	vertical-align: unset;
-	
 }
 
 #userFindAccount .input-group .find-input:focus{
 	border: 1px solid rgb(255, 193, 7);
 	box-shadow: 0 0 5px 0.20rem rgba(255, 193, 7, 0.475);
 }
+
+
+/*============= 아이디 찾기 결과  userFindAccount2 ==============*/
+
+#findAccountRes {
+	
+	text-align: center;
+	margin: 150px;
+}
+
+#findAccountRes .container .resultBox {
+	width: 500px;
+	margin: 0 auto;
+	border: 1px solid black;
+	padding: 80px;
+}
+
+#findAccountRes .container .foot-lnk a{
+	text-decoration: none;
+	display: block;
+}
+
+#findAccountRes .container .foot-lnk a:first-child {
+	margin-top: 25px;
+}
+
+/*============= 비밀번호 찾기  userFindPW ==============*/
+
+#userFindPw {
+	text-align: center;
+	margin-top: 60px;
+}
+
+#userFindPw .middleBox {
+	margin: 0 auto;
+	max-width: 300px;
+}
+
+#userFindPw .middleBox .findPwForm {
+	margin-top: 20px;
+}
+
+#userFindPw .middleBox .findPwForm input:first-child {
+	margin-top: 20px;
+}
+
+#userFindPw .middleBox .findPwForm input:last-child {
+	margin-bottom: 20px;
+}
+
+
+
+
+
+
 
 
 

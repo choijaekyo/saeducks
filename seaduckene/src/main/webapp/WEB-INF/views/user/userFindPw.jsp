@@ -18,33 +18,27 @@
 	<%@ include file="../include/header.jsp"%>
 
 
-	<section class="py-5" id="userFindAccount">
+	<section class="py-5" id="userFindPw">
 		<div class="container">
-			<div class="row">
+			<div class="row middleBox">
 				<div class="col-sm-12">
-					<h1 class="find-account h1">아이디 찾기</h1>
+					<h1 class="find-account h1">비밀번호 찾기</h1>
 				</div>
-				<form class="findAccountForm" method="post" action="<c:url value='/user/findAccount' />">
+				<form class="findPwForm" method="post" action="<c:url value='/user/userFindPw' />">
 					<div class="middleBox col-sm-12">
-						<div class="offset-sm-1 col-sm-11">
-						
-				
-							<p class="sub-title">
-								<input class="form-check-input radio" name="isEmail"
-									type="radio" data-check="1" id="checked-email" /> 본인 확인 이메일로
-								인증하기
-							</p>
-							<div class="description-1" style="display: none;">
+						<div class="col-12">
+
+							<div class="description-1">
 								<label>가입 시 인증한 메일주소와 동일한 주소를 입력해 주세요.</label>
 								<div>
-									<input name="userName"
-										class="form-control find-input" type="text" placeholder="이름"
-										id="userName" required /> <br>
+									<input name="userId"
+										class="form-control find-input" type="text" placeholder="아이디"
+										id="userId" required /> <br>
 									<input name="userEmail"
 										class="form-control find-input" type="text" placeholder="이메일"
 										id="userEmail" required />
 								</div>
-								<input type="button" class="btn btn-lg btn-b btn-duck email-btn"
+								<input type="button" class="btn btn-b btn-duck email-btn"
 									value="이메일 인증" id="confBtn"> <br>
 								<div class="input-group inputArea" style="display: none;"
 									id="emailConf">
@@ -63,18 +57,6 @@
 								</div>
 							</div>
 						
-						</div>
-						<div class="offset-sm-1 col-sm-11">
-							<p class="sub-title">
-								<input class="form-check-input radio" name="isEmail"
-									type="radio" data-check="2" id="unchecked-email" /> 가입 시 이메일
-								인증을 하지 않은 경우
-							</p>
-							<div class="description-2" style="display: none;">
-								<label>아직 해당 서비스는 제공하지 않습니다. <br> 새로 회원가입 부탁드립니다.
-								</label> <br>
-								<input class="btn btn-outline-secondary" type="button" id="joinBtn" value="신규가입"/>
-							</div>
 						</div>
 					</div>
 				</form>
@@ -95,9 +77,6 @@
 			if ($(this).data('check') == 1) {
 				$('.description-1').css('display', 'inline');
 				$('.description-2').css('display', 'none');
-			} else if ($(this).data('check') == 2) {
-				$('.description-2').css('display', 'inline');
-				$('.description-1').css('display', 'none');
 			}
 		}); 
 		
@@ -152,5 +131,7 @@
 		});
 		
 	});
+</script>
+
 </script>
 </html>

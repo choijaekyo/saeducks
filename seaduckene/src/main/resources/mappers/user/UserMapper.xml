@@ -25,6 +25,13 @@
 		 #{userProfileFileName}, #{userProfileFileRealName}, #{userEmail}</if>
 	</sql>
 	
+	<sql id="email_column">
+		<if test="userEmail != null">, user_email</if>
+	</sql>
+	
+	<sql id="email_value">
+		<if test="userEmail != null">, #{userEmail}</if>
+	</sql>
 	
 	<!-- <resultMap type="kr.co.seaduckene.user.command.UserCategories" id="userCategories">
 		<result property="userNo" column="user_no" />
@@ -43,9 +50,9 @@
 	
 	<insert id="registUser">
 		INSERT INTO duck_user 
-		(user_no, user_id, user_pw, user_nickname, user_name, user_tel<include refid="profile_column" />)
+		(user_no, user_id, user_pw, user_nickname, user_name, user_tel<include refid="profile_column" /><include refid="email_column" />)
 		VALUES (duck_user_seq.NEXTVAL, #{userId}, #{userPw}, #{userNickname},
-		 #{userName}, #{userTel}<include refid="profile_value" />)
+		 #{userName}, #{userTel}<include refid="profile_value" /><include refid="email_value" />)
 	</insert>
 	
 	<select id="getUserVo" resultType="user">
@@ -92,6 +99,11 @@
 	
 	<select id="getUserAddr" resultType="address">
 		SELECT * FROM address WHERE address_user_no = #{userNo}
+	</select>
+	
+	<select id="findAccount" resultType="String">
+		SELECT user_id FROM duck_user
+		WHERE user_name = #{userName} AND user_email = #{userEmail}
 	</select>
 	
 </mapper>

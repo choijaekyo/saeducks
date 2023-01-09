@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -274,6 +276,19 @@ public class UserController {
 		
 		return Integer.toString(1);
 	}
+	
+	@PostMapping("/findAccount")
+	public String findAccount (String userName, String userEmail, Model model) {
+		List<String> userIds = userService.findAccount(userName,userEmail);
+		model.addAttribute("userIds", userIds);
+		return "/user/userFindAccount2";
+	}
+	
+	@GetMapping("/userFindAccount2")
+	public void successFindAccount() {}
+
+	@GetMapping("/userFindPw")
+	public void findPw() {}
 	
 
 }
