@@ -32,6 +32,7 @@ public class UserLoginSuccessHandler implements HandlerInterceptor {
 			ModelAndView modelAndView) throws Exception {
 		
 		UserVO user = (UserVO) modelAndView.getModel().get("userVo");
+		log.info(user);
 
 		if (user == null) {
 			FlashMap fm = new FlashMap();
@@ -44,7 +45,7 @@ public class UserLoginSuccessHandler implements HandlerInterceptor {
 			log.info("로그인 성공!"); 
 			
 			if ((int) modelAndView.getModel().get("autoLoginCheck") == 1) {				
-					long expiredTime = 10;
+					long expiredTime = 60 * 60 * 3;
 					
 					String loginSessionId = request.getSession().getId();
 					

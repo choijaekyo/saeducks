@@ -26,7 +26,7 @@
 		        <div class="group login-checkbox-group">
 		          <input id="check" type="checkbox" class="check">
 		          <label for="check"><span class="icon"></span>&nbsp;&nbsp;자동 로그인</label>
-				  <input name="autoLoginCheck" type="hidden" id="autoLoginCheck">
+				  <input name="autoLoginCheck" value="0" type="hidden" id="autoLoginCheck">
 		        </div>
 		        <div class="group">
 		          <input type="button" class="button btn-duck" value="로그인" id="user-login-submit">
