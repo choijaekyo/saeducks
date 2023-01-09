@@ -503,17 +503,19 @@
 		$('#currPw').keydown(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
-            if(regex.test($(this).val() )) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-                
-	            if($("#checkPw").val() === $(this).val() ) {
-	                $("#checkPw").css('border', '2px solid rgb(34, 139, 34)');
+            if (!$('#myPageModal').hasClass('modiPw')) {
+	            if(regex.test($(this).val() )) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+	                
+		            if($("#checkPw").val() === $(this).val() ) {
+		                $("#checkPw").css('border', '2px solid rgb(34, 139, 34)');
+		            } else {
+		            	$("#checkPw").css('border', '2px solid red');
+		            }
 	            } else {
-	            	$("#checkPw").css('border', '2px solid red');
+	                $(this).css('border', '2px solid red');
 	            }
-            } else {
-                $(this).css('border', '2px solid red');
-            }            
+            }
 
 		});
 		
@@ -757,6 +759,9 @@
 		$('.modal-submit-btn').attr('onclick', 'ModiPwModal()');
 		$('.modiPw').css('display', 'inline-block');
 		$('.modiPw').attr('disabled', false);
+		$("#currPw").css('border', 'none');
+		$("#modiPw").css('border', 'none');
+		$("#checkPw").css('border', 'none');
 		
 		$('#myPageModal').toggleClass('modiPw', true);
 		$('#myPageModal').toggleClass('updateUser', false);
@@ -770,6 +775,9 @@
 		$('.modiPw').css('display', 'none');
 		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'UpdateModal()');
+		$("#currPw").css('border', 'none');
+		$("#modiPw").css('border', 'none');
+		$("#checkPw").css('border', 'none');
 
 		$('#myPageModal').toggleClass('modiPw', false);
 		$('#myPageModal').toggleClass('updateUser', true);
@@ -783,12 +791,15 @@
 		$('.modiPw').css('display', 'none');
 		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'DeleteModal()');
+		$("#currPw").css('border', 'none');
+		$("#modiPw").css('border', 'none');
+		$("#checkPw").css('border', 'none');
 		
 		$('#myPageModal').toggleClass('modiPw', false);
 		$('#myPageModal').toggleClass('updateUser', false);
 		$('#myPageModal').toggleClass('deleteUser', true);
 		$('#myPageModal').show();
-		// 자동로그인 쿠키, 세션 지우기.
+		// 탈퇴 시 자동로그인 쿠키, 세션 지우기.
 	}
 	
 	function ModiPwModal() {
