@@ -270,10 +270,10 @@
 				            <c:forEach var="b" items="${basket }" varStatus="status">
 				            <tr>
 				                <th scope="row" colspan="2" class="align-middle basket"> <a class="basketA" href="${pageContext.request.contextPath}/product/productDetail?productNo=${b.basketProductNo}"> ${b.basketProductName } </a></th>
-				                <td class="align-middle basket">${b.basketPrice }</td>
+				                <td class="align-middle basket">&#8361;<fmt:formatNumber value="${b.basketPrice }" pattern="#,###" /></td>
 				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a class="basketA" href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-plus-square"></i></a>
 				                    <a class="basketA" href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square"></i></a></td>
-				                <td class="align-middle basket" ><fmt:formatNumber value="${b.basketQuantity*b.basketPrice}" pattern="#,###" /> </td>
+				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${b.basketQuantity*b.basketPrice}" pattern="#,###" /> </td>
 				                <td class="align-middle basket"><button type="button" class="btn btn-danger basketDel" >삭제</button></td>
 				                <td style="display:none">${b.basketNo} </td> 
 				            </tr>
@@ -282,7 +282,7 @@
 				        </table>
 				        <div>
 				        	<div class="col-md-2 offset-md-10 text-end" style="line-height: 25px;">
-				                	총액:&nbsp;<span id='totalPrice'><fmt:formatNumber value="${total }" pattern="#,###" /> </span>
+				                	총액:&nbsp;&#8361;<span id='totalPrice'><fmt:formatNumber value="${total }" pattern="#,###" /> </span>
 				            </div>
 				            <div class="col-md-2 offset-md-10 text-end">
 				                <button type="button" class="btn btn-success" id="orderBtn">주문하기</button>

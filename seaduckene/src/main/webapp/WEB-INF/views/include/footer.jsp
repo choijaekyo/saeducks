@@ -91,8 +91,9 @@
       // https://swiperjs.com/swiper-api
    });
     
-   $(function() {
-       
+
+    $(document).ready(function() {
+
       let str = '';
 
       $.getJSON(
