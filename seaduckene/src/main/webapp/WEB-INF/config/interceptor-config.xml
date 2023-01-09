@@ -12,7 +12,6 @@
 	<bean id="userLoginSuccessHandler" class="kr.co.seaduckene.util.interceptor.UserLoginSuccessHandler" />
 	<bean id="userLoginAccessHandler" class="kr.co.seaduckene.util.interceptor.UserLoginAccessHandler" />
 	<bean id="userLoginVerifHandler" class="kr.co.seaduckene.util.interceptor.UserLoginVerifHandler" />
-	
 	<mvc:interceptors>
 		
 		

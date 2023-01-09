@@ -88,9 +88,9 @@
 		// 줄간격
 		['height', ['height']],
 		// 그림첨부, 링크만들기, 동영상첨부
-		['insert',['picture','video']],
+		['insert',['picture']]
 		// 코드보기, 확대해서보기, 도움말
-		['view', ['codeview']]
+		// ,['view', ['codeview']]
         ],
       // 추가한 글꼴
       fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
@@ -119,13 +119,18 @@
 		$.ajax({
 			data : data,
 			type : 'POST',
-			url : '<c:url value="/board/uploadSummernoteImageFile" />',
+			url : "/board/uploadSummernoteImageFile",
 			contentType : false,
 			processData : false,
 			success : function(data) {
             	//항상 업로드된 파일의 url이 있어야 한다.
             	console.log('data : '+ data);
 				$(editor).summernote('insertImage', data.url);
+			},
+			error: function(request, status, error) {
+				console.log("에러에러", request);
+				console.log("에러에러", status);
+				console.log("에러에러", error);
 			}
 		});
 	}
