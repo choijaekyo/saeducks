@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../include/header.jsp"%>
 
 <div class="container">
@@ -28,23 +28,24 @@
 <div class="container container-board-div2">
 	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
 	<c:forEach var="proVo" items="${productList}">
-		  <div class="col">
+		  <div class="col productcard">
+		  <a href="${pageContext.request.contextPath }/product/productDetail?productNo=${proVo.productNo}" id="cardA">
 		    <div class="card mb-4 rounded-3 shadow-sm">
 		      <div class="card-header py-3">
-		        <h4 class="my-0 fw-normal">Free</h4>
+		        <h4 class="my-0 fw-normal">${proVo.productName }</h4>
 		      </div>
 		      
 		      		<img id="productThumb" src="<c:url value='/product/display2?no=${proVo.productNo }' />" alt="상품이미지" style="height:225px;">
 		      
 		      <div class="card-body">
-		        <h1 class="card-title pricing-card-title">${proVo.productPriceNormal}<small class="text-muted fw-light">/won</small></h1>
+		        <h1 class="card-title pricing-card-title">&#8361;<fmt:formatNumber value="${proVo.productPriceSelling}" pattern="#,###" /></h1>
 		        <ul class="list-unstyled mt-3 mb-4">
 		          <li>${proVo.productDetail}</li>
-		          <li>${proVo.productStock}</li>
+		          <li>재고수량:${proVo.productStock}</li>
 		        </ul>
-		        <button type="button" class="w-100 btn btn-lg btn-outline-primary">장바구니담기</button>
 		      </div>
 		    </div>
+		    </a>
 		  </div>
 	  </c:forEach>
 	</div>
