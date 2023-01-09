@@ -73,58 +73,61 @@
       lang: "ko-KR",					// 한글 설정
       placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
       toolbar: [
-          // 글꼴 설정
-          ['fontname', ['fontname']],
-          // 글자 크기 설정
-          ['fontsize', ['fontsize']],
-          // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
-          ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-          // 글자색
-          ['color', ['color']],
-          // 표만들기
-          ['table', ['table']],
-          // 글머리 기호, 번호매기기, 문단정렬
-          ['para', ['ul', 'ol', 'paragraph']],
-          // 줄간격
-          ['height', ['height']],
-          // 그림첨부, 링크만들기, 동영상첨부
-          ['insert',['picture','video']],
-          // 코드보기, 확대해서보기, 도움말
-          ['view', ['codeview']]
+		// 글꼴 설정
+		['fontname', ['fontname']],
+		// 글자 크기 설정
+		['fontsize', ['fontsize']],
+		// 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+		['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+		// 글자색
+		['color', ['color']],
+		// 표만들기
+		['table', ['table']],
+		// 글머리 기호, 번호매기기, 문단정렬
+		['para', ['ul', 'ol', 'paragraph']],
+		// 줄간격
+		['height', ['height']],
+		// 그림첨부, 링크만들기, 동영상첨부
+		['insert',['picture','video']],
+		// 코드보기, 확대해서보기, 도움말
+		['view', ['codeview']]
         ],
       // 추가한 글꼴
       fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
       // 추가한 폰트사이즈
       fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-      callbacks: {
-    	    onImageUpload: function(files) {
-    	      console.log(files);
-    	      $summernote.summernote('insertNode', imgNode);
-    	    }
-    	  }
+      callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+			onImageUpload : function(files) {
+				uploadSummernoteImageFile(files[0],this);
+				console.log('files : ' + files[0]);
+			},
+			onPaste: function (e) {
+				var clipboardData = e.originalEvent.clipboardData;
+				if (clipboardData && clipboardData.items && clipboardData.items.length) {
+					var item = clipboardData.items[0];
+					if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+						e.preventDefault();
+					}
+				}
+			}
+		}
     });
     
-    /* function uploadSummernoteImageFile(file, el) {
-        var data = new FormData();	
-        data.append("file",file);
-            $.ajax({
-              url: '/../summer_image.do',
-              type: "POST",
-              enctype: 'multipart/form-data',
-              data: data,
-              cache: false,
-              contentType : false,
-              processData : false,
-              success : function(data) {
-                       var json = JSON.parse(data);
-                       $(el).summernote('editor.insertImage',json["url"]);
-                           jsonArray.push(json["url"]);
-                           jsonFn(jsonArray);
-                   },
-                   error : function(e) {
-                       console.log(e);
-                   }
-               });
-	} */
+    function uploadSummernoteImageFile(file, editor) {
+		data = new FormData();
+		data.append("file", file);
+		$.ajax({
+			data : data,
+			type : 'POST',
+			url : '<c:url value="/board/uploadSummernoteImageFile" />',
+			contentType : false,
+			processData : false,
+			success : function(data) {
+            	//항상 업로드된 파일의 url이 있어야 한다.
+            	console.log('data : '+ data);
+				$(editor).summernote('insertImage', data.url);
+			}
+		});
+	}
   }); 
 </script>
