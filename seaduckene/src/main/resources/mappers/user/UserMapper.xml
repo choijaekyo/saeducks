@@ -90,4 +90,8 @@
 		ORDER BY u.user_no, c.category_major_title, c.category_minor_title
 	</select>
 	
+	<select id="getUserAddr" resultType="address">
+		SELECT * FROM address WHERE address_user_no = #{userNo}
+	</select>
+	
 </mapper>

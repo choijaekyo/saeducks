@@ -109,5 +109,10 @@ public class UserServiceImpl implements IUserService {
 		
 		return userMapper.getUserCategories(userNo);
 	}
+	
+	@Override
+	public AddressVO getUserAddr(int userNo) {
+		return userMapper.getUserAddr(userNo);
+	}
 
 }

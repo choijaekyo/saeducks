@@ -1,1 +1,58 @@
 @charset "UTF-8";
+
+/*============= 아이디 찾기 ==============*/
+
+#userFindAccount .find-account {
+	margin: 0;
+	text-align: center;
+}
+
+#userFindAccount .sub-title{
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+#userFindAccount .sub-title .radio{
+	font-size: 16px;
+	
+}
+
+
+#userFindAccount form .find-input {
+	display: inline-block;
+	width: 300px;
+	text-align: center;
+	
+	margin-top: 5px; 
+}
+
+#userFindAccount form #userId {
+	display: block;
+}
+
+#userFindAccount form #email-btn {
+	display: inline-block;
+}
+
+#userFindAccount form #email-auth-code { 
+	width: 205px;
+}
+
+#userFindAccount form .btn-outline-secondary { 
+	vertical-align: unset;
+	
+}
+
+#userFindAccount .input-group .find-input:focus{
+	border: 1px solid rgb(255, 193, 7);
+	box-shadow: 0 0 5px 0.20rem rgba(255, 193, 7, 0.475);
+}
+
+
+
+
+
+
+
+
+
