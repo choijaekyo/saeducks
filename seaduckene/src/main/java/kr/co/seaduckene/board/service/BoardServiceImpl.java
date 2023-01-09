@@ -1,6 +1,8 @@
 package kr.co.seaduckene.board.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +27,12 @@ public class BoardServiceImpl implements IBoardService {
 	}
 
 	@Override
-	public List<BoardVO> list(PageVO paging) {
-		return mapper.list(paging);
+	public List<BoardVO> list(PageVO paging, int categoryNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("categoryNo", categoryNo);
+		
+		return mapper.list(map);
 	}
 
 	@Override
@@ -47,8 +53,8 @@ public class BoardServiceImpl implements IBoardService {
 	}
 	
 	@Override
-	public List<ProductVO> proList() {
-		return mapper.proList();
+	public List<ProductVO> proList(int categoryNo) {
+		return mapper.proList(categoryNo);
 
 	}
 

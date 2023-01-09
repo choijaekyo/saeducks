@@ -1,6 +1,7 @@
 package kr.co.seaduckene.board.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.common.NoticeVO;
@@ -14,7 +15,7 @@ public interface IBoardMapper {
 	void write(BoardVO vo);
 
 	// 글 목록
-	List<BoardVO> list(PageVO paging);
+	List<BoardVO> list(Map<String, Object> map);
 	
 	// 상세보기
 	BoardVO content(int bno);
@@ -26,7 +27,7 @@ public interface IBoardMapper {
 	void delete(int bno);
 	
 	// 상품 목록
-	List<ProductVO> proList();
+	List<ProductVO> proList(int categoryNo);
 	
 	// 메인 리스트 유저 세션 있는
 	List<BoardUserVO> bUserList(int userNo);

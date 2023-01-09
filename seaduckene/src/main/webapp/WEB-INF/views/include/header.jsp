@@ -57,7 +57,7 @@
                <ul class="navbar-nav">
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 게시판입장 </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"> 게시판테스트 </a>
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList' />">게시판으로</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/user/userMyPage/2' />">내 게시판</a></li>
@@ -65,8 +65,7 @@
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> Dropdown
-                        link </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"> 주문테스트</a>
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<c:url value='/product/order' />">주문서</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/product/createProduct' />">상품등록</a></li>
@@ -75,23 +74,55 @@
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> Dropdown
-                        link </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"> 미디어 </a>
                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else
-                              here</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/1' />">영화</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/2' />">드라마</a></li>
+                        <li><a class="dropdown-item" href="#">애니</a></li>
+                        <li><a class="dropdown-item" href="#">책</a></li>
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> Dropdown
-                        link </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"> 인물 </a>
                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else
-                              here</a></li>
+                        <li><a class="dropdown-item" href="#">배우</a></li>
+                        <li><a class="dropdown-item" href="#">아이돌</a></li>
+                        <li><a class="dropdown-item" href="#">유튜버</a></li>
+                        <li><a class="dropdown-item" href="#">가수</a></li>
+                        <li><a class="dropdown-item" href="#">운동선수</a></li>
+                     </ul></li>
+                 <li class="nav-item dropdown"><a
+                     class="nav-link dropdown-toggle" href="#" role="button"
+                     data-bs-toggle="dropdown" aria-expanded="false"> 여행 </a>
+                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">아프리카</a></li>
+                        <li><a class="dropdown-item" href="#">중동</a></li>
+                        <li><a class="dropdown-item" href="#">유럽</a></li>
+                        <li><a class="dropdown-item" href="#">아시아</a></li>
+                        <li><a class="dropdown-item" href="#">북아메리카</a></li>
+                        <li><a class="dropdown-item" href="#">남아메리카</a></li>
+                        <li><a class="dropdown-item" href="#">오세아니아</a></li>
+                     </ul></li>
+                  <li class="nav-item dropdown"><a
+                     class="nav-link dropdown-toggle" href="#" role="button"
+                     data-bs-toggle="dropdown" aria-expanded="false"> 패션 </a>
+                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">상의</a></li>
+                        <li><a class="dropdown-item" href="#">하의</a></li>
+                        <li><a class="dropdown-item" href="#">신발</a></li>
+                        <li><a class="dropdown-item" href="#">액세서리</a></li>
+                        <li><a class="dropdown-item" href="#">화장품</a></li>
+                     </ul></li>
+                  <li class="nav-item dropdown"><a
+                     class="nav-link dropdown-toggle" href="#" role="button"
+                     data-bs-toggle="dropdown" aria-expanded="false"> 음식 </a>
+                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">한식</a></li>
+                        <li><a class="dropdown-item" href="#">중식</a></li>
+                        <li><a class="dropdown-item" href="#">일식</a></li>
+                        <li><a class="dropdown-item" href="#">양식</a></li>
+                        <li><a class="dropdown-item" href="#">인도식</a></li>
+                        <li><a class="dropdown-item" href="#">동남아식</a></li>
                      </ul></li>
                </ul>
             </div>

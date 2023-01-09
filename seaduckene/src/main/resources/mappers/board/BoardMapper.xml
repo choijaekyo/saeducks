@@ -12,12 +12,13 @@
 		    SELECT ROWNUM AS rn, tbl.* FROM
 		        (
 		        SELECT * FROM board
+		        WHERE board_category_no = #{categoryNo}
 		        ORDER BY board_no DESC
 		        ) tbl
 		    ) b
 		<![CDATA[
-		WHERE rn > (#{pageNum}-1) * #{cpp}
-		AND rn <= #{pageNum} * #{cpp}
+		WHERE rn > (#{paging.pageNum}-1) * #{paging.cpp}
+		AND rn <= #{paging.pageNum} * #{paging.cpp}
 		]]>
 	</select>
 	
@@ -28,6 +29,7 @@
 		    SELECT ROWNUM AS rn, tbl.* FROM
 		        (
 		        SELECT * FROM product
+		        WHERE product_category_no = #{categoryNo}
 		        ORDER BY product_no ASC
 		        ) tbl
 		    ) b
