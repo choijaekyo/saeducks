@@ -92,7 +92,7 @@
    });
     
     $(document).ready(function() {
-       
+       let str = '';
 		$.getJSON(
 			'<c:url value="/board/noticeList" />',
 			function(list) {

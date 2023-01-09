@@ -40,5 +40,12 @@ public interface IUserMapper {
 	
 	// 유저의 주소 정보를 불러오기
 	AddressVO getUserAddr(int userNo);
+	
+	// 자동 로그인 설정
+	void setAutoLogin(UserVO userVo);
+	
+	// 쿠키의 sessionId로 session userVO 얻기
+	UserVO getUserBySessionId(String sessionId);
+	
 
 }

@@ -114,5 +114,16 @@ public class UserServiceImpl implements IUserService {
 	public AddressVO getUserAddr(int userNo) {
 		return userMapper.getUserAddr(userNo);
 	}
+	
+	@Override
+	public void setAutoLogin(UserVO userVo) {
+		userMapper.setAutoLogin(userVo);
+	}
+	
+	@Override
+	public UserVO getUserBySessionId(String sessionId) {
+		return userMapper.getUserBySessionId(sessionId);
+	}
+	
 
 }
