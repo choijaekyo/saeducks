@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 
 <%@ include file="../include/header.jsp"%>
 
@@ -24,22 +23,20 @@
 
    <div class="container">
       <div class="form-group">
-         <label for="exampleFormControlInput1">제목</label> <input type="text"
-            class="form-control" id="exampleFormControlInput1" name="boardTitle"
-            placeholder="제목을 작성해주세요.">
+         <label for="exampleFormControlInput1">제목</label> 
+         <input type="text" class="form-control" id="exampleFormControlInput1" name="boardTitle" placeholder="제목을 작성해주세요." >
       </div>
 
       <div class="form-group boardContent-summernote">
-         <textarea class="form-control" id="summernote" rows="10"
-            name="boardContent">${list.boardContent}</textarea>
+         <textarea class="form-control" id="summernote" rows="10" name="boardContent"></textarea>
       </div>
 
-      <input type="hidden" name="boardUserNo" value="1"> <input
-         type="hidden" name="boardCategoryNo" value="1"> <br>
+      <input type="hidden" name="boardUserNo" value="${login.userNo}"> 
+      <input type="hidden" name="boardCategoryNo" value="${categoryNo}"> <br>
 
       <div>
-         <button type="button" class="btn btn-info" id="board-Write-button">등록하기</button>
-         <a href='<c:url value='/board/boardList'/>' class="btn btn-secondary"
+         <button type="submit" class="btn btn-info" id="board-Write-button">등록하기</button>
+         <a href='<c:url value='/board/boardList/${categoryNo}'/>' class="btn btn-secondary"
             id="WritelistBtn">목록으로</a>
       </div>
 
@@ -50,8 +47,8 @@
 
 
 <script>
+
 	$(function() {
-	    
 	    $('#board-Write-button').click(function() {
 	       if($('input[name=boardTitle]').val().trim() === '') {
 	          alert('제목은 필수 항목입니다.');
@@ -100,17 +97,14 @@
       // 추가한 폰트사이즈
       fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
       callbacks: {
-         onImageUpload : function(files, editor, welEditable){
-
-          // 파일 업로드(다중업로드를 위해 반복문 사용)
-          for (var i = files.length - 1; i >= 0; i--) {
-              uploadSummernoteImageFile(files[i], this);
-             }
-          }
-       } 
+    	    onImageUpload: function(files) {
+    	      console.log(files);
+    	      $summernote.summernote('insertNode', imgNode);
+    	    }
+    	  }
     });
     
-    function uploadSummernoteImageFile(file, el) {
+    /* function uploadSummernoteImageFile(file, el) {
         var data = new FormData();	
         data.append("file",file);
             $.ajax({
@@ -131,6 +125,6 @@
                        console.log(e);
                    }
                });
-	}
+	} */
   }); 
 </script>

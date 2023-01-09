@@ -53,18 +53,20 @@ public class boardListController {
 	
 	
 	//글쓰기 페이지로 이동 요청
-	@GetMapping("/boardWrite")
-	public void boardWrite() {
+	@GetMapping("/boardWrite/{categoryNo}")
+	public String boardWrite(@PathVariable int categoryNo, Model model) {
 		System.out.println("/board/boardWrite: GET");
+		model.addAttribute("categoryNo", categoryNo);
+		return "board/boardWrite";
 	}
 	
 	
 	//게시글을 DB 등록 요청
 	@PostMapping("/boardWrite")
-	public String boardWrite(PageVO paging, BoardVO vo) {
+	public String boardWrite(BoardVO vo) {
 		service.write(vo);
 		
-		return "redirect:/board/boardList";
+		return "redirect:/board/boardList/" + vo.getBoardCategoryNo();
 	}
 	
 	
