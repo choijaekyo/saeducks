@@ -75,7 +75,12 @@
 			</c:choose>
 					<div class="update-container">
 						<form action="" method="post" enctype="multipart/form-data" id="user-update-form">
+						<c:if test="${user.userProfilePath == '프로필 경로'}">
 							<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />" id="image_section">
+						</c:if>
+						<c:if test="${user.userProfilePath != '프로필 경로'}">
+							<img alt="프로필 사진" src="<c:url value='/user/getProfile' />" id="image_section">
+						</c:if>
 							<div class="clearfix">
 								<div class="file-upload">
 									<span>+</span>
@@ -88,7 +93,7 @@
 			                    <div class="col-md-12 col-sm-12 col-12">
 			                        <input name="userId" class="form-control join-input" type="text" placeholder="아이디" value="${user.userId}" id="userId" readonly />
 			                    </div>
-		                	</div>							
+		                	</div>
 							<input type="button" class="btn btn-b btn-duck btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 변경하기" id=""> <br> <br>
 							<p>이름</p>
 							<div class="input-group inputArea">
