@@ -11,18 +11,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>seaduck e ne</title>
 
-	<!-- 제이쿼리 js -->
-	<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+   <!-- 제이쿼리 js -->
+   <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-	<!-- 부트스트랩  CDM -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- 부트스트랩  CDM -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!--개인 디자인 추가-->
     <link href="${pageContext.request.contextPath }/resources/css/style.css" rel="stylesheet">
@@ -31,14 +31,14 @@
     <!-- swiper 추가 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 
-	<!-- summernote 추가 -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js" defer></script>
-	
+   <!-- summernote 추가 -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js" defer></script>
+   
 </head>
 <body>
 
-	<header>
+   <header>
       <div class="container" id="main-img">
          <a class="navbar-brand" href="${pageContext.request.contextPath}/"> <img
             src="${pageContext.request.contextPath }/resources/img/saeduckene.png"
@@ -59,7 +59,6 @@
                      class="nav-link dropdown-toggle" href="#" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false"> 게시판테스트 </a>
                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList' />">게시판으로</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/user/userMyPage/2' />">내 게시판</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardWrite' />">글작성</a></li>
                      </ul></li>
@@ -135,12 +134,12 @@
                <li class="nav-item"><a href="<c:url value='/user/userJoin' />"
                   class="nav-link link-dark px-2">Sign up</a></li>
             </c:when>
-			<c:otherwise>
+         <c:otherwise>
                <li class="nav-item"><a href="<c:url value='/user/userLogout' />"
                   class="nav-link link-dark px-2">Logout</a></li>
                <li class="nav-item"><a href="<c:url value='/user/userMyPage/1' />"
                   class="nav-link link-dark px-2">My Page</a></li>
-			</c:otherwise>            
+         </c:otherwise>            
             </c:choose>
             </ul>
          </div>

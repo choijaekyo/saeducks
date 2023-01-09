@@ -216,7 +216,7 @@ public class UserController {
 		
 		paging.setCpp(9);
 		
-		return boardService.list(paging);
+		return boardService.myList(paging);
 	}
 	
 
