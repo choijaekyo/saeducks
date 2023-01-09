@@ -17,6 +17,9 @@ public interface IBoardMapper {
 	// 글 목록
 	List<BoardVO> list(Map<String, Object> map);
 	
+	// 내가 쓴 글 목록
+	List<BoardVO> myList(PageVO paging);
+	
 	// 상세보기
 	BoardVO content(int bno);
 	

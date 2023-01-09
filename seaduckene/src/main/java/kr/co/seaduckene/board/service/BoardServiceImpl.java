@@ -34,6 +34,10 @@ public class BoardServiceImpl implements IBoardService {
 		
 		return mapper.list(map);
 	}
+	
+	public List<BoardVO> myList (PageVO paging) {
+		return mapper.myList(paging);
+	}
 
 	@Override
 	public BoardVO content(int bno) {
