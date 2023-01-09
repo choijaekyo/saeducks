@@ -57,7 +57,6 @@
                      class="nav-link dropdown-toggle" href="#" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false"> 게시판테스트 </a>
                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList' />">게시판으로</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/user/userMyPage/2' />">내 게시판</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardWrite' />">글작성</a></li>
                      </ul></li>
