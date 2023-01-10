@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,40 @@
 </head>
 <body>
 	<%@ include file="../include/header.jsp"%>
+
+	<!-- 주소록 모달  -->
+	<div class="modal" id="addrListModal" data-bs-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">주소록</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<form action="" method="post">
+						<div>
+ 							<c:forEach var="addr" items="${addrList }" varStatus="status" >
+								<div class="form-check form-check-inline">
+										<p data-zip="${status.index}">${addr.addressZipNum}</p>
+										<p data-basic="${status.index}">${addr.addressBasic}</p>
+										<p data-detail="${status.index}">${addr.addressDetail}</p>
+										<button type="button" value="${status.index }" class="btn btn-outline-success addrbtn">주소입력</button>
+								</div>
+								<hr>
+								<br>
+							</c:forEach> 
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary"
+						data-bs-dismiss="modal" >닫기</button>				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<section class="py-5">
 		<div class="orderInfo container">
 
@@ -31,7 +65,7 @@
 				<div class="col-md-12">
 					<h1 class="order-title h1 ">주문상세</h1>
 				</div>
-				
+
 				<form method="post" action="<c:url value="/product/order" />"
 					class="order-form" id="orderform">
 					<hr>
@@ -41,30 +75,38 @@
 							<div class="productDetail ">
 								<div class="row">
 									<div
-										class="col-md-4 offset-md-1 col-sm-12 order-imgBox text-center" >
-										<img id="productThumb" src="<c:url value='/product/display2?no=${product.basketProductNo }' />" alt="상품이미지">
+										class="col-md-4 offset-md-1 col-sm-12 order-imgBox text-center">
+										<img id="productThumb"
+											src="<c:url value='/product/display2?no=${product.basketProductNo }' />"
+											alt="상품이미지">
 									</div>
 									<div class="col-md-6 col-sm-12 order-detailBox">
 										<h5 class="h5">${product.basketProductName }</h5>
 										<br>
-										<p><fmt:formatNumber value="${product.basketPrice }" pattern="#,###" />&nbsp;원</p>
+										<p>
+											<fmt:formatNumber value="${product.basketPrice }"
+												pattern="#,###" />
+											&nbsp;원
+										</p>
 										<p>${product.basketQuantity }&nbsp;개</p>
 										<!--상품번호-->
-										<input type="hidden" name="orderProductNo" value="${product.basketProductNo }" />		
+										<input type="hidden" name="orderProductNo"
+											value="${product.basketProductNo }" />
 									</div>
 								</div>
 							</div>
 							<hr>
 						</div>
 					</c:forEach>
-					
+
 					<div class="container">
 						<div class="col-md-3 offset-md-8 col-sm-12">
-							<span class="h5">구매 상품 총 액&nbsp;</span><span><fmt:formatNumber value="${total}" pattern="#,###" />&nbsp;원</span>
+							<span class="h5">구매 상품 총 액&nbsp;</span><span><fmt:formatNumber
+									value="${total}" pattern="#,###" />&nbsp;원</span>
 						</div>
 						<hr>
 					</div>
-					
+
 					<div class="inputArea input-group" id="conf-email">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
 							<label for="userEmail">인증메일</label>
@@ -72,9 +114,8 @@
 						<div class="col-md-7 col-sm-12 col-12">
 							<div class="input-group">
 								<input class="form-control" type="text" name="userEmail"
-									id="userEmail" />
-								<input class="btn btn-outline-secondary" type="button"
-											name="confBtn" id="confBtn" value="인증하기" />
+									id="userEmail" /> <input class="btn btn-outline-secondary"
+									type="button" name="confBtn" id="confBtn" value="인증하기" />
 							</div>
 						</div>
 					</div>
@@ -83,8 +124,10 @@
 						<div class="col-md-7 offset-md-3 col-sm-12 col-12">
 							<div class="row">
 								<div class="col-md-7 input-group beforeConf">
-									<input class="form-control" type="text" name="confNum" id="confNum">
-									<button type="button" class="btn btn-outline-secondary" id="confCheckBtn">확인</button>
+									<input class="form-control" type="text" name="confNum"
+										id="confNum">
+									<button type="button" class="btn btn-outline-secondary"
+										id="confCheckBtn">확인</button>
 								</div>
 								<div class="col-md-7 input-group afterConf">
 									<p id="confMailRes"></p>
@@ -92,7 +135,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="inputArea input-group">
 						<div class="col-md-2 offset-md-1 col-sm-12 col-12">
 							<label for="orderPaymentMethod">결제방법</label>
@@ -164,7 +207,8 @@
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
 							<input class="form-control" type="text" name="orderRecipientTel"
-								id="orderRecipientTel" placeholder=" 특수문자 없이 숫자만 입력해 주세요." maxlength="11" />
+								id="orderRecipientTel" placeholder=" 특수문자 없이 숫자만 입력해 주세요."
+								maxlength="11" />
 						</div>
 					</div>
 
@@ -176,13 +220,12 @@
 							<div class="btn-group" role="group">
 								<div class="btn-group" role="group">
 									<input class="form-control" type="text"
-										name="orderAddressZipNum" id="orderAddressZipNum"
-										readonly/>
+										name="orderAddressZipNum" id="orderAddressZipNum" readonly />
 								</div>
 								<button type="button"
 									class="btn btn-outline-secondary findAddrBtn"
 									onclick="searchAddress()">우편번호 찾기</button>
-								<button type="button"
+								<button type="button" data-bs-toggle="modal" data-bs-target="#addrListModal"
 									class="btn btn-outline-secondary ListAddrBtn">주소록</button>
 							</div>
 						</div>
@@ -194,7 +237,7 @@
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
 							<input class="form-control" type="text" name="orderAddressBasic"
-								id="orderAddressBasic" readonly/>
+								id="orderAddressBasic" readonly />
 						</div>
 					</div>
 
@@ -207,12 +250,14 @@
 								id="orderAddressDetail" />
 						</div>
 					</div>
-					
-					
+
+
 
 					<div class="inputArea input-group">
-						<div class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
-							<button type="button" class="order_btn btn btn-outline-success" id="orderBtn">주문</button>
+						<div
+							class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
+							<button type="button" class="order_btn btn btn-outline-success"
+								id="orderBtn">주문</button>
 						</div>
 						<div class="col-md-3 col-sm-6 col-6">
 							<button type="button"
@@ -233,8 +278,37 @@
 
 
 <script>
+	
+	//선택된 주소값 뿌리기
+	$('.addrbtn').on('click',function(e){
+		const no = e.target.value;
+		console.log(no);
+		console.log($('.modal-body p'));
+		
+		for (let p of $('.modal-body p')) {
+			console.log(p);	
+			if ($(p).data('zip') == no) {
+				console.log($(p).text());
+				const zip = $(p).text();
+				$('#orderAddressZipNum').val(zip);
+			}
+			if ($(p).data('basic') == no) {
+				console.log($(p).text());
+				const basic = $(p).text();
+				$('#orderAddressBasic').val(basic);
+			}
+			if ($(p).data('detail') == no) {
+				console.log($(p).text());
+				const detail = $(p).text();
+				$('#orderAddressDetail').val(detail);
+			}
+			$('#addrListModal').modal('hide');
+		}
+		
 
-	 const basketList = '${basketList}'
+		
+		
+	});//주소값 뿌리기 끝
 
 	// 정규식 만족여부 확인
 	let accountFlag = false;
@@ -245,66 +319,63 @@
 	// 사전 이메일 인증여부 확인
 	const msg = '${msg}';
 	console.log(msg);
-	if(msg !== 'null') {
-		$('#conf-email').css('display','none');
+	if (msg !== 'null') {
+		$('#conf-email').css('display', 'none');
 		emailFlag = true;
-	} 
-	
+	}
+
 	// 인증번호 이메일 전송
 	let authCode = '';
 	$('#confBtn').click(function() {
 		const email = $('#userEmail').val();
 		console.log('이메일: ' + email);
-		
-		if(email.trim() === ''){
+
+		if (email.trim() === '') {
 			alert('인증받을 메일 주소를 먼저 입력해 주세요.');
 		} else {
-			$('#conf-group').css('display','block');
-			
+			$('#conf-group').css('display', 'block');
+
 			$.ajax({
-				type: 'post',
-				url: '<c:url value="/user/userConfEmail" />',
-				data: email,
-				contentType: 'application/json',
-				success: function(data) {
+				type : 'post',
+				url : '<c:url value="/user/userConfEmail" />',
+				data : email,
+				contentType : 'application/json',
+				success : function(data) {
 					alert('인증메일이 전송되었습니다.\n입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
-					authCode=data;
+					authCode = data;
 				},
-				error: function() {
+				error : function() {
 					alert('이메일 전송 실패');
 				}
 			});//end-ajax	
 		}
 	});//end 이메일 전송
 
-
 	// 인증번호 비교
-	$('#confCheckBtn').click(
-			function() {
-				const inputCode = $('#confNum').val();
-				const $resultMsg = $('#confMailRes');
-				if (inputCode === authCode) {
-					$resultMsg.css('display', 'block');	
-					$resultMsg.html('인증이 완료되었습니다.');
-					$('.beforeConf').css('display','none');
-					$resultMsg.css('color', 'green');
-					
-					$('#userEmail').attr('readonly',true);
-					$('#confBtn').attr('disabled',true);
-					
-				} else {
-					$resultMsg.html('인증번호를 다시 확인해주세요.');
-					$resultMsg.css('color', 'red');
-					$('#confNum').focus();
-				}
+	$('#confCheckBtn').click(function() {
+		const inputCode = $('#confNum').val();
+		const $resultMsg = $('#confMailRes');
+		if (inputCode === authCode) {
+			$resultMsg.css('display', 'block');
+			$resultMsg.html('인증이 완료되었습니다.');
+			$('.beforeConf').css('display', 'none');
+			$resultMsg.css('color', 'green');
+
+			$('#userEmail').attr('readonly', true);
+			$('#confBtn').attr('disabled', true);
+
+		} else {
+			$resultMsg.html('인증번호를 다시 확인해주세요.');
+			$resultMsg.css('color', 'red');
+			$('#confNum').focus();
+		}
 	}); //end 인증번호비교
-	
-	
+
 	// 무통장입금 선택 시 환불계좌 입력창 
 	$(function() {
 		$('#account').change(function() {
 			$('#checkdeAccount').css('display', 'block');
-			$orderReturnAccount.css('border' ,'1px solid rgb(206, 212, 218)');
+			$orderReturnAccount.css('border', '1px solid rgb(206, 212, 218)');
 			accountFlag = false;
 		});
 
@@ -316,34 +387,34 @@
 		});
 	});
 
-
 	// 주소찾기
 	function searchAddress() {
-		new daum.Postcode({
-			oncomplete : function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-				var addr = ''; // 주소 변수
-				var extraAddr = ''; // 참고항목 변수
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var addr = ''; // 주소 변수
+						var extraAddr = ''; // 참고항목 변수
 
-				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-					addr = data.roadAddress;
-				} else { // 사용자가 지번 주소를 선택했을 경우(J)
-					addr = data.jibunAddress;
-				}
+						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							addr = data.roadAddress;
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							addr = data.jibunAddress;
+						}
 
-				// 우편번호와 주소 정보를 해당 필드에 넣는다.
-				document.getElementById('orderAddressZipNum').value = data.zonecode;
-				console.log(data.zonecode);
-				document.getElementById('orderAddressBasic').value = addr;
-				console.log(addr);
-				// 커서를 상세주소 필드로 이동한다.
-				document.getElementById('orderAddressDetail').focus();		
-			}
-		}).open();
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('orderAddressZipNum').value = data.zonecode;
+						console.log(data.zonecode);
+						document.getElementById('orderAddressBasic').value = addr;
+						console.log(addr);
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById('orderAddressDetail').focus();
+					}
+				}).open();
 	}
 
 	// 정규식
@@ -352,80 +423,84 @@
 	const regTel = /^(010)[0-9]{8}$/; /* 010포함 숫자 11자리 */
 	const regEmail = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 
-	
 	const $orderReturnAccount = $('#orderReturnAccount');
 	$orderReturnAccount.keyup(function() {
-		if(regAccount.test($('#orderReturnAccount').val())){
-			$orderReturnAccount.css('border' ,'2px solid rgb(34, 139, 34)');
+		if (regAccount.test($('#orderReturnAccount').val())) {
+			$orderReturnAccount.css('border', '2px solid rgb(34, 139, 34)');
 			accountFlag = true;
 		} else {
-			$orderReturnAccount.css('border' , '2px solid red');
+			$orderReturnAccount.css('border', '2px solid red');
 		}
 	});
 	const $orderRecipientTel = $('#orderRecipientTel');
 	$orderRecipientTel.keyup(function() {
-		if(regTel.test($('#orderRecipientTel').val())){
-			$orderRecipientTel.css('border' ,'2px solid rgb(34, 139, 34)');
+		if (regTel.test($('#orderRecipientTel').val())) {
+			$orderRecipientTel.css('border', '2px solid rgb(34, 139, 34)');
 			telFlag = true;
 		} else {
-			$orderRecipientTel.css('border' , '2px solid red');
+			$orderRecipientTel.css('border', '2px solid red');
 		}
 	});
 	const $orderRecipientName = $('#orderRecipientName');
 	$orderRecipientName.keyup(function() {
-		if(regName.test($('#orderRecipientName').val())){
-			$orderRecipientName.css('border' ,'2px solid rgb(34, 139, 34)');
+		if (regName.test($('#orderRecipientName').val())) {
+			$orderRecipientName.css('border', '2px solid rgb(34, 139, 34)');
 			nameFlag = true;
 		} else {
-			$orderRecipientName.css('border' , '2px solid red');
+			$orderRecipientName.css('border', '2px solid red');
 		}
 	});
 	const $userEmail = $('#userEmail');
 	$userEmail.keyup(function() {
-		if(regEmail.test($('#userEmail').val())){
-			$userEmail.css('border' ,'2px solid rgb(34, 139, 34)');
+		if (regEmail.test($('#userEmail').val())) {
+			$userEmail.css('border', '2px solid rgb(34, 139, 34)');
 			emailFlag = true;
 		} else {
-			$userEmail.css('border' , '2px solid red');
+			$userEmail.css('border', '2px solid red');
 		}
 	});
 
 	// 주문버튼 클릭, 공란 확인 이벤트
-	$("#orderBtn").click(function(){
-		if(msg === 'null'){
-			if(!$('#confBtn').is('[disabled]')){
-				alert('주문 시 본인인증을 위해 메일 인증을 꼭 진행해 주셔야 합니다.');
-				return;
-			}
-		}
-		if(!$('#account').is(":checked") && !$('#creditCard').is(":checked")){
-			alert('결제방법을 선택해 주세요.');
-			return;
-		}
-		if($('#account').is(":checked")&&($('#orderReturnBank > option:selected').val() === 'none' || $('#orderReturnAccount').val() === '')){
-			alert('무통장입금 선택 시 환불은행과 계좌번호는 꼭 등록해 주셔야합니다.');
-			return; 
-		}
-		
-		if(!telFlag || !nameFlag || !emailFlag){
-			alert('입력양식을 확인해 주세요.');
-			return;
-		} 
-		if($('#orderAddressDetail').val() === ''){
-			alert('상품을 수령할 주소지를 입력해주세요.');
-			return;
-		}
-		
-			console.log(1);
-			$('#orderform').submit();
+	$("#orderBtn")
+			.click(
+					function() {
+						if (msg === 'null') {
+							if (!$('#confBtn').is('[disabled]')) {
+								alert('주문 시 본인인증을 위해 메일 인증을 꼭 진행해 주셔야 합니다.');
+								return;
+							}
+						}
+						if (!$('#account').is(":checked")
+								&& !$('#creditCard').is(":checked")) {
+							alert('결제방법을 선택해 주세요.');
+							return;
+						}
+						if ($('#account').is(":checked")
+								&& ($('#orderReturnBank > option:selected')
+										.val() === 'none' || $(
+										'#orderReturnAccount').val() === '')) {
+							alert('무통장입금 선택 시 환불은행과 계좌번호는 꼭 등록해 주셔야합니다.');
+							return;
+						}
 
-	});
+						if (!telFlag || !nameFlag || !emailFlag) {
+							alert('입력양식을 확인해 주세요.');
+							return;
+						}
+						if ($('#orderAddressDetail').val() === '') {
+							alert('상품을 수령할 주소지를 입력해주세요.');
+							return;
+						}
+
+						console.log(1);
+						$('#orderform').submit();
+
+					});
 
 	const checkStock = '${result}';
 	console.log(checkStock);
-	if(checkStock === 'lack'){
+	if (checkStock === 'lack') {
 		alert('상품의 재고수량이 부족합니다.\n 상품의 재고수량 이하로 주문해 주세요.')
 	}
-
 </script>
 </html>
