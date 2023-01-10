@@ -152,17 +152,17 @@
 								<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="기본 주소" value="${userAddr.addressBasic}" id="addrBasic" readonly />
+				                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="기본 주소" value="${userAddrList[0].addressBasic}" id="addrBasic" readonly />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세 주소" value="${userAddr.addressDetail}" id="addrDetail" />
+				                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세 주소" value="${userAddrList[0].addressDetail}" id="addrDetail" />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressZipNum" class="form-control join-input" type="text" placeholder="우편번호" value="${userAddr.addressZipNum}" id="addrZipNum" readonly />
+				                        <input name="addressZipNum" class="form-control join-input" type="text" placeholder="우편번호" value="${userAddrList[0].addressZipNum}" id="addrZipNum" readonly />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
@@ -535,7 +535,7 @@
 		});
 		
 		/*현재 비밀번호 형식 검사 스크립트*/
-		$('#currPw').keydown(function() {
+		$('#currPw').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if (!$('#myPageModal').hasClass('modiPw')) {
@@ -555,9 +555,8 @@
 		});
 		
         /*변경 비밀번호 형식 검사 스크립트*/
-		$('#modiPw').keydown(function() {
+		$('#modiPw').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
-            
             
             if(regex.test($(this).val() )) {
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
@@ -569,11 +568,11 @@
 	            }
             } else {
                 $(this).css('border', '2px solid red');
-            }      
+            }                  	
 		});
         
         /*확인 비밀번호 형식 검사 스크립트*/
-		$('#checkPw').keydown(function() {
+		$('#checkPw').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if ($('#myPageModal').hasClass('modiPw')) {
@@ -681,8 +680,16 @@
         });
      	   
     	 // 카테고리 제거
-        $('.category-wrap').on('click', '#del-category' ,function() {
+        $('.category-wrap').on('click', '#del-category' ,function(e) {
         	console.log(this);
+        	console.log($(this).css('opacity'));
+        	if($(this).css('opacity') == 0) {
+        		
+				$(this).hover(function() {
+					$(this).css('cursor', 'default');
+	        		e.preventDefault();
+				});
+        	}
         	this.parentNode.remove();
         });
 		
@@ -837,11 +844,13 @@
 		// 탈퇴 시 자동로그인 쿠키, 세션 지우기.
 	}
 	
+	// 비밀번호 변경 비동기 코드
 	function ModiPwModal() {
 		const currPw = $('#currPw').val();
 		const modiPw = $('#modiPw').val();
 		const checkPw = $('#checkPw').val();
 		const array = [currPw,modiPw,checkPw];
+		
 		
 		$.ajax({
 			type:'POST',
@@ -870,6 +879,7 @@
 		
 	}
 	
+	// 유저 정보 변경 비동기 코드
 	function UpdateModal() {
 		const currPw = $('#currPw').val();
 		const checkPw = $('#checkPw').val();
@@ -903,6 +913,7 @@
 		
 	}
 
+	// 계정 삭제 비동기 코드
 	function DeleteModal() {
 		const currPw = $('#currPw').val();
 		const checkPw = $('#checkPw').val();

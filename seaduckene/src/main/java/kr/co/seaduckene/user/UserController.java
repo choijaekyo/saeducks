@@ -210,7 +210,7 @@ public class UserController {
 		List<AddressVO> userAddrList = userService.getUserAddr(userNo);
 		
 		log.info(userAddrList);
-		if (userAddrList.size() == 0) {
+		if (userAddrList.size() != 0) {
 			modelAndView.addObject("userAddrList", userAddrList);			
 		}
 		
@@ -270,9 +270,11 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/pwModify")
 	public String pwModify(@RequestBody List<String> passwords) {
+		log.info(passwords);
 		String userPw = passwords.get(0);
 		String modiPw = passwords.get(1);
 		String checkPw = passwords.get(2);
+		
 		
 		return Integer.toString(1);
 	}
