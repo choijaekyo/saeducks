@@ -110,5 +110,17 @@
 		UPDATE duck_user SET user_pw = #{tmpPw}
 		WHERE user_id = #{userId}
 	</select>
+
+	<update id="setAutoLogin">
+		UPDATE duck_user SET user_session_id = #{userSessionId}, user_cookie_expire_date = #{userCookieExpireDate} WHERE user_no = #{userNo}
+	</update>
+	
+	<select id="getUserBySessionId" resultType="user">
+		SELECT * FROM duck_user WHERE user_session_id = #{sessionId}
+	</select>
+	
+	<update id="undoAutoLogin">
+		UPDATE duck_user SET user_session_id = null, user_cookie_expire_date = null WHERE user_no = #{userNo}
+	</update>
 	
 </mapper>

@@ -75,7 +75,12 @@
 			</c:choose>
 					<div class="update-container">
 						<form action="" method="post" enctype="multipart/form-data" id="user-update-form">
+						<c:if test="${user.userProfilePath == '프로필 경로'}">
 							<img alt="프로필 사진" src="<c:url value='/resources/img/profile.png' />" id="image_section">
+						</c:if>
+						<c:if test="${user.userProfilePath != '프로필 경로'}">
+							<img alt="프로필 사진" src="<c:url value='/user/getProfile' />" id="image_section">
+						</c:if>
 							<div class="clearfix">
 								<div class="file-upload">
 									<span>+</span>
@@ -88,7 +93,7 @@
 			                    <div class="col-md-12 col-sm-12 col-12">
 			                        <input name="userId" class="form-control join-input" type="text" placeholder="아이디" value="${user.userId}" id="userId" readonly />
 			                    </div>
-		                	</div>							
+		                	</div>
 							<input type="button" class="btn btn-b btn-duck btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 변경하기" id=""> <br> <br>
 							<p>이름</p>
 							<div class="input-group inputArea">
@@ -458,13 +463,19 @@
 				}
 		}); //end 인증번호비교
 		
-		$('#userPw').hover(function() {
+		$('#currPw').hover(function() {
 			$(this).attr('placeholder', '영문 대/소문자, 숫자 8 ~ 16 자리');
 		}, function() {
-			$(this).attr('placeholder', '비밀번호');			
+			$(this).attr('placeholder', '현재 비밀번호');
 		});
 		
-		$('#pwConfirm').hover(function() {
+		$('#modiPw').hover(function() {
+			$(this).attr('placeholder', '영문 대/소문자, 숫자 8 ~ 16 자리');
+		}, function() {
+			$(this).attr('placeholder', '변경 비밀번호');			
+		});
+		
+		$('#checkPw').hover(function() {
 			$(this).attr('placeholder', '영문 대/소문자, 숫자 8 ~ 16 자리');
 		}, function() {
 			$(this).attr('placeholder', '비밀번호 확인');			
@@ -488,42 +499,78 @@
 			$(this).attr('placeholder', '전화번호');			
 		});
 		
-		/*비밀번호 형식 검사 스크립트*/
-		$('#userPw').keydown(function() {
+		/*현재 비밀번호 형식 검사 스크립트*/
+		$('#currPw').keydown(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
-            if(regex.test($(this).val() )) {
-	            if($("#pwConfirm").val() === $(this).val() ) {
+            if (!$('#myPageModal').hasClass('modiPw')) {
+	            if(regex.test($(this).val() )) {
 	                $(this).css('border', '2px solid rgb(34, 139, 34)');
-	                $("#pwConfirm").css('border', '2px solid rgb(34, 139, 34)');
+	                
+		            if($("#checkPw").val() === $(this).val() ) {
+		                $("#checkPw").css('border', '2px solid rgb(34, 139, 34)');
+		            } else {
+		            	$("#checkPw").css('border', '2px solid red');
+		            }
 	            } else {
-	            	$(this).css('border', '2px solid red');
-	            	$("#pwConfirm").css('border', '2px solid red');
+	                $(this).css('border', '2px solid red');
 	            }
-            } else {
-                $(this).css('border', '2px solid red');
-            }            
+            }
 
 		});
 		
-        /*비밀번호 확인검사*/
-		$('#pwConfirm').keydown(function() {
+        /*변경 비밀번호 형식 검사 스크립트*/
+		$('#modiPw').keydown(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             
             if(regex.test($(this).val() )) {
-	            if($(this).val() === $("#userPw").val()) {
-	                $(this).css('border', '2px solid rgb(34, 139, 34)');
-	                $("#userPw").css('border', '2px solid rgb(34, 139, 34)');        
-	
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+                
+	            if($("#checkPw").val() === $(this).val() ) {
+	                $("#checkPw").css('border', '2px solid rgb(34, 139, 34)');
 	            } else {
-	                $(this).css('border', '2px solid red');
-	                $("#userPw").css('border', '2px solid red');
-	            }      
-
+	            	$("#checkPw").css('border', '2px solid red');
+	            }
             } else {
                 $(this).css('border', '2px solid red');
-            }   
+            }      
+		});
+        
+        /*확인 비밀번호 형식 검사 스크립트*/
+		$('#checkPw').keydown(function() {
+            const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
+            
+            if ($('#myPageModal').hasClass('modiPw')) {
+                if(regex.test($(this).val() )) {
+    	            if($(this).val() === $("#modiPw").val()) {
+    	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+    	                $("#modiPw").css('border', '2px solid rgb(34, 139, 34)');        
+    	
+    	            } else {
+    	                $(this).css('border', '2px solid red');
+    	                $("#modiPw").css('border', '2px solid red');
+    	            }
+
+                } else {
+                    $(this).css('border', '2px solid red');
+                }   
+			} else {
+
+                if(regex.test($(this).val() )) {
+    	            if($(this).val() === $("#currPw").val()) {
+    	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+    	                $("#currPw").css('border', '2px solid rgb(34, 139, 34)');        
+    	
+    	            } else {
+    	                $(this).css('border', '2px solid red');
+    	                $("#currPw").css('border', '2px solid red');
+    	            }      
+
+                } else {
+                    $(this).css('border', '2px solid red');
+                }   
+			}
 		});
         
         /* 이름 확인검사 */
@@ -712,7 +759,13 @@
 		$('.modal-submit-btn').attr('onclick', 'ModiPwModal()');
 		$('.modiPw').css('display', 'inline-block');
 		$('.modiPw').attr('disabled', false);
+		$("#currPw").css('border', 'none');
+		$("#modiPw").css('border', 'none');
+		$("#checkPw").css('border', 'none');
 		
+		$('#myPageModal').toggleClass('modiPw', true);
+		$('#myPageModal').toggleClass('updateUser', false);
+		$('#myPageModal').toggleClass('deleteUser', false);
 		$('#myPageModal').show();
 	}
 	
@@ -722,7 +775,13 @@
 		$('.modiPw').css('display', 'none');
 		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'UpdateModal()');
+		$("#currPw").css('border', 'none');
+		$("#modiPw").css('border', 'none');
+		$("#checkPw").css('border', 'none');
 
+		$('#myPageModal').toggleClass('modiPw', false);
+		$('#myPageModal').toggleClass('updateUser', true);
+		$('#myPageModal').toggleClass('deleteUser', false);
 		$('#myPageModal').show();
 	}
 	
@@ -732,8 +791,15 @@
 		$('.modiPw').css('display', 'none');
 		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'DeleteModal()');
+		$("#currPw").css('border', 'none');
+		$("#modiPw").css('border', 'none');
+		$("#checkPw").css('border', 'none');
 		
+		$('#myPageModal').toggleClass('modiPw', false);
+		$('#myPageModal').toggleClass('updateUser', false);
+		$('#myPageModal').toggleClass('deleteUser', true);
 		$('#myPageModal').show();
+		// 탈퇴 시 자동로그인 쿠키, 세션 지우기.
 	}
 	
 	function ModiPwModal() {

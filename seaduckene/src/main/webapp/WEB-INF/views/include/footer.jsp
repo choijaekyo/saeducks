@@ -95,7 +95,6 @@
     
 
     $(document).ready(function() {
-
       let str = '';
 
       $.getJSON(

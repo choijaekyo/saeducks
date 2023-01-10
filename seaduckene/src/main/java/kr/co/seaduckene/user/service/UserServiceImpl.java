@@ -140,7 +140,17 @@ public class UserServiceImpl implements IUserService {
 		
 	}
 	
+	public void setAutoLogin(UserVO userVo) {
+		userMapper.setAutoLogin(userVo);
+	}
 	
+	@Override
+	public UserVO getUserBySessionId(String sessionId) {
+		return userMapper.getUserBySessionId(sessionId);
+	}
 	
-
+	@Override
+	public void undoAutoLogin(int userNo) {
+		userMapper.undoAutoLogin(userNo);
+	}
 }

@@ -26,6 +26,7 @@
 		        <div class="group login-checkbox-group">
 		          <input id="check" type="checkbox" class="check">
 		          <label for="check"><span class="icon"></span>&nbsp;&nbsp;자동 로그인</label>
+				  <input name="autoLoginCheck" value="0" type="hidden" id="autoLoginCheck">
 		        </div>
 		        <div class="group">
 		          <input type="button" class="button btn-duck" value="로그인" id="user-login-submit">
@@ -56,6 +57,17 @@
 		$('#user-login-submit').click(login);
 		$('#user-login-form').on('keyup', 'input', keyPressEnter);
 				
+		
+		$('.check').click(function() {
+		console.log($('.check').is(':checked'));
+			
+			if ($('.check').is(':checked')) {
+				$('#autoLoginCheck').val(1);
+			} else {
+				$('#autoLoginCheck').val(0);				
+			}
+		});
+		
 		function keyPressEnter() {
 			if (window.event.keyCode == 13) {
 				login();

@@ -47,4 +47,14 @@ public interface IUserMapper {
 	// 비밀번호 찾기
 	void updatePw(Map<String, Object> map);
 
+	// 자동 로그인 설정
+	void setAutoLogin(UserVO userVo);
+	
+	// 쿠키의 sessionId로 session userVO 얻기
+	UserVO getUserBySessionId(String sessionId);
+	
+	// 자동 로그인 해제
+	void undoAutoLogin(int userNo);
+
+
 }
