@@ -207,11 +207,11 @@ public class UserController {
 		
 		log.info(userService.getUserCategories(userNo).toString());
 		
-		AddressVO userAddr = userService.getUserAddr(userNo);
+		List<AddressVO> userAddrList = userService.getUserAddr(userNo);
 		
-		log.info(userAddr);
-		if (userAddr != null) {
-			modelAndView.addObject("userAddr", userAddr);			
+		log.info(userAddrList);
+		if (userAddrList.size() == 0) {
+			modelAndView.addObject("userAddrList", userAddrList);			
 		}
 		
 		

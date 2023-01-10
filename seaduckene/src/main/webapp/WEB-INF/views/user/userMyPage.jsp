@@ -110,7 +110,7 @@
 							<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="nickname-check"> <br>
 		   					<div class="input-group inputArea">
 				                <div class="col-md-12 col-sm-12 col-12">
-				            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" value="${user.userTel}" id="userTel" required/>
+				            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" value="${user.userTel}" id="userTel" maxlength="11" required/>
 			                    </div>
 		               		</div> <br>
 		               		<span class="basic-info">카테고리 정보</span> 
@@ -225,6 +225,41 @@
 			  
 				<div id="modalMask"></div>
 			</div><!-- /.modal -->
+			
+			   <!-- 주소록 모달  -->
+		   <div class="modal" id="addrListModal" data-bs-backdrop="static">
+		      <div class="modal-dialog">
+		         <div class="modal-content">
+		            <div class="modal-header">
+		               <h5 class="modal-title">주소록</h5>
+		               <button type="button" class="btn-close" data-bs-dismiss="modal"
+		                  aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body">
+		            <form action="" method="post">
+		                  <div>
+		                      <c:forEach var="addr" items="${userAddrList}">
+		                        <div class="form-check form-check-inline">
+		                           <input class="form-check-input" type="radio"
+		                              name="addr" id="${addr.addressNo}" value="${addr.addressNo}">
+		                              <p>${addr.addressZipNum}</p>
+		                              <p>${addr.addressBasic}</p>
+		                              <p>${addr.addressDetail}</p>
+		                        </div>
+		                        <hr>
+		                        <br>
+		                     </c:forEach> 
+		                  </div>
+		               </form>
+		            </div>
+		            <div class="modal-footer">
+		               <button type="button" class="btn btn-outline-secondary"
+		                  data-bs-dismiss="modal">닫기</button>
+		               <button type="button" class="btn btn-outline-success">확인</button>
+		            </div>
+		         </div>
+		      </div>
+		   </div>
 				
 			<div class="tab-content">
 			<c:choose>

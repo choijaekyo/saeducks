@@ -61,10 +61,13 @@ public class UserLoginSuccessHandler implements HandlerInterceptor {
 					user.setUserCookieExpireDate(expiredDate);
 					
 					userService.setAutoLogin(user);
+			} else {
+				userService.undoAutoLogin(user.getUserNo());
 			}
 			 
 
 			HttpSession session = request.getSession();
+			user = userService.getUserVo(user);
 			session.setAttribute("login", user);
 
 			modelAndView.setViewName("redirect:/");

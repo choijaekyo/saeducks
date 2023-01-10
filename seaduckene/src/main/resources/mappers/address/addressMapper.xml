@@ -7,8 +7,7 @@
 	<insert id="addAddress">
 		INSERT INTO address VALUES
 		(address_seq.NEXTVAL,
-		#{addressDetail}, #{addressBasic}, #{addressZipNum},
-		#{addressUserNo})
+		#{addressDetail}, #{addressBasic}, #{addressZipNum}, default, #{addressUserNo})
 	</insert>
 
 	<select id="checkAddr" resultType="int">

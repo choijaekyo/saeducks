@@ -41,7 +41,7 @@ public interface IUserService {
 	List<CategoryVO> getUserCategories(int userNo);
 	
 	// 유저의 주소 정보를 불러오기
-	AddressVO getUserAddr(int userNo);
+	List<AddressVO> getUserAddr(int userNo);
 	
 	// 아이디 찾기
 	List<String> findAccount (String userName, String userEmail);
