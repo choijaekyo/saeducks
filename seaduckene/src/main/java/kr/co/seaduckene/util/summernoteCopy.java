@@ -8,13 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 public class summernoteCopy {
 
 	public Map<String, Object> summerCopy(List<String> fileList) throws Exception {
 
-		System.out.println("1111111111111111111111111111" + fileList);
 		Map<String, Object> result = new HashMap<String, Object>();
 		// 원본 파일경로
 		for (int i = 0; i < fileList.size(); i++) {
