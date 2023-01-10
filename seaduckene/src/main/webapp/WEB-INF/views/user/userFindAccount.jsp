@@ -26,7 +26,7 @@
 				</div>
 				<form class="findAccountForm" method="post" action="<c:url value='/user/userFindAccount' />">
 					<div class="middleBox col-sm-12">
-						<div class="offset-sm-1 col-sm-11">
+						<div class=" col-sm-12">
 						
 				
 							<p class="sub-title">
@@ -64,7 +64,7 @@
 							</div>
 						
 						</div>
-						<div class="offset-sm-1 col-sm-11">
+						<div class=" col-sm-12">
 							<p class="sub-title">
 								<input class="form-check-input radio" name="isEmail"
 									type="radio" data-check="2" id="unchecked-email" /> 가입 시 이메일

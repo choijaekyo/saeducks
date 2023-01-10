@@ -82,17 +82,10 @@ public class boardListController {
 	
 	//게시글을 DB 등록 요청
 	@PostMapping("/boardWrite")
-	public String boardWrite(BoardVO vo, @RequestParam(value="file[]") List<String> summerfile) throws Exception {
+	public String boardWrite(BoardVO vo) throws Exception {
 //	public String boardWrite(BoardVO vo, @RequestParam(value="files") MultipartFile summerfile) throws Exception {
-		System.out.println(summerfile);
-		String boardContent;
-		boardContent = vo.getBoardContent();
-		String editordata = boardContent.replaceAll("summernoteImage","getImgCopy");
-		vo.setBoardContent(editordata);
-		service.write(vo);
 		
-		summernoteCopy copy = new summernoteCopy();
-		copy.summerCopy(summerfile);
+		service.write(vo);
 		
 		return "redirect:/board/boardList/" + vo.getBoardCategoryNo();
 	}
@@ -166,7 +159,8 @@ public class boardListController {
 		try { 
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/board/summernoteImage/"+savedFileName);
+			jsonObject.addProperty("url", "/board/summe"
+					+ "rnoteImage/"+savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 				
 		} catch (IOException e) {

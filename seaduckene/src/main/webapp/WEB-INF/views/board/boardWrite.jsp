@@ -46,7 +46,7 @@
 <%@ include file="../include/footer.jsp"%>
 
 
-<script>
+<script>                                                                                                                                                                                                                                                 
 
 	$(function() {
 	    $('#board-Write-button').click(function() {
@@ -125,7 +125,7 @@
 		$.ajax({
 			data : data,
 			type : 'POST',
-			url : "/board/uploadSummernoteImageFile",
+			url : '<c:url value="/board/uploadSummernoteImageFile"/>',
 			enctype: 'multipart/form-data',
 			cache: false,
 			contentType : false,
@@ -136,7 +136,7 @@
             	//항상 업로드된 파일의 url이 있어야 한다.
 				$(editor).summernote('insertImage', data.url);
 				
-				jsonArray.push(data["url"]);
+				
 		
 			}
 		});
