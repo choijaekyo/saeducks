@@ -3,13 +3,14 @@ package kr.co.seaduckene.board.mapper;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.seaduckene.board.command.BoardReplyListVO;
 import kr.co.seaduckene.board.command.BoardReplyVO;
 
 public interface IBoardReplyMapper {
 	
 	void replyRegist(BoardReplyVO vo); //댓글 등록
 	
-	List<BoardReplyVO> getList(Map<String, Object> data); //목록 요청.
+	List<BoardReplyListVO> getList(Map<String, Object> data); //목록 요청.
 	
 	int getTotal(int replyBoardNo); //댓글 개수(페이징)
 	

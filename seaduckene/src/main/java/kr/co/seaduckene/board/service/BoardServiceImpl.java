@@ -59,7 +59,6 @@ public class BoardServiceImpl implements IBoardService {
 	@Override
 	public List<ProductVO> proList(int categoryNo) {
 		return mapper.proList(categoryNo);
-
 	}
 
 	@Override
