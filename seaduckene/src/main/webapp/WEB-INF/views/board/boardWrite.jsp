@@ -46,7 +46,7 @@
 <%@ include file="../include/footer.jsp"%>
 
 
-<script>
+<script>                                                                                                                                                                                                                                                 
 
 	$(document).ready(function() {
 		let jsonArray = [];
@@ -150,7 +150,7 @@
 		$.ajax({
 			data : formData,
 			type : 'POST',
-			url : "/board/uploadSummernoteImageFile",
+			url : '<c:url value="/board/uploadSummernoteImageFile"/>',
 			enctype: 'multipart/form-data',
 			cache: false,
 			contentType : false,
@@ -160,9 +160,6 @@
                console.log(result);
                jsonArray.push(result);
 				$(editor).summernote('insertImage', result.url);
-
-
-				
 			}
 		});
 	}

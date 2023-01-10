@@ -179,7 +179,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/createProduct")
-	public void insertProduct(ProductVO vo,@RequestParam("majorCategory") String major,
+	public String insertProduct(ProductVO vo,@RequestParam("majorCategory") String major,
 			@RequestParam("minorCategory") String minor,
 			@RequestParam("productImg") List<MultipartFile> list,
 			@RequestParam("thumbnailImg") MultipartFile thumb) {
@@ -230,6 +230,7 @@ public class ProductController {
 			}
 			
 		}
+		return "redirect:/product/createProduct";	 
 	}
 	
 	@GetMapping("/mainDisplayImg")

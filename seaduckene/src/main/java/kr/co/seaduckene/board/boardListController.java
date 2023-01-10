@@ -81,7 +81,6 @@ public class boardListController {
 	//게시글을 DB 등록 요청
 	@PostMapping("/boardWrite")
 	public String boardWrite(BoardVO vo, @RequestParam(value="filename", required=false) List<String> summerfile) throws Exception {
-//	public String boardWrite(BoardVO vo, @RequestParam(value="files") MultipartFile summerfile) throws Exception {
 		System.out.println("글 등록 요청이 들어옴!");
 		System.out.println("summerFile: " + summerfile);
 		System.out.println("vo: " + vo);
@@ -166,7 +165,8 @@ public class boardListController {
 		try { 
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/board/summernoteImage/"+savedFileName);
+			jsonObject.addProperty("url", "/board/summe"
+					+ "rnoteImage/"+savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 				
 		} catch (IOException e) {
