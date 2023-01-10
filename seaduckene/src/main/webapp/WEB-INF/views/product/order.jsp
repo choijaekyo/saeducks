@@ -26,7 +26,7 @@
 	<%@ include file="../include/header.jsp"%>
 
 	<!-- 주소록 모달  -->
-	<div class="modal" id="addListModal" tabindex="-1">
+	<div class="modal" id="addrListModal" data-bs-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -35,13 +35,24 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>Modal body text goes here.</p>
+				<form action="" method="post">
+						<div>
+ 							<c:forEach var="addr" items="${addrList }" varStatus="status" >
+								<div class="form-check form-check-inline">
+										<p data-zip="${status.index}">${addr.addressZipNum}</p>
+										<p data-basic="${status.index}">${addr.addressBasic}</p>
+										<p data-detail="${status.index}">${addr.addressDetail}</p>
+										<button type="button" value="${status.index }" class="btn btn-outline-success addrbtn">주소입력</button>
+								</div>
+								<hr>
+								<br>
+							</c:forEach> 
+						</div>
+					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
+					<button type="button" class="btn btn-outline-secondary"
+						data-bs-dismiss="modal" >닫기</button>				</div>
 			</div>
 		</div>
 	</div>
@@ -214,7 +225,7 @@
 								<button type="button"
 									class="btn btn-outline-secondary findAddrBtn"
 									onclick="searchAddress()">우편번호 찾기</button>
-								<button type="button"
+								<button type="button" data-bs-toggle="modal" data-bs-target="#addrListModal"
 									class="btn btn-outline-secondary ListAddrBtn">주소록</button>
 							</div>
 						</div>
@@ -267,7 +278,37 @@
 
 
 <script>
-	const basketList = '${basketList}'
+	
+	//선택된 주소값 뿌리기
+	$('.addrbtn').on('click',function(e){
+		const no = e.target.value;
+		console.log(no);
+		console.log($('.modal-body p'));
+		
+		for (let p of $('.modal-body p')) {
+			console.log(p);	
+			if ($(p).data('zip') == no) {
+				console.log($(p).text());
+				const zip = $(p).text();
+				$('#orderAddressZipNum').val(zip);
+			}
+			if ($(p).data('basic') == no) {
+				console.log($(p).text());
+				const basic = $(p).text();
+				$('#orderAddressBasic').val(basic);
+			}
+			if ($(p).data('detail') == no) {
+				console.log($(p).text());
+				const detail = $(p).text();
+				$('#orderAddressDetail').val(detail);
+			}
+			$('#addrListModal').modal('hide');
+		}
+		
+
+		
+		
+	});//주소값 뿌리기 끝
 
 	// 정규식 만족여부 확인
 	let accountFlag = false;

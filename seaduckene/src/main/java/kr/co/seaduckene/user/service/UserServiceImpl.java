@@ -1,8 +1,6 @@
 package kr.co.seaduckene.user.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -111,7 +109,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public AddressVO getUserAddr(int userNo) {
+	public List<AddressVO> getUserAddr(int userNo) {
 		return userMapper.getUserAddr(userNo);
 	}
 	

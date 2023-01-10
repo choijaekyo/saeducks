@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.product.command.ProductImageVO;
@@ -37,6 +38,7 @@ import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.user.command.UserVO;
+import kr.co.seaduckene.user.service.IUserService;
 
 @Controller
 @RequestMapping("/product")
@@ -44,6 +46,8 @@ public class ProductController {
 	
 	@Autowired
 	private IProductService productService;
+	@Autowired
+	private IUserService userService;
 
 	@GetMapping("/createProduct")
 	public void createProduct(Model model) {
@@ -66,6 +70,10 @@ public class ProductController {
 		UserVO user = (UserVO)session.getAttribute("login");
 		int userNo = user.getUserNo();
 
+		// 주소목록 불러오기
+		List<AddressVO> addrList = userService.getUserAddr(userNo);
+		model.addAttribute("addrList", addrList);
+		
 		// 장바구니 상품 불러오기
 		List<ProductBasketVO> basketList = productService.getBasketList(userNo);
 		model.addAttribute("basketList",basketList);
