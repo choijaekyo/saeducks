@@ -5,7 +5,7 @@
 <%@ include file="../include/header.jsp"%>
 
 <div class="container">
-	<div class="row mb-1">
+	<div class="row mb-3">
 	  	<div class="col" style="position: relative;">
 	  		<button type="button" class="btn btn-warning w-auto rounded btn-shadow">대카테고리고리</button>
 	  		<button type="button" class="btn btn-success w-auto rounded">소소카테고리</button>
@@ -97,15 +97,28 @@ $(function() {
 					str += 
 					`<div class="col">
 				    <div class="card shadow-sm detailButton" data-bno="` + list[i].boardNo + `">
-				      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">` + list[i].boardTitle + `</text></svg>
+				      <svg width="100%" height="225">
+				      <defs>
+				      <filter id="rounded-corners-2" primitiveUnits="objectBoundingBox">
+				      <feImage preserveAspectRatio="none" width="110%" height="110%" x="-5%" y="0%"  xlink:href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 400 40' height='40' width='400'%3E%3Crect fill='lightgray' x='0' y='0' rx='10' ry='10' width='400' height='40'/%3E%3C/svg%3E"/>
+				         <feComposite operator="over" in="SourceGraphic"/>
+				        </filter>
+				      </defs>
+				      
+				      <image href="/board/getImg/` + list[i].boardImageUuid + `" width="100%" height="100%" style="opacity: 0.5;"/>
+				      <text x="37%" y="50%" fill="#000" filter="url(#rounded-corners-2)">` + list[i].boardTitle + `</text>
+				      </svg>
 				      <div class="card-body">
-				        <p class="card-text">` + list[i].boardContent + `</p>
+				      
+				        
 				        <div class="d-flex justify-content-between align-items-center">
-				          <small class="text-muted">9 mins</small>
+				          <small style="width: 100%;"><p class="text-end" style="color: #5c5e5e;">` + timeForToday(list[i].boardRegDate) + ` mins</p></small>
 				        </div>
 				      </div>
 				    </div>
-			  		</div>`;		
+			  		</div>`;	
+					/* <p class="card-text">` + list[i].boardContent + `</p> */
+					/* <img src="/board/getImg/1ffbac24-1c3c-4028-988a-ec8e67912c94.png" style="width: 100%; height: 100%;"/> */
 				}
 				
 				$('#contentDiv').html(str);
@@ -121,7 +134,31 @@ $(function() {
 			location.href='${pageContext.request.contextPath}/board/boardDetail/' + bno;
 			
 			
-		})
+		});
+		
+		function timeForToday(value) {
+			console.log(value);
+	        const today = new Date();
+	        const timeValue = new Date(value);
+
+	        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+	        if (betweenTime < 1) return '방금전';
+	        if (betweenTime < 60) {
+	            return betweenTime + '분전';
+	        }
+
+	        const betweenTimeHour = Math.floor(betweenTime / 60);
+	        if (betweenTimeHour < 24) {
+	            return betweenTimeHour + '시간전';
+	        }
+
+	        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+	        if (betweenTimeDay < 365) {
+	            return betweenTimeDay + '일전';
+	        }
+
+	        return Math.floor(betweenTimeDay / 365) + '년전';
+	 }
 		
 	}; //end getList()
 	

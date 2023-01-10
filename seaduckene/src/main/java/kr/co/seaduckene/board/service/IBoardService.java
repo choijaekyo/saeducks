@@ -42,4 +42,10 @@ public interface IBoardService {
 	
 	// 공지사항 리스트
 	List<NoticeVO> noticeLists(PageVO paging);
+	
+	// boardNo 찾기
+	int boardNoSearch(String boardTitle, String boardContent);
+	
+	// 보드 이미지 등록
+	void boardImageAdd(int boardNo, String UUID);
 }

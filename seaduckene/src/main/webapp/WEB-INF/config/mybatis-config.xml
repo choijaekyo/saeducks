@@ -31,6 +31,7 @@
 		<typeAlias type="kr.co.seaduckene.common.NoticeVO" alias="notice"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardReplyVO" alias="boardReply"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardReplyListVO" alias="boardReplyList"/>
+		<typeAlias type="kr.co.seaduckene.board.command.BoardImageVO" alias="boardImage"/>
 	</typeAliases>
 	
 	<!-- 인터페이스 mapper 구현체 xml 파일의 경로를 표시하는 태그.
