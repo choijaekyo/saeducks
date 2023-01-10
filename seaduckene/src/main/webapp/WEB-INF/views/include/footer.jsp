@@ -93,31 +93,34 @@
    
    let str = '';
     
+
     $(document).ready(function() {
-       
-		$.getJSON(
-			'<c:url value="/board/noticeList" />',
-			function(list) {
-				
-				if(list.length === 0) {
-						
-						str += 
-						`<li><a href="#">공지 사항이 없습니다.</a></li>`;		
+      let str = '';
 
-				} else {
-					for(let i=0; i<list.length; i++) {
-						
-						str += 
-						`<li><a href="">`+ list[i].noticeTitle +`</a></li>`;		
-					}
-				}
+      $.getJSON(
+         '<c:url value="/board/noticeList" />',
+         function(list) {
+            
+            if(list.length === 0) {
+                  
+                  str += 
+                  `<li><a href="#">공지 사항이 없습니다.</a></li>`;      
 
-				$('#contentUl').html(str);
-			}
-			
-				
-		); //end getJSON()
-	});
+            } else {
+               for(let i=0; i<list.length; i++) {
+                  
+                  str += 
+                  `<li>`+ list[i].noticeTitle +`</li>`;      
+               }
+            }
+
+            $('#contentUl').html(str);
+         }
+         
+            
+      ); //end getJSON()
+   });
+
 
 </script>
 </body>

@@ -57,10 +57,10 @@
                <ul class="navbar-nav">
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 게시판테스트 </a>
+                     data-bs-toggle="dropdown" aria-expanded="false">안씀</a>
                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<c:url value='/user/userMyPage/2' />">내 게시판</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardWrite' />">글작성</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='#' />">1</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='#' />">2</a></li>
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"

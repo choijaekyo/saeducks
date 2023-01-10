@@ -2,17 +2,24 @@ package kr.co.seaduckene.user;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
@@ -52,12 +60,13 @@ public class UserController {
 	public void userLogin() {}
 	
 	@PostMapping("/userLoginAuth")
-	public ModelAndView userLogin(UserVO userVO, ModelAndView modelAndView) {
+	public ModelAndView userLogin(UserVO userVO, ModelAndView modelAndView, int autoLoginCheck) {
 		log.info(userVO);
 		
 		// 비밀번호 암호화는 나중에 구현할 것.
 		
 		modelAndView.addObject("userVo", userService.getUserVo(userVO));
+		modelAndView.addObject("autoLoginCheck", autoLoginCheck);
 		
 		return modelAndView;
 	}
@@ -72,11 +81,27 @@ public class UserController {
 	}
 	
 	@GetMapping("/userLogout")
-	public ModelAndView userLogin(ModelAndView modelAndView, HttpServletRequest request) {
+	public ModelAndView userLogin(ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) {
 		
 		HttpSession session = request.getSession();
-		session.removeAttribute("login");
 		
+		Cookie autoLoginCookie = WebUtils.getCookie(request, "autoLoginCookie");
+		if (autoLoginCookie != null) {
+			UserVO userVo = userService.getUserBySessionId(autoLoginCookie.getValue());
+			log.info("autoLogin userVo: " + userVo);
+			
+			if (userVo != null) {	
+				// 쿠키 삭제는 받아온 쿠키 객체를 직접 지운다
+				autoLoginCookie.setPath(request.getContextPath() + "/");
+				autoLoginCookie.setMaxAge(0);
+				response.addCookie(autoLoginCookie);
+				userService.undoAutoLogin(userVo.getUserNo());
+			}
+			
+		}
+		
+		
+		session.removeAttribute("login");
 		modelAndView.setViewName("redirect:/user/userLogin");
 		
 		return modelAndView;
@@ -293,6 +318,24 @@ public class UserController {
 		// mapper에서 임시비밀번호로 비밀번호 수정하기
 		userService.updatePw(userId, tmpPw);
 		return "/user/userLogin";
+	}
+	
+	@ResponseBody
+	@GetMapping("/getProfile")
+	public ResponseEntity<byte[]> getProfile(HttpSession session) {
+		
+		UserVO loginUser = (UserVO) session.getAttribute("login");
+		
+		File file = new File(loginUser.getUserProfilePath() + loginUser.getUserProfileFolder() + '/' +loginUser.getUserProfileFileName());
+		ResponseEntity<byte[]> result = null;
+		HttpHeaders headers = new HttpHeaders();
+		try {
+			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 

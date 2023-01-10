@@ -49,4 +49,12 @@ public interface IUserService {
 	// 임시 비밀번호로 정보수정
 	void updatePw (String userId, String tmpPw);
 	
+	// 자동 로그인 설정
+	void setAutoLogin(UserVO userVo);
+	
+	// 쿠키의 sessionId로 session userVO 얻기
+	UserVO getUserBySessionId(String sessionId);
+	
+	// 자동 로그인 해제
+	void undoAutoLogin(int userNo);
 }

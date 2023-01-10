@@ -41,5 +41,10 @@
   -webkit-transition-property: transform, opacity;
   transition-property: transform, opacity;
 }
+.productcard #cardA{
+	text-decoration: none;
+	color: black;
+}
+
 
 /*============= END boardList ==============*/

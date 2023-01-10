@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,8 +79,8 @@
 					<div class="small mb-1">PNO:${vo.productNo }</div>
 					<h1 class="display-5 fw-bolder">${vo.productName }</h1>
 					<div class="fs-5 mb-5">
-						<span class="text-decoration-line-through">&#8361;${vo.productPriceNormal }</span>
-						<span>&#8361;${vo.productPriceSelling }</span>
+						<span class="text-decoration-line-through">&#8361;<fmt:formatNumber value="${vo.productPriceNormal }" pattern="#,###" /></span>
+						<span>&#8361;<fmt:formatNumber value="${vo.productPriceSelling }" pattern="#,###" /></span>
 					</div>
 					<p class="lead">${vo.productDetail }</p>
 					<div class="d-flex">

@@ -72,7 +72,7 @@
                         <label for="salePrice">할인가</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="text" name="productPriceSelling" id="salePrice" required />
+                        <input class="form-control" type="text" name="productPriceSelling" id="salePrice" required pattern="[0-9]+" />
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -80,7 +80,7 @@
                         <label for="quantity">재고수량</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="text" name="productStock" id="quantity" required />
+                        <input class="form-control" type="text" name="productStock" id="quantity" required pattern="[0-9]+" />
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -96,7 +96,7 @@
                         <label for="productImg">상품이미지(최대2개)</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple"   />
+                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple"  required />
                     </div>
                 </div>
                 <div class="input-group inputArea">
@@ -156,6 +156,7 @@
 		
 		
 		});//end 소카테고리
+		
 		
 		
 		
