@@ -1,13 +1,16 @@
 package kr.co.seaduckene.board.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.seaduckene.board.command.BoardReplyListVO;
 import kr.co.seaduckene.board.command.BoardReplyVO;
 import kr.co.seaduckene.board.mapper.IBoardReplyMapper;
+import kr.co.seaduckene.util.PageVO;
 
 @Service
 public class BoardReplyServiceImpl implements IBoardReplyService {
@@ -20,16 +23,23 @@ public class BoardReplyServiceImpl implements IBoardReplyService {
 		mapper.replyRegist(vo);
 		
 	}
-
+	
 	@Override
-	public List<BoardReplyVO> getList(Map<String, Object> data) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BoardReplyListVO> getList(int bno, int pageNum) {
+		PageVO vo = new PageVO();
+		vo.setPageNum(pageNum);
+		vo.setCpp(5);
+		System.out.println(bno);
+		System.out.println(vo.getPageNum());
+		Map<String, Object> data = new HashMap<>();
+		data.put("paging", vo);
+		data.put("bno", bno);
+		
+		return mapper.getList(data);
 	}
 
 	@Override
 	public int getTotal(int replyBoardNo) {
-		// TODO Auto-generated method stub
 		return mapper.getTotal(replyBoardNo);
 	}
 
@@ -50,6 +60,11 @@ public class BoardReplyServiceImpl implements IBoardReplyService {
 		mapper.delete(replyNo);
 		
 	}
+
+
+
+
+	
 	
 	
 }

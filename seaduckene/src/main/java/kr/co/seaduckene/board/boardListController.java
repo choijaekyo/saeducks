@@ -70,7 +70,6 @@ public class boardListController {
 	@GetMapping("/boardMyList")
 	public void boardMyList() {}
 	
-	
 	//글쓰기 페이지로 이동 요청
 	@GetMapping("/boardWrite/{categoryNo}")
 	public String boardWrite(@PathVariable int categoryNo, Model model) {
@@ -78,7 +77,6 @@ public class boardListController {
 		model.addAttribute("categoryNo", categoryNo);
 		return "board/boardWrite";
 	}
-	
 	
 	//게시글을 DB 등록 요청
 	@PostMapping("/boardWrite")
@@ -92,17 +90,17 @@ public class boardListController {
 		String editordata = boardContent.replaceAll("summernoteImage","getImg");
 		vo.setBoardContent(editordata);
 		service.write(vo);
-		
+
 		summernoteCopy copy = new summernoteCopy();
 		copy.summerCopy(summerfile);
 		
 		return "redirect:/board/boardList/" + vo.getBoardCategoryNo();
 	}
 	
-	
 	//상세보기 페이지
 	@GetMapping("/boardDetail/{boardNo}")
 	public String boardDetail(@PathVariable int boardNo, PageVO vo, Model model) {
+		System.out.println("boardNo" + boardNo);
 		model.addAttribute("list", service.content(boardNo));
 		return "board/boardDetail";
 	}

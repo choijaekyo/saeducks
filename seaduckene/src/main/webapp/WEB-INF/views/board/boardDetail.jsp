@@ -50,7 +50,6 @@
 				</div>
 				<div class="mb-3" id="board-detail-content">
 					<label for="content" class="form-label">내용</label>
-
 					<textarea class="form-control" id="summernote" name="boardContent"
 						readonly rows="15"></textarea>
 
@@ -76,30 +75,41 @@
 
 			<div class="col">
 				<div class="d-flex align-items-center mb-3">
-					<h5 class="me-auto mb-0" id="replyId">Ollie Chandler</h5>
-					<span class="text-muted extra-small ms-2">08:45 PM</span>
+					<h5 class="me-auto mb-0" name="replyBoardNo" id="replyBoardNo">nick</h5>
+					<span class="text-muted extra-small ms-2">date</span>
 				</div>
-
 				<div class="d-flex align-items-center">
-					<div class="line-clamp me-auto" id="reply">Hello! Yeah, I'm going to
-						meet friend of mine at the departments stores now.</div>
-
-					<div class="badge badge-circle bg-primary ms-5">
-						<span>3</span>
-					</div>
+					<input type="hidden" value="${login.userNo}" id="replyUserNo"></input>
+					<textarea class="form-control" rows="3" id="reply"></textarea>
 				</div>
 				<br>
 				<div>
-					<button type="button" id="replyRegist">등록하기</button>
+					<button type="button" id="replyRegist" class="right btn btn-info">등록하기</button>
 					<button type="button" id="replyCancel">취소하기</button>
 				</div>
 			</div>
+			<hr>
+
+			<div id="replyList">
+				<!-- <div class=col>
+				<div class="d-flex align-items-center mb-3"></div>
+				<div class="reply-content"> <strong class='left'>nick</strong>
+					<small class='left'>date</small> <a href='#' class='right'>
+					<textarea class="form-control" rows="3" id="reply"></textarea>
+					<span class='glyphicon glyphicon-pencil'></span>수정</a> <a href='#' class='right'>
+					<span class='glyphicon glyphicon-remove'></span>삭제</a>
+				</div>
+				<p class='clearReply'>댓글</p>
+			</div> -->
+			<!-- <button type="button" class="form-control" id="moreList">더보기</button> -->
 		</div>
 	</div>
-	<hr>
+</div>
+<hr>
 </div>
 
-<!-- 모달 -->
+
+<!-- 모달  -->
 <div class="modal fade" id="replyModal" role="dialog">
 	<div class="modal-dialog modal-md">
 		<div class="modal-content">
@@ -135,12 +145,11 @@
 
 
 <script>
-
 	$(document).ready(function() {
-		
+
 		$(function() {
 			$('#summernote').summernote({
-				toolbar: false
+				toolbar : false
 			});
 			$('#summernote').summernote('disable');
 			$('#summernote').summernote('pasteHTML', '${list.boardContent}');
@@ -148,46 +157,106 @@
 			$('.note-editable').css('background', '	#FFFFFF');
 		});
 
-		
 		$('#replyRegist').click(function() {
-			
+
 			const boardNo = '${list.boardNo}';
 			const reply = $('#reply').val();
-			const replyId = $('#replyId').val();
-			
-			if(reply === '') {
-				alert('내용을 입력하세요!')
-				return;
-			}
-			
-			$.ajax({
-				type: 'post',
-				url: '<c:url value="/reply/replyRegist" />',
-				data: JSON.stringify({
+			const replyUserNo = $('#replyUserNo').val();
+			console.log('dwadwadwa' + replyUserNo);
+			console.log(reply);
+			console.log(boardNo);
+
+			/* const data = {
 					"boardNo":boardNo,
 					"reply":reply,
-					"replyId":replyId
+					"replyBoardNo":replyBoardNo,
+					"replyUserNo":replyUserNo
+			};
+			console.log(data); */
+
+			/* if(reply === '') {
+				alert('내용을 입력하세요!')
+				return;
+			} */
+
+			$.ajax({
+				type : 'post',
+				url : '<c:url value="/reply/replyRegist" />',
+				data : JSON.stringify({
+					"replyBoardNo" : boardNo,
+					"replyContent" : reply,
+					"replyUserNo" : replyUserNo
 				}),
-				dataType: 'text',
-				contentType: 'application/json',
-				success: function(data) {
+				dataType : 'text',
+				contentType : 'application/json',
+				success : function(data) {
 					console.log('통신 성공!: ' + data);
-					$('#boardNo').val('');
-					$('#reply').val('');
-					$('#replyId').val('');
+					$('#replyContent').val('');
 					getList(1, true);
 				},
-				error: function() {
+				error : function() {
 					alert('등록에 실패했습니다. 관리자에게 문의해주세요.');
 				}
-				
+
 			}); //ajax 끝.
-			
-			
+
 		});//댓글 등록 이벤트 끝.
-		
-		
+
+		let page = 1;
+		let strAdd = '';
+
+		getList(1, true);
+
+		function getList(pageNum, reset) {
+
+			const bno = '${list.boardNo}';
+			
+			$.getJSON(
+					"<c:url value='/reply/getList/' />" + bno + "/" + pageNum,
+					function(data) {
+						console.log(data);
+						
+						console.log("data " + data);
+						
+						const total = data.total;
+						const reply = data.replyList;
+						
+						console.log("total "+ total);
+						console.log("reply "+ reply);
+						
+						if(reset) {
+							strAdd = '';
+							page = 1; 
+						}
+						
+						console.log('현재 페이지: ' + page);
+						if(total <= page * 5) {
+							$('#moreList').css('display', 'none');
+						} else {
+							$('#moreList').css('display', 'block');
+						}
+						
+						if(data.length <= 0) return;
+						
+						for(let i=0; i<data.length; i++) {
+							strAdd +=
+				`<div class=col>
+				<div class="d-flex align-items-center mb-3">${replyList.userNickname}</div>
+				<div class="reply-content"> <strong class='left'></strong>
+					<small class='left'>${replyList.replyRegDate}</small> <a href='#' class='right'>
+					<textarea class="form-control" rows="3" id="reply">${replyList.replyContent}</textarea>
+				</div>
+				<p class='clearReply'>댓글</p>
+			</div>`; 
+						}
+						
+						$('#replyList').html(strAdd);
+					}
+					
+			)
+
+		}
+
 	})
-	
 </script>
 <%@ include file="../include/footer.jsp"%>

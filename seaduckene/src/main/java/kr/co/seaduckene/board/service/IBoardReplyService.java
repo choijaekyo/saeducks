@@ -1,15 +1,15 @@
 package kr.co.seaduckene.board.service;
 
 import java.util.List;
-import java.util.Map;
 
+import kr.co.seaduckene.board.command.BoardReplyListVO;
 import kr.co.seaduckene.board.command.BoardReplyVO;
 
 public interface IBoardReplyService {
 
 	void replyRegist(BoardReplyVO vo); //댓글 등록
 	
-	List<BoardReplyVO> getList(Map<String, Object> data); //목록 요청.
+	List<BoardReplyListVO> getList(int bno, int pageNum); //목록 요청.
 	
 	int getTotal(int replyBoardNo); //댓글 개수(페이징)
 	
