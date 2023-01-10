@@ -65,6 +65,7 @@
 	 });
 	
 	$(document).ready(function() {
+	jsonArray = [];
 		// https://programmer93.tistory.com/31 여기서 봄
     $('#summernote').summernote({
       height: 500,                 // 에디터 높이
@@ -91,7 +92,7 @@
 		// 그림첨부, 링크만들기, 동영상첨부
 		['insert',['picture']]
 		// 코드보기, 확대해서보기, 도움말
-		// ,['view', ['codeview']]
+		,['view', ['codeview']]
         ],
       // 추가한 글꼴
       fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
@@ -117,19 +118,26 @@
     });
     
     function uploadSummernoteImageFile(file, editor) {
-    	
-    	
-		data = new FormData();
-		data.append("file", file);
+
+		var data = new FormData();
+		data.append("file",file);
+
 		$.ajax({
 			data : data,
 			type : 'POST',
 			url : "/board/uploadSummernoteImageFile",
+			enctype: 'multipart/form-data',
+			cache: false,
 			contentType : false,
 			processData : false,
 			success : function(data) {
+				console.log(data);
+				
             	//항상 업로드된 파일의 url이 있어야 한다.
 				$(editor).summernote('insertImage', data.url);
+				
+				jsonArray.push(data["url"]);
+		
 			}
 		});
 	}

@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.multi.MultiProgressBarUI;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.util.PageVO;
+import kr.co.seaduckene.util.summernoteCopy;
 
 @Controller
 @RequestMapping("/board")
@@ -79,8 +82,17 @@ public class boardListController {
 	
 	//게시글을 DB 등록 요청
 	@PostMapping("/boardWrite")
-	public String boardWrite(BoardVO vo) {
+	public String boardWrite(BoardVO vo, @RequestParam(value="file[]") List<String> summerfile) throws Exception {
+//	public String boardWrite(BoardVO vo, @RequestParam(value="files") MultipartFile summerfile) throws Exception {
+		System.out.println(summerfile);
+		String boardContent;
+		boardContent = vo.getBoardContent();
+		String editordata = boardContent.replaceAll("summernoteImage","getImgCopy");
+		vo.setBoardContent(editordata);
 		service.write(vo);
+		
+		summernoteCopy copy = new summernoteCopy();
+		copy.summerCopy(summerfile);
 		
 		return "redirect:/board/boardList/" + vo.getBoardCategoryNo();
 	}
@@ -143,7 +155,7 @@ public class boardListController {
 		
 		JsonObject jsonObject = new JsonObject();
 		
-		String fileRoot = "C:/imgduck/board/";	//저장될 외부 파일 경로
+		String fileRoot = "C:/imgduck/temp/";	//저장될 외부 파일 경로
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
@@ -175,7 +187,7 @@ public class boardListController {
 	public ResponseEntity<byte[]> getImg(@PathVariable String savedFileName, HttpServletResponse response) {
 		System.out.println("미리보기 이미지 요청 호출!");
 		System.out.println("param: " + savedFileName);
-		String fileRoot = "C:/imgduck/board/";
+		String fileRoot = "C:/imgduck/temp/";
 		String filePath = fileRoot + savedFileName;
 		System.out.println("완성된 파일 경로: " + filePath);
 		File file = new File(filePath);
@@ -194,7 +206,27 @@ public class boardListController {
 		return result;
 		
 	}
-	
+
+	@GetMapping("/getImgCopy/{savedFileName}")
+	public ResponseEntity<byte[]> getImgCopy(@PathVariable String savedFileName, HttpServletResponse response){
+	  
+	  String fileRoot = "C:/imgduck/board/";
+	  String filePath = fileRoot + savedFileName; 
+	  File file = new File(filePath);
+		
+		ResponseEntity<byte[]> result = null;
+		HttpHeaders headers = new HttpHeaders();
+		
+		try {
+			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
 	
 	
