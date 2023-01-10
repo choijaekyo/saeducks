@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.plaf.multi.MultiProgressBarUI;
 
@@ -24,8 +25,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -82,12 +85,14 @@ public class boardListController {
 	
 	//게시글을 DB 등록 요청
 	@PostMapping("/boardWrite")
-	public String boardWrite(BoardVO vo, @RequestParam(value="file[]") List<String> summerfile) throws Exception {
+	public String boardWrite(BoardVO vo, @RequestParam(value="filename", required=false) List<String> summerfile) throws Exception {
 //	public String boardWrite(BoardVO vo, @RequestParam(value="files") MultipartFile summerfile) throws Exception {
-		System.out.println(summerfile);
+		System.out.println("글 등록 요청이 들어옴!");
+		System.out.println("summerFile: " + summerfile);
+		System.out.println("vo: " + vo);
 		String boardContent;
 		boardContent = vo.getBoardContent();
-		String editordata = boardContent.replaceAll("summernoteImage","getImgCopy");
+		String editordata = boardContent.replaceAll("summernoteImage","getImg");
 		vo.setBoardContent(editordata);
 		service.write(vo);
 		
@@ -184,7 +189,9 @@ public class boardListController {
 	
 	@GetMapping("/summernoteImage/{savedFileName}")
 	@ResponseBody
-	public ResponseEntity<byte[]> getImg(@PathVariable String savedFileName, HttpServletResponse response) {
+	public ResponseEntity<byte[]> getImg(@PathVariable String savedFileName, HttpServletRequest request, HttpServletResponse response) {
+		String reqUri = request.getRequestURI();
+		System.out.println("요청 URI: " + reqUri);
 		System.out.println("미리보기 이미지 요청 호출!");
 		System.out.println("param: " + savedFileName);
 		String fileRoot = "C:/imgduck/temp/";
@@ -198,7 +205,6 @@ public class boardListController {
 		try {
 			headers.add("Content-Type", Files.probeContentType(file.toPath()));
 			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -207,7 +213,7 @@ public class boardListController {
 		
 	}
 
-	@GetMapping("/getImgCopy/{savedFileName}")
+	@GetMapping("/getImg/{savedFileName}")
 	public ResponseEntity<byte[]> getImgCopy(@PathVariable String savedFileName, HttpServletResponse response){
 	  
 	  String fileRoot = "C:/imgduck/board/";
@@ -228,6 +234,22 @@ public class boardListController {
 		return result;
 	}
 	
+	//임시파일 삭제 요청
+	@PostMapping("/tempDelete")
+	public void tempDelete(@RequestBody List<String> list) {
+		System.out.println("임시 파일 삭제 요청!");
+		System.out.println("deleteFiles: " + list);
+		
+		for(String fileName : list) {
+			String tempRoot = "C:/imgduck/temp/";
+			File file = new File(tempRoot + fileName);
+			if(file.exists()) {
+				System.out.println("임시 파일 삭제 완료!");
+				file.delete();
+			}
+			
+		}	
+	}
 	
 	
 	

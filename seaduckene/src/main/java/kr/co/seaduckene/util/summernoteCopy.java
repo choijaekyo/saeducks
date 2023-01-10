@@ -1,5 +1,6 @@
 package kr.co.seaduckene.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class summernoteCopy {
 
-	public Map<String, Object> summerCopy(@RequestParam(value = "file[]") List<String> fileList) throws Exception {
+	public Map<String, Object> summerCopy(List<String> fileList) throws Exception {
 
+		System.out.println("1111111111111111111111111111" + fileList);
 		Map<String, Object> result = new HashMap<String, Object>();
 		// 원본 파일경로
 		for (int i = 0; i < fileList.size(); i++) {
@@ -33,6 +35,13 @@ public class summernoteCopy {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
+			File delFile = new File(oriFilePath);
+			
+			if(delFile.exists()) {
+				delFile.delete();
+			}
+			
 		}
 		result.put("SUCCESS", true);
 		return result;
