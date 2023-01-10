@@ -648,7 +648,7 @@
                
         
         /* 이메일 확인검사 */
-        $('#userEmail').keydown(function() {
+        $('#userEmail').keyup(function() {
         	$(this).css('color', 'black');
         	const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
@@ -798,9 +798,9 @@
 	// 비밀번호 변경 모달 열기
 	function showModiPwModal() {
 		$('.modal-submit-btn').text('비밀번호 변경하기');
-		$('.modal-submit-btn').attr('onclick', 'ModiPwModal()');
 		$('.modiPw').css('display', 'inline-block');
 		$('.modiPw').attr('disabled', false);
+		$('.modal-submit-btn').attr('onclick', 'ModiPwModal()');
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
@@ -809,6 +809,9 @@
 		$('#myPageModal').toggleClass('updateUser', false);
 		$('#myPageModal').toggleClass('deleteUser', false);
 		$('#myPageModal').show();
+		
+		$('.modal-submit-btn').onclick
+		
 	}
 	
 	// 수정 모달 열기
@@ -846,11 +849,24 @@
 	
 	// 비밀번호 변경 비동기 코드
 	function ModiPwModal() {
-		const currPw = $('#currPw').val();
-		const modiPw = $('#modiPw').val();
-		const checkPw = $('#checkPw').val();
+		const currPw = $('#currPw').val().trim();
+		const modiPw = $('#modiPw').val().trim();
+		const checkPw = $('#checkPw').val().trim();
 		const array = [currPw,modiPw,checkPw];
 		
+		if (currPw == '') {
+			alert('현재 비밀번호를 입력하세요.');
+			$('#currPw').focus();
+			return;
+		} else if($('#modiPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			alert('비밀번호를 다시 확인하세요.');
+			$('#modiPw').focus();
+			return;
+		} else if($('#checkPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			alert('비밀번호를 다시 확인하세요.');
+			$('#checkPw').focus();
+			return;
+		}
 		
 		$.ajax({
 			type:'POST',
@@ -861,15 +877,14 @@
 			success: function(result) {
 				console.log(result);
 				
-				if (result === '1') {
-					console.log('통신성공');
-					
-					/* $('#modal-submit').submit(); */
-				} else if(result ==='0') {
-					
-				} else {
-					
+				if (result === 'wrongPw') {
+					alert('현재 비밀번호 입력이 잘못되었습니다.\n 다시 입력해주세요.');
+					$('#currPw').focus();
+				} else if(result ==='PwChanged') {
+					alert('비밀번호가 성공적으로 변경되었습니다.');
+					location.href='${pageContext.request.contextPath}/user/userMyPage/1';
 				}
+					/* $('#modal-submit').submit(); */
 				
 			},
 			error: function(request, status, error) {
@@ -881,8 +896,8 @@
 	
 	// 유저 정보 변경 비동기 코드
 	function UpdateModal() {
-		const currPw = $('#currPw').val();
-		const checkPw = $('#checkPw').val();
+		const currPw = $('#currPw').val().trim();
+		const checkPw = $('#checkPw').val().trim();
 		const array = [currPw,checkPw];
 		
 		$.ajax({
@@ -894,16 +909,8 @@
 			success: function(result) {
 				console.log(result);
 				
-				if (result === '1') {
-					console.log('통신성공!');
-					
 					/* $('#modal-submit').submit(); */
-				} else if(result ==='0') {
-					
-				} else {
-					
-				}
-				
+
 				
 			},
 			error: function(request, status, error) {
@@ -915,8 +922,8 @@
 
 	// 계정 삭제 비동기 코드
 	function DeleteModal() {
-		const currPw = $('#currPw').val();
-		const checkPw = $('#checkPw').val();
+		const currPw = $('#currPw').val().trim();
+		const checkPw = $('#checkPw').val().trim();
 		const array = [currPw,checkPw];
 		
 		$.ajax({

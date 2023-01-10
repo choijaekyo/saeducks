@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -149,6 +151,7 @@ public class UserController {
 		userService.registUser(userVO);
 		
 		// 다른 곳에서 user정보가 필요할 시, 로그인 중인 세션에서 uservo 갖고 올 예정.
+		// - 안됨. userno에서 uservo를 가져와야 최신 유저 정보를 쓸 수 있다.
 		// 계정 생성중에는 세션 정보가 없다.
 		UserVO registeredUserVO = userService.getUserVo(userVO);
 		int registerdUserNo = registeredUserVO.getUserNo();
@@ -269,14 +272,36 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping("/pwModify")
-	public String pwModify(@RequestBody List<String> passwords) {
+	public String pwModify(@RequestBody List<String> passwords, HttpServletRequest request) {
 		log.info(passwords);
 		String userPw = passwords.get(0);
 		String modiPw = passwords.get(1);
 		String checkPw = passwords.get(2);
+		log.info(userPw);
+		log.info(modiPw);
+		log.info(checkPw);
 		
+		HttpSession session = request.getSession();
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
 		
-		return Integer.toString(1);
+		Map<String, String> pwkMap = new HashMap<String, String>();
+		pwkMap.put("userNo", Integer.toString(userNo));
+		pwkMap.put("userPw", userPw);
+		pwkMap.put("modiPw", modiPw);
+		pwkMap.put("checkPw", checkPw);
+		
+		if (userService.checkCurrPw(pwkMap) == 1) {
+			
+			if (modiPw.equals(checkPw)) {
+				userService.changePw(pwkMap);
+			}
+			
+			return "PwChanged";
+		} else {
+			
+			return "wrongPw";
+		}
+		
 	}
 	
 	@ResponseBody
@@ -326,7 +351,8 @@ public class UserController {
 	@GetMapping("/getProfile")
 	public ResponseEntity<byte[]> getProfile(HttpSession session) {
 		
-		UserVO loginUser = (UserVO) session.getAttribute("login");
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
+		UserVO loginUser = userService.getUserVoWithNo(userNo);
 		
 		File file = new File(loginUser.getUserProfilePath() + loginUser.getUserProfileFolder() + '/' +loginUser.getUserProfileFileName());
 		ResponseEntity<byte[]> result = null;
