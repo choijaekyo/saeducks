@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -148,10 +145,6 @@ public class UserController {
 	@GetMapping("/userJoinSuccess")
 	public void userJoinSuccess() {};
 	
-	@GetMapping("/userFindAccount")
-	public void userFindAccount() {
-		
-	}
 	// email인증
 	@ResponseBody
 	@PostMapping("/userConfEmail")
@@ -277,18 +270,30 @@ public class UserController {
 		return Integer.toString(1);
 	}
 	
-	@PostMapping("/findAccount")
-	public String findAccount (String userName, String userEmail, Model model) {
+	@GetMapping("/userFindAccount")
+	public void userFindAccount() {}
+	
+	@PostMapping("/userFindAccount")
+	public String userFindAccount (String userName, String userEmail, Model model) {
 		List<String> userIds = userService.findAccount(userName,userEmail);
 		model.addAttribute("userIds", userIds);
-		return "/user/userFindAccount2";
+		return "/user/userFindAccountRes";
 	}
 	
-	@GetMapping("/userFindAccount2")
+	@GetMapping("/userFindAccountRes")
 	public void successFindAccount() {}
 
 	@GetMapping("/userFindPw")
-	public void findPw() {}
+	public void userFindPw() {}
+	
+	@PostMapping("/userFindPw")
+	public String userFindPw(String userId, String userEmail) {
+		// mailService에서 임시비밀번호 보내기
+		String tmpPw = mailService.sendTmpPw(userEmail);
+		// mapper에서 임시비밀번호로 비밀번호 수정하기
+		userService.updatePw(userId, tmpPw);
+		return "/user/userLogin";
+	}
 	
 
 }

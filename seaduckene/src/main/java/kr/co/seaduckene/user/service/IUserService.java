@@ -46,4 +46,7 @@ public interface IUserService {
 	// 아이디 찾기
 	List<String> findAccount (String userName, String userEmail);
 	
+	// 임시 비밀번호로 정보수정
+	void updatePw (String userId, String tmpPw);
+	
 }

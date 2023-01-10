@@ -33,7 +33,8 @@
 		        <div class="hr"></div>
 		        <div class="foot-lnk">
 		          <a href="<c:url value='/user/userJoin'/>">회원가입</a> <br>
-		          <a href="<c:url value='/user/userFindAccount' />">아이디 찾기</a>
+		          <a href="<c:url value='/user/userFindAccount' />">아이디 찾기</a> <br>
+		          <a href="<c:url value='/user/userFindPw' />">비밀번호 찾기</a>
 		        </div>
 		      </div>
 		    </form>

@@ -43,5 +43,8 @@ public interface IUserMapper {
 	
 	// 아이디 찾기
 	List<String> findAccount (Map<String, Object> map);
+	
+	// 비밀번호 찾기
+	void updatePw(Map<String, Object> map);
 
 }

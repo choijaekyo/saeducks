@@ -1,6 +1,7 @@
 package kr.co.seaduckene.util;
 
 import java.util.Random;
+import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -16,7 +17,9 @@ public class CertificationMailService {
 	@Autowired
 	private JavaMailSender mailSender;
 	private int authNum;
+	private String tmpPw;
 	
+	// 메일 인증번호 만들기
 	public void makeAuthNum() {
 		Random random = new Random();
 		authNum = random.nextInt(8888888)+111111;
@@ -36,6 +39,28 @@ public class CertificationMailService {
 		
 		mailSend(setFrom, toMail, title, content);
 		return Integer.toString(authNum);
+	}
+	
+	// 임시 비밀번호 만들기
+	public void makeTmpPw() {
+		UUID uuid = UUID.randomUUID();
+		tmpPw = uuid.toString().substring(0,8);
+		System.out.println(tmpPw);
+	}
+
+	public String sendTmpPw(String email) {
+		makeTmpPw();
+		System.out.println("임시비밀번호: " + tmpPw);
+		String setFrom = "waytogo_816@naver.com"; // email-config에 설정한 발신용 이메일 주소
+		String toMail = email;
+		String title = "임시 비밀번호 입니다.";
+		String content = "<br><br>" +
+						"임시 비밀번호는 <strong> " + tmpPw + " </strong>입니다. <br>" + 
+						"위 비밀번호로 로그인 후 MyPage에서 꼭 비밀번호를 변경해 주세요.";
+		
+		mailSend(setFrom, toMail, title, content);
+		
+		return tmpPw;
 	}
 
 	private void mailSend(String setFrom, String toMail, String title, String content) {

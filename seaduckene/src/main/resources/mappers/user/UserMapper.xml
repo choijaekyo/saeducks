@@ -106,4 +106,9 @@
 		WHERE user_name = #{userName} AND user_email = #{userEmail}
 	</select>
 	
+	<select id="updatePw">
+		UPDATE duck_user SET user_pw = #{tmpPw}
+		WHERE user_id = #{userId}
+	</select>
+	
 </mapper>

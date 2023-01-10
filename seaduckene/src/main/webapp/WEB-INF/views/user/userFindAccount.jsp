@@ -24,7 +24,7 @@
 				<div class="col-sm-12">
 					<h1 class="find-account h1">아이디 찾기</h1>
 				</div>
-				<form class="findAccountForm" method="post" action="<c:url value='/user/findAccount' />">
+				<form class="findAccountForm" method="post" action="<c:url value='/user/userFindAccount' />">
 					<div class="middleBox col-sm-12">
 						<div class="offset-sm-1 col-sm-11">
 						
