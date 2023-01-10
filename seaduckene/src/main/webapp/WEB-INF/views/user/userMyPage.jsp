@@ -189,6 +189,7 @@
 				</div>
 			</div>
 				
+				<!-- 비밀번호 인증 모달 -->
 			<div class="modal" id="myPageModal">
 			  <div class="modal-dialog modalDesign">
 			    <div class="modal-content" id="myPage-modal-content">
@@ -534,6 +535,7 @@
 			$(this).attr('placeholder', '전화번호');			
 		});
 		
+		/* 비밀번호 모달 */
 		/*현재 비밀번호 형식 검사 스크립트*/
 		$('#currPw').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
@@ -611,13 +613,17 @@
         $('#userName').keyup(function() {
         	$(this).css('color', 'black');
 			const regex = /^[가-힣a-zA-Z]+$/;
-			
-			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-				
+
+			if ($(this).val() === '${user.userName}') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
-                $(this).css('border', '2px solid red');
-			}	
+				if (regex.test($(this).val())) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+					
+				} else {
+	                $(this).css('border', '2px solid red');
+				}	
+			}
         });
         
         /* 닉네임 확인검사 */
@@ -625,12 +631,15 @@
         	$(this).css('color', 'black');
 			const regex = /^[\w가-힣\_\!\?]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
 			
-			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-				
+			if ($(this).val() === '${user.userNickname}') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
-                $(this).css('border', '2px solid red');
-			}	
+				if (regex.test($(this).val())) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				} else {
+	                $(this).css('border', '2px solid red');
+				}					
+			}
         });
         
         /* 전화번호 확인검사 */
@@ -638,12 +647,16 @@
         	$(this).css('color', 'black');
 			const regex = /^(010)[0-9]{8}$/; /* 010포함 숫자 11자리 */
 			
-			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-				
+			if ($(this).val() === '${user.userTel}') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
-                $(this).css('border', '2px solid red');
-			}	
+				if (regex.test($(this).val())) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+					
+				} else {
+	                $(this).css('border', '2px solid red');
+				}					
+			}
         });
                
         
@@ -652,15 +665,25 @@
         	$(this).css('color', 'black');
         	const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
-			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-				
+			if ($(this).val() === '${user.userEmail}') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
-                $(this).css('border', '2px solid red');
-				 
+				if (regex.test($(this).val())) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				} else {
+	                $(this).css('border', '2px solid red');
+				}
 			}
-        	
         }); 
+        
+        /*  주소 확인 검사 */
+        $('#addrDetail').keyup(function() {
+			if ($(this).val() === '${userAddrList[0].addressDetail}') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
+			} else {
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+			}
+        });
         
         // 카테고리 추가
        	const $lastLi = document.querySelector('#add-category').previousElementSibling.previousElementSibling.previousElementSibling.lastElementChild;
@@ -788,6 +811,19 @@
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('addrZipNum').value = data.zonecode;
                 document.getElementById('addrBasic').value = addr;
+                
+                if (data.zonecode === '${userAddrList[0].addressZipNum}') {
+                	document.getElementById('addrZipNum').style.border = '1px solid rgb(206, 212, 218)';
+				} else {
+	                document.getElementById('addrZipNum').style.border = '2px solid rgb(34, 139, 34)';
+				}
+                
+                if (data.zonecode === '${userAddrList[0].addressBasic}') {
+                	document.getElementById('addrBasic').style.border = '1px solid rgb(206, 212, 218)';
+				} else {
+	                document.getElementById('addrBasic').style.border = '2px solid rgb(34, 139, 34)';
+				}
+                
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById('addrDetail').focus();
             }
@@ -823,6 +859,7 @@
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
+		$('#user-update-form').attr('action', '${pageContext.request.contextPath}/user/userUpdate');
 
 		$('#myPageModal').toggleClass('modiPw', false);
 		$('#myPageModal').toggleClass('updateUser', true);
@@ -884,8 +921,6 @@
 					alert('비밀번호가 성공적으로 변경되었습니다.');
 					location.href='${pageContext.request.contextPath}/user/userMyPage/1';
 				}
-					/* $('#modal-submit').submit(); */
-				
 			},
 			error: function(request, status, error) {
 				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
@@ -900,18 +935,33 @@
 		const checkPw = $('#checkPw').val().trim();
 		const array = [currPw,checkPw];
 		
+		if($('#currPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			alert('비밀번호를 다시 확인하세요.');
+			$('#currPw').focus();
+			return;
+		} else if($('#checkPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			alert('비밀번호를 다시 확인하세요.');
+			$('#checkPw').focus();
+			return;
+		}
+		
 		$.ajax({
 			type:'POST',
-			url:'${pageContext.request.contextPath}/user/userUpdate',
+			url:'${pageContext.request.contextPath}/user/userUpdateConfirm',
 			contentType: 'application/json',
 			dataType:'text',
 			data:JSON.stringify(array),
 			success: function(result) {
 				console.log(result);
 				
-					/* $('#modal-submit').submit(); */
-
-				
+				if (result == 1) {
+					if (confirm('현재 적용된 내용으로 모든 정보가 수정됩니다.\n수정하시겠습니까?')) {
+						$('#user-update-form').submit();
+					}
+				} else {
+					alert('현재 비밀번호 입력이 잘못되었습니다.\n 다시 입력해주세요.');
+					$('#currPw').focus();
+				}
 			},
 			error: function(request, status, error) {
 				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
@@ -938,7 +988,7 @@
 				if (result === '1') {
 					console.log('통신성공!!');
 					
-					/* $('#modal-submit').submit(); */
+					/* $('#user-update-form').submit(); */
 				} else if(result ==='0') {
 					
 				} else {

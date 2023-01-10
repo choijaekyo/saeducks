@@ -284,16 +284,16 @@ public class UserController {
 		HttpSession session = request.getSession();
 		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
 		
-		Map<String, String> pwkMap = new HashMap<String, String>();
-		pwkMap.put("userNo", Integer.toString(userNo));
-		pwkMap.put("userPw", userPw);
-		pwkMap.put("modiPw", modiPw);
-		pwkMap.put("checkPw", checkPw);
+		Map<String, String> pwMap = new HashMap<String, String>();
+		pwMap.put("userNo", Integer.toString(userNo));
+		pwMap.put("userPw", userPw);
+		pwMap.put("modiPw", modiPw);
+		pwMap.put("checkPw", checkPw);
 		
-		if (userService.checkCurrPw(pwkMap) == 1) {
+		if (userService.checkCurrPw(pwMap) == 1) {
 			
 			if (modiPw.equals(checkPw)) {
-				userService.changePw(pwkMap);
+				userService.changePw(pwMap);
 			}
 			
 			return "PwChanged";
@@ -305,12 +305,47 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/userUpdate")
-	public String userUpdate(@RequestBody List<String> passwords) {
+	@PostMapping("/userUpdateConfirm")
+	public String userUpdateConfirm(@RequestBody List<String> passwords, HttpServletRequest request) {
 		String userPw = passwords.get(0);
 		String checkPw = passwords.get(1);
 		
-		return Integer.toString(1);
+		HttpSession session = request.getSession();
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
+		
+		Map<String, String> pwMap = new HashMap<String, String>();
+		pwMap.put("userNo", Integer.toString(userNo));
+		pwMap.put("userPw", userPw);
+		pwMap.put("checkPw", checkPw);
+		
+		return Integer.toString(userService.checkCurrPw(pwMap));
+	}
+	
+	@PostMapping("/userUpdate")
+	public ModelAndView userUpdate(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
+		log.info(userVO); // 수정된 부분 확인 후 - border color 바뀐거로 구분하는 법 생각하기. db 수정
+		log.info(addressVO); // 수정된 부분 확인 후 db 수정
+		log.info(boardCategoryVO); // 삭제된 부분 조회 후 삭제 처리 먼저, 추가된 부분 확인 후 db favorite 추가. 
+		log.info(profilePic); // 기존 거 삭제하고 새로운  파일로 변경. filename null 체크
+		
+		/*
+			SELECT * from(
+			    SELECT ROWNUM rn, tbl.*
+			    from (
+			    select f.favorite_no, u.user_no, c.category_no , c.category_major_title, c.category_minor_title
+			    from favorite f JOIN duck_user u on f.favorite_user_no = u.user_no
+			                    JOIN category c on f.favorite_category_no = c.category_no
+			    ORDER BY c.category_major_title, c.category_minor_title
+			    )tbl
+			)
+			WHERE rn = 4; 
+			rn은 data-count의 값을 받아서 쓸 수 있으면 됨. 
+			추가 삭제 전에 먼저 조회해서  f.favorite_no 반환하고 favorite table에서 이 번호를 삭제하면 삭제 처리 될듯.
+		*/
+		
+		modelAndView.setViewName("redirect:/user/userMyPage/1");
+		
+		return modelAndView;
 	}
 	
 	@ResponseBody
