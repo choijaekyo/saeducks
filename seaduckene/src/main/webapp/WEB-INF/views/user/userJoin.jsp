@@ -67,7 +67,7 @@
 					<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="nickname-check"> <br>
    					<div class="input-group inputArea">
 		                <div class="col-md-12 col-sm-12 col-12">
-		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" required/>
+		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" maxlength="11" required/>
 	                    </div>
                		</div> <br>
 					

@@ -204,16 +204,6 @@
 	}
 }
 
-#userMyPage .update-container .category-button {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	border: 1px solid white;
-}
-
-#userMyPage .update-container .category-button:hover {
-	cursor: pointer;
-}
 
 #userMyPage .update-container select {
 	width: 200px; /* 원하는 너비설정 */

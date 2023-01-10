@@ -138,6 +138,7 @@ public class UserServiceImpl implements IUserService {
 		
 	}
 	
+	@Override
 	public void setAutoLogin(UserVO userVo) {
 		userMapper.setAutoLogin(userVo);
 	}

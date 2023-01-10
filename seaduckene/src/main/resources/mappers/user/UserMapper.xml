@@ -17,12 +17,12 @@
 	
 	<sql id="profile_column">
 		<if test="userProfilePath != null">, user_profile_path, user_profile_folder,
-		 user_profile_file_name, user_profile_file_real_name, user_email</if>
+		 user_profile_file_name, user_profile_file_real_name</if>
 	</sql>
 	
 	<sql id="profile_value">
 		<if test="userProfilePath != null">, #{userProfilePath}, #{userProfileFolder},
-		 #{userProfileFileName}, #{userProfileFileRealName}, #{userEmail}</if>
+		 #{userProfileFileName}, #{userProfileFileRealName}</if>
 	</sql>
 	
 	<sql id="email_column">
@@ -97,12 +97,8 @@
 		ORDER BY u.user_no, c.category_major_title, c.category_minor_title
 	</select>
 	
-<!-- 	<select id="getUserAddr" resultType="address">
-      SELECT * FROM address WHERE address_user_no = #{userNo} ORDER BY address_representative DESC
-	</select> -->
-	
-		<select id="getUserAddr" resultType="address">
-      SELECT * FROM address WHERE address_user_no = #{userNo}
+	<select id="getUserAddr" resultType="address">
+		SELECT * FROM address WHERE address_user_no = #{userNo} ORDER BY address_representative DESC
 	</select>
 	
 	<select id="findAccount" resultType="String">

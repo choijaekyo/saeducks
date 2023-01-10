@@ -35,9 +35,11 @@ public class AutoLoginHandler implements HandlerInterceptor {
 		if (autoLoginCookie != null) {
 			userVo = userService.getUserBySessionId(autoLoginCookie.getValue());;
 		}
-				 
+	
 		log.info("autoLogin userVo: " + userVo);
 
+		log.info(request.getRequestURL().toString());
+		
 		// 로그인 중
 		if (loginUser != null) {
 			// 이전에 자동로그인 선택함. == 쿠키 있음 <- userVo 변수 사용 가능.
@@ -53,6 +55,7 @@ public class AutoLoginHandler implements HandlerInterceptor {
 				}
 			} else { // 이전에 자동로그인 선택한 정보 없음. == 쿠키 없음.
 				// 이전에 자동로그인 해제하지 않음.
+				log.info(loginUser.getUserSessionId());
 				if (loginUser.getUserSessionId() != null) {
 					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter out = response.getWriter();
