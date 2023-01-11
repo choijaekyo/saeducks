@@ -192,8 +192,7 @@
 							            <div class="modal-header pt-3 myPage-modal-header">
 							               <h4 class="modal-title mx-auto">주소록</h4>
 							            </div>
-							            <div class="modal-body myPage-modal-body">
-								            <form action="" method="post" id="address-outter-form">
+							            <div class="modal-body myPage-modal-body" id="address-outter"> 
 						                      <c:forEach var="addr" items="${userAddrList}" varStatus="status">
 						                        <div>
 						                        	<hr>
@@ -216,7 +215,6 @@
 						                        </div>
 						                        <br>
 						                     </c:forEach> 
-							               </form>
 							            </div>
 							            <hr class="btn-hr">
 							            <div class="modal-footer myPage-modal-footer">
@@ -226,20 +224,21 @@
 						                        	<hr>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${userAddrList[status.index].addressBasic}" readonly />
+									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="" readonly />
 									                    </div>
 							                		</div>	
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="${userAddrList[status.index].addressDetail}"/>
+									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value=""/>
 									                    </div>
 							                		</div>	
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${userAddrList[status.index].addressZipNum}" readonly />
+									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="" readonly />
 									                    </div>
 							                		</div>	<br>
-													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기"> <br>
+													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
+													<input type="button" class="btn btn-sm btn-b btn-danger address-del" value="삭제"> <br>
 						                        </div>					               
 							               <button type="button" class="btn btn-primary" >확인</button>
 							               <button type="button" class="btn btn-light modal-cancel" onclick="hideAddrModal()" data-bs-dismiss="modal">닫기</button>
@@ -731,7 +730,7 @@
         	
         });
      	   
-    	 // 카테고리 제거
+    	// 카테고리 제거
         $('.category-wrap').on('click', '#del-category' ,function(e) {
         	console.log(this);
         	console.log($(this).css('opacity'));
@@ -760,14 +759,19 @@
 	   		console.log($addrDiv);
 	   		const $br = document.createElement('br');
 	   		
+	   		$($addrDiv).css('display', 'block');
+	   		
 			$fragNode.appendChild($addrDiv);
 			$fragNode.appendChild($br);
 			
-	   		$('#address-outter-form').append($fragNode);
-    	
-    	
+	   		$('#address-outter').append($fragNode);
    		});
     	
+    	// 주소록 모달 내 주소 삭제
+    	$('#address-outter').on('click', '.address-del' , function(e) {
+			this.parentNode.nextElementSibling.remove();
+			this.parentNode.remove();
+		});
 		
 	}); // end jQuery
 	

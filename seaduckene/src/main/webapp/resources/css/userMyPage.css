@@ -307,20 +307,18 @@
 	z-index: 1000;
 }
 
-
 #myPageModal .modalDesign .myPage-modal-body,
 #myPageModal .modalDesign .myPage-modal-footer,
 #addrListModal .modalDesign .myPage-modal-body,
 #addrListModal .modalDesign .myPage-modal-footer {
 	text-align: center;
 	border-top: none;
+	justify-content: center;
 }
 
-#myPageModal .modalDesign .myPage-modal-body,
-#myPageModal .modalDesign .myPage-modal-footer,
-#addrListModal .modalDesign .myPage-modal-body,
-#addrListModal .modalDesign .myPage-modal-footer {
-	justify-content: center;
+#addrListModal .modalDesign .myPage-modal-body {
+	overflow: auto;
+	height: 270px;
 }
 
 #addrListModal .modalDesign .myPage-modal-body hr {
