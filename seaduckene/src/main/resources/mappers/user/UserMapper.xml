@@ -33,19 +33,12 @@
 		<if test="userEmail != null">, #{userEmail}</if>
 	</sql>
 	
-	<!-- <resultMap type="kr.co.seaduckene.user.command.UserCategories" id="userCategories">
-		<result property="userNo" column="user_no" />
-		<collection property="categoryMajorList" resultMap="userMajorList"/>
-		<collection property="categoryMinorList" resultMap="userMinorList"/>
-	</resultMap>
-	
-	<resultMap type="String" id="userMajorList">
-		<result property="categoryMajorTitle" column="category_major_title"/>
-	</resultMap>
-
-	<resultMap type="String" id="userMinorList">
-		<result property="categoryMinorTitle" column="category_minor_title"/>
-	</resultMap> -->
+	<sql id="user_update_profile">
+		<if test="userProfilePath != null">
+		, user_profile_path = #{userProfilePath}, user_profile_folder = #{userProfileFolder} 
+		, user_profile_file_name = #{userProfileFileName}, user_profile_file_real_name = #{userProfileFileRealName}
+		 </if>
+	</sql>
 	
 	
 	<insert id="registUser">
@@ -133,6 +126,12 @@
 	
 	<update id="changePw">
 		UPDATE duck_user SET user_pw = #{modiPw} WHERE user_no = #{userNo}
+	</update>
+	
+	<update id="updateUserInfo">
+		UPDATE duck_user SET user_nickname = #{userNickname}, user_name = #{userName}, user_tel = #{userTel}, 
+											user_email = #{userEmail} <include refid="user_update_profile" />
+		WHERE user_id = #{userId}
 	</update>
 	
 </mapper>

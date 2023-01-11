@@ -91,6 +91,7 @@
 							<p>아이디</p>
 							<div class="input-group inputArea">
 			                    <div class="col-md-12 col-sm-12 col-12">
+			                    	<input name="userNo" value="${user.userNo}" type="hidden">
 			                        <input name="userId" class="form-control join-input" type="text" placeholder="아이디" value="${user.userId}" id="userId" readonly />
 			                    </div>
 		                	</div>
@@ -382,6 +383,8 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
+
+let nicknameCheck = true;
 	$(function() {
 		
 		 $('.title').on('click', 'li', function(e) {
@@ -533,6 +536,58 @@
 				}
 		}); //end 인증번호비교
 		
+		//let nicknameCheck = false; 맨위 jQuery 밖에 선언
+		// 닉네임 중복 확인.
+		$('#nickname-check').click(function() {
+			const userNickname = $('#userNickname').val();
+			console.log();
+			
+			if(userNickname === '') {
+				nicknameCheck = false;
+				$('#userNickname').focus();
+				alert('닉네임를 입력하세요.');
+				return;
+			} else if($('#userNickname').css('border-block-color') === 'rgb(255, 0, 0)') {
+				nicknameCheck = false;
+				$('#userNickname').focus();
+				alert('유효하지 않는 닉네임입니다.');
+				return;				
+			}
+			
+			$.ajax({
+				type:'POST',
+				url:'${pageContext.request.contextPath}/user/checkNickname',
+				contentType:'application/json',
+				dataType: 'text',
+				data:userNickname,
+				success: function(result) {
+					if (result === 'duplicated') {
+						$('#userNickname').focus();
+						
+						if ('${user.userNickname}' === userNickname) {
+							nicknameCheck = true;
+							$('#userNickname').css('border', '1px solid rgb(206, 212, 218)');
+							alert('본인이 사용 중인 닉네임은 중복확인할 수 없습니다.');
+						} else {
+							nicknameCheck = false;
+							$('#userNickname').css('border', '2px solid red');
+							alert('이 닉네임은 이미 사용 중입니다.');
+						}
+					} else {
+						nicknameCheck = true;
+						$('#userNickname').css('border', '2px solid rgb(34, 139, 34)');
+						alert('사용가능한 닉네임입니다!');
+					}
+				},
+				error: function() {
+					nicknameCheck = false;
+					$('#userNickname').css('border', '2px solid red');
+					alert('닉네임 확인에 실패했습니다.\n관리자에게 문의해주세요.');						
+				}
+				
+			});
+		});
+		
 		$('#currPw').hover(function() {
 			$(this).attr('placeholder', '영문 대/소문자, 숫자 8 ~ 16 자리');
 		}, function() {
@@ -666,8 +721,10 @@
 			const regex = /^[\w가-힣\_\!\?]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
 			
 			if ($(this).val() === '${user.userNickname}') {
+				nicknameCheck = true;
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
+				nicknameCheck = false;
 				if (regex.test($(this).val())) {
 	                $(this).css('border', '2px solid rgb(34, 139, 34)');
 				} else {
@@ -1101,7 +1158,12 @@
 			$('#userName').focus();
 			alert('이름을 다시 확인하세요.');
 			return;
-		} else if($('#userNickname').css('border-block-color') === 'rgb(255, 0, 0)') {
+		} else if(!nicknameCheck) {
+			hidePwModal();
+			$('#userNickname').focus();
+			alert('닉네임 중복확인이 필요합니다.');
+			return;
+		} else if($('#userNickname').css('border-block-color')  === 'rgb(255, 0, 0)' ) {
 			hidePwModal();
 			$('#userNickname').focus();
 			alert('닉네임을 다시 확인하세요.');

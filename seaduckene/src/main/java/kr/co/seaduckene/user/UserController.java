@@ -186,8 +186,8 @@ public class UserController {
 		modelAndView.addObject("toggle", head);
 		
 		modelAndView.setViewName("/user/userMyPage");
-		UserVO vo = (UserVO)session.getAttribute("login");
-		int userNo = vo.getUserNo();
+		int userNo = ((UserVO)session.getAttribute("login")).getUserNo();
+		UserVO userVo = userService.getUserVoWithNo(userNo);
 		List<ProductBasketVO> bvo = userService.getBasket(userNo);
 		int total = 0;
 		for(ProductBasketVO b : bvo) {
@@ -195,7 +195,7 @@ public class UserController {
 		}
 		modelAndView.addObject("basket", bvo);
 		modelAndView.addObject("total", total);
-		modelAndView.addObject("user", vo);
+		modelAndView.addObject("user", userVo);
 		
 		log.info(userService.getCategories());
 		
@@ -356,6 +356,41 @@ public class UserController {
 			where rn = 1;		
 		
 		*/
+		
+		if (profilePic.getSize() != 0) {
+			SimpleDateFormat simple = new SimpleDateFormat("yyyyMMdd");
+			String today = simple.format(new Date());
+			
+			String fileRealName = profilePic.getOriginalFilename(); // 파일 원본명
+			String profilePath = "c:/imgduck/user/";
+			
+			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+			
+			UUID uuid = UUID.randomUUID();
+			String uu = uuid.toString().replace("-","");
+			
+			
+			userVO.setUserProfileFileRealName(fileRealName);
+			userVO.setUserProfilePath(profilePath);
+			userVO.setUserProfileFolder(today);
+			userVO.setUserProfileFileName(uu + fileExtension); 
+			
+			String uploadFolder = profilePath + today;
+			File folder = new File(uploadFolder);
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
+			File saveFile = new File(uploadFolder+"/"+uu+fileExtension);
+			try {
+				profilePic.transferTo(saveFile);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// user 정보 업데이트
+		userService.updateUserInfo(userVO);
+		// 이전의 프로필 사진을 db에서 지우기. 위 파일 생성에서 지우면 될듯
 		
 		modelAndView.setViewName("redirect:/user/userMyPage/1");
 		

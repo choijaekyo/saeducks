@@ -64,4 +64,7 @@ public interface IUserMapper {
 	
 	// 입력한 번호로 비밀번호 변경
 	void changePw(Map<String, String> pwkMap);
+	
+	// 유저 정보 변경 
+	void updateUserInfo(UserVO userVo);
 }

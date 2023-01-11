@@ -167,5 +167,10 @@ public class UserServiceImpl implements IUserService {
 	public void changePw(Map<String, String> pwkMap) {
 		userMapper.changePw(pwkMap);
 	}
+	
+	@Override
+	public void updateUserInfo(UserVO userVo) {
+		userMapper.updateUserInfo(userVo);
+	}
 
 }
