@@ -36,20 +36,17 @@ public class boardReplyController {
 	//페이징 추가된 댓글 목록
 	
 	@GetMapping("/getList/{bno}/{pageNum}")
-	public List<BoardReplyListVO> getList(@PathVariable int bno, @PathVariable int pageNum) {
+	public Map<String, Object> getList(@PathVariable int bno, @PathVariable int pageNum) {
 		
-		/*
-		 * List<BoardReplyListVO> list = service.getList(bno, pageNum); int total =
-		 * service.getTotal(bno);
-		 */
+		List<BoardReplyListVO> list = service.getList(bno, pageNum);
+		int total = service.getTotal(bno);
 		
-		/* System.out.println("list 내용: " + list); */
-		/*
-		 * Map<String, Object> map = new HashMap<>(); map.put("replyList", list);
-		 * map.put("total", total);
-		 */
+		System.out.println("list 내용: " + list);
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		map.put("total", total);
 		 
-		return service.getList(bno, pageNum);
+		return map;
 	}
 	
 	//댓글 수정(비밀번호 확인 포함)

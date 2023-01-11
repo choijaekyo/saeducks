@@ -10,8 +10,8 @@ public interface IBoardReplyMapper {
 	
 	void replyRegist(BoardReplyVO vo); //댓글 등록
 	
-	List<BoardReplyListVO> getList(Map<String, Object> data); //목록 요청.
-	
+	List<BoardReplyListVO> getList(Map<String, Object> data); //목록 요청
+		
 	int getTotal(int replyBoardNo); //댓글 개수(페이징)
 	
 	int pwCheck(BoardReplyVO vo); //비밀번호 확인
