@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -149,6 +151,7 @@ public class UserController {
 		userService.registUser(userVO);
 		
 		// 다른 곳에서 user정보가 필요할 시, 로그인 중인 세션에서 uservo 갖고 올 예정.
+		// - 안됨. userno에서 uservo를 가져와야 최신 유저 정보를 쓸 수 있다.
 		// 계정 생성중에는 세션 정보가 없다.
 		UserVO registeredUserVO = userService.getUserVo(userVO);
 		int registerdUserNo = registeredUserVO.getUserNo();
@@ -269,23 +272,94 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping("/pwModify")
-	public String pwModify(@RequestBody List<String> passwords) {
+	public String pwModify(@RequestBody List<String> passwords, HttpServletRequest request) {
 		log.info(passwords);
 		String userPw = passwords.get(0);
 		String modiPw = passwords.get(1);
 		String checkPw = passwords.get(2);
+		log.info(userPw);
+		log.info(modiPw);
+		log.info(checkPw);
 		
+		HttpSession session = request.getSession();
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
 		
-		return Integer.toString(1);
+		Map<String, String> pwMap = new HashMap<String, String>();
+		pwMap.put("userNo", Integer.toString(userNo));
+		pwMap.put("userPw", userPw);
+		pwMap.put("modiPw", modiPw);
+		pwMap.put("checkPw", checkPw);
+		
+		if (userService.checkCurrPw(pwMap) == 1) {
+			
+			if (modiPw.equals(checkPw)) {
+				userService.changePw(pwMap);
+			}
+			
+			return "PwChanged";
+		} else {
+			
+			return "wrongPw";
+		}
+		
 	}
 	
 	@ResponseBody
-	@PostMapping("/userUpdate")
-	public String userUpdate(@RequestBody List<String> passwords) {
+	@PostMapping("/userUpdateConfirm")
+	public String userUpdateConfirm(@RequestBody List<String> passwords, HttpServletRequest request) {
 		String userPw = passwords.get(0);
 		String checkPw = passwords.get(1);
 		
-		return Integer.toString(1);
+		HttpSession session = request.getSession();
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
+		
+		Map<String, String> pwMap = new HashMap<String, String>();
+		pwMap.put("userNo", Integer.toString(userNo));
+		pwMap.put("userPw", userPw);
+		pwMap.put("checkPw", checkPw);
+		
+		return Integer.toString(userService.checkCurrPw(pwMap));
+	}
+	
+	@PostMapping("/userUpdate")
+	public ModelAndView userUpdate(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
+		log.info("/userUpdate");
+		log.info(userVO); // 수정된 부분 확인 후 - border color 바뀐거로 구분하는 법 생각하기. db 수정
+		log.info(addressVO); // 수정된 부분 확인 후 db 수정
+		log.info(boardCategoryVO); // 삭제된 부분 조회 후 삭제 처리 먼저, 추가된 부분 확인 후 db favorite 추가. 
+		log.info(profilePic); // 기존 거 삭제하고 새로운  파일로 변경. filename null 체크
+		
+		/*
+			SELECT * from(
+			    SELECT ROWNUM rn, tbl.*
+			    from (
+			    select f.favorite_no, u.user_no, c.category_no , c.category_major_title, c.category_minor_title
+			    from favorite f JOIN duck_user u on f.favorite_user_no = u.user_no
+			                    JOIN category c on f.favorite_category_no = c.category_no
+			    ORDER BY c.category_major_title, c.category_minor_title
+			    )tbl
+			)
+			WHERE rn = 4; 
+			rn은 data-count의 값을 받아서 쓸 수 있으면 됨. 
+			추가 삭제 전에 먼저 조회해서  f.favorite_no 반환하고 favorite table에서 이 번호를 삭제하면 삭제 처리 될듯.
+		*/
+		/* 순서 컬럼이 초과된 주소록 조회 문
+			select * from(
+			    SELECT ROWNUM rn, tbl.*
+			    from
+			    (
+			    SELECT * FROM address
+			    WHERE address_user_no = 1
+			    ORDER BY address_representative DESC
+			    ) tbl
+			)
+			where rn = 1;		
+		
+		*/
+		
+		modelAndView.setViewName("redirect:/user/userMyPage/1");
+		
+		return modelAndView;
 	}
 	
 	@ResponseBody
@@ -326,7 +400,8 @@ public class UserController {
 	@GetMapping("/getProfile")
 	public ResponseEntity<byte[]> getProfile(HttpSession session) {
 		
-		UserVO loginUser = (UserVO) session.getAttribute("login");
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
+		UserVO loginUser = userService.getUserVoWithNo(userNo);
 		
 		File file = new File(loginUser.getUserProfilePath() + loginUser.getUserProfileFolder() + '/' +loginUser.getUserProfileFileName());
 		ResponseEntity<byte[]> result = null;
@@ -340,6 +415,16 @@ public class UserController {
 		return result;
 	}
 	
+	@ResponseBody
+	@PostMapping("/changeMainAddress")
+	public ModelAndView changeMainAddress(@RequestBody String addressIndex, ModelAndView modelAndView) {
+		log.info(addressIndex);
+		
+		
+		
+		
+		return null;
+	}
 	
 	
 

@@ -59,6 +59,10 @@
 		SELECT * FROM duck_user WHERE user_id = #{userId} AND user_pw = #{userPw}
 	</select>
 	
+	<select id="getUserVoWithNo" resultType="user">
+		SELECT * FROM duck_user WHERE user_no = #{userNo}
+	</select>
+	
 	<select id="getCategories" resultMap="categories">
 		SELECT category_major_title, category_minor_title FROM category
 		ORDER BY category_major_title, category_minor_title 
@@ -121,6 +125,14 @@
 	
 	<update id="undoAutoLogin">
 		UPDATE duck_user SET user_session_id = null, user_cookie_expire_date = null WHERE user_no = #{userNo}
+	</update>
+	
+	<select id="checkCurrPw" resultType="int">
+		SELECT COUNT(*) FROM duck_user WHERE user_no = #{userNo} AND user_pw = #{userPw}
+	</select>
+	
+	<update id="changePw">
+		UPDATE duck_user SET user_pw = #{modiPw} WHERE user_no = #{userNo}
 	</update>
 	
 </mapper>

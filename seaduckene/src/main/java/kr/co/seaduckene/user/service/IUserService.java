@@ -1,6 +1,7 @@
 package kr.co.seaduckene.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
@@ -15,6 +16,9 @@ public interface IUserService {
 	
 	// 유저 정보 가져오기
 	UserVO getUserVo(UserVO userVO);
+	
+	// userNo로 유저 정보 가져오기 
+	UserVO getUserVoWithNo(int userNo);
 	
 	// 유저 아이디 중복 확인
 	int checkId(String userId);
@@ -57,4 +61,11 @@ public interface IUserService {
 	
 	// 자동 로그인 해제
 	void undoAutoLogin(int userNo);
+	
+	// 현재 입력한 비밀번호 검증 
+	int checkCurrPw(Map<String, String> pwkMap);
+	
+	// 입력한 번호로 비밀번호 변경
+	void changePw(Map<String, String> pwkMap);
+	
 }
