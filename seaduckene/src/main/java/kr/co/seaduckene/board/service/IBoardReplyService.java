@@ -1,6 +1,7 @@
 package kr.co.seaduckene.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.seaduckene.board.command.BoardReplyListVO;
 import kr.co.seaduckene.board.command.BoardReplyVO;

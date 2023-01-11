@@ -85,7 +85,6 @@
 				<br>
 				<div>
 					<button type="button" id="replyRegist" class="right btn btn-info">등록하기</button>
-					<button type="button" id="replyCancel">취소하기</button>
 				</div>
 			</div>
 			<hr>
@@ -96,12 +95,12 @@
 				<div class="reply-content"> <strong class='left'>nick</strong>
 					<small class='left'>date</small> <a href='#' class='right'>
 					<textarea class="form-control" rows="3" id="reply"></textarea>
-					<span class='glyphicon glyphicon-pencil'></span>수정</a> <a href='#' class='right'>
-					<span class='glyphicon glyphicon-remove'></span>삭제</a>
+					<a href='#' class='right'><span class='glyphicon glyphicon-pencil'></span>수정</a> 
+					<a href='#' class='right'><span class='glyphicon glyphicon-remove'></span>삭제</a>
 				</div>
 				<p class='clearReply'>댓글</p>
-			</div> -->
-			<!-- <button type="button" class="form-control" id="moreList">더보기</button> -->
+			</div>
+			<button type="button" class="form-control" id="moreList">더보기</button> -->
 		</div>
 	</div>
 </div>
@@ -191,7 +190,7 @@
 				contentType : 'application/json',
 				success : function(data) {
 					console.log('통신 성공!: ' + data);
-					$('#replyContent').val('');
+					$('#reply').val('');
 					getList(1, true);
 				},
 				error : function() {
@@ -201,7 +200,26 @@
 			}); //ajax 끝.
 
 		});//댓글 등록 이벤트 끝.
-
+		
+		//댓글 등록 키 이벤트
+		$('#reply').keyup(function(e) {
+			if(e.key === 'Enter') {
+				$('#replyRegist').click();
+			} else {
+				return;
+			}
+		}); //키이벤트 끝
+	
+		$('#reply').click(function() {
+			if('${login == null}') {
+				alert('로그인을 해주세요.');
+				$('#replyRegist').hide();
+				return;
+			} else {
+				$('#replyRegist').show();
+			}
+		});
+		
 		let page = 1;
 		let strAdd = '';
 
@@ -214,15 +232,15 @@
 			$.getJSON(
 					"<c:url value='/reply/getList/' />" + bno + "/" + pageNum,
 					function(data) {
-						console.log(data);
+						console.log('ㅎㅎㅎ', data);
 						
-						console.log("data " + data);
-						
-						const total = data.total;
-						const reply = data.replyList;
+						console.log("data " + data.total);
+							
+						let total = data.total;
+						let replyList = data.list;
 						
 						console.log("total "+ total);
-						console.log("reply "+ reply);
+						console.log("reply ", replyList);
 						
 						if(reset) {
 							strAdd = '';
@@ -230,32 +248,56 @@
 						}
 						
 						console.log('현재 페이지: ' + page);
+						console.log('인규: ' + replyList.userNickname);
 						if(total <= page * 5) {
 							$('#moreList').css('display', 'none');
 						} else {
 							$('#moreList').css('display', 'block');
 						}
-						
+						console.log("최고인규" + data.length);
 						if(data.length <= 0) return;
 						
-						for(let i=0; i<data.length; i++) {
+						for(let i=0; i<replyList.length ; i++) {
 							strAdd +=
-				`<div class=col>
-				<div class="d-flex align-items-center mb-3">${replyList.userNickname}</div>
-				<div class="reply-content"> <strong class='left'></strong>
-					<small class='left'>${replyList.replyRegDate}</small> <a href='#' class='right'>
-					<textarea class="form-control" rows="3" id="reply">${replyList.replyContent}</textarea>
-				</div>
-				<p class='clearReply'>댓글</p>
-			</div>`; 
+				`<div class="col">
+					<div class="d-flex align-items-center mb-3"></div>
+						<div class="reply-content"> <strong class='left'>`+ '${login.userNickname}' +`</strong> &nbsp&nbsp&nbsp
+							<small class='left'>` + timeStamp(replyList[i].replyRegDate) + `</small> <a href='` + replyList[i].replyNo + `' class='right'>
+							<textarea class="form-control" rows="3" id="reply">` + replyList[i].replyContent + `</textarea>
+						</div>
+					
+				</div>`; 
 						}
 						
 						$('#replyList').html(strAdd);
-					}
-					
+					}		
 			)
-
-		}
+		} //get List끝
+		
+		//날짜 처리 함수
+		function timeStamp(millis) {
+			const date = new Date(); //현재 날짜
+			//현재 날짜를 밀리초로 변환 - 등록일 밀리초 -> 시간 차
+			const gap = date.getTime() - millis;
+			
+			let time; //리턴할 시간
+			if(gap < 30 * 30 * 12 * 10) { //1일 미만일 경우
+				if(gap < 30 * 30 * 10) { //1시간 미만일 경우
+					time = '방금 전';
+				} else {
+					time = parseInt(gap / (1 * 30 * 30)) + '시간 전';
+				}
+			} else { //1일 이상인 경우
+				const regDate = new Date(millis);
+				const year = regDate.getFullYear(); //년
+				const month = regDate.getMonth() + 1; //월
+				const day = regDate.getDate(); //일
+				
+				time = year + '월' + month + '년' + day + '일';
+			}
+			
+			return time;
+		}//날짜 처리함수 끝
 
 	})
 </script>
