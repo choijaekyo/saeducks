@@ -204,17 +204,17 @@
 						                        	</c:if>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${userAddrList[status.index].addressBasic}" readonly />
+									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${addr.addressBasic}" readonly />
 									                    </div>
 							                		</div>	
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="${userAddrList[status.index].addressDetail}" />
+									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="${addr.addressDetail}" />
 									                    </div>
 							                		</div>	
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${userAddrList[status.index].addressZipNum}" readonly />
+									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${addr.addressZipNum}" readonly />
 									                    </div>
 							                		</div>	<br>
 													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기"> <br>
@@ -755,11 +755,16 @@
     		console.log(e);
     	
     		searchAddress(e);
+    		//  커서를 상세주소 필드로 이동한다. - 주소 중복 제거 change 이벤트 때문에 포커스 다시 입힘.
+    		e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.focus();
    		});
     	
     	// 주소록 모달 내 주소 추가
+    	let newAddrIndex = +('${userAddrList.size()}') + 1;
     	$('.address-add').click(function(e) {
 	
+    		console.log(newAddrIndex);
+    		
 	   		const $fragNode = document.createDocumentFragment();
 	   		const $addrDiv = this.nextElementSibling.cloneNode(true);
 	   		console.log($addrDiv);
@@ -767,6 +772,7 @@
 	   		
 	   		$($addrDiv).css('display', 'block');
 	   		$($addrDiv).addClass('address-infos');
+	   		$($addrDiv).data('index', newAddrIndex);
 	   		
 	   		$($addrDiv.querySelector('input.addrBasic')).attr('name', 'addressBasic');
 	   		$($addrDiv.querySelector('input.addrDetail')).attr('name', 'addressDetail');
@@ -776,6 +782,7 @@
 			$fragNode.appendChild($br);
 			
 	   		$('#address-outter').append($fragNode);
+	   		newAddrIndex = newAddrIndex + 1;
    		});
     	
     	// 주소록 모달 내 주소 삭제
@@ -809,7 +816,48 @@
     	});
     	
     	// 주소록 모달에서 addressDetail keyup 시 중복 체크 이벤트 추가
-		
+    	$('#address-outter').on('keyup', 'input.addrDetail', function(e) {
+    		
+    		console.log($('.address-infos'));
+ 			 for (let $addressInfo of $('.address-infos')) {
+	    		if ($(this.parentNode.parentNode.parentNode).data('index') == $($addressInfo).data('index')) {
+					continue;	
+				}
+	    		console.log($($addressInfo.querySelector('input.addrBasic')).val());
+	    		console.log(this.parentNode.parentNode.previousElementSibling.firstElementChild.firstElementChild.value);
+				if ($($addressInfo.querySelector('input.addrBasic')).val() === this.parentNode.parentNode.previousElementSibling.firstElementChild.firstElementChild.value
+						&& $($addressInfo.querySelector('input.addrZipNum')).val() === this.parentNode.parentNode.nextElementSibling.firstElementChild.firstElementChild.value
+						&& $($addressInfo.querySelector('input.addrDetail')).val().trim() === this.value.trim()) {
+
+					alert('이미 입력된 주소입니다.');
+					this.value = '';
+					return;						
+				}
+			}  	
+ 			 
+   		});
+
+    	// 주소록 모달에서 addressBasic change 시 중복 체크 이벤트 추가
+    	$('#address-outter').on('blur', 'input.addrBasic', function(e) {
+    		
+    		console.log($('.address-infos'));
+ 			 for (let $addressInfo of $('.address-infos')) {
+	    		if ($(this.parentNode.parentNode.parentNode).data('index') == $($addressInfo).data('index')) {
+					continue;	
+				}
+				if ($($addressInfo.querySelector('input.addrDetail')).val() === this.parentNode.parentNode.nextElementSibling.firstElementChild.firstElementChild.value
+						&& $($addressInfo.querySelector('input.addrZipNum')).val() === this.parentNode.parentNode.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value
+						&& $($addressInfo.querySelector('input.addrBasic')).val().trim() === this.value.trim()) {
+
+					alert('이미 입력된 주소입니다.');
+					this.value = '';
+					this.parentNode.parentNode.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value ='';
+					return;						
+				}
+			}  	
+ 			 
+   		});
+    	
 	}); // end jQuery
 	
 	// 즉시 실행 함수 
@@ -907,9 +955,9 @@
                 e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value = data.zonecode;
                 e.target.parentNode.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.value = addr;
                 
-                // 커서를 상세주소 필드로 이동한다.
-                 e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.focus();
-                
+                // 커서를 기본주소 필드로 이동한다. - 주소 중복 제거 change 이벤트 때문에 포커스 기본 주소로 입힘.
+                 e.target.parentNode.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.focus();
+                 
 				}
                 
         }).open();
