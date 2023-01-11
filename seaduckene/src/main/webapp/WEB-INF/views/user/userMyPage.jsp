@@ -1251,7 +1251,6 @@
 					$('#contentDiv').html(str);
 				}
 				
-					
 			); //end getJSON()
 			
 		}; //end getList()
