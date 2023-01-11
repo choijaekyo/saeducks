@@ -128,8 +128,8 @@
 		                            </select>
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>
-							</c:forEach>	               		
-							</ul> <br>
+							</c:forEach>	       
+							</ul>
 							<span class="basic-info">카테고리 추가</span> 
 							<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
 							<ul id="category-wrap" class="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
@@ -145,26 +145,26 @@
 		                            </select>
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>					
-							</ul> <br>
+							</ul>
 							
 							<div class="optional-info"">
 								<span class="basic-info">추가 정보</span> <br>
-								<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="기본 주소" value="${userAddrList[0].addressBasic}" id="addrBasic" readonly />
+				                        <input class="form-control join-input" type="text" placeholder="기본 주소" value="${userAddrList[0].addressBasic}" readonly />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세 주소" value="${userAddrList[0].addressDetail}" id="addrDetail" />
+				                        <input class="form-control join-input" type="text" placeholder="상세 주소" value="${userAddrList[0].addressDetail}" readonly />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressZipNum" class="form-control join-input" type="text" placeholder="우편번호" value="${userAddrList[0].addressZipNum}" id="addrZipNum" readonly />
+				                        <input class="form-control join-input" type="text" placeholder="우편번호" value="${userAddrList[0].addressZipNum}" readonly />
 				                    </div>
-		                		</div>	
+		                		</div>	<br>
+		                		<button type="button" onclick="showAddressModal()" class="btn btn-outline-success">주소록 확인</button>
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
 				                        <input name="userEmail" class="form-control join-input" type="text" placeholder="이메일" value="${user.userEmail}" id="userEmail" />
@@ -184,7 +184,71 @@
 							<input type="button" class="btn btn-sm btn-info btn-b" onclick="showUpdateModal()" value="수정하기" id="update"> &nbsp;&nbsp;
 							<input type="button" class="btn btn-sm btn-danger btn-b" onclick="showDeleteModal()" value="탈퇴하기" id="delete"> &nbsp;&nbsp;
 							<input type="button" class="btn btn-sm btn-b" onclick="history.back()" value="뒤로가기" id="back">
-						</form>
+							
+							   <!-- 주소록 모달  -->
+							   <div class="modal" id="addrListModal" data-bs-backdrop="static">
+							      <div class="modal-dialog modalDesign">
+							         <div class="modal-content myPage-modal-content">
+							            <div class="modal-header pt-3 myPage-modal-header">
+							               <h4 class="modal-title mx-auto">주소록</h4>
+							            </div>
+							            <div class="modal-body myPage-modal-body">
+								            <form action="" method="post" id="address-outter-form">
+						                      <c:forEach var="addr" items="${userAddrList}" varStatus="status">
+						                        <div>
+						                        	<hr>
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${userAddrList[status.index].addressBasic}"readonly />
+									                    </div>
+							                		</div>	
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="${userAddrList[status.index].addressDetail}" />
+									                    </div>
+							                		</div>	
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${userAddrList[status.index].addressZipNum}" readonly />
+									                    </div>
+							                		</div>	<br>
+													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기"> <br>
+						                        </div>
+						                        <br>
+						                     </c:forEach> 
+							               </form>
+							            </div>
+							            <hr class="btn-hr">
+							            <div class="modal-footer myPage-modal-footer">
+							               <button type="button" class="btn btn-success address-add" >주소 추가</button>
+							               <!-- 노드 복사용 더미 주소 div태그 -->
+						                        <div style="display: none;">
+						                        	<hr>
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${userAddrList[status.index].addressBasic}" readonly />
+									                    </div>
+							                		</div>	
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="${userAddrList[status.index].addressDetail}"/>
+									                    </div>
+							                		</div>	
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${userAddrList[status.index].addressZipNum}" readonly />
+									                    </div>
+							                		</div>	<br>
+													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기"> <br>
+						                        </div>					               
+							               <button type="button" class="btn btn-primary" >확인</button>
+							               <button type="button" class="btn btn-light modal-cancel" onclick="hideAddrModal()" data-bs-dismiss="modal">닫기</button>
+							            </div>
+							         </div>
+							      </div>
+						      	<div id="modalMask"></div>
+							   </div>
+							</form>
 					</div>
 				</div>
 			</div>
@@ -192,11 +256,11 @@
 				<!-- 비밀번호 인증 모달 -->
 			<div class="modal" id="myPageModal">
 			  <div class="modal-dialog modalDesign">
-			    <div class="modal-content" id="myPage-modal-content">
-			      <div class="modal-header pt-3" id="myPage-modal-header">
+			    <div class="modal-content myPage-modal-content">
+			      <div class="modal-header pt-3 myPage-modal-header">
 			        <h4 class="modal-title mx-auto">비밀번호 인증</h4>
 			      </div>
-			      <div class="modal-body" id="myPage-modal-footer">
+			      <div class="modal-body myPage-modal-body">
 			      	<form action="" method="post" id="modal-submit">
 				        <!-- <p>One fine body&hellip;</p> -->
 						<div class="input-group inputArea">
@@ -213,13 +277,12 @@
 		                    <div class="col-md-12 col-sm-12 col-12">
 		                        <input name="checkPw" class="form-control join-input" type="password" placeholder="비밀번호 확인" id="checkPw" />
 		                    </div>
-	                	</div>					        
-						<input type="submit" style="display: none" >							
+	                	</div>					        					
 			      	</form>
 			      </div>
-			      <div class="modal-footer" id="myPage-modal-footer">
+			      <div class="modal-footer myPage-modal-footer">
 			        <button type="button" class="btn btn-primary modal-submit-btn">내용 수정하기</button>
-			        <button type="button" class="btn btn-light modal-cancel" onclick="hideModal()" data-dismiss="modal">돌아가기</button>
+			        <button type="button" class="btn btn-light modal-cancel" onclick="hidePwModal()" data-dismiss="modal">돌아가기</button>
 			      </div>
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
@@ -227,40 +290,6 @@
 				<div id="modalMask"></div>
 			</div><!-- /.modal -->
 			
-			   <!-- 주소록 모달  -->
-		   <div class="modal" id="addrListModal" data-bs-backdrop="static">
-		      <div class="modal-dialog">
-		         <div class="modal-content">
-		            <div class="modal-header">
-		               <h5 class="modal-title">주소록</h5>
-		               <button type="button" class="btn-close" data-bs-dismiss="modal"
-		                  aria-label="Close"></button>
-		            </div>
-		            <div class="modal-body">
-		            <form action="" method="post">
-		                  <div>
-		                      <c:forEach var="addr" items="${userAddrList}">
-		                        <div class="form-check form-check-inline">
-		                           <input class="form-check-input" type="radio"
-		                              name="addr" id="${addr.addressNo}" value="${addr.addressNo}">
-		                              <p>${addr.addressZipNum}</p>
-		                              <p>${addr.addressBasic}</p>
-		                              <p>${addr.addressDetail}</p>
-		                        </div>
-		                        <hr>
-		                        <br>
-		                     </c:forEach> 
-		                  </div>
-		               </form>
-		            </div>
-		            <div class="modal-footer">
-		               <button type="button" class="btn btn-outline-secondary"
-		                  data-bs-dismiss="modal">닫기</button>
-		               <button type="button" class="btn btn-outline-success">확인</button>
-		            </div>
-		         </div>
-		      </div>
-		   </div>
 				
 			<div class="tab-content">
 			<c:choose>
@@ -715,6 +744,30 @@
         	}
         	this.parentNode.remove();
         });
+    	 
+    	// 주소록 모달 열기 전에 클릭 이벤트 타겟 전달하기.
+    	$('#addrListModal').on('click', '.find-address', function(e) {
+    		console.log(e);
+    	
+    		searchAddress(e);
+   		});
+    	
+    	// 주소록 모달 내 주소 추가
+    	$('.address-add').click(function(e) {
+	
+	   		const $fragNode = document.createDocumentFragment();
+	   		const $addrDiv = this.nextElementSibling.cloneNode(true);
+	   		console.log($addrDiv);
+	   		const $br = document.createElement('br');
+	   		
+			$fragNode.appendChild($addrDiv);
+			$fragNode.appendChild($br);
+			
+	   		$('#address-outter-form').append($fragNode);
+    	
+    	
+   		});
+    	
 		
 	}); // end jQuery
 	
@@ -791,7 +844,7 @@
 	
 	// 다음 주소 api 사용해보기
 
-	function searchAddress() {
+	function searchAddress(e) {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -807,26 +860,17 @@
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
                     addr = data.jibunAddress;
                 }
-
+				
+                console.log(e.target);
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('addrZipNum').value = data.zonecode;
-                document.getElementById('addrBasic').value = addr;
-                
-                if (data.zonecode === '${userAddrList[0].addressZipNum}') {
-                	document.getElementById('addrZipNum').style.border = '1px solid rgb(206, 212, 218)';
-				} else {
-	                document.getElementById('addrZipNum').style.border = '2px solid rgb(34, 139, 34)';
-				}
-                
-                if (data.zonecode === '${userAddrList[0].addressBasic}') {
-                	document.getElementById('addrBasic').style.border = '1px solid rgb(206, 212, 218)';
-				} else {
-	                document.getElementById('addrBasic').style.border = '2px solid rgb(34, 139, 34)';
-				}
+                e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value = data.zonecode;
+                e.target.parentNode.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.value = addr;
                 
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('addrDetail').focus();
-            }
+                 e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.focus();
+                
+				}
+                
         }).open();
 	}
 	
@@ -883,6 +927,26 @@
 		$('#myPageModal').show();
 		// 탈퇴 시 자동로그인 쿠키, 세션 지우기.
 	}
+	
+	// 비밀번호 종류 모달 닫기
+	function hidePwModal() {
+		$('#currPw').val('');
+		$('#modiPw').val('');
+		$('#checkPw').val('');
+		
+		$('#myPageModal').hide();
+	}
+	
+	// 주소록 모달 열기
+	function showAddressModal() {
+		$('#addrListModal').show();
+	}
+	
+	// 주소록 모달 닫기
+	function hideAddrModal() {
+		$('#addrListModal').hide();
+	}
+	
 	
 	// 비밀번호 변경 비동기 코드
 	function ModiPwModal() {
@@ -1003,14 +1067,7 @@
 		
 	}
 	
-	// 모달 닫기
-	function hideModal() {
-		$('#currPw').val('');
-		$('#modiPw').val('');
-		$('#checkPw').val('');
-		
-		$('#myPageModal').hide();
-	}
+
 	//장바구니 삭제
 	$('.basketDel').on('click',function(e){
 		console.log('장바구니삭제 클릭')
