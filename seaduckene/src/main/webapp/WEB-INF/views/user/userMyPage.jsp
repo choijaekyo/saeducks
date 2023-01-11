@@ -194,11 +194,17 @@
 							            </div>
 							            <div class="modal-body myPage-modal-body" id="address-outter"> 
 						                      <c:forEach var="addr" items="${userAddrList}" varStatus="status">
-						                        <div>
+						                        <div class="address-infos" data-index="${status.count}">
 						                        	<hr>
+						                        	<c:if test="${status.index == 0}">
+							                        	<h5>메인 주소</h5>
+						                        	</c:if>
+						                        	<c:if test="${status.index != 0}">
+							                        	<a class="set-main">메인주소로 설정</a>
+						                        	</c:if>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${userAddrList[status.index].addressBasic}"readonly />
+									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${userAddrList[status.index].addressBasic}" readonly />
 									                    </div>
 							                		</div>	
 													<div class="input-group inputArea">
@@ -224,17 +230,17 @@
 						                        	<hr>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="" readonly />
+									                        <input class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="" readonly />
 									                    </div>
 							                		</div>	
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value=""/>
+									                        <input class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value=""/>
 									                    </div>
 							                		</div>	
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="" readonly />
+									                        <input class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="" readonly />
 									                    </div>
 							                		</div>	<br>
 													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
@@ -744,7 +750,7 @@
         	this.parentNode.remove();
         });
     	 
-    	// 주소록 모달 열기 전에 클릭 이벤트 타겟 전달하기.
+    	// 주소추가 버튼 클릭 이벤트 타겟 전달하기.
     	$('#addrListModal').on('click', '.find-address', function(e) {
     		console.log(e);
     	
@@ -760,6 +766,11 @@
 	   		const $br = document.createElement('br');
 	   		
 	   		$($addrDiv).css('display', 'block');
+	   		$($addrDiv).addClass('address-infos');
+	   		
+	   		$($addrDiv.querySelector('input.addrBasic')).attr('name', 'addressBasic');
+	   		$($addrDiv.querySelector('input.addrDetail')).attr('name', 'addressDetail');
+	   		$($addrDiv.querySelector('input.addrZipNum')).attr('name', 'addressZipNum');
 	   		
 			$fragNode.appendChild($addrDiv);
 			$fragNode.appendChild($br);
@@ -772,6 +783,32 @@
 			this.parentNode.nextElementSibling.remove();
 			this.parentNode.remove();
 		});
+    	
+    	// 주소록 모달 메인 주소로 설정
+    	$('#addrListModal').on('click', '.set-main', function(e) {
+   
+    		const addressIndex = $(this.parentNode).data('index');
+    		
+    		if (confirm('선택한 주소 정보를 메인 주소로 설정하시겠습니까?')) {
+    		
+				$.ajax({
+					type: 'POST',
+					url: '<c:url value="/user/changeMainAddress" />',
+					contentType: 'application/json',
+					dataType:'text',
+					data: addressIndex,
+					success: function(data) {
+						
+						alert(data);
+					},
+					error: function() {
+						alert('메인 주소 설정 전송 실패');
+					}
+				}); 
+			}
+    	});
+    	
+    	// 주소록 모달에서 addressDetail keyup 시 중복 체크 이벤트 추가
 		
 	}); // end jQuery
 	
@@ -1003,15 +1040,69 @@
 		const checkPw = $('#checkPw').val().trim();
 		const array = [currPw,checkPw];
 		
-		if($('#currPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+		if($('#currPw').css('border-block-color') === 'rgb(255, 0, 0)') {
 			alert('비밀번호를 다시 확인하세요.');
 			$('#currPw').focus();
 			return;
-		} else if($('#checkPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+		} else if($('#checkPw').css('border-block-color') === 'rgb(255, 0, 0)') {
 			alert('비밀번호를 다시 확인하세요.');
 			$('#checkPw').focus();
 			return;
+		} else if($('#userName').css('border-block-color') === 'rgb(255, 0, 0)') {
+			hidePwModal();
+			$('#userName').focus();
+			alert('이름을 다시 확인하세요.');
+			return;
+		} else if($('#userNickname').css('border-block-color') === 'rgb(255, 0, 0)') {
+			hidePwModal();
+			$('#userNickname').focus();
+			alert('닉네임을 다시 확인하세요.');
+			return;
+		} else if($('#userTel').css('border-block-color') === 'rgb(255, 0, 0)') {
+			hidePwModal();
+			$('#userTel').focus();
+			alert('전화번호를 다시 확인하세요.');
+			return;
+		} else if($('#userEmail').css('border-block-color') === 'rgb(255, 0, 0)') {
+			hidePwModal();
+			$('#userEmail').focus();
+			alert('이메일을 다시 확인하세요.');
+			return;
 		}
+		
+		if (true) {
+			
+			console.log($('.address-infos'));
+			
+			// 메인 주소, 그 외 주소들과 추가한 주소의 null 체크
+			for (let $addressInfo of $('.address-infos')) {
+				console.log($addressInfo);
+				console.log($($addressInfo).data('index'));
+				if ($addressInfo.querySelector('.addrBasic').value.trim() === '') {
+					alert('주소록에 생성한 주소란에 값을 입력해주세요.');
+					hidePwModal();
+					showAddressModal()
+					
+					$addressInfo.querySelector('.addrBasic').focus();
+					return;
+				} else if ($addressInfo.querySelector('.addrDetail').value.trim() === '') {
+					alert('주소록에 생성한 주소란에 값을 입력해주세요.');
+					hidePwModal();
+					showAddressModal();
+					
+					$addressInfo.querySelector('.addrDetail').focus();
+					return;
+				} else if ($addressInfo.querySelector('.addrZipNum').value.trim() === '') {
+					alert('주소록에 생성한 주소란에 값을 입력해주세요.');
+					hidePwModal();
+					showAddressModal();
+					
+					$addressInfo.querySelector('.addrZipNum').focus();
+					return;
+				}
+			}
+		}
+		
 		
 		$.ajax({
 			type:'POST',

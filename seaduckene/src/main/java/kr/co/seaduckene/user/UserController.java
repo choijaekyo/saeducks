@@ -323,6 +323,7 @@ public class UserController {
 	
 	@PostMapping("/userUpdate")
 	public ModelAndView userUpdate(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
+		log.info("/userUpdate");
 		log.info(userVO); // 수정된 부분 확인 후 - border color 바뀐거로 구분하는 법 생각하기. db 수정
 		log.info(addressVO); // 수정된 부분 확인 후 db 수정
 		log.info(boardCategoryVO); // 삭제된 부분 조회 후 삭제 처리 먼저, 추가된 부분 확인 후 db favorite 추가. 
@@ -341,6 +342,19 @@ public class UserController {
 			WHERE rn = 4; 
 			rn은 data-count의 값을 받아서 쓸 수 있으면 됨. 
 			추가 삭제 전에 먼저 조회해서  f.favorite_no 반환하고 favorite table에서 이 번호를 삭제하면 삭제 처리 될듯.
+		*/
+		/* 순서 컬럼이 초과된 주소록 조회 문
+			select * from(
+			    SELECT ROWNUM rn, tbl.*
+			    from
+			    (
+			    SELECT * FROM address
+			    WHERE address_user_no = 1
+			    ORDER BY address_representative DESC
+			    ) tbl
+			)
+			where rn = 1;		
+		
 		*/
 		
 		modelAndView.setViewName("redirect:/user/userMyPage/1");
@@ -401,6 +415,16 @@ public class UserController {
 		return result;
 	}
 	
+	@ResponseBody
+	@PostMapping("/changeMainAddress")
+	public ModelAndView changeMainAddress(@RequestBody String addressIndex, ModelAndView modelAndView) {
+		log.info(addressIndex);
+		
+		
+		
+		
+		return null;
+	}
 	
 	
 

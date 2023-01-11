@@ -318,7 +318,11 @@
 
 #addrListModal .modalDesign .myPage-modal-body {
 	overflow: auto;
-	height: 270px;
+	height: 302px;
+}
+
+#addrListModal .modalDesign .myPage-modal-body .set-main {
+	cursor: pointer;
 }
 
 #addrListModal .modalDesign .myPage-modal-body hr {
