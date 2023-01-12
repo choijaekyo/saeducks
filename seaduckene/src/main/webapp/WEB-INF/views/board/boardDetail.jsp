@@ -8,13 +8,13 @@
 
 
 
-<div class="container">
+<div class="container"> 
 	<div class="card" style="width: 18rem;" id="board-detail-card">
 		<div class="card-body" id="board-detail-card-body">
 			<h5 class="card-title">~~게시판 입니다.</h5>
 			<p class="card-text">~~게시판에 걸맞는 글을 작성해 주세요.</p>
 			<button id="board-detail-card-body-button" type="button"
-				class="btn btn-primary">Home</button>
+				class="btn btn-primary HomeButtonController">Home</button>
 		</div>
 	</div>
 </div>
@@ -149,7 +149,7 @@
 	<div class="modal-dialog modal-md">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="btn btn-default pull-right"
+				<button type="button" class="btn btn-default pull-right modalbuttonESC"
 					data-dismiss="modal">닫기</button>
 				<h4 class="modal-title">댓글수정</h4>
 			</div>
@@ -164,7 +164,7 @@
 						</div>
 						<button class="right btn btn-info" id="modalModBtn">수정하기</button>
 						<button class="right btn btn-info" id="modalDelBtn">삭제하기</button>
-					</div>
+					</div> 
 				</div>
 				<!-- 수정폼끝 -->
 			</div>
@@ -254,7 +254,8 @@
 			getList(++page, false);
 		});
 	 
-	
+		
+		
 		
 		 
 		
@@ -381,7 +382,7 @@
 					$('#replyModal').modal('hide'); 
 					getList(1, true);
 				},
-				error: function() {
+				error: function() {{pageContext.request.contextPath}
 					alert('수정 실패! 관리자에게 문의하세요!');
 				}
 				
@@ -392,9 +393,13 @@
 			
 		}) //modalDelBtn click event 끝.
 		
+		$('.modalbuttonESC').click(function() {
+			$('#replyModal').modal('hide'); 
+		});
 		
-		
-		
+		$('.HomeButtonController').click(function() {
+			location.href='${pageContext.request.contextPath}/';
+		});
 		
 		
 		//날짜 처리 함수
