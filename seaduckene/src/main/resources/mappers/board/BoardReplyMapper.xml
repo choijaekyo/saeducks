@@ -11,17 +11,14 @@
 		VALUES(reply_no_seq.NEXTVAL, #{replyContent}, #{replyBoardNo}, #{replyUserNo}) 
 	</insert>
 	
-	<select id="getList" resultType="boardReplyList">
+  	<select id="getList" resultType="boardReplyList">
 	<![CDATA[
 	SELECT * FROM
  	  	(
 	  	SELECT ROWNUM AS rn, tbl.* FROM
 			 (
-                SELECT r.reply_no, d.user_nickname, r.reply_reg_date, r.reply_content, b.board_no, d.user_no
-                FROM reply r
-                INNER JOIN duck_user d ON r.reply_user_no = d.user_no
-                INNER JOIN board b ON b.board_no = r.reply_board_no
-                WHERE b.board_no = #{bno}
+                SELECT * FROM reply r
+                WHERE r.reply_board_no = #{bno}
                 ORDER BY r.reply_no DESC
               ) tbl
         )
@@ -35,8 +32,8 @@
   	FROM reply
   	WHERE reply_board_no = #{bno}
   </select>
-  
-  
+   
+
 	
 </mapper>
 

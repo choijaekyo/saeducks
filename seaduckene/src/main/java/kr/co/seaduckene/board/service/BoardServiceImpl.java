@@ -80,6 +80,16 @@ public class BoardServiceImpl implements IBoardService {
 	public List<NoticeVO> noticeLists(PageVO paging) {
 		return mapper.noticeLists(paging);
 	}
+	
+	@Override
+	public int boardNoSearch(String boardTitle, String boardContent) {
+		return mapper.boardNoSearch(boardTitle, boardContent);
+	}
+	
+	@Override
+	public void boardImageAdd(int boardNo, String UUID) {
+		mapper.boardImageAdd(boardNo, UUID);
+	}
 }
 
 

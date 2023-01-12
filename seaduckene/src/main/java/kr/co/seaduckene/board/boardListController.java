@@ -83,6 +83,7 @@ public class boardListController {
 	public String boardWrite(BoardVO vo, @RequestParam(value="filename", required=false) List<String> summerfile) throws Exception {
 		System.out.println("글 등록 요청이 들어옴!");
 		System.out.println("summerFile: " + summerfile);
+		System.out.println("첫번째 이미지: " + summerfile.get(0));
 		System.out.println("vo: " + vo);
 		String boardContent;
 		boardContent = vo.getBoardContent();
@@ -92,6 +93,11 @@ public class boardListController {
 
 		summernoteCopy copy = new summernoteCopy();
 		copy.summerCopy(summerfile);
+		
+		
+		
+		int boardNo = service.boardNoSearch(vo.getBoardTitle(), vo.getBoardContent());
+		service.boardImageAdd(boardNo, summerfile.get(0));
 		
 		return "redirect:/board/boardList/" + vo.getBoardCategoryNo();
 	}

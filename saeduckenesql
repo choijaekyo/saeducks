@@ -4,6 +4,8 @@ GRANT CREATE SESSION TO saeduckene;
 
 GRANT CONNECT, RESOURCE TO saeduckene;
 
+----------------------------------- BORD -----------------------------------
+
 CREATE TABLE board(
     board_no NUMBER PRIMARY KEY,
     board_title VARCHAR2(60) NOT NULL,
@@ -68,11 +70,9 @@ CREATE SEQUENCE category_no_seq
 
 CREATE TABLE boardImage(
     board_image_no NUMBER PRIMARY KEY,
-    board_image_path VARCHAR2(100) NOT NULL,
-    board_image_folder VARCHAR2(100) NOT NULL,
-    board_image_file_name VARCHAR2(1000) NOT NULL,
-    board_image_uuid VARCHAR2(1000) NOT NULL,
-    board_board_no NUMBER NOT NULL
+    board_image_uuid VARCHAR2(1000),
+    board_board_no NUMBER NOT NULL,
+    board_thumbnail NUMBER DEFAULT 0
 );
 
 CREATE SEQUENCE board_image_no_seq
@@ -98,7 +98,7 @@ CREATE SEQUENCE notice_no_seq
     NOCYCLE
     NOCACHE;
 
----------------------- USER ----------------------------------------------------
+----------------------------------- USER -----------------------------------
 
 CREATE TABLE duck_user (
     user_no NUMBER PRIMARY KEY,
@@ -106,7 +106,7 @@ CREATE TABLE duck_user (
     user_pw VARCHAR2(150) NOT NULL,
     user_nickname VARCHAR2(200) NOT NULL,
     user_name VARCHAR2(100) NOT NULL,
-    user_tel NUMBER NOT NULL,
+    user_tel VARCHAR2(100) NOT NULL,
     user_admin_check NUMBER,
     user_session_id VARCHAR2(300),
     user_cookie_expire_date DATE,
@@ -114,7 +114,7 @@ CREATE TABLE duck_user (
     user_profile_path VARCHAR2(500) DEFAULT '프로필 경로',
     user_profile_folder VARCHAR2(500) DEFAULT '프로필 폴더',
     user_profile_file_name VARCHAR2(1000) DEFAULT 'profile.png',
-    user_profile_uuid VARCHAR2(500) DEFAULT 'profile.png'
+    user_profile_file_real_name VARCHAR2(500) DEFAULT 'profile.png'
     );
 
 CREATE SEQUENCE duck_user_seq
@@ -123,26 +123,39 @@ CREATE SEQUENCE duck_user_seq
     MAXVALUE 10000
     NOCACHE
     NOCYCLE;
-    
-CREATE TABLE product (
-    product_no NUMBER PRIMARY KEY,
-    product_name VARCHAR2(100) NOT NULL,
-    product_price_normal NUMBER NOT NULL, -- 원래가격
-    product_price_selling NUMBER, -- 세일가격
-    product_detail VARCHAR2(2000)NOT NULL, -- 상품정보
-    product_stock NUMBER NOT NULL, -- 개수
-    product_reg_date DATE DEFAULT SYSDATE,
-    product_up_date DATE,
-    product_category_no NUMBER NOT NULL
-); 
 
-CREATE SEQUENCE product_seq
+CREATE TABLE address   (
+    address_no NUMBER PRIMARY KEY,
+    address_detail VARCHAR2(500) NOT NULL,
+    address_basic VARCHAR2(500) NOT NULL,
+    address_zip_num VARCHAR2(500) NOT NULL,
+    address_representative NUMBER DEFAULT 1,
+    address_user_no NUMBER NOT NULL
+);
+
+CREATE SEQUENCE address_seq
     START WITH 1
+    INCREMENT BY 1
     MAXVALUE 10000
-    NOCYCLE
-    NOCACHE;
+    NOCACHE
+    NOCYCLE;
+    
+----------------------------------- favorite -----------------------------------
 
--------------------------------------------------------------------------------
+CREATE TABLE favorite (
+    favorite_no NUMBER PRIMARY KEY,
+    favorite_category_no NUMBER NOT NULL,
+    favorite_user_no NUMBER NOT NULL
+);
+
+CREATE SEQUENCE favorite_seq
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 10000
+    NOCACHE
+    NOCYCLE;
+    
+----------------------------------- basket -----------------------------------
 
 CREATE TABLE basket(
     basket_no NUMBER PRIMARY KEY,
@@ -159,7 +172,8 @@ CREATE SEQUENCE basket_seq
     NOCYCLE
     NOCACHE;
 
-------------------------------product-------------------------------------------
+----------------------------------- product -----------------------------------
+
 CREATE TABLE product_image(
     product_image_no NUMBER PRIMARY KEY,
     product_image_path VARCHAR2(100) NOT NULL,
@@ -167,7 +181,7 @@ CREATE TABLE product_image(
     product_image_file_name VARCHAR2(100) NOT NULL,
     prodcut_image_file_real_name VARCHAR2(100) NOT NULL,
     product_image_product_no NUMBER,
-    product_thumbnail NUMBER DEFAULT 0
+    product_thumbnail NUMBER default 0
 );
 
 CREATE SEQUENCE product_image_seq
@@ -176,221 +190,52 @@ CREATE SEQUENCE product_image_seq
     NOCYCLE
     NOCACHE;
 
-INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
-VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '1.jpg', '1.jpg', 1, 1);
-INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
-VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '2.jpg', '2.jpg', 1, 1);
-INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
-VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '3.jpg', '3.jpg', 1, 1);
-INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
-VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '4.jpg', '4.jpg', 2, 1);
-INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
-VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '5.jpg', '5.jpg', 2, 1);
-INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
-VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '6.jpg', '6.jpg', 2, 1);
-INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
-VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '7.jpg', '7.jpg', 3, 1);
-INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
-VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '8.jpg', '8.jpg', 3, 1);
-INSERT INTO product_image (product_image_no, product_image_path, product_image_folder, product_image_file_name, prodcut_image_file_real_name, product_image_product_no, product_thumbnail)
-VALUES (product_image_seq.NEXTVAL, 'C:/imgduck/product', '20230103', '9.jpg', '9.jpg', 3, 1);
---------------------------------------------------------------------------------
-------------------------------favorite-------------------------------------------
-CREATE TABLE favorite (
-    favorite_no NUMBER PRIMARY KEY,
-    favorite_category_no NUMBER NOT NULL,
-    favorite_user_no NUMBER NOT NULL
+CREATE TABLE product (
+    product_no NUMBER PRIMARY KEY,
+    product_name VARCHAR2(100) NOT NULL,
+    product_price_normal NUMBER NOT NULL,
+    product_price_selling NUMBER,
+    product_detail VARCHAR2(2000)NOT NULL,
+    product_stock NUMBER NOT NULL,
+    product_reg_date DATE DEFAULT SYSDATE,
+    product_up_date DATE,
+    product_category_no NUMBER NOT NULL
 );
 
-CREATE SEQUENCE favorite_seq
+CREATE SEQUENCE product_seq
     START WITH 1
-    INCREMENT BY 1
     MAXVALUE 10000
-    NOCACHE
-    NOCYCLE;
+    NOCYCLE
+    NOCACHE;
 
-SELECT * FROM favorite;
+----------------------------------- order -----------------------------------
 
-INSERT INTO favorite (favorite_no, favorite_category_no, favorite_user_no) 
-VALUES (favorite_seq.NEXTVAL, 3, 1);
---------------------------------------------------------------------------------
-SELECT * FROM board;
-INSERT INTO board (board_no, board_title, board_content, board_user_no, board_category_no) 
-VALUES (board_no_seq.NEXTVAL, '첫번째 글 입니다.20', '첫번째 글 임돠20.', 1, 1);
+CREATE TABLE duck_order (
+    order_no NUMBER PRIMARY KEY,
+    order_product_no NUMBER NOT NULL,
+    order_num NUMBER NOT NULL,
+    order_user_no NUMBER NOT NULL,
+    order_reg_date DATE DEFAULT SYSDATE,
+    order_quantity NUMBER NOT NULL,
+    order_price NUMBER NOT NULL,
+    order_status VARCHAR2(100) DEFAULT '배송준비중',
+    order_recipient_name VARCHAR2(100) NOT NULL,
+    order_recipient_tel NUMBER NOT NULL,
+    order_address_zip_num NUMBER NOT NULL,
+    order_address_basic VARCHAR2(1000) NOT NULL,
+    order_address_detail VARCHAR2(1000) NOT NULL,
+    order_payment_method VARCHAR2(100) NOT NULL,
+    order_return_bank VARCHAR2(100),
+    order_return_account NUMBER
+);
 
-INSERT INTO duck_user (user_no, user_id, user_pw, user_nickname ,user_name ,user_tel) 
-VALUES (duck_user_seq.NEXTVAL, 'aaa111', 'aaa11111', '테스트유저', '홍길동', '12345678');
+CREATE SEQUENCE order_seq
+    START WITH 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
 
-INSERT INTO category (category_no, category_major_title, category_minor_title)
-VALUES (category_no_seq.NEXTVAL, '야구', '홍명보');
-
-INSERT INTO product (product_no, product_name, product_price_normal, product_detail, product_stock, product_category_no) 
-VALUES (product_seq.NEXTVAL, '3레벨 방탄', 98000, '뚝배기에 구멍난 방탄헬맷', 32, 1);
-
-commit;
-
-SELECT *
-FROM
-    (
-    SELECT ROWNUM AS rn, tbl.* FROM
-        (
-        SELECT * FROM board
-        ORDER BY board_no DESC
-        ) tbl
-    ) b
-<![CDATA[
-WHERE rn > (#{pageNum}-1) * #{cpp}
-AND rn <= #{pageNum} * #{cpp}
-]]>
-
-SELECT * FROM product ORDER BY product_no ASC ;
-
-SELECT *
-FROM
-    (
-    SELECT ROWNUM AS rn, tbl.* FROM
-        (
-        SELECT * FROM product
-        ORDER BY product_no ASC
-        ) tbl
-    ) b
-WHERE rn > 0
-AND rn <= 3
-
---------------------------------------------------------------------------------
-SELECT * FROM product_image WHERE product_image_product_no = 1 AND PRODUCT_THUMBNAIL = 1;
-
-SELECT * FROM favorite WHERE favorite_user_no = 1;
-
--- 내가 선택한 카테고리의 상품 
-SELECT *
-FROM
-    (
-    SELECT ROWNUM AS rn, tbl.* FROM
-        (
-            SELECT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail
-            FROM duck_user d INNER JOIN favorite f
-                             ON 1 = f.favorite_user_no
-                             INNER JOIN category c
-                             ON f.favorite_category_no = c.category_no
-                             INNER JOIN product p
-                             ON c.category_no = p.product_category_no
-                             INNER JOIN product_image i
-                             ON p.product_no = i.product_image_product_no
-            WHERE product_thumbnail = 1
-        ) tbl
-    ) b
-WHERE rn > 0
-AND rn <= 9;
-
--- 전체 게시판 좋아요 높은 순 상품
-SELECT *
-FROM
-    (
-    SELECT ROWNUM AS rn, tbl.* FROM
-        (
-            SELECT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail, b.board_views
-            FROM board b INNER JOIN category c
-                             ON b.board_category_no = c.category_no
-                             INNER JOIN product p
-                             ON c.category_no = p.product_category_no
-                             INNER JOIN product_image i
-                             ON p.product_no = i.product_image_product_no
-            WHERE i.product_thumbnail = 1 
-            ORDER BY b.board_views DESC
-        ) tbl
-    ) b
-WHERE rn > 0
-AND rn <= 9;
-
--- 내가 선택한 카테고리의 보더 
-SELECT *
-FROM
-    (
-    SELECT ROWNUM AS rn, tbl.* FROM
-        (
-            SELECT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
-            FROM duck_user d INNER JOIN favorite f
-                             ON 1 = f.favorite_user_no
-                             INNER JOIN category c
-                             ON f.favorite_category_no = c.category_no
-                             INNER JOIN board b
-                             ON c.category_no = b.board_category_no
-        ) tbl
-    ) s
-WHERE rn > 0
-AND rn <= 9
-ORDER BY s.category_minor_title DESC, s.board_views DESC;
-
--- 유저가 없을때 뷰가 가장 높은 카테고리의 보더
-SELECT *
-FROM
-    (
-    SELECT ROWNUM AS rn, tbl.* FROM
-        (
-            SELECT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname
-            FROM board b INNER JOIN category c
-                             ON b.board_category_no = c.category_no
-                             INNER JOIN duck_user d
-                             ON b.board_user_no = d.user_no
-        ) tbl
-    ) s
-WHERE rn > 0
-AND rn <= 9
-ORDER BY s.category_minor_title DESC, s.board_views DESC;
-
--- 공지사항
-INSERT INTO notice (notice_no, notice_title, notice_content) 
-VALUES (notice_no_seq.NEXTVAL, '첫번째 공지 제목 입니다.', '첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다.');
-INSERT INTO notice (notice_no, notice_title, notice_content) 
-VALUES (notice_no_seq.NEXTVAL, '두번째 공지 제목 입니다.', '두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다.');
-INSERT INTO notice (notice_no, notice_title, notice_content) 
-VALUES (notice_no_seq.NEXTVAL, '세번째 공지 제목 입니다.', '세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다.');
-INSERT INTO notice (notice_no, notice_title, notice_content) 
-VALUES (notice_no_seq.NEXTVAL, '네번째 공지 제목 입니다.', '네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다.');
-INSERT INTO notice (notice_no, notice_title, notice_content) 
-VALUES (notice_no_seq.NEXTVAL, '다섯번째 공지 제목 입니다.', '다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다.');
-
-SELECT *
-FROM
-    (
-    SELECT ROWNUM AS rn, tbl.* FROM
-        (
-            SELECT *
-            FROM notice
-        ) tbl
-    ) s
-WHERE rn > 0
-AND rn <= 5
-ORDER BY notice_no DESC;
-
-
-drop table duck_user;
-drop SEQUENCE duck_user_seq;
-drop table address;
-drop SEQUENCE address_seq;
-drop table board;
-drop SEQUENCE board_no_seq;
-drop table reply;
-drop SEQUENCE reply_no_seq;
-drop table replyLike;
-drop SEQUENCE reply_like_no_seq;
-drop table category;
-drop SEQUENCE category_no_seq;
-drop table boardImage;
-drop SEQUENCE board_image_no_seq;
-drop table favorite;
-drop SEQUENCE favorite_seq;
-drop table basket;
-drop SEQUENCE basket_seq;
-drop table product_image;
-drop SEQUENCE product_image_seq;
-drop table product;
-drop SEQUENCE product_seq;
-drop table duck_order;
-drop SEQUENCE order_seq;
-
-commit;
+---------------------------카테고리 더미 생성문-----------------------------------
 
 INSERT INTO category (category_no,category_major_title,category_minor_title)
 VALUES (category_no_seq.NEXTVAL,'미디어','영화');
@@ -446,3 +291,49 @@ INSERT INTO category (category_no,category_major_title,category_minor_title)
 VALUES (category_no_seq.NEXTVAL,'음식','인도식');
 INSERT INTO category (category_no,category_major_title,category_minor_title)
 VALUES (category_no_seq.NEXTVAL,'음식','동남아식');
+
+commit;
+
+-------------------------------- 공지사항 더미 --------------------------------
+
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '첫번째 공지 제목 입니다.', '첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다. 첫번째 공지 내용 입니다.');
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '두번째 공지 제목 입니다.', '두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다. 두번째 공지 내용 입니다.');
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '세번째 공지 제목 입니다.', '세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다. 세번째 공지 내용 입니다.');
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '네번째 공지 제목 입니다.', '네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다. 네번째 공지 내용 입니다.');
+INSERT INTO notice (notice_no, notice_title, notice_content) 
+VALUES (notice_no_seq.NEXTVAL, '다섯번째 공지 제목 입니다.', '다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다. 다섯번째 공지 내용 입니다.');
+
+----------------------------- 드랍 더 테이블 -------------------------------
+
+drop table duck_user;
+drop SEQUENCE duck_user_seq;
+drop table address;
+drop SEQUENCE address_seq;
+drop table board;
+drop SEQUENCE board_no_seq;
+drop table reply;
+drop SEQUENCE reply_no_seq;
+drop table replyLike;
+drop SEQUENCE reply_like_no_seq;
+drop table category;
+drop SEQUENCE category_no_seq;
+drop table boardImage;
+drop SEQUENCE board_image_no_seq;
+drop table favorite;
+drop SEQUENCE favorite_seq;
+drop table basket;
+drop SEQUENCE basket_seq;
+drop table product_image;
+drop SEQUENCE product_image_seq;
+drop table product;
+drop SEQUENCE product_seq;
+drop table duck_order;
+drop SEQUENCE order_seq;
+
+commit;
+
+--------------------------------------------------------------------------------
