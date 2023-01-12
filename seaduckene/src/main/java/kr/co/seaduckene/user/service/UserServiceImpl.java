@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.IAddressMapper;
+import kr.co.seaduckene.favorite.FavoriteVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
@@ -48,13 +49,13 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public void updateUserFavorites(CategoryVO boardCategoryVO, int userNo) {
+	public void updateUserFavorites(CategoryVO categoryVO, int userNo) {
 		
 		// 카테고리 한 개에서도 작동하는 지 봐야 함.
 		// -> 카테고리 한 개도 잘 동작 하는 듯.
-		String[] majorList = boardCategoryVO.getCategoryMajorTitle().split(",");
+		String[] majorList = categoryVO.getCategoryMajorTitle().split(",");
 		log.info(majorList);
-		String[] minorList = boardCategoryVO.getCategoryMinorTitle().split(",");
+		String[] minorList = categoryVO.getCategoryMinorTitle().split(",");
 		log.info(minorList);
 		
 		
@@ -173,4 +174,13 @@ public class UserServiceImpl implements IUserService {
 		userMapper.updateUserInfo(userVo);
 	}
 
+	@Override
+	public List<FavoriteVO> getUserFavorites(int userNo) {
+		return userMapper.getUserFavorites(userNo);
+	}
+	
+	@Override
+	public void deleteUserFavorites(Map<String, Object> deletedCount) {
+		userMapper.deleteUserFavorites(deletedCount);
+	}
 }

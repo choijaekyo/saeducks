@@ -147,7 +147,7 @@
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>					
 							</ul>
-							<input type="hidden" id="category-index">
+							<input name="categoryIndex" type="hidden" id="category-index">
 							
 							<div class="optional-info"">
 								<span class="basic-info">추가 정보</span> <br>
@@ -251,7 +251,7 @@
 							               <button type="button" class="btn btn-primary" >확인</button>
 							               <button type="button" class="btn btn-light modal-cancel" onclick="hideAddrModal()" data-bs-dismiss="modal">닫기</button>
 							            </div>
-							            <input type="hidden" id="address-count">
+							            <input name="addressCount" type="hidden" id="address-count">
 							         </div>
 							      </div>
 						      	<div id="modalMask"></div>
@@ -1278,11 +1278,15 @@ let nicknameCheck = true;
 		}
 		console.log(address_count_list);
 		
-		array.push(category_index_list);
-		array.push(address_count_list);
+		category_index_list = JSON.stringify(category_index_list);
+		address_count_list = JSON.stringify(address_count_list);
 		
-		console.log(array);
-		return;
+		$('#category-index').val(category_index_list);
+		$('#address-count').val(address_count_list);
+			
+		console.log(category_index_list);
+		console.log(address_count_list);
+		
 		$.ajax({
 			type:'POST',
 			url:'${pageContext.request.contextPath}/user/userUpdateConfirm',

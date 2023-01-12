@@ -40,6 +40,23 @@
 		 </if>
 	</sql>
 	
+	<sql id="delete_favorite_where">
+		<foreach collection="deleted_favorite_index" item="item" index="index" separator="," open="(" close=")">
+			(SELECT tbl2.favorite_no
+				  FROM (
+					  SELECT ROWNUM rn, tbl1.*
+						  FROM (
+								SELECT *
+								FROM favorite f JOIN duck_user u ON f.favorite_user_no = u.user_no
+								                JOIN category c ON f.favorite_category_no = c.category_no
+								WHERE u.user_no = #{userNo}
+								ORDER BY u.user_no, c.category_major_title, c.category_minor_title
+						  ) tbl1
+					  ) tbl2
+			  WHERE rn = #{item})
+		</foreach>
+	</sql>
+	
 	
 	<insert id="registUser">
 		INSERT INTO duck_user 
@@ -133,5 +150,14 @@
 											user_email = #{userEmail} <include refid="user_update_profile" />
 		WHERE user_id = #{userId}
 	</update>
+	
+	<select id="getUserFavorites" resultType="favorite">
+		SELECT * FROM favorite WHERE favorite_user_no = #{userNo}
+	</select>
+	
+	<delete id="deleteUserFavorites">
+		DELETE FROM favorite 
+		WHERE favorite_no in <include refid="delete_favorite_where"></include>
+	</delete>
 	
 </mapper>

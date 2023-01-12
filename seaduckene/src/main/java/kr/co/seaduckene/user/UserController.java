@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -16,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.jcache.interceptor.AnnotationJCacheOperationSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +36,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
@@ -110,10 +119,10 @@ public class UserController {
 	}
 	
 	@PostMapping("/userJoin")
-	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
+	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  categoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
 		log.info(userVO);
 		log.info(addressVO);
-		log.info(boardCategoryVO);
+		log.info(categoryVO);
 		log.info(profilePic);
 		
 		if (profilePic.getSize() != 0) {
@@ -158,7 +167,7 @@ public class UserController {
 		addressVO.setAddressUserNo(registerdUserNo);
 		
 		//favorite table 등록
-		userService.updateUserFavorites(boardCategoryVO, registerdUserNo);
+		userService.updateUserFavorites(categoryVO, registerdUserNo);
 		
 		if (!addressVO.getAddressBasic().equals("")) {
 			// address table 등록
@@ -306,11 +315,9 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping("/userUpdateConfirm")
-	public String userUpdateConfirm(@RequestBody List<String> passwordsAndCategoryAndAddress, HttpServletRequest request) {
-		String userPw = passwordsAndCategoryAndAddress.get(0);
-		String checkPw = passwordsAndCategoryAndAddress.get(1);
-		String categoryIndex = passwordsAndCategoryAndAddress.get(3);
-		String addressIndex = passwordsAndCategoryAndAddress.get(4);
+	public String userUpdateConfirm(@RequestBody List<String> passwords, HttpServletRequest request) {
+		String userPw = passwords.get(0);
+		String checkPw = passwords.get(1);
 		
 		
 		
@@ -326,12 +333,85 @@ public class UserController {
 	}
 	
 	@PostMapping("/userUpdate")
-	public ModelAndView userUpdate(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
+	public ModelAndView userUpdate(UserVO userVO, AddressVO addressVO, CategoryVO  categoryVO
+								, ModelAndView modelAndView, MultipartFile profilePic, String categoryIndex, String addressCount) {
 		log.info("/userUpdate");
-		log.info(userVO); // 그냥 VO 다 넘겨서 update함
+		log.info(userVO); 
 		log.info(addressVO); // 수정된 부분 확인 후 db 수정
-		log.info(boardCategoryVO); // 삭제된 부분 조회 후 삭제 처리 먼저, 추가된 부분 확인 후 db favorite 추가. 
-		log.info(profilePic); // 기존 거 삭제하고 새로운  파일로 변경. filename null 체크
+		log.info(categoryVO); // 삭제된 부분 조회 후 삭제 처리 먼저, 추가된 부분 확인 후 db favorite 추가. 
+		log.info(profilePic); 
+		log.info(categoryIndex);
+		log.info(addressCount);
+		
+		int userNo = userVO.getUserNo();
+		
+		ObjectMapper categoryConverter = new ObjectMapper();
+		ObjectMapper addressConverter = new ObjectMapper();
+		List<String> categoryIndexList = new ArrayList<>();
+		List<String> addressCountList = new ArrayList<>();
+		try {
+			categoryIndexList = categoryConverter.readValue(categoryIndex, new TypeReference<List<String>>(){});
+			addressCountList = addressConverter.readValue(addressCount, new TypeReference<List<String>>(){});
+		} catch (JsonProcessingException e1) {
+			e1.printStackTrace();
+		}
+		
+		// 저장된 카테고리 삭제 코드
+		List<Integer> deletedFavoriteIndex = new ArrayList<>();
+		Map<String, Object> deletedFavoriteIndexMap = new HashMap<>();
+		for (int i = 0; i < userService.getUserFavorites(userNo).size(); i++) {
+			if (categoryIndexList.contains(Integer.toString(i))) {
+				continue;
+			} else {
+				deletedFavoriteIndex.add(i + 1);
+			}
+		}
+		
+		deletedFavoriteIndexMap.put("deleted_favorite_index", deletedFavoriteIndex);
+		deletedFavoriteIndexMap.put("size", deletedFavoriteIndex.size());
+		deletedFavoriteIndexMap.put("userNo", userNo);
+		if (deletedFavoriteIndex.size() > 0) {
+			userService.deleteUserFavorites(deletedFavoriteIndexMap);
+		}
+		
+		// 추가된 카테고리 insert 코드
+		log.info(categoryVO.getCategoryMajorTitle());
+		log.info(categoryVO.getCategoryMinorTitle());
+		int allUserCategoriesCount = categoryVO.getCategoryMinorTitle().split(",").length;
+		int currUserFavortiesCount = categoryIndexList.size();
+		
+		if (currUserFavortiesCount < allUserCategoriesCount) {
+			String[] newMajorArray = new String[allUserCategoriesCount - categoryIndexList.size()];
+			String[] newMinorArray = new String[allUserCategoriesCount - categoryIndexList.size()];
+			
+			String[] categoryMajorTitleList = categoryVO.getCategoryMajorTitle().split(",");
+			String[] categoryMinorTitleList = categoryVO.getCategoryMinorTitle().split(",");
+			
+			for (int i = currUserFavortiesCount; i < allUserCategoriesCount; i++) {
+				newMajorArray[i - currUserFavortiesCount] = categoryMajorTitleList[i];
+				newMinorArray[i - currUserFavortiesCount] = categoryMinorTitleList[i];
+			}
+			
+			String newMajorString = String.join(",", newMajorArray);
+			String newMinorString =  String.join(",", newMinorArray);
+			
+			CategoryVO newCategoryVo = new CategoryVO();
+			newCategoryVo.setCategoryMajorTitle(newMajorString);
+			newCategoryVo.setCategoryMinorTitle(newMinorString);
+			
+			log.info(newCategoryVo);
+			userService.updateUserFavorites(newCategoryVo, userNo);
+		}
+		
+		
+		
+		log.info(addressCountList);
+		log.info(addressVO.getAddressBasic());
+		log.info(addressVO.getAddressDetail());
+		log.info(addressVO.getAddressZipNum());
+		
+		
+		
 		
 		/*
 			SELECT * from(
@@ -401,7 +481,6 @@ public class UserController {
 		
 		// user 정보 업데이트
 		userService.updateUserInfo(userVO);
-		// 이전의 프로필 사진을 db에서 지우기. 위 파일 생성에서 지우면 될듯
 		
 		modelAndView.setViewName("redirect:/user/userMyPage/1");
 		
