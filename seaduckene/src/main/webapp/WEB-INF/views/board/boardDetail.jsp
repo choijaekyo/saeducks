@@ -374,7 +374,7 @@
 				url: '<c:url value="/reply/delete" />',
 				data: JSON.stringify({
 					'replyNo': replyNo
-				}),
+				}), 
 				contentType: 'application/json',
 				success: function(data) {
 					alert('댓글이 삭제되었습니다.');
