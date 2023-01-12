@@ -72,7 +72,7 @@
 							</p>
 							<div class="description-2" style="display: none;">
 								<label>아직 해당 서비스는 제공하지 않습니다. <br> 새로 회원가입 부탁드립니다.
-								</label> <br>
+								</label> <br> <br>
 								<input class="btn btn-outline-secondary" type="button" id="joinBtn" value="신규가입"/>
 							</div>
 						</div>

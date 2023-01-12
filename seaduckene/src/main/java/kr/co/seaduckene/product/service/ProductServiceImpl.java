@@ -19,6 +19,7 @@ import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.mapper.IProductMapper;
 import kr.co.seaduckene.user.command.UserVO;
+import kr.co.seaduckene.user.mapper.IUserMapper;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -27,6 +28,8 @@ public class ProductServiceImpl implements IProductService {
 	private IProductMapper productMapper;
 	@Autowired
 	private IAddressMapper addressMapper;
+	@Autowired
+	private IUserMapper userMapper;
 	
 	
 	// 장바구니 상품 불러오기
@@ -91,9 +94,11 @@ public class ProductServiceImpl implements IProductService {
 				productMapper.updateStock(map);			
 			}
 		}
-		
-		// user TABLE UPDATE
-		updateEmail(userNo, userEmail);	
+		 UserVO userVo =  userMapper.getUserVoWithNo(userNo);
+		 if(userVo.getUserEmail() == null) {
+			// user TABLE UPDATE
+			updateEmail(userNo, userEmail);
+		 }
 		
 		// address TABLE INSERT
 		if(checkAddr(userNo, order.getOrderAddressDetail())== 0) {

@@ -30,6 +30,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/user/userMyPage/**" />
 			<mvc:mapping path="/product/order" />
+			<mvc:mapping path="/board/boardWrite/**" />
 			<ref bean="userLoginAccessHandler" />
 		</mvc:interceptor>
 		

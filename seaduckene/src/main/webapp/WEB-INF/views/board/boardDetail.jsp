@@ -28,6 +28,7 @@
 			<p>
 				<fmt:formatDate value="${list.boardRegDate}" pattern="MM-dd HH:mm" />
 			</p>
+			<p>&nbsp&nbsp조회수: ${list.boardViews }</p>
 			<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">조회</a></li> -->
 

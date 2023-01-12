@@ -51,4 +51,7 @@ public interface IBoardMapper {
 	
 	// 보드 이미지 등록
 	void boardImageAdd(@Param("boardNo") int boardNo, @Param("UUID") String UUID);
+	
+	// 조회수 추가
+	void addViewCount(int boardNo);
 }

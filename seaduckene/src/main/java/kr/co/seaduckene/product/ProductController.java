@@ -81,7 +81,7 @@ public class ProductController {
 		int total = 0;
 		// 상품 썸네일 가져오기
 		for(ProductBasketVO product : basketList) {
-			ProductImageVO thumbnail = productService.getThumbnailImg(product.getBasketProductNo());
+			//ProductImageVO thumbnail = productService.getThumbnailImg(product.getBasketProductNo());
 			
 			// 총액 계산하기
 			total += product.getBasketQuantity()*product.getBasketPrice();
@@ -147,11 +147,7 @@ public class ProductController {
 				
 		
 	}
-	
-	
-	@GetMapping("/finishOrder")
-	public void finishOrder() {}
-	
+
 	@PostMapping("/order")
 	public String order(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,
 						ProductOrderVO orderVo ,String userEmail, HttpSession session,
@@ -174,7 +170,7 @@ public class ProductController {
 			if(result.equals("lack")) {
 				return "redirect:/product/order";	
 			}else {
-				return "redirect:/product/finishOrder";	
+				return "redirect:/user/userMyPage/4";	
 			}
 		}
 		
@@ -301,6 +297,7 @@ public class ProductController {
 		
 		return modelAndView;
 	}
+	
 	@GetMapping("/payment")
 	public void payment() {}
 	
@@ -308,6 +305,7 @@ public class ProductController {
 	public String paycomplete(HttpSession session,RedirectAttributes ra,@RequestParam String paymentKey) {
 		System.out.println("페이먼트 키: "+paymentKey);
 		
+		@SuppressWarnings("unchecked")
 		List<Integer> orderProductNoList = (List<Integer>) session.getAttribute("orderList");
 		ProductOrderVO orderVo = (ProductOrderVO) session.getAttribute("orderVo");
 		orderVo.setPaymentKey(paymentKey);
@@ -323,6 +321,10 @@ public class ProductController {
 		}
 	}
 	
+	@GetMapping("/fail")
+	public String fail() {
+		return "redirect:/user/userMyPage/3";
+	}
 	
 	
 }
