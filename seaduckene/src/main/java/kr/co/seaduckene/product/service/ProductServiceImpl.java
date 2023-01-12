@@ -209,4 +209,26 @@ public class ProductServiceImpl implements IProductService {
 		return productMapper.getOrder(userNo);
 	} //주문정보 불러오기
 	
+	@Override
+	public CategoryVO getCt(int categoryNo) {
+		
+		return productMapper.getCt(categoryNo);
+	}
+	
+	@Override
+	public void updateProduct(ProductVO vo) {
+		productMapper.updateProduct(vo);
+		
+	}
+	@Override
+	public void insertImg2(ProductImageVO vo) {
+		productMapper.insertImg2(vo);
+		
+	}
+	
+	@Override
+	public void deleteImage(int num) {
+		productMapper.deleteImage(num);
+		
+	}
 }

@@ -76,4 +76,17 @@ public interface IProductMapper {
 
 	// 주문정보 불러오기
 	List<ProductOrderVO> getOrder(int userNo);
+
+	// 카테고리 정보 불러오기
+	CategoryVO getCt(int categoryNo);
+
+	// 상품정보 업데이트
+	void updateProduct(ProductVO vo);
+	
+	//이미지 수정삽입
+	void insertImg2(ProductImageVO vo);
+	
+	//기존사진 삭제
+	void deleteImage(int num);
+	
 }
