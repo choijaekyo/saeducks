@@ -101,7 +101,7 @@ $(function() {
 				for(let i=0; i<list.length; i++) {
 					
 					str += 
-					`<div class="col">
+				    `<div class="col">
 				    <div class="card shadow-sm detailButton" data-bno="` + list[i].boardNo + `">
 				      <svg width="100%" height="225">
 				      

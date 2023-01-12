@@ -56,8 +56,8 @@
 
 				</div>
 				<div id="board-detail-button">
-					<a href='<c:url value='/board/boardList'/>'
-						class="right btn btn-info" id="modallistBtn">목록가기</a>
+					<a href='${pageContext.request.contextPath}/board/boardList/${list.boardCategoryNo}'
+						class="right btn btn-info" id="listBtn">목록가기</a>
 					<button type="submit" class="right btn btn-info" id="modalModBtn">수정하기</button>
 				</div>
 			</div>
@@ -146,6 +146,8 @@
 
 <script>
 	$(document).ready(function() {
+		
+		console.log('카테고리 번호' + '${list.boardCategoryNo}');
 
 		$(function() {
 			$('#summernote').summernote({
@@ -165,6 +167,8 @@
 			console.log('dwadwadwa' + replyUserNo);
 			console.log(reply);
 			console.log(boardNo);
+			
+	
 
 			/* const data = {
 					"boardNo":boardNo,
