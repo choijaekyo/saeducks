@@ -92,7 +92,7 @@ public class UserController {
 			UserVO userVo = userService.getUserBySessionId(autoLoginCookie.getValue());
 			log.info("autoLogin userVo: " + userVo);
 			
-			if (userVo != null) {	
+			if (userVo != null) {
 				// 쿠키 삭제는 받아온 쿠키 객체를 직접 지운다
 				autoLoginCookie.setPath(request.getContextPath() + "/");
 				autoLoginCookie.setMaxAge(0);
@@ -306,9 +306,13 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping("/userUpdateConfirm")
-	public String userUpdateConfirm(@RequestBody List<String> passwords, HttpServletRequest request) {
-		String userPw = passwords.get(0);
-		String checkPw = passwords.get(1);
+	public String userUpdateConfirm(@RequestBody List<String> passwordsAndCategoryAndAddress, HttpServletRequest request) {
+		String userPw = passwordsAndCategoryAndAddress.get(0);
+		String checkPw = passwordsAndCategoryAndAddress.get(1);
+		String categoryIndex = passwordsAndCategoryAndAddress.get(3);
+		String addressIndex = passwordsAndCategoryAndAddress.get(4);
+		
+		
 		
 		HttpSession session = request.getSession();
 		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
@@ -324,7 +328,7 @@ public class UserController {
 	@PostMapping("/userUpdate")
 	public ModelAndView userUpdate(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
 		log.info("/userUpdate");
-		log.info(userVO); // 수정된 부분 확인 후 - border color 바뀐거로 구분하는 법 생각하기. db 수정
+		log.info(userVO); // 그냥 VO 다 넘겨서 update함
 		log.info(addressVO); // 수정된 부분 확인 후 db 수정
 		log.info(boardCategoryVO); // 삭제된 부분 조회 후 삭제 처리 먼저, 추가된 부분 확인 후 db favorite 추가. 
 		log.info(profilePic); // 기존 거 삭제하고 새로운  파일로 변경. filename null 체크
@@ -386,6 +390,13 @@ public class UserController {
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
+			
+			UserVO userBeforeUpdate = userService.getUserVoWithNo(userVO.getUserNo());
+			File previousFile = new File(userBeforeUpdate.getUserProfilePath() + userBeforeUpdate.getUserProfileFolder()
+										+ "/" + userBeforeUpdate.getUserProfileFileName());
+			
+			previousFile.delete();
+			
 		}
 		
 		// user 정보 업데이트

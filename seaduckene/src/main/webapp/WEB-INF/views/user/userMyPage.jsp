@@ -117,7 +117,7 @@
 		               		<span class="basic-info">카테고리 정보</span> 
 							<ul class="category-wrap">
 							<c:forEach var="userCategory" items="${userCategoryList}" varStatus="status">
-								<li data-index='${status.index}'>
+								<li class="li-category" data-index='${status.index}'>
 									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example" >
 		                                    <option selected disabled>대 카테고리</option>
 		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
@@ -147,6 +147,7 @@
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>					
 							</ul>
+							<input type="hidden" id="category-index">
 							
 							<div class="optional-info"">
 								<span class="basic-info">추가 정보</span> <br>
@@ -195,7 +196,7 @@
 							            </div>
 							            <div class="modal-body myPage-modal-body" id="address-outter"> 
 						                      <c:forEach var="addr" items="${userAddrList}" varStatus="status">
-						                        <div class="address-infos" data-index="${status.count}">
+						                        <div class="address-infos div-address" data-index="${status.count}">
 						                        	<hr>
 						                        	<c:if test="${status.index == 0}">
 							                        	<h5>메인 주소</h5>
@@ -231,17 +232,17 @@
 						                        	<hr>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="" readonly />
+									                        <input class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="dummy" readonly />
 									                    </div>
 							                		</div>	
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value=""/>
+									                        <input class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="dummy"/>
 									                    </div>
 							                		</div>	
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
-									                        <input class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="" readonly />
+									                        <input class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="dummy" readonly />
 									                    </div>
 							                		</div>	<br>
 													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
@@ -250,6 +251,7 @@
 							               <button type="button" class="btn btn-primary" >확인</button>
 							               <button type="button" class="btn btn-light modal-cancel" onclick="hideAddrModal()" data-bs-dismiss="modal">닫기</button>
 							            </div>
+							            <input type="hidden" id="address-count">
 							         </div>
 							      </div>
 						      	<div id="modalMask"></div>
@@ -777,7 +779,7 @@ let nicknameCheck = true;
         });
         
         // 카테고리 추가
-       	const $lastLi = document.querySelector('#add-category').previousElementSibling.previousElementSibling.previousElementSibling.lastElementChild;
+       	const $lastLi = document.querySelector('#add-category').previousElementSibling.previousElementSibling.lastElementChild;
        	let indexLi = +($($lastLi).data('index'));
         $('#add-category').click(function() {
         	
@@ -832,8 +834,11 @@ let nicknameCheck = true;
 	   		$($addrDiv).data('index', newAddrIndex);
 	   		
 	   		$($addrDiv.querySelector('input.addrBasic')).attr('name', 'addressBasic');
+	   		$($addrDiv.querySelector('input.addrBasic')).val('');
 	   		$($addrDiv.querySelector('input.addrDetail')).attr('name', 'addressDetail');
+	   		$($addrDiv.querySelector('input.addrDetail')).val('');
 	   		$($addrDiv.querySelector('input.addrZipNum')).attr('name', 'addressZipNum');
+	   		$($addrDiv.querySelector('input.addrZipNum')).val('');
 	   		
 			$fragNode.appendChild($addrDiv);
 			$fragNode.appendChild($br);
@@ -897,7 +902,6 @@ let nicknameCheck = true;
     	// 주소록 모달에서 addressBasic change 시 중복 체크 이벤트 추가
     	$('#address-outter').on('blur', 'input.addrBasic', function(e) {
     		
-    		console.log($('.address-infos'));
  			 for (let $addressInfo of $('.address-infos')) {
 	    		if ($(this.parentNode.parentNode.parentNode).data('index') == $($addressInfo).data('index')) {
 					continue;	
@@ -1027,6 +1031,9 @@ let nicknameCheck = true;
 		$('.modiPw').css('display', 'inline-block');
 		$('.modiPw').attr('disabled', false);
 		$('.modal-submit-btn').attr('onclick', 'ModiPwModal()');
+		$("#currPw").attr('onkeyup', 'keyPressEnterModiPw()');
+		$("#modiPw").attr('onkeyup', 'keyPressEnterModiPw()');
+		$("#checkPw").attr('onkeyup', 'keyPressEnterModiPw()');
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
@@ -1035,9 +1042,6 @@ let nicknameCheck = true;
 		$('#myPageModal').toggleClass('updateUser', false);
 		$('#myPageModal').toggleClass('deleteUser', false);
 		$('#myPageModal').show();
-		
-		$('.modal-submit-btn').onclick
-		
 	}
 	
 	// 수정 모달 열기
@@ -1046,11 +1050,14 @@ let nicknameCheck = true;
 		$('.modiPw').css('display', 'none');
 		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'UpdateModal()');
+		$("#currPw").attr('onkeyup', 'keyPressEnterUpdate()');
+		$("#modiPw").attr('onkeyup', 'keyPressEnterUpdate()');
+		$("#checkPw").attr('onkeyup', 'keyPressEnterUpdate()');
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
 		$('#user-update-form').attr('action', '${pageContext.request.contextPath}/user/userUpdate');
-
+		
 		$('#myPageModal').toggleClass('modiPw', false);
 		$('#myPageModal').toggleClass('updateUser', true);
 		$('#myPageModal').toggleClass('deleteUser', false);
@@ -1063,6 +1070,9 @@ let nicknameCheck = true;
 		$('.modiPw').css('display', 'none');
 		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'DeleteModal()');
+		$("#currPw").attr('onkeyup', 'keyPressEnterDelete()');
+		$("#modiPw").attr('onkeyup', 'keyPressEnterDelete()');
+		$("#checkPw").attr('onkeyup', 'keyPressEnterDelete()');
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
@@ -1083,6 +1093,24 @@ let nicknameCheck = true;
 		$('#myPageModal').hide();
 	}
 	
+    // 비밀번호 종류 엔터 이벤트 시 submit 실행 코드.
+    function keyPressEnterModiPw() {
+    	if (window.event.keyCode == 13) {
+    		ModiPwModal();				
+		}
+    }
+    function keyPressEnterUpdate() {
+    	if (window.event.keyCode == 13) {
+    		UpdateModal();				
+		}
+    }
+    function keyPressEnterDelete() {
+    	if (window.event.keyCode == 13) {
+    		DeleteModal();				
+		}
+    }
+    
+	
 	// 주소록 모달 열기
 	function showAddressModal() {
 		$('#addrListModal').show();
@@ -1090,6 +1118,27 @@ let nicknameCheck = true;
 	
 	// 주소록 모달 닫기
 	function hideAddrModal() {
+	
+		for (let $addrBasic of $('.addrBasic')) {
+			if ($addrBasic.value.trim() === '') {
+				alert('주소 입력창이 비어있는 상태로 주소록 창을 닫을 수 없습니다.');
+				return;
+			}
+		}
+		for (let $addrDetail of $('.addrDetail')) {
+			if ($addrDetail.value.trim() === '') {
+				alert('주소 입력창이 비어있는 상태로 주소록 창을 닫을 수 없습니다.');
+				return;
+			}
+		}
+		for (let $addrZipNum of $('.addrZipNum')) {
+			if ($addrZipNum.value.trim() === '') {
+				alert('주소 입력창이 비어있는 상태로 주소록 창을 닫을 수 없습니다.');
+				return;
+			}
+		}
+		
+		
 		$('#addrListModal').hide();
 	}
 	
@@ -1145,11 +1194,11 @@ let nicknameCheck = true;
 		const checkPw = $('#checkPw').val().trim();
 		const array = [currPw,checkPw];
 		
-		if($('#currPw').css('border-block-color') === 'rgb(255, 0, 0)') {
+		if($('#currPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
 			alert('비밀번호를 다시 확인하세요.');
 			$('#currPw').focus();
 			return;
-		} else if($('#checkPw').css('border-block-color') === 'rgb(255, 0, 0)') {
+		} else if($('#checkPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
 			alert('비밀번호를 다시 확인하세요.');
 			$('#checkPw').focus();
 			return;
@@ -1180,12 +1229,13 @@ let nicknameCheck = true;
 			return;
 		}
 		
-		if (true) {
+		/* if (true) {
 			
 			console.log($('.address-infos'));
 			
 			// 메인 주소, 그 외 주소들과 추가한 주소의 null 체크
-			for (let $addressInfo of $('.address-infos')) {
+			// null 인 상태로 주소록 모달 창을 닫을 수가 없으니까 null 체크 안해도 됨.
+			 for (let $addressInfo of $('.address-infos')) {
 				console.log($addressInfo);
 				console.log($($addressInfo).data('index'));
 				if ($addressInfo.querySelector('.addrBasic').value.trim() === '') {
@@ -1210,10 +1260,29 @@ let nicknameCheck = true;
 					$addressInfo.querySelector('.addrZipNum').focus();
 					return;
 				}
-			}
+			} 
+		} */
+		
+		let category_index_list = [];
+		let address_count_list = [];
+		
+		for (let $li_category of $('.li-category')) {
+			category_index_list.push($($li_category).data('index'));
+			
 		}
+		console.log(category_index_list);
 		
 		
+		for (let $div_address of $('.div-address')) {
+			address_count_list.push($($div_address).data('index'));
+		}
+		console.log(address_count_list);
+		
+		array.push(category_index_list);
+		array.push(address_count_list);
+		
+		console.log(array);
+		return;
 		$.ajax({
 			type:'POST',
 			url:'${pageContext.request.contextPath}/user/userUpdateConfirm',
@@ -1225,6 +1294,9 @@ let nicknameCheck = true;
 				
 				if (result == 1) {
 					if (confirm('현재 적용된 내용으로 모든 정보가 수정됩니다.\n수정하시겠습니까?')) {
+						
+							
+					
 						$('#user-update-form').submit();
 					}
 				} else {
