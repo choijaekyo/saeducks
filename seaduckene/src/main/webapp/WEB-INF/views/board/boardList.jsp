@@ -6,11 +6,14 @@
 
 <div class="container">
 	<div class="row mb-3">
-	  	<div class="col" style="position: relative;">
-	  		<button type="button" class="btn btn-warning w-auto rounded btn-shadow">대카테고리고리</button>
-	  		<button type="button" class="btn btn-success w-auto rounded">소소카테고리</button>
-	  		<button type="button" class="btn btn-info w-auto rounded">전체상품</button>
-	  		<a class="btn btn-info w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a>
+	  	<div class="col col align-self-center" style="position: relative;">
+        	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107;">
+			    <li class="breadcrumb-item" id="majorTitle"></li>
+			    <li class="breadcrumb-item" id="minorTitle"></li>
+			    <li class=""><a class="ml-5 btn btn-info w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a></li>
+			  </ol>
+			</nav>
         </div>
 	</div>
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contentDiv">
@@ -95,36 +98,33 @@ $(function() {
 				
 				if(list.length === 0) isFinish = true;
 				
+				const majorTitle = list[0].categoryMajorTitle;
+				const minorTitle = list[0].categoryMinorTitle;
+				
 				for(let i=0; i<list.length; i++) {
 					
 					str += 
 					`<div class="col">
 				    <div class="card shadow-sm detailButton" data-bno="` + list[i].boardNo + `">
 				      <svg width="100%" height="225">
-				      <defs>
-				      <filter id="rounded-corners-2" primitiveUnits="objectBoundingBox">
-				      <feImage preserveAspectRatio="none" width="110%" height="110%" x="-5%" y="0%"  xlink:href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 400 40' height='40' width='400'%3E%3Crect fill='lightgray' x='0' y='0' rx='10' ry='10' width='400' height='40'/%3E%3C/svg%3E"/>
-				         <feComposite operator="over" in="SourceGraphic"/>
-				        </filter>
-				      </defs>
+				      
 				      
 				      <image href="/board/getImg/` + list[i].boardImageUuid + `" width="100%" height="100%" style="opacity: 0.5;"/>
-				      <text x="37%" y="50%" fill="#000" filter="url(#rounded-corners-2)">` + list[i].boardTitle + `</text>
+				      
 				      </svg>
 				      <div class="card-body">
-				      
-				        
 				        <div class="d-flex justify-content-between align-items-center">
-				          <small style="width: 100%;"><p class="text-end" style="color: #5c5e5e;">` + timeForToday(list[i].boardRegDate) + ` mins</p></small>
+							<small class="col-10"><p class="col-10 text-truncate" style="color: #5c5e5e; margin-bottom: 0;">` + list[i].boardTitle + `</p></small>
+							<small class="col-2"><p class="text-end" style="color: #5c5e5e; margin-bottom: 0;">` + timeForToday(list[i].boardRegDate) + `</p></small>
 				        </div>
 				      </div>
 				    </div>
-			  		</div>`;	
-					/* <p class="card-text">` + list[i].boardContent + `</p> */
-					/* <img src="/board/getImg/1ffbac24-1c3c-4028-988a-ec8e67912c94.png" style="width: 100%; height: 100%;"/> */
+			  		</div>`;
 				}
 				
 				$('#contentDiv').html(str);
+				$('#majorTitle').html(majorTitle);
+				$('#minorTitle').html(minorTitle);
 			}
 			
 				

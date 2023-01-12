@@ -94,6 +94,8 @@ public class boardListController {
 		summernoteCopy copy = new summernoteCopy();
 		copy.summerCopy(summerfile);
 		
+		
+		
 		int boardNo = service.boardNoSearch(vo.getBoardTitle(), vo.getBoardContent());
 		service.boardImageAdd(boardNo, summerfile.get(0));
 		

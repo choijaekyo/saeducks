@@ -16,6 +16,8 @@
                 FROM board d
                 INNER JOIN boardImage i
                 ON d.board_no = i.board_board_no
+                INNER JOIN category c
+            	ON d.board_category_no = c.category_no
 		        WHERE d.board_category_no = #{categoryNo}
                 ORDER BY d.board_no DESC
 		        ) tbl

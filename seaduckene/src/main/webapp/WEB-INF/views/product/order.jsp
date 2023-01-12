@@ -19,7 +19,10 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <!--개인 디자인 추가-->
 <link href="${pageContext.request.contextPath }/resources/css/order.css"
-	rel="stylesheet">
+	rel="stylesheet">	
+<!-- toss  -->
+<script src="https://js.tosspayments.com/v1/payment"></script>
+
 
 </head>
 <body>
@@ -148,8 +151,8 @@
 							</div>
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio"
-									name="orderPaymentMethod" id="creditCard" value="creditCard">
-								<label class="form-check-label" for="creditCard">신용카드</label>
+									name="orderPaymentMethod" id="tossPay" value="tossPay">
+								<label class="form-check-label" for="tossPay">토스페이(카드결제)</label>
 							</div>
 						</div>
 					</div>
@@ -304,10 +307,6 @@
 			}
 			$('#addrListModal').modal('hide');
 		}
-		
-
-		
-		
 	});//주소값 뿌리기 끝
 
 	// 정규식 만족여부 확인
@@ -379,7 +378,7 @@
 			accountFlag = false;
 		});
 
-		$('#creditCard').change(function() {
+		$('#tossPay').change(function() {
 			$('#checkdeAccount').css('display', 'none');
 			$('#orderReturnAccount').val('');
 			$("select option").prop("selected", false);
@@ -471,7 +470,7 @@
 							}
 						}
 						if (!$('#account').is(":checked")
-								&& !$('#creditCard').is(":checked")) {
+								&& !$('#tossPay').is(":checked")) {
 							alert('결제방법을 선택해 주세요.');
 							return;
 						}
@@ -492,7 +491,6 @@
 							return;
 						}
 
-						console.log(1);
 						$('#orderform').submit();
 
 					});
@@ -502,5 +500,6 @@
 	if (checkStock === 'lack') {
 		alert('상품의 재고수량이 부족합니다.\n 상품의 재고수량 이하로 주문해 주세요.')
 	}
+	
 </script>
 </html>

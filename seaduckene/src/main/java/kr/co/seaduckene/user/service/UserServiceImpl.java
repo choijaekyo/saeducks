@@ -33,6 +33,11 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
+	public UserVO getUserVoWithNo(int userNo) {
+		return userMapper.getUserVoWithNo(userNo);
+	}
+	
+	@Override
 	public UserVO getUserVo(UserVO userVO) {
 		return userMapper.getUserVo(userVO);
 	}
@@ -152,4 +157,15 @@ public class UserServiceImpl implements IUserService {
 	public void undoAutoLogin(int userNo) {
 		userMapper.undoAutoLogin(userNo);
 	}
+	
+	@Override
+	public int checkCurrPw(Map<String, String> pwkMap) {
+		return userMapper.checkCurrPw(pwkMap);
+	}
+	
+	@Override
+	public void changePw(Map<String, String> pwkMap) {
+		userMapper.changePw(pwkMap);
+	}
+
 }

@@ -18,6 +18,8 @@ FROM
         FROM board d
         INNER JOIN boardImage i
         ON d.board_no = i.board_board_no
+        INNER JOIN category ｃ
+        ON d.board_category_no = ｃ.category_no
         WHERE d.board_category_no = 1
         ORDER BY d.board_no DESC
         ) tbl
@@ -45,6 +47,10 @@ public class BoardImageVO {
 	private String boardImageUuid;
 	private int boardBoardNo;
 	private int boardThumbnail;
+	private int categoryNo;
+	private String categoryMajorTitle;
+	private String categoryMinorTitle;
+	private Timestamp categoryRegDate;
 	
 }
 

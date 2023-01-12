@@ -105,7 +105,8 @@ public class ProductController {
 			// 총액 계산하기
 			total += product.getBasketQuantity()*product.getBasketPrice();
 		}
-		model.addAttribute("total",total);
+		//model.addAttribute("total",total);
+		session.setAttribute("total", total);
 	}
 	
 	@GetMapping("/productDetail")
@@ -177,15 +178,23 @@ public class ProductController {
 		System.out.println("controller 동작");
 		System.out.println(orderVo);
 		System.out.println(userEmail);
+		System.out.println(orderVo.getOrderPaymentMethod());
 		
-		// order TABLE INSERT
-		UserVO user = (UserVO)session.getAttribute("login");	
-		String result = productService.order(orderProductNoList, orderVo, userEmail, user);
-		ra.addFlashAttribute("result", result);
-		if(result.equals("lack")) {
-			return "redirect:/product/order";	
-		}else {
-			return "redirect:/product/finishOrder";	
+		if(orderVo.getOrderPaymentMethod().equals("tossPay")){
+			session.setAttribute("orderList", orderProductNoList);
+			session.setAttribute("orderVo", orderVo);
+			session.setAttribute("userEmail", userEmail);
+			return "redirect:/product/payment";
+		} else {
+			// order TABLE INSERT
+			UserVO user = (UserVO)session.getAttribute("login");	
+			String result = productService.order(orderProductNoList, orderVo, userEmail, user);
+			ra.addFlashAttribute("result", result);
+			if(result.equals("lack")) {
+				return "redirect:/product/order";	
+			}else {
+				return "redirect:/product/finishOrder";	
+			}
 		}
 		
 	}
@@ -318,7 +327,27 @@ public class ProductController {
 		
 		return modelAndView;
 	}
+	@GetMapping("/payment")
+	public void payment() {}
 	
+	@GetMapping("/success")
+	public String paycomplete(HttpSession session,RedirectAttributes ra,@RequestParam String paymentKey) {
+		System.out.println("페이먼트 키: "+paymentKey);
+		
+		List<Integer> orderProductNoList = (List<Integer>) session.getAttribute("orderList");
+		ProductOrderVO orderVo = (ProductOrderVO) session.getAttribute("orderVo");
+		orderVo.setPaymentKey(paymentKey);
+		String userEmail = (String) session.getAttribute("userEmail");
+		
+		UserVO user = (UserVO)session.getAttribute("login");	
+		String result = productService.order(orderProductNoList, orderVo, userEmail, user);
+		ra.addFlashAttribute("result", result);
+		if(result.equals("lack")) {
+			return "redirect:/product/order";	
+		}else {
+			return "redirect:/user/userMyPage/4";
+		}
+	}
 	
 	
 	

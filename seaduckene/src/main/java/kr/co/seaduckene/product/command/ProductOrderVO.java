@@ -33,7 +33,8 @@ public class ProductOrderVO {
     order_address_detail VARCHAR2(1000) NOT NULL,
     order_payment_method VARCHAR2(100) NOT NULL,
     order_return_bank VARCHAR2(100),
-    order_return_account NUMBER 
+    order_return_account NUMBER,
+    payment_key VARCHAR2(100)
 );
 */
 	
@@ -53,5 +54,6 @@ public class ProductOrderVO {
     private String orderPaymentMethod;
     private String orderReturnBank;
     private String orderReturnAccount;
+    private String paymentKey;
 
 }
