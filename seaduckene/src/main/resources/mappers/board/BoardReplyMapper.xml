@@ -18,6 +18,8 @@
 	  	SELECT ROWNUM AS rn, tbl.* FROM
 			 (
                 SELECT * FROM reply r
+                LEFT JOIN duck_user du
+                ON r.reply_user_no = du.user_no
                 WHERE r.reply_board_no = #{bno}
                 ORDER BY r.reply_no DESC
               ) tbl
@@ -32,7 +34,23 @@
   	FROM reply
   	WHERE reply_board_no = #{bno}
   </select>
+  
+  <select id="pwCheck" resultType="int">
+  		SELECT COUNT(*) 
+  		FROM reply
+  		WHERE reply_no = #{replyNo} AND reply_pw = #{replyPw}
+  </select>
    
+   <update id="update">
+   		UPDATE reply
+   		SET reply_content = #{replyContent}, reply_up_date = sysdate
+   		WHERE reply_no = #{replyNo}
+   </update>
+   
+   <delete id="delete">
+   		DELETE FROM reply
+   		WHERE reply_no = #{replyNo}
+   </delete>
 
 	
 </mapper>
