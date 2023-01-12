@@ -155,6 +155,11 @@
 	<delete id="delBasekt">
 		DELETE FROM basket WHERE basket_no=#{basketNo} 
 	</delete>
+	
+	<select id="getOrder" resultType="order">
+		SELECT * FROM duck_order
+		WHERE order_user_no = #{userNo}
+	</select>
 
 </mapper>
     

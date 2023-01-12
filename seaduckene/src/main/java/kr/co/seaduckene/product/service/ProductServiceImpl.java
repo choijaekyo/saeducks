@@ -203,4 +203,10 @@ public class ProductServiceImpl implements IProductService {
 		
 	}
 	
+	@Override
+	public List<ProductOrderVO> getOrder(int userNo) {
+		
+		return productMapper.getOrder(userNo);
+	} //주문정보 불러오기
+	
 }

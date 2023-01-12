@@ -85,11 +85,12 @@
 					<p class="lead">${vo.productDetail }</p>
 					<div class="d-flex">
 						<input class="form-control text-center" id="inputQuantity"
-							type="number" value="1" min="1" max="${vo.productStock }">
+							type="number" value="0" min="0" max="${vo.productStock }">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
 							id="cartBtn">
 							<i class="bi-cart-fill me-1"></i> Add to cart
 						</button>
+						<a href="<c:url value="/product/modifyProduct?no=${vo.productNo }"/>">수정</a>
 					</div>
 				</div>
 			</div>
@@ -127,7 +128,11 @@
 				success : function(data) {
 					if(data=='fail'){
 						alert('이미 장바구니에 들어있습니다. 확인해주세요')
-					}else{
+					}
+					else if(data=='empty'){
+						alert('재고가 없습니다!');
+					}
+					else{
 						alert('장바구니에 등록성공');
 					}
 					

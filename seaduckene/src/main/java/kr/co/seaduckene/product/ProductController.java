@@ -63,6 +63,25 @@ public class ProductController {
 		
 	}
 	
+	@GetMapping("/modifyProduct")
+	public void modify(Model model) {
+		System.out.println("product/createProduct GET 요청");
+		List<CategoryVO> list = productService.getCategory();
+		LinkedHashSet<String> major = new LinkedHashSet<String>();
+		
+		for(CategoryVO vo : list) {
+			major.add(vo.getCategoryMajorTitle());
+		}
+		model.addAttribute("major", major);
+		model.addAttribute("category", list);
+		
+	}
+	
+	@GetMapping("/master")
+	public void master() {
+		
+	}
+	
 	@GetMapping("/order")
 	public void orderSheet(HttpSession session,Model model) {
 		System.out.println("controller동작 order/GET");
@@ -255,23 +274,30 @@ public class ProductController {
 	@ResponseBody
 	public String insertBasket(@RequestBody ProductBasketVO vo) {
 		System.out.println(vo);
+		ProductVO pvo = productService.getContent(vo.getBasketProductNo());
+		if(pvo.getProductStock() == 0) return "empty";
 		if(productService.basketChk(vo)==1) return"fail";
 		productService.insertBasket(vo);
 		return"seccess";
 	}
 	@GetMapping("/plusQuantity")
-	public ModelAndView plusQ(ModelAndView modelAndView , int basketNo ,int q) {
+	public ModelAndView plusQ(ModelAndView modelAndView , int basketNo ,int q,int pNo) {
 		System.out.println("/plusQuantity GET");
+		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		ProductVO vo = productService.getContent(pNo);
+		if(q == vo.getProductStock()) {
+			return modelAndView;
+		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("basketNo",basketNo);
 		map.put("q",q+1);
 		productService.cQuantity(map);
-		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		
 		return modelAndView;
 	}
 	
 	@GetMapping("/minusQuantity")
-	public ModelAndView minusQ(ModelAndView modelAndView , int basketNo,int q) {
+	public ModelAndView minusQ(ModelAndView modelAndView , int basketNo,int q ) {
 		System.out.println("/minusQuantity GET");
 		modelAndView.setViewName("redirect:/user/userMyPage/3");
 		if(q==0) return modelAndView;

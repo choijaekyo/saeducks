@@ -59,5 +59,8 @@ public interface IProductService {
 	//장바구니 삭제
 	public void delBasekt(int basketNo);
 	
+	//주문정보 불러오기
+	List<ProductOrderVO> getOrder(int userNo);
+	
 
 }

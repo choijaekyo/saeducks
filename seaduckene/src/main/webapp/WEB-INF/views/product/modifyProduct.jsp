@@ -24,7 +24,7 @@
 
 <section class="py-5">
     <div class="col-md-12">
-        <h1 class="add-product-title h1 ">상품등록</h1>
+        <h1 class="add-product-title h1 ">상품수정</h1>
     </div>
     <div class="container">
         <div class="row">
@@ -105,7 +105,7 @@
                         <label for="productImg">상품이미지(최대2개)</label>
                     </div>
                     <div class="col-md-7 col-sm-12 col-12">
-                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple"  required  maxlength="2"/>
+                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple"  required />
                     </div>
                 </div>
 

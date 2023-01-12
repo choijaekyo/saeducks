@@ -16,22 +16,22 @@ public interface IProductMapper {
 
 	// 상품상세
 	ProductVO getContent(int num);
-	
+
 	// 장바구니 상품 불러오기
 	List<ProductBasketVO> getBasketList(int userNo);
-	
+
 	// 썸네일 가져오기
 	ProductImageVO getThumbnailImg(int productNo);
-	
+
 	// user 인증메일 등록여부 확인
 	String checkEmail(int userNo);
-	
+
 	// 상품주문
 	void order(ProductOrderVO orderVo);
-	
+
 	// 상품 재고수량 수정
 	void updateStock(Map<String, Object> map);
-	
+
 	// 장바구니 비우기
 	void deleteBasket(int userNo);
 
@@ -55,7 +55,7 @@ public interface IProductMapper {
 
 	// 메인 상품 이미지 출력 세션있음
 	List<ProductImageVO> mainImage(int productNo);
-	
+
 	// 메인 상품 이미지 출력 세션 없음
 	List<ProductImageVO> mainImageNo();
 
@@ -67,10 +67,13 @@ public interface IProductMapper {
 
 	// 장바구니 수량 변경
 	public void cQuantity(Map<String, Object> map);
-	
-	//장바구니 중복 체크
+
+	// 장바구니 중복 체크
 	public int basketChk(ProductBasketVO vo);
-	
-	//장바구니 삭제
+
+	// 장바구니 삭제
 	public void delBasekt(int basketNo);
+
+	// 주문정보 불러오기
+	List<ProductOrderVO> getOrder(int userNo);
 }
