@@ -167,7 +167,7 @@ public class UserController {
 		addressVO.setAddressUserNo(registerdUserNo);
 		
 		//favorite table 등록
-		userService.updateUserFavorites(categoryVO, registerdUserNo);
+		userService.addUserFavorites(categoryVO, registerdUserNo);
 		
 		if (!addressVO.getAddressBasic().equals("")) {
 			// address table 등록
@@ -374,15 +374,42 @@ public class UserController {
 			userService.deleteUserFavorites(deletedFavoriteIndexMap);
 		}
 		
+		int currUserFavortiesCount = categoryIndexList.size();
+		
+		if (currUserFavortiesCount > 0) {
+			String[] currMajorArray = new String[currUserFavortiesCount];
+			String[] currMinorArray = new String[currUserFavortiesCount];
+			
+			String[] categoryMajorTitleList = categoryVO.getCategoryMajorTitle().split(",");
+			String[] categoryMinorTitleList = categoryVO.getCategoryMinorTitle().split(",");
+			
+			for (int i = 0; i < currUserFavortiesCount; i++) {
+				currMajorArray[i] = categoryMajorTitleList[i];
+				currMinorArray[i] = categoryMinorTitleList[i];
+			}
+			
+			String currMajorString = String.join(",", currMajorArray);
+			String currMinorString =  String.join(",", currMinorArray);
+			
+			CategoryVO modiCategoryVo = new CategoryVO();
+			modiCategoryVo.setCategoryMajorTitle(currMajorString);
+			modiCategoryVo.setCategoryMinorTitle(currMinorString);
+			
+			log.info(modiCategoryVo);
+			userService.updateUserFavorites(modiCategoryVo, userNo);
+		}
+		
+		
+		
 		// 추가된 카테고리 insert 코드
 		log.info(categoryVO.getCategoryMajorTitle());
 		log.info(categoryVO.getCategoryMinorTitle());
 		int allUserCategoriesCount = categoryVO.getCategoryMinorTitle().split(",").length;
-		int currUserFavortiesCount = categoryIndexList.size();
+//		currUserFavortiesCount = categoryIndexList.size();
 		
 		if (currUserFavortiesCount < allUserCategoriesCount) {
-			String[] newMajorArray = new String[allUserCategoriesCount - categoryIndexList.size()];
-			String[] newMinorArray = new String[allUserCategoriesCount - categoryIndexList.size()];
+			String[] newMajorArray = new String[allUserCategoriesCount - currUserFavortiesCount];
+			String[] newMinorArray = new String[allUserCategoriesCount - currUserFavortiesCount];
 			
 			String[] categoryMajorTitleList = categoryVO.getCategoryMajorTitle().split(",");
 			String[] categoryMinorTitleList = categoryVO.getCategoryMinorTitle().split(",");
@@ -400,7 +427,7 @@ public class UserController {
 			newCategoryVo.setCategoryMinorTitle(newMinorString);
 			
 			log.info(newCategoryVo);
-			userService.updateUserFavorites(newCategoryVo, userNo);
+			userService.addUserFavorites(newCategoryVo, userNo);
 		}
 		
 		

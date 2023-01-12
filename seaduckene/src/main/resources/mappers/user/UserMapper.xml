@@ -152,12 +152,20 @@
 	</update>
 	
 	<select id="getUserFavorites" resultType="favorite">
-		SELECT * FROM favorite WHERE favorite_user_no = #{userNo}
+		SELECT *
+		FROM favorite f JOIN duck_user u ON f.favorite_user_no = u.user_no
+		                JOIN category c ON f.favorite_category_no = c.category_no
+		WHERE u.user_no = #{userNo}
+		ORDER BY u.user_no, c.category_major_title, c.category_minor_title
 	</select>
 	
 	<delete id="deleteUserFavorites">
 		DELETE FROM favorite 
 		WHERE favorite_no in <include refid="delete_favorite_where"></include>
 	</delete>
+	
+	<update id="updateUserFavorites">
+		UPDATE  favorite SET favorite_category_no = #{categoryNo} WHERE favorite_no = #{favoriteNo} AND favorite_user_no = #{userNo}
+	</update>	
 	
 </mapper>

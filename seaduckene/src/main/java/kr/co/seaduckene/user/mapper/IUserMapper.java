@@ -66,6 +66,9 @@ public interface IUserMapper {
 	// 입력한 번호로 비밀번호 변경
 	void changePw(Map<String, String> pwkMap);
 	
+	// 유저의 favorite 변경
+	void updateUserFavorites(CategoryVO categoryVO, int userNo);
+	
 	// 유저 정보 변경 
 	void updateUserInfo(UserVO userVo);
 	
@@ -74,5 +77,8 @@ public interface IUserMapper {
 	
 	// 유저의 favorite 삭제
 	void deleteUserFavorites(Map<String, Object> deletedCount);
+	
+	// f유저의 favorite 변경
+	void updateUserFavorites(Map<String, Integer> map);
 
 }

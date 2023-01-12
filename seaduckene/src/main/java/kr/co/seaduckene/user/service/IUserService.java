@@ -31,7 +31,7 @@ public interface IUserService {
 	List<Categories> getCategories();
 	
 	// 유저 favorite table 연동
-	void updateUserFavorites(CategoryVO categoryVO, int userNo);
+	void addUserFavorites(CategoryVO categoryVO, int userNo);
 	
 	// 유저에서 주소 테이블에 입력
 	String registAddr(AddressVO addressVO);
@@ -77,4 +77,7 @@ public interface IUserService {
 	
 	// 유저의 favorite 삭제
 	void deleteUserFavorites(Map<String, Object> deletedCount);
+	
+	// 유저의 favorite 변경
+	void updateUserFavorites(CategoryVO newCategoryVO, int userNo);
 }

@@ -49,7 +49,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public void updateUserFavorites(CategoryVO categoryVO, int userNo) {
+	public void addUserFavorites(CategoryVO categoryVO, int userNo) {
 		
 		// 카테고리 한 개에서도 작동하는 지 봐야 함.
 		// -> 카테고리 한 개도 잘 동작 하는 듯.
@@ -183,4 +183,33 @@ public class UserServiceImpl implements IUserService {
 	public void deleteUserFavorites(Map<String, Object> deletedCount) {
 		userMapper.deleteUserFavorites(deletedCount);
 	}
+	
+	@Override
+	public void updateUserFavorites(CategoryVO newCategoryVO, int userNo) {
+		
+		String[] newMajorList = newCategoryVO.getCategoryMajorTitle().split(",");
+		log.info(newMajorList);
+		String[] newMinorList = newCategoryVO.getCategoryMinorTitle().split(",");
+		log.info(newMinorList);
+		
+		List<CategoryVO> currCategoryVOs = userMapper.getUserCategories(userNo);
+		List<FavoriteVO> currFavoriteVOs = userMapper.getUserFavorites(userNo);
+		
+		for (int i = 0; i < newMajorList.length; i++) {
+			CategoryVO borVo = new CategoryVO(0, newMajorList[i], newMinorList[i], null);
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			if (currCategoryVOs.get(i).getCategoryNo() != userMapper.getCategoryNo(borVo)) {
+				log.info("curr: " + currCategoryVOs.get(i).getCategoryNo());
+				log.info("new: " + userMapper.getCategoryNo(borVo));
+				map.put("categoryNo", userMapper.getCategoryNo(borVo));
+				map.put("userNo", userNo);
+				log.info("currFavNo: " + currFavoriteVOs.get(i).getFavoriteNo());
+				map.put("favoriteNo", currFavoriteVOs.get(i).getFavoriteNo());
+				
+				userMapper.updateUserFavorites(map);
+			}
+		}
+		
+	}
+	
 }
