@@ -336,4 +336,32 @@ drop SEQUENCE order_seq;
 
 commit;
 
---------------------------------------------------------------------------------
+------------------------------------- °ü¸®ÀÚ -----------------------------------
+
+CREATE TABLE admin_login(
+    admin_no NUMBER PRIMARY KEY,
+    admin_id VARCHAR2(100) NOT NULL,
+    admin_pw VARCHAR2(100) NOT NULL,
+    admin_reg_date DATE DEFAULT sysdate
+);
+
+CREATE SEQUENCE admin_login_seq
+    START WITH 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+
+CREATE TABLE admin_date_log(
+    admin_log_no NUMBER PRIMARY KEY,
+    admin_no NUMBER,
+    admin_log_last_date DATE DEFAULT sysdate
+);
+
+CREATE SEQUENCE admin_date_log_seq
+    START WITH 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+    
+INSERT INTO admin_login (admin_no, admin_id, admin_pw) 
+VALUES (admin_login_seq.NEXTVAL, 'admin', 'admin');
