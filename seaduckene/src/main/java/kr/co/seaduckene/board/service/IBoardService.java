@@ -48,4 +48,7 @@ public interface IBoardService {
 	
 	// 보드 이미지 등록
 	void boardImageAdd(int boardNo, String UUID);
+	
+	// 조회수 추가 
+	void addViewCount(int boardNo);
 }

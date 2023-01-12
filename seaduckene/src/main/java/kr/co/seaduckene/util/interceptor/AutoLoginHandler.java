@@ -12,7 +12,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.WebUtils;
 
 import kr.co.seaduckene.user.command.UserVO;
-import kr.co.seaduckene.user.mapper.IUserMapper;
 import kr.co.seaduckene.user.service.IUserService;
 import lombok.extern.log4j.Log4j;
 

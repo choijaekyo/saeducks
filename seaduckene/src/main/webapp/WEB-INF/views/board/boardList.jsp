@@ -111,8 +111,9 @@ $(function() {
 				      </svg>
 				      <div class="card-body">
 				        <div class="d-flex justify-content-between align-items-center">
-							<small class="col-10"><p class="col-10 text-truncate" style="color: #5c5e5e; margin-bottom: 0;">` + list[i].boardTitle + `</p></small>
+							<small class="col-7"><p class="col-10 text-truncate" style="color: #5c5e5e; margin-bottom: 0;">` + list[i].boardTitle + `</p></small>
 							<small class="col-2"><p class="text-end" style="color: #5c5e5e; margin-bottom: 0;">` + timeForToday(list[i].boardRegDate) + `</p></small>
+							<small class="col-3"><p class="text-end" style="color: #5c5e5e; margin-bottom: 0;">조회수&nbsp` + list[i].boardViews + `</p></small>
 				        </div>
 				      </div>
 				    </div>

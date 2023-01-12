@@ -22,7 +22,7 @@ public class CertificationMailService {
 	// 메일 인증번호 만들기
 	public void makeAuthNum() {
 		Random random = new Random();
-		authNum = random.nextInt(8888888)+111111;
+		authNum = random.nextInt(88888888)+1111111;
 		System.out.println(authNum);
 	}
 	
