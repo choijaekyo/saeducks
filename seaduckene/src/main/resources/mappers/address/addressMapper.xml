@@ -49,5 +49,23 @@
 		DELETE FROM address 
 		WHERE address_no in <include refid="delete_address_where" />
 	</delete>	
+	
+	<select id="getUserAddressWithRn" resultType="address">
+		select * from
+			(
+			    SELECT ROWNUM rn, tbl.*
+			    from
+				    (
+					    SELECT * FROM address
+					    WHERE address_user_no = #{userNo}
+					    ORDER BY address_representative DESC, address_no 
+				    ) tbl
+			)
+		WHERE rn = #{addressRn};
+	</select>
+	
+	<update id="">
+		UPDATE address SET address_no = #{}, address_representative = #{} WEHRE address_no = #{} AND address_user_no = #{}
+	</update>
 
 </mapper>

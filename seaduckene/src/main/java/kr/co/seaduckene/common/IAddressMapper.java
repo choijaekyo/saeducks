@@ -23,6 +23,10 @@ public interface IAddressMapper {
 	// 유저의 추가 주소 저장
 	void addNewAddress(AddressVO newAddressVo);
 	
-	// 유저의 favorite 삭제
+	// 유저의 address 삭제
 	void deleteUserAddress(Map<String, Object> deletedCount);
+	
+	// rn 순서, userNo로 addressVO 얻기
+	AddressVO getUserAddressWithRn(Map<String, Integer> map);
+	
 }

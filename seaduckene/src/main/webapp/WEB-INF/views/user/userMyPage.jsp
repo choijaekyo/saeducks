@@ -192,7 +192,7 @@
 							      <div class="modal-dialog modalDesign">
 							         <div class="modal-content myPage-modal-content">
 							            <div class="modal-header pt-3 myPage-modal-header">
-							               <h4 class="modal-title mx-auto">주소록 <input type="button" class="btn btn-sm btn-b btn-success" value="상태 되돌리기" id="address-undo"></h4> 
+							               <h4 class="modal-title mx-auto">주소록</h4> 
 							            </div>
 							            <div class="modal-body myPage-modal-body" id="address-outter"> 
 						                      <c:forEach var="addr" items="${userAddrList}" varStatus="status">
@@ -208,12 +208,12 @@
 									                    <div class="col-md-12 col-sm-12 col-12">
 									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${addr.addressBasic}" readonly />
 									                    </div>
-							                		</div>	
+							                		</div>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
 									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="${addr.addressDetail}" />
 									                    </div>
-							                		</div>	
+							                		</div>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
 									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${addr.addressZipNum}" readonly />
@@ -855,7 +855,7 @@ let nicknameCheck = true;
     	
     		searchAddress(e);
     		//  커서를 상세주소 필드로 이동한다. - 주소 중복 제거 change 이벤트 때문에 포커스 다시 입힘.
-    		e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.focus();
+    		e.target.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.focus();
    		});
     	
     	// 주소록 모달 내 주소 추가
@@ -896,7 +896,8 @@ let nicknameCheck = true;
     	// 주소록 모달 메인 주소로 설정
     	$('#addrListModal').on('click', '.set-main', function(e) {
    
-    		const addressIndex = $(this.parentNode).data('index');
+    		const addressCount = $(this.parentNode).data('index');
+    		console.log(addressCount);
     		
     		if (confirm('선택한 주소 정보를 메인 주소로 설정하시겠습니까?')) {
     		
@@ -905,7 +906,7 @@ let nicknameCheck = true;
 					url: '<c:url value="/user/changeMainAddress" />',
 					contentType: 'application/json',
 					dataType:'text',
-					data: addressIndex,
+					data: JSON.stringify(addressCount),
 					success: function(data) {
 						
 						alert(data);
@@ -1053,11 +1054,11 @@ let nicknameCheck = true;
 				
                 console.log(e.target);
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value = data.zonecode;
-                e.target.parentNode.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.value = addr;
+                e.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.value = addr;
+                e.target.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.value = data.zonecode;
                 
                 // 커서를 기본주소 필드로 이동한다. - 주소 중복 제거 change 이벤트 때문에 포커스 기본 주소로 입힘.
-                 e.target.parentNode.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.focus();
+                e.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.focus();
                  
 				}
                 
@@ -1338,8 +1339,6 @@ let nicknameCheck = true;
 				
 				if (result == 1) {
 					if (confirm('현재 적용된 내용으로 모든 정보가 수정됩니다.\n수정하시겠습니까?')) {
-						
-							
 					
 						$('#user-update-form').submit();
 					}

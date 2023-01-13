@@ -84,6 +84,15 @@ public interface IUserService {
 	// 유저의 추가 주소 저장
 	void addNewAddress(AddressVO newAddressVo, int userNo);
 	
-	// 유저의 favorite 삭제
+	// 유저의 address 삭제
 	void deleteUserAddress(Map<String, Object> deletedCount);
+	
+	// 유저의 address 변경
+	void updateUserAddress(AddressVO newAddressVO, int userNo);
+	
+	// rn 순서, userNo로 addressVO 얻기
+	AddressVO getUserAddressWithRn(int addressIndex, int userNo);
+	
+	// addressNo, addressRepresentative 변경
+	void modiAddressNoAndRepresent(Map<String, Integer> map);
 }

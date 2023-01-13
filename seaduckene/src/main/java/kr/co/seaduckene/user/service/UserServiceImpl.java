@@ -237,6 +237,46 @@ public class UserServiceImpl implements IUserService {
 		addressMapper.deleteUserAddress(deletedCount);
 	}
 	
+	@Override
+	public void updateUserAddress(AddressVO newAddressVO, int userNo) {
+		
+		String[] newAddressBasicList = newAddressVO.getAddressBasic().split(",");
+		log.info(Arrays.toString(newAddressBasicList));
+		String[] newAddressDetailList = newAddressVO.getAddressDetail().split(",");
+		log.info(Arrays.toString(newAddressDetailList));
+		String[] newAddressZipNumList = newAddressVO.getAddressZipNum().split(",");
+		log.info(Arrays.toString(newAddressZipNumList));
+		
+		List<AddressVO> currAddressVOs = addressMapper.getUserAddr(userNo);
+		
+		for (int i = 0; i < newAddressBasicList.length; i++) {
+			if (!currAddressVOs.get(i).getAddressBasic().equals(newAddressBasicList[i])
+				|| !currAddressVOs.get(i).getAddressDetail().trim().equals(newAddressDetailList[i].trim())
+				|| !currAddressVOs.get(i).getAddressZipNum().equals(newAddressZipNumList[i])) {
+
+				AddressVO modiAddressVo = new AddressVO(currAddressVOs.get(i).getAddressNo(), newAddressDetailList[i], newAddressBasicList[i], newAddressZipNumList[i], 0, userNo);
+				
+				log.info(modiAddressVo);
+				
+				addressMapper.updateAddr(modiAddressVo);
+			}
+		}
+	}
 	
+	@Override
+	public AddressVO getUserAddressWithRn(int addressIndex, int userNo) {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("addressRn", addressIndex);
+		map.put("userNo", userNo);
+		
+		return addressMapper.getUserAddressWithRn(map);
+	}
+	
+	@Override
+	public void modiAddressNoAndRepresent(Map<String, Integer> map) {
+
+		
+	}
 	
 }
