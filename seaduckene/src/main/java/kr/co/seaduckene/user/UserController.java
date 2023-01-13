@@ -374,6 +374,7 @@ public class UserController {
 			userService.deleteUserFavorites(deletedFavoriteIndexMap);
 		}
 		
+		// 저장된 카테고리 수정 코드
 		int currUserFavortiesCount = categoryIndexList.size();
 		
 		if (currUserFavortiesCount > 0) {
@@ -398,8 +399,6 @@ public class UserController {
 			log.info(modiCategoryVo);
 			userService.updateUserFavorites(modiCategoryVo, userNo);
 		}
-		
-		
 		
 		// 추가된 카테고리 insert 코드
 		log.info(categoryVO.getCategoryMajorTitle());
@@ -433,9 +432,17 @@ public class UserController {
 		
 		
 		log.info(addressCountList);
-		log.info(addressVO.getAddressBasic());
-		log.info(addressVO.getAddressDetail());
-		log.info(addressVO.getAddressZipNum());
+		log.info(addressVO.getAddressBasic().split(","));
+		log.info(addressVO.getAddressDetail().split(","));
+		log.info(addressVO.getAddressZipNum().split(","));
+		
+		String[] addressBasicList = addressVO.getAddressBasic().split(",");
+		String[] addressDetailList = addressVO.getAddressDetail().split(",");
+		String[] addressZipNumList = addressVO.getAddressZipNum().split(",");
+		
+		List<AddressVO> currAddressList = userService.getUserAddr(userNo);
+		
+		int allAddressCount = addressBasicList.length;
 		
 		
 		
