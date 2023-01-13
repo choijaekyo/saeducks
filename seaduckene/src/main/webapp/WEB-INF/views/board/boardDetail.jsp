@@ -56,7 +56,7 @@
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList'/>'
-						class="right btn btn-info" id="modallistBtn">목록가기</a>
+						class="right btn btn-info" id="listBtn">목록가기</a>
 					<button type="submit" class="right btn btn-info" id="ModBtn">수정하기</button>
 				</div>
 			</div>
@@ -254,10 +254,7 @@
 			getList(++page, false);
 		});
 	 
-		
-		
-		
-		 
+
 		
 		let page = 1;
 		let strAdd = '';
