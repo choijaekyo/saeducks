@@ -23,8 +23,8 @@
 
 	</div>
 	<div class="row justify-content-center m-5">
-	  	<div class="col-1 w-auto">
-	  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
+	  	<div class="col-1 w-auto" style="display: none;">
+	  		<button  type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
 	  	</div>
 	</div>
 </div>
@@ -46,6 +46,9 @@
 		        <ul class="list-unstyled mt-3 mb-4">
 		          <li>${proVo.productDetail}</li>
 		          <li>재고수량:${proVo.productStock}</li>
+		          <c:if test="${proVo.productStock == 0 }">
+		          	<li style="color:red;">품절</li>
+		          </c:if>
 		        </ul>
 		      </div>
 		    </div>
@@ -93,7 +96,12 @@ $(function() {
 				console.log(list.length);
 				console.log(list);
 				
-				if(list.length === 0) isFinish = true;
+				if(list.length === 0){
+					isFinish = true;
+				} else {
+					$('.w-auto').css('display','block');
+				}
+				
 				
 				const majorTitle = list[0].categoryMajorTitle;
 				const minorTitle = list[0].categoryMinorTitle;
@@ -101,7 +109,7 @@ $(function() {
 				for(let i=0; i<list.length; i++) {
 					
 					str += 
-					`<div class="col">
+				    `<div class="col">
 				    <div class="card shadow-sm detailButton" data-bno="` + list[i].boardNo + `">
 				      <svg width="100%" height="225">
 				      
@@ -111,8 +119,9 @@ $(function() {
 				      </svg>
 				      <div class="card-body">
 				        <div class="d-flex justify-content-between align-items-center">
-							<small class="col-10"><p class="col-10 text-truncate" style="color: #5c5e5e; margin-bottom: 0;">` + list[i].boardTitle + `</p></small>
+							<small class="col-7"><p class="col-10 text-truncate" style="color: #5c5e5e; margin-bottom: 0;">` + list[i].boardTitle + `</p></small>
 							<small class="col-2"><p class="text-end" style="color: #5c5e5e; margin-bottom: 0;">` + timeForToday(list[i].boardRegDate) + `</p></small>
+							<small class="col-3"><p class="text-end" style="color: #5c5e5e; margin-bottom: 0;">조회수&nbsp` + list[i].boardViews + `</p></small>
 				        </div>
 				      </div>
 				    </div>

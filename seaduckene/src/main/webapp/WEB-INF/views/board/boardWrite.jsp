@@ -195,25 +195,7 @@
          url: '${pageContext.request.contextPath}/board/tempDelete',
          data: JSON.stringify(deleteFiles)
       });
-
-      // $.post('${pageContext.request.contextPath}/board/tempDelete', JSON.stringify(deleteFiles));
-
-	}
-    
-    
-    
+	} 
   }); 
-
-//   window.addEventListener('beforeunload', (event) => {
-//       event.preventDefault();
-//       console.log(event);
-//       console.log(event.target);
-
-//       event.returnValue = '';
-//    });
-  
-
-   
-
 
 </script>

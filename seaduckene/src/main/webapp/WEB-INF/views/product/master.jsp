@@ -8,7 +8,14 @@
 </head>
 <body>
 
- <h1>주문성공</h1>
+	<%@ include file="../include/header.jsp" %>
 
+
+
+
+
+
+	<%@ include file="../include/footer.jsp" %>
+	
 </body>
 </html>

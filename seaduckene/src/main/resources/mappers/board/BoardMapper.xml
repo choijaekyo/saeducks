@@ -173,6 +173,11 @@
 		INSERT INTO boardImage VALUES(board_image_no_seq.NEXTVAL, #{UUID}, #{boardNo}, 1)
 	</insert>
 	
+	<update id="addViewCount">
+		UPDATE board SET board_views = board_views + 1
+		WHERE board_no = #{boardNo}
+	</update>
+	
 </mapper>
 
 

@@ -90,6 +90,11 @@ public class BoardServiceImpl implements IBoardService {
 	public void boardImageAdd(int boardNo, String UUID) {
 		mapper.boardImageAdd(boardNo, UUID);
 	}
+	
+	@Override
+	public void addViewCount(int boardNo) {
+		mapper.addViewCount(boardNo);
+	}
 }
 
 

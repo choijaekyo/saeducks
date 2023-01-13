@@ -5,11 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -20,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.jcache.interceptor.AnnotationJCacheOperationSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +42,9 @@ import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
+import kr.co.seaduckene.product.command.ProductOrderVO;
+import kr.co.seaduckene.product.command.ProductVO;
+import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
 import kr.co.seaduckene.util.CertificationMailService;
@@ -65,6 +64,9 @@ public class UserController {
 	
 	@Autowired
 	private CertificationMailService mailService;
+	
+	@Autowired
+	private IProductService productService;
 	
 
 	@GetMapping("/userLogin")
@@ -198,10 +200,24 @@ public class UserController {
 		int userNo = ((UserVO)session.getAttribute("login")).getUserNo();
 		UserVO userVo = userService.getUserVoWithNo(userNo);
 		List<ProductBasketVO> bvo = userService.getBasket(userNo);
+		List<ProductOrderVO> ovo = productService.getOrder(userNo);
+		List<String> name = new ArrayList<String>();
+		System.out.println(ovo);
+		
+		if(ovo != null) {
+			for(ProductOrderVO order : ovo) {
+				ProductVO vo2 = productService.getContent(order.getOrderProductNo());
+				name.add(vo2.getProductName());
+			}
+		}
+		
+		
 		int total = 0;
 		for(ProductBasketVO b : bvo) {
 			total += b.getBasketQuantity() * b.getBasketPrice();
 		}
+		modelAndView.addObject("name", name);
+		modelAndView.addObject("order", ovo);
 		modelAndView.addObject("basket", bvo);
 		modelAndView.addObject("total", total);
 		modelAndView.addObject("user", userVo);

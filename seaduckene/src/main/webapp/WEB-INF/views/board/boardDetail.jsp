@@ -8,13 +8,13 @@
 
 
 
-<div class="container">
+<div class="container"> 
 	<div class="card" style="width: 18rem;" id="board-detail-card">
 		<div class="card-body" id="board-detail-card-body">
 			<h5 class="card-title">~~게시판 입니다.</h5>
 			<p class="card-text">~~게시판에 걸맞는 글을 작성해 주세요.</p>
 			<button id="board-detail-card-body-button" type="button"
-				class="btn btn-primary">Home</button>
+				class="btn btn-primary HomeButtonController">Home</button>
 		</div>
 	</div>
 </div>
@@ -28,6 +28,7 @@
 			<p>
 				<fmt:formatDate value="${list.boardRegDate}" pattern="MM-dd HH:mm" />
 			</p>
+			<p>&nbsp&nbsp조회수: ${list.boardViews }</p>
 			<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">조회</a></li> -->
 
@@ -44,6 +45,7 @@
 			<div class="card-body">
 				<div class="mb-3">
 					<input type="hidden" name="boardNo" value="${ list.boardNo }">
+					<input type="hidden" name="boardCategoryNo" value="${ list.boardCategoryNo }">
 					<label for="title" class="form-label">제목</label> <input type="text"
 						class="form-control" id="title" name="boardTitle"
 						value="${list.boardTitle}" readonly>
@@ -57,7 +59,7 @@
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList'/>'
 						class="right btn btn-info" id="modallistBtn">목록가기</a>
-					<button type="submit" class="right btn btn-info" id="modalModBtn">수정하기</button>
+					<button type="submit" class="right btn btn-info" id="ModBtn">수정하기</button>
 				</div>
 			</div>
 		</div>
@@ -67,26 +69,59 @@
 <div class="container">
 	<div class="card-body">
 		<div class="row gx-5">
-			<div class="col-auto">
-				<div class="avatar avatar-online">
-					<img src="assets/img/avatars/6.jpg" alt="#" class="avatar-img">
+		
+		<!-- 로그인 안 했을 시 -->
+			<c:if test="${login == null}">
+				<div class="col-auto">
+					<div class="avatar avatar-online">
+						<img src="assets/img/avatars/6.jpg" alt="#" class="avatar-img" style="display:none;">
+					</div>
 				</div>
-			</div>
 
-			<div class="col">
-				<div class="d-flex align-items-center mb-3">
-					<h5 class="me-auto mb-0" name="replyBoardNo" id="replyBoardNo">nick</h5>
-					<span class="text-muted extra-small ms-2">date</span>
+				<div class="col">
+					<div class="d-flex align-items-center mb-3">
+						<h5 class="me-auto mb-0" id="replyBoardNo" style="display:none;"></h5>
+						<span class="text-muted extra-small ms-2" style="display:none;"></span>
+					</div>
+
+					<div class="d-flex align-items-center">
+						<input type="hidden" value="${login.userNo}" id="replyUserNo"></input>
+						<textarea class="form-control" rows="3" id="reply" style="display:none;"></textarea>
+					</div>
+					<br>
+					<div>
+						<button type="button" id="replyRegist" class="right btn btn-info" style="display:none;">등록하기</button>
+					</div>
 				</div>
-				<div class="d-flex align-items-center">
-					<input type="hidden" value="${login.userNo}" id="replyUserNo"></input>
-					<textarea class="form-control" rows="3" id="reply"></textarea>
+			</c:if>
+			
+			<!-- 로그인 시 -->
+			<c:if test="${login != null}">
+				<div class="col-auto">
+					<div class="avatar avatar-online">
+						<img src="assets/img/avatars/6.jpg" alt="#" class="avatar-img">
+					</div>
 				</div>
-				<br>
-				<div>
-					<button type="button" id="replyRegist" class="right btn btn-info">등록하기</button>
+
+				<div class="col">
+					<div class="d-flex align-items-center mb-3">
+						<h5 class="me-auto mb-0" id="replyBoardNo">${login.userNickname}</h5>
+					</div>
+
+					<div class="d-flex align-items-center">
+						<input type="hidden" value="${login.userNo}" id="replyUserNo"></input>
+						<textarea class="form-control" rows="3" id="reply"></textarea>
+					</div>
+					<br>
+					<div>
+						<button type="button" id="replyRegist" class="right btn btn-info">등록하기</button>
+					</div>
 				</div>
-			</div>
+			</c:if>
+			
+			
+			
+
 			<hr>
 
 			<div id="replyList">
@@ -101,10 +136,13 @@
 				<p class='clearReply'>댓글</p>
 			</div>
 			<button type="button" class="form-control" id="moreList">더보기</button> -->
+			</div>
+			
 		</div>
+		<br>
+		 <button type="button" class="form-control" id="moreList">더보기(페이징)</button>
 	</div>
-</div>
-<hr>
+	<hr>
 </div>
 
 
@@ -113,7 +151,7 @@
 	<div class="modal-dialog modal-md">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="btn btn-default pull-right"
+				<button type="button" class="btn btn-default pull-right modalbuttonESC"
 					data-dismiss="modal">닫기</button>
 				<h4 class="modal-title">댓글수정</h4>
 			</div>
@@ -124,13 +162,11 @@
 						placeholder="내용입력"></textarea>
 					<div class="reply-group">
 						<div class="reply-input">
-							<input type="hidden" id="modalRno"> <input
-								type="password" class="form-control" placeholder="비밀번호"
-								id="modalPw">
+							<input type="hidden" id="modalRno"> 
 						</div>
 						<button class="right btn btn-info" id="modalModBtn">수정하기</button>
 						<button class="right btn btn-info" id="modalDelBtn">삭제하기</button>
-					</div>
+					</div> 
 				</div>
 				<!-- 수정폼끝 -->
 			</div>
@@ -145,6 +181,8 @@
 
 <script>
 	$(document).ready(function() {
+		
+		console.log('카테고리 번호' + '${list.boardCategoryNo}');
 
 		$(function() {
 			$('#summernote').summernote({
@@ -164,6 +202,8 @@
 			console.log('dwadwadwa' + replyUserNo);
 			console.log(reply);
 			console.log(boardNo);
+			
+	
 
 			/* const data = {
 					"boardNo":boardNo,
@@ -177,6 +217,11 @@
 				alert('내용을 입력하세요!')
 				return;
 			} */
+			
+			if($('#reply').val().trim() === '' ) {
+				alert('내용을 입력해주세요!');
+				return;
+			}
 
 			$.ajax({
 				type : 'post',
@@ -209,16 +254,16 @@
 				return;
 			}
 		}); //키이벤트 끝
-	
-		$('#reply').click(function() {
-			if('${login == null}') {
-				alert('로그인을 해주세요.');
-				$('#replyRegist').hide();
-				return;
-			} else {
-				$('#replyRegist').show();
-			}
+		
+		//더보기 이벤트
+		$('#moreList').click(function() {
+			getList(++page, false);
 		});
+	 
+		
+		
+		
+		 
 		
 		let page = 1;
 		let strAdd = '';
@@ -248,22 +293,22 @@
 						}
 						
 						console.log('현재 페이지: ' + page);
-						console.log('인규: ' + replyList.userNickname);
+						/* console.log('인규: ' + replyList.userNickname); */
 						if(total <= page * 5) {
 							$('#moreList').css('display', 'none');
 						} else {
 							$('#moreList').css('display', 'block');
 						}
-						console.log("최고인규" + data.length);
+						/* console.log("최고인규" + data.length); */
 						if(data.length <= 0) return;
 						
 						for(let i=0; i<replyList.length ; i++) {
 							strAdd +=
-				`<div class="col">
+								`<div class="col">
 					<div class="d-flex align-items-center mb-3"></div>
-						<div class="reply-content"> <strong class='left'>`+ '${login.userNickname}' +`</strong> &nbsp&nbsp&nbsp
-							<small class='left'>` + timeStamp(replyList[i].replyRegDate) + `</small> <a href='` + replyList[i].replyNo + `' class='right'>
-							<textarea class="form-control" rows="3" id="reply">` + replyList[i].replyContent + `</textarea>
+						<div class="reply-content"> <strong class='left'>`+ replyList[i].userNickname +`</strong> &nbsp&nbsp&nbsp
+							<small class='left'>` + timeStamp(replyList[i].replyRegDate) + `</small>
+							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem;">` + replyList[i].replyContent.replaceAll('\r', '<br>') + `</p></a>
 						</div>
 					
 				</div>`; 
@@ -273,6 +318,95 @@
 					}		
 			)
 		} //get List끝
+		
+		$('#replyList').on('click', '.reply-content > #reply', function(e) {
+			e.preventDefault();
+			
+			if ('${login.userNickname}' === $(this)[0].parentNode.firstElementChild.textContent){
+				const replyNo = $(this).data('replyNo');
+				console.log("바보 아님" + replyNo);
+				$('#modalRno').val(replyNo);
+				$('#modalReply').val($(this).text());
+				$('#replyModal').modal('show');
+				}
+			
+		}); //rpleyList click event 끝.
+		
+		$('#modalModBtn').click(function() {
+			
+			const reply = $('#modalReply').val();
+			const replyNo = $('#modalRno').val();
+			/* const replyPw = '${login.userPw}'; */
+			
+			console.log('reply : ' + reply);
+			console.log('replyNo : ' + replyNo);
+			/* console.log('replyPw: ', replyPw); */
+			
+			/* if(reply === '' || replyPw === '') {
+				alert('내용, 비밀번호 입력 부탁드려요!')
+				return;
+			} */
+		 
+			$.ajax({
+				type: 'post',
+				url: '<c:url value="/reply/update" />',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					'replyContent': reply,
+					'replyNo': replyNo,
+/* 					'replyPw' : replyPw */
+				}),
+				success : function(result) {
+					alert('정상 수정되었습니다.');
+					$('#modalReply').val('');
+					/* 	$('#modalPw').val(''); */
+					$('#replyModal').modal('hide'); 
+					getList(1, true);
+				},
+				error: function() {
+					alert('수정에 실패했습니다. 관리자에게 문의하세요!');
+				}
+				
+			}); //end ajax(수정) 
+			
+		
+		}); //modalModBtn click event 수정 끝.
+		
+		$('#modalDelBtn').click(function() {
+			
+			const replyNo = $('#modalRno').val();
+			
+			$.ajax({
+				type: 'post',
+				url: '<c:url value="/reply/delete" />',
+				data: JSON.stringify({
+					'replyNo': replyNo
+				}), 
+				contentType: 'application/json',
+				success: function(data) {
+					alert('댓글이 삭제되었습니다.');
+					$('#replyModal').modal('hide'); 
+					getList(1, true);
+				},
+				error: function() {{pageContext.request.contextPath}
+					alert('수정 실패! 관리자에게 문의하세요!');
+				}
+				
+			}) //ajax 끝.
+			
+			
+			
+			
+		}) //modalDelBtn click event 끝.
+		
+		$('.modalbuttonESC').click(function() {
+			$('#replyModal').modal('hide'); 
+		});
+		
+		$('.HomeButtonController').click(function() {
+			location.href='${pageContext.request.contextPath}/';
+		});
+		
 		
 		//날짜 처리 함수
 		function timeStamp(millis) {

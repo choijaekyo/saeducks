@@ -349,7 +349,7 @@
 				            <tr>
 				                <th scope="row" colspan="2" class="align-middle basket"> <a class="basketA" href="${pageContext.request.contextPath}/product/productDetail?productNo=${b.basketProductNo}"> ${b.basketProductName } </a></th>
 				                <td class="align-middle basket">&#8361;<fmt:formatNumber value="${b.basketPrice }" pattern="#,###" /></td>
-				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a class="basketA" href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-plus-square"></i></a>
+				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a class="basketA" href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}&pNo=${b.basketProductNo}"><i class="bi bi-plus-square"></i></a>
 				                    <a class="basketA" href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square"></i></a></td>
 				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${b.basketQuantity*b.basketPrice}" pattern="#,###" /> </td>
 				                <td class="align-middle basket"><button type="button" class="btn btn-danger basketDel" >삭제</button></td>
@@ -371,7 +371,43 @@
 			</div>
 		
 			<div class="tab-content">
+			<c:choose>
+			<c:when test="${toggle == 4}">					
 				<div class="tab-pane active" id="myOrder">
+			</c:when>
+			<c:otherwise>
+				<div class="tab-pane " id="myOrder">
+			</c:otherwise>
+		</c:choose>
+				<div class="container">
+				        <table class="table table-striped text-center " style="table-layout:fixed;">
+				            <thead>
+				            <tr>
+				                <th scope="col"colspan="2">상품사진</th>
+				                <th scope="col">상품</th>
+				                <th scope="col">수량</th>
+				                <th scope="col">결제가격</th>
+				                <th scope="col">배송상태</th>
+				            </tr>
+				            </thead>
+				            <tbody>
+				            <c:forEach var="o" items="${order }" varStatus="status">
+				            <tr>
+				                <th scope="row" colspan="2" class="align-middle basket"><img id="productThumb" src="<c:url value='/product/display2?no=${o.orderProductNo }' />" alt="상품이미지" style="height:225px; width:225px;"> </th>
+				                <td class="align-middle basket"><a class="basketA" href="${pageContext.request.contextPath}/product/productDetail?productNo=${o.orderProductNo}"> ${name[status.index] } </a></td>
+				                <td class="align-middle basket">${o.orderQuantity }&nbsp;
+				                    </td>
+				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${o.orderPrice}" pattern="#,###" /> </td>
+				                <td class="align-middle basket">${o.orderStatus }</td>
+				                <td style="display:none">${o.orderNo} </td> 
+				            </tr>
+				            </c:forEach>
+				            </tbody>
+				        </table>
+				        <div>
+				        	
+				        </div>
+				    </div>
 				</div>
 			</div>
 					
