@@ -45,7 +45,6 @@ public class BoardReplyServiceImpl implements IBoardReplyService {
 
 	@Override
 	public int pwCheck(BoardReplyVO vo) {
-		// TODO Auto-generated method stub
 		return mapper.pwCheck(vo);
 	}
 

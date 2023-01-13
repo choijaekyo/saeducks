@@ -51,6 +51,16 @@ public class boardReplyController {
 	
 	//댓글 수정(비밀번호 확인 포함)
 	
-	//뎃글 삭제
+	@PostMapping("/update")
+	public void update(@RequestBody BoardReplyVO vo) {
+		service.update(vo);
+	}
+	
+	//댓글 삭제
+	
+	@PostMapping("/delete")
+	public void delete(@RequestBody BoardReplyVO vo) {
+		service.delete(vo.getReplyNo());
+	}
 
 }
