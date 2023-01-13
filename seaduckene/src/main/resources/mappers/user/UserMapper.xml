@@ -33,19 +33,29 @@
 		<if test="userEmail != null">, #{userEmail}</if>
 	</sql>
 	
-	<!-- <resultMap type="kr.co.seaduckene.user.command.UserCategories" id="userCategories">
-		<result property="userNo" column="user_no" />
-		<collection property="categoryMajorList" resultMap="userMajorList"/>
-		<collection property="categoryMinorList" resultMap="userMinorList"/>
-	</resultMap>
+	<sql id="user_update_profile">
+		<if test="userProfilePath != null">
+		, user_profile_path = #{userProfilePath}, user_profile_folder = #{userProfileFolder} 
+		, user_profile_file_name = #{userProfileFileName}, user_profile_file_real_name = #{userProfileFileRealName}
+		 </if>
+	</sql>
 	
-	<resultMap type="String" id="userMajorList">
-		<result property="categoryMajorTitle" column="category_major_title"/>
-	</resultMap>
-
-	<resultMap type="String" id="userMinorList">
-		<result property="categoryMinorTitle" column="category_minor_title"/>
-	</resultMap> -->
+	<sql id="delete_favorite_where">
+		<foreach collection="deleted_favorite_index" item="item" index="index" separator="," open="(" close=")">
+			(SELECT tbl2.favorite_no
+				  FROM (
+					  SELECT ROWNUM rn, tbl1.*
+						  FROM (
+								SELECT *
+								FROM favorite f JOIN duck_user u ON f.favorite_user_no = u.user_no
+								                JOIN category c ON f.favorite_category_no = c.category_no
+								WHERE u.user_no = #{userNo}
+								ORDER BY u.user_no, c.category_major_title, c.category_minor_title
+						  ) tbl1
+					  ) tbl2
+			  WHERE rn = #{item})
+		</foreach>
+	</sql>
 	
 	
 	<insert id="registUser">
@@ -134,5 +144,28 @@
 	<update id="changePw">
 		UPDATE duck_user SET user_pw = #{modiPw} WHERE user_no = #{userNo}
 	</update>
+	
+	<update id="updateUserInfo">
+		UPDATE duck_user SET user_nickname = #{userNickname}, user_name = #{userName}, user_tel = #{userTel}, 
+											user_email = #{userEmail} <include refid="user_update_profile" />
+		WHERE user_id = #{userId}
+	</update>
+	
+	<select id="getUserFavorites" resultType="favorite">
+		SELECT *
+		FROM favorite f JOIN duck_user u ON f.favorite_user_no = u.user_no
+		                JOIN category c ON f.favorite_category_no = c.category_no
+		WHERE u.user_no = #{userNo}
+		ORDER BY u.user_no, c.category_major_title, c.category_minor_title
+	</select>
+	
+	<delete id="deleteUserFavorites">
+		DELETE FROM favorite 
+		WHERE favorite_no in <include refid="delete_favorite_where"></include>
+	</delete>
+	
+	<update id="updateUserFavorites">
+		UPDATE  favorite SET favorite_category_no = #{categoryNo} WHERE favorite_no = #{favoriteNo} AND favorite_user_no = #{userNo}
+	</update>	
 	
 </mapper>

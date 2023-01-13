@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.favorite.FavoriteVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
@@ -30,7 +31,7 @@ public interface IUserService {
 	List<Categories> getCategories();
 	
 	// 유저 favorite table 연동
-	void updateUserFavorites(CategoryVO boardCategoryVO, int userNo);
+	void addUserFavorites(CategoryVO categoryVO, int userNo);
 	
 	// 유저에서 주소 테이블에 입력
 	String registAddr(AddressVO addressVO);
@@ -68,4 +69,15 @@ public interface IUserService {
 	// 입력한 번호로 비밀번호 변경
 	void changePw(Map<String, String> pwkMap);
 	
+	// 유저 정보 변경 
+	void updateUserInfo(UserVO userVo);
+	
+	// 유저의 favorite 가져오기
+	List<FavoriteVO> getUserFavorites(int userNo);
+	
+	// 유저의 favorite 삭제
+	void deleteUserFavorites(Map<String, Object> deletedCount);
+	
+	// 유저의 favorite 변경
+	void updateUserFavorites(CategoryVO newCategoryVO, int userNo);
 }

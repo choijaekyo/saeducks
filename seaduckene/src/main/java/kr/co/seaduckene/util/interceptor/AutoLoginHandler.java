@@ -32,7 +32,7 @@ public class AutoLoginHandler implements HandlerInterceptor {
 		// 쿠키의 세션 아이디 정보로 검색해서 얻은 유저 정보.
 		UserVO userVo = null;
 		if (autoLoginCookie != null) {
-			userVo = userService.getUserBySessionId(autoLoginCookie.getValue());;
+			userVo = userService.getUserBySessionId(autoLoginCookie.getValue());
 		}
 	
 		log.info("autoLogin userVo: " + userVo);

@@ -22,6 +22,7 @@
 		<typeAlias type="kr.co.seaduckene.user.command.UserVO" alias="user"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardVO" alias="board"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductVO" alias="prodcut"/>
+		<typeAlias type="kr.co.seaduckene.favorite.FavoriteVO" alias="favorite"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductImageVO" alias="productImage"/>
 		<typeAlias type="kr.co.seaduckene.common.CategoryVO" alias="category"/>
 		<typeAlias type="kr.co.seaduckene.common.AddressVO" alias="address"/>

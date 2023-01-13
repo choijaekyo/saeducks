@@ -29,6 +29,6 @@ CREATE SEQUENCE favorite_seq
 public class FavoriteVO {
 
 	private int favoriteNo;
-	private int favoriteNoCategoryNo;
-	private int favoriteNoUserNo;	
+	private int favoriteCategoryNo;
+	private int favoriteUserNo;	
 }

@@ -33,6 +33,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.AddressVO;
@@ -99,7 +103,7 @@ public class UserController {
 			UserVO userVo = userService.getUserBySessionId(autoLoginCookie.getValue());
 			log.info("autoLogin userVo: " + userVo);
 			
-			if (userVo != null) {	
+			if (userVo != null) {
 				// 쿠키 삭제는 받아온 쿠키 객체를 직접 지운다
 				autoLoginCookie.setPath(request.getContextPath() + "/");
 				autoLoginCookie.setMaxAge(0);
@@ -117,10 +121,10 @@ public class UserController {
 	}
 	
 	@PostMapping("/userJoin")
-	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
+	public ModelAndView userjoin(UserVO userVO, AddressVO addressVO, CategoryVO  categoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
 		log.info(userVO);
 		log.info(addressVO);
-		log.info(boardCategoryVO);
+		log.info(categoryVO);
 		log.info(profilePic);
 		
 		if (profilePic.getSize() != 0) {
@@ -165,7 +169,7 @@ public class UserController {
 		addressVO.setAddressUserNo(registerdUserNo);
 		
 		//favorite table 등록
-		userService.updateUserFavorites(boardCategoryVO, registerdUserNo);
+		userService.addUserFavorites(categoryVO, registerdUserNo);
 		
 		if (!addressVO.getAddressBasic().equals("")) {
 			// address table 등록
@@ -193,8 +197,8 @@ public class UserController {
 		modelAndView.addObject("toggle", head);
 		
 		modelAndView.setViewName("/user/userMyPage");
-		UserVO vo = (UserVO)session.getAttribute("login");
-		int userNo = vo.getUserNo();
+		int userNo = ((UserVO)session.getAttribute("login")).getUserNo();
+		UserVO userVo = userService.getUserVoWithNo(userNo);
 		List<ProductBasketVO> bvo = userService.getBasket(userNo);
 		List<ProductOrderVO> ovo = productService.getOrder(userNo);
 		List<String> name = new ArrayList<String>();
@@ -216,7 +220,7 @@ public class UserController {
 		modelAndView.addObject("order", ovo);
 		modelAndView.addObject("basket", bvo);
 		modelAndView.addObject("total", total);
-		modelAndView.addObject("user", vo);
+		modelAndView.addObject("user", userVo);
 		
 		log.info(userService.getCategories());
 		
@@ -331,6 +335,8 @@ public class UserController {
 		String userPw = passwords.get(0);
 		String checkPw = passwords.get(1);
 		
+		
+		
 		HttpSession session = request.getSession();
 		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
 		
@@ -343,12 +349,112 @@ public class UserController {
 	}
 	
 	@PostMapping("/userUpdate")
-	public ModelAndView userUpdate(UserVO userVO, AddressVO addressVO, CategoryVO  boardCategoryVO, ModelAndView modelAndView, MultipartFile profilePic) {
+	public ModelAndView userUpdate(UserVO userVO, AddressVO addressVO, CategoryVO  categoryVO
+								, ModelAndView modelAndView, MultipartFile profilePic, String categoryIndex, String addressCount) {
 		log.info("/userUpdate");
-		log.info(userVO); // 수정된 부분 확인 후 - border color 바뀐거로 구분하는 법 생각하기. db 수정
+		log.info(userVO); 
 		log.info(addressVO); // 수정된 부분 확인 후 db 수정
-		log.info(boardCategoryVO); // 삭제된 부분 조회 후 삭제 처리 먼저, 추가된 부분 확인 후 db favorite 추가. 
-		log.info(profilePic); // 기존 거 삭제하고 새로운  파일로 변경. filename null 체크
+		log.info(categoryVO); // 삭제된 부분 조회 후 삭제 처리 먼저, 추가된 부분 확인 후 db favorite 추가. 
+		log.info(profilePic); 
+		log.info(categoryIndex);
+		log.info(addressCount);
+		
+		int userNo = userVO.getUserNo();
+		
+		ObjectMapper categoryConverter = new ObjectMapper();
+		ObjectMapper addressConverter = new ObjectMapper();
+		List<String> categoryIndexList = new ArrayList<>();
+		List<String> addressCountList = new ArrayList<>();
+		try {
+			categoryIndexList = categoryConverter.readValue(categoryIndex, new TypeReference<List<String>>(){});
+			addressCountList = addressConverter.readValue(addressCount, new TypeReference<List<String>>(){});
+		} catch (JsonProcessingException e1) {
+			e1.printStackTrace();
+		}
+		
+		// 저장된 카테고리 삭제 코드
+		List<Integer> deletedFavoriteIndex = new ArrayList<>();
+		Map<String, Object> deletedFavoriteIndexMap = new HashMap<>();
+		for (int i = 0; i < userService.getUserFavorites(userNo).size(); i++) {
+			if (categoryIndexList.contains(Integer.toString(i))) {
+				continue;
+			} else {
+				deletedFavoriteIndex.add(i + 1);
+			}
+		}
+		
+		deletedFavoriteIndexMap.put("deleted_favorite_index", deletedFavoriteIndex);
+		deletedFavoriteIndexMap.put("size", deletedFavoriteIndex.size());
+		deletedFavoriteIndexMap.put("userNo", userNo);
+		if (deletedFavoriteIndex.size() > 0) {
+			userService.deleteUserFavorites(deletedFavoriteIndexMap);
+		}
+		
+		int currUserFavortiesCount = categoryIndexList.size();
+		
+		if (currUserFavortiesCount > 0) {
+			String[] currMajorArray = new String[currUserFavortiesCount];
+			String[] currMinorArray = new String[currUserFavortiesCount];
+			
+			String[] categoryMajorTitleList = categoryVO.getCategoryMajorTitle().split(",");
+			String[] categoryMinorTitleList = categoryVO.getCategoryMinorTitle().split(",");
+			
+			for (int i = 0; i < currUserFavortiesCount; i++) {
+				currMajorArray[i] = categoryMajorTitleList[i];
+				currMinorArray[i] = categoryMinorTitleList[i];
+			}
+			
+			String currMajorString = String.join(",", currMajorArray);
+			String currMinorString =  String.join(",", currMinorArray);
+			
+			CategoryVO modiCategoryVo = new CategoryVO();
+			modiCategoryVo.setCategoryMajorTitle(currMajorString);
+			modiCategoryVo.setCategoryMinorTitle(currMinorString);
+			
+			log.info(modiCategoryVo);
+			userService.updateUserFavorites(modiCategoryVo, userNo);
+		}
+		
+		
+		
+		// 추가된 카테고리 insert 코드
+		log.info(categoryVO.getCategoryMajorTitle());
+		log.info(categoryVO.getCategoryMinorTitle());
+		int allUserCategoriesCount = categoryVO.getCategoryMinorTitle().split(",").length;
+//		currUserFavortiesCount = categoryIndexList.size();
+		
+		if (currUserFavortiesCount < allUserCategoriesCount) {
+			String[] newMajorArray = new String[allUserCategoriesCount - currUserFavortiesCount];
+			String[] newMinorArray = new String[allUserCategoriesCount - currUserFavortiesCount];
+			
+			String[] categoryMajorTitleList = categoryVO.getCategoryMajorTitle().split(",");
+			String[] categoryMinorTitleList = categoryVO.getCategoryMinorTitle().split(",");
+			
+			for (int i = currUserFavortiesCount; i < allUserCategoriesCount; i++) {
+				newMajorArray[i - currUserFavortiesCount] = categoryMajorTitleList[i];
+				newMinorArray[i - currUserFavortiesCount] = categoryMinorTitleList[i];
+			}
+			
+			String newMajorString = String.join(",", newMajorArray);
+			String newMinorString =  String.join(",", newMinorArray);
+			
+			CategoryVO newCategoryVo = new CategoryVO();
+			newCategoryVo.setCategoryMajorTitle(newMajorString);
+			newCategoryVo.setCategoryMinorTitle(newMinorString);
+			
+			log.info(newCategoryVo);
+			userService.addUserFavorites(newCategoryVo, userNo);
+		}
+		
+		
+		
+		log.info(addressCountList);
+		log.info(addressVO.getAddressBasic());
+		log.info(addressVO.getAddressDetail());
+		log.info(addressVO.getAddressZipNum());
+		
+		
+		
 		
 		/*
 			SELECT * from(
@@ -377,6 +483,47 @@ public class UserController {
 			where rn = 1;		
 		
 		*/
+		
+		if (profilePic.getSize() != 0) {
+			SimpleDateFormat simple = new SimpleDateFormat("yyyyMMdd");
+			String today = simple.format(new Date());
+			
+			String fileRealName = profilePic.getOriginalFilename(); // 파일 원본명
+			String profilePath = "c:/imgduck/user/";
+			
+			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+			
+			UUID uuid = UUID.randomUUID();
+			String uu = uuid.toString().replace("-","");
+			
+			
+			userVO.setUserProfileFileRealName(fileRealName);
+			userVO.setUserProfilePath(profilePath);
+			userVO.setUserProfileFolder(today);
+			userVO.setUserProfileFileName(uu + fileExtension); 
+			
+			String uploadFolder = profilePath + today;
+			File folder = new File(uploadFolder);
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
+			File saveFile = new File(uploadFolder+"/"+uu+fileExtension);
+			try {
+				profilePic.transferTo(saveFile);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			UserVO userBeforeUpdate = userService.getUserVoWithNo(userVO.getUserNo());
+			File previousFile = new File(userBeforeUpdate.getUserProfilePath() + userBeforeUpdate.getUserProfileFolder()
+										+ "/" + userBeforeUpdate.getUserProfileFileName());
+			
+			previousFile.delete();
+			
+		}
+		
+		// user 정보 업데이트
+		userService.updateUserInfo(userVO);
 		
 		modelAndView.setViewName("redirect:/user/userMyPage/1");
 		
