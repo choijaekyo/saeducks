@@ -22,4 +22,7 @@ public interface IAddressMapper {
 	
 	// 유저의 추가 주소 저장
 	void addNewAddress(AddressVO newAddressVo);
+	
+	// 유저의 favorite 삭제
+	void deleteUserAddress(Map<String, Object> deletedCount);
 }

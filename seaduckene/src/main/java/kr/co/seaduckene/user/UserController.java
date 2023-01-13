@@ -385,7 +385,7 @@ public class UserController {
 		}
 		
 		deletedFavoriteIndexMap.put("deleted_favorite_index", deletedFavoriteIndex);
-		deletedFavoriteIndexMap.put("size", deletedFavoriteIndex.size());
+//		deletedFavoriteIndexMap.put("size", deletedFavoriteIndex.size());
 		deletedFavoriteIndexMap.put("userNo", userNo);
 		if (deletedFavoriteIndex.size() > 0) {
 			userService.deleteUserFavorites(deletedFavoriteIndexMap);
@@ -453,11 +453,35 @@ public class UserController {
 		log.info(Arrays.toString(addressVO.getAddressDetail().split(",")));
 		log.info(Arrays.toString(addressVO.getAddressZipNum().split(",")));
 		
-		List<AddressVO> currAddressList = userService.getUserAddr(userNo);
+		List<AddressVO> beforeDeleteAddressList = userService.getUserAddr(userNo);
 
 		int allAddressCount = addressVO.getAddressBasic().split(",").length;
 		int currAddressCount = addressCountList.size();
 		
+		
+		List<Integer> deletedAddressCount = new ArrayList<>();
+		Map<String, Object> deletedAddressCountMap = new HashMap<>();
+		for (int i = 0; i < beforeDeleteAddressList.size(); i++) {
+			if (addressCountList.contains(Integer.toString(i + 1))) {
+				continue;
+			} else {
+				deletedAddressCount.add(i + 1);
+			}
+		}
+		
+		deletedAddressCountMap.put("deleted_adderss_count", deletedAddressCount);
+//		deletedAddressCountMap.put("size", deletedAddressCount.size());
+		deletedAddressCountMap.put("userNo", userNo);
+		
+		log.info("deletedAddressCountMap: " + deletedAddressCountMap);
+		
+		if (deletedAddressCount.size() > 0) {
+			 userService.deleteUserAddress(deletedAddressCountMap);
+		}
+ 
+		 
+		
+		// 추가된 주소 insert 코드
 		if (currAddressCount < allAddressCount) {			
 			String[] addressBasicList = addressVO.getAddressBasic().split(",");
 			String[] addressDetailList = addressVO.getAddressDetail().split(",");
@@ -487,6 +511,9 @@ public class UserController {
 			log.info(newAddressVo);
 			userService.addNewAddress(newAddressVo, userNo);
 		}
+		
+		log.info("allAddressCount: " + allAddressCount);
+		log.info("currAddressCount: " + currAddressCount);
 		
 		
 		

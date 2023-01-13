@@ -83,4 +83,7 @@ public interface IUserService {
 	
 	// 유저의 추가 주소 저장
 	void addNewAddress(AddressVO newAddressVo, int userNo);
+	
+	// 유저의 favorite 삭제
+	void deleteUserAddress(Map<String, Object> deletedCount);
 }

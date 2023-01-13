@@ -232,4 +232,11 @@ public class UserServiceImpl implements IUserService {
 		
 	}
 	
+	@Override
+	public void deleteUserAddress(Map<String, Object> deletedCount) {
+		addressMapper.deleteUserAddress(deletedCount);
+	}
+	
+	
+	
 }

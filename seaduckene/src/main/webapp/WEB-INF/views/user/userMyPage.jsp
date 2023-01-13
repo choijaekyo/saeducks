@@ -192,7 +192,7 @@
 							      <div class="modal-dialog modalDesign">
 							         <div class="modal-content myPage-modal-content">
 							            <div class="modal-header pt-3 myPage-modal-header">
-							               <h4 class="modal-title mx-auto">주소록</h4>
+							               <h4 class="modal-title mx-auto">주소록 <input type="button" class="btn btn-sm btn-b btn-success" value="상태 되돌리기" id="address-undo"></h4> 
 							            </div>
 							            <div class="modal-body myPage-modal-body" id="address-outter"> 
 						                      <c:forEach var="addr" items="${userAddrList}" varStatus="status">
@@ -220,7 +220,10 @@
 									                    </div>
 							                		</div>	<br>
 													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
-													<input type="button" class="btn btn-sm btn-b btn-danger address-del" value="삭제"> <br>
+													<c:if test="${status.index != 0}">
+														<input type="button" class="btn btn-sm btn-b btn-danger address-del" value="삭제">
+						                        	</c:if>
+													 <br>
 						                        </div>
 						                        <br>
 						                     </c:forEach> 

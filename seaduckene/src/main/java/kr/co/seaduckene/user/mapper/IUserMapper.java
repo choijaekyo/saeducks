@@ -78,5 +78,4 @@ public interface IUserMapper {
 	// 유저의 favorite 변경
 	void updateUserFavorites(Map<String, Integer> map);
 
-
 }

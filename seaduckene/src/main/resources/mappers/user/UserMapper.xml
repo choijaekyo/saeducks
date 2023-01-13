@@ -157,7 +157,7 @@
 	
 	<delete id="deleteUserFavorites">
 		DELETE FROM favorite 
-		WHERE favorite_no in <include refid="delete_favorite_where"></include>
+		WHERE favorite_no in <include refid="delete_favorite_where" />
 	</delete>
 	
 	<update id="updateUserFavorites">
