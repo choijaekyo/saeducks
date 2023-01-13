@@ -23,8 +23,8 @@
 
 	</div>
 	<div class="row justify-content-center m-5">
-	  	<div class="col-1 w-auto">
-	  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
+	  	<div class="col-1 w-auto" style="display: none;">
+	  		<button  type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
 	  	</div>
 	</div>
 </div>
@@ -96,7 +96,12 @@ $(function() {
 				console.log(list.length);
 				console.log(list);
 				
-				if(list.length === 0) isFinish = true;
+				if(list.length === 0){
+					isFinish = true;
+				} else {
+					$('.w-auto').css('display','block');
+				}
+				
 				
 				const majorTitle = list[0].categoryMajorTitle;
 				const minorTitle = list[0].categoryMinorTitle;
