@@ -166,10 +166,10 @@ public class boardListController {
 	
 	//글 삭제 처리
 	@PostMapping("/boardDelete")
-	public String boardDelete(int boardNo) {
+	public String boardDelete(int boardNo, int boardCategoryNo) {
 		service.delete(boardNo);
 		
-		return "redirect:/board/boardList";
+		return "redirect:/board/boardList/" + boardCategoryNo;
 	}
 	
 	// 공지사항 리스트

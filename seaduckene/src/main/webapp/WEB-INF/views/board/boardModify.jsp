@@ -16,6 +16,7 @@
 				<form action="${pageContext.request.contextPath}/board/boardUpdate"
 					method="post" name="updateForm" id="modifyForm">
 					<input type="hidden" name="boardNo" value="${ list.boardNo }">
+					<input type="hidden" name="boardCategoryNo" value="${ list.boardCategoryNo }">
 
 					<%-- <div class="form-group">
 						<label>번호</label> <input class="form-control" name="bno" value="${list.boardNo}"
@@ -66,6 +67,10 @@
 	
 	$(function() {
 		
+		const bno = '${ list.boardNo }';
+		const no = '${list.boardCategoryNo}';
+		console.log(bno);
+		console.log(no);
 
 		/* //수정 버튼 이벤트 처리
 		$('#updateBtn').click(function() {

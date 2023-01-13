@@ -45,6 +45,7 @@
 			<div class="card-body">
 				<div class="mb-3">
 					<input type="hidden" name="boardNo" value="${ list.boardNo }">
+					<input type="hidden" name="boardCategoryNo" value="${ list.boardCategoryNo }">
 					<label for="title" class="form-label">제목</label> <input type="text"
 						class="form-control" id="title" name="boardTitle"
 						value="${list.boardTitle}" readonly>
