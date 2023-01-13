@@ -16,7 +16,94 @@
 
     <!-- 제이쿼리 js -->
     <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js" ></script>
-
+<%-- 
+<section class="py-5">
+    <div class="col-md-12">
+        <h1 class="add-product-title h1 ">상품등록</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <form action="<c:url value='/product/createProduct'/>" method="post" class="productForm" enctype="multipart/form-data">
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="category">카테고리</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <select class="form-select" aria-label="Default select example" name="majorCategory" id="majorCategory">
+                                    <option selected disabled>대 카테고리</option>
+                                    <c:forEach var="list" items="${major }">
+                                    	<option>${list }</option>
+                                    </c:forEach>
+                                  </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select" aria-label="Default select example" name="minorCategory" id="minorCategory">
+                                    <option selected disabled>소 카테고리</option>
+                                  </select>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="productName">상품명</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <input class="form-control" type="text" name="productName" id="productName" required />
+                    </div>
+                </div>
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="realPrice">판매가</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <input class="form-control" type="text" name="productPriceNormal" id="realPrice" required />
+                    </div>
+                </div>
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="salePrice">할인가</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <input class="form-control" type="text" name="productPriceSelling" id="salePrice" required pattern="[0-9]+" />
+                    </div>
+                </div>
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="quantity">재고수량</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <input class="form-control" type="text" name="productStock" id="quantity" required pattern="[0-9]+" />
+                    </div>
+                </div>
+                
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="productContent">상품설명</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <textarea class="form-control" type="text" name="productDetail" id="productContent" required></textarea>
+                    </div>
+                </div>
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="thumbnailImg">썸네일이미지</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <input class="form-control" type="file" name="thumbnailImg" id="thumbnailImg" required />
+                    </div>
+                </div>
+                <div class="input-group inputArea">
+                    <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+                        <label for="productImg">상품이미지(최대2개)</label>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-12">
+                        <input class="form-control" type="file" name="productImg" id="productImg" multiple="multiple"  required  maxlength="2"/>
+                    </div>
+                </div>
+ --%>
     <!-- 폰트 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
 

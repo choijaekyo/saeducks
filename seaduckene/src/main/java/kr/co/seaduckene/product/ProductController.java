@@ -63,6 +63,28 @@ public class ProductController {
 		
 	}
 	
+	@GetMapping("/modifyProduct")
+	public void modify(Model model , int no) {
+		System.out.println("product/modifyProduct GET 요청");
+		ProductVO pvo = productService.getContent(no);
+		List<CategoryVO> list = productService.getCategory();
+		LinkedHashSet<String> major = new LinkedHashSet<String>();
+		CategoryVO cvo = productService.getCt(pvo.getProductCategoryNo());
+		for(CategoryVO vo : list) {
+			major.add(vo.getCategoryMajorTitle());
+		}
+		model.addAttribute("product", pvo);
+		model.addAttribute("major", major);
+		model.addAttribute("category", list);
+		model.addAttribute("cvo", cvo);
+		
+	}
+	
+	@GetMapping("/master")
+	public void master() {
+		
+	}
+	
 	@GetMapping("/order")
 	public void orderSheet(HttpSession session,Model model) {
 		System.out.println("controller동작 order/GET");
@@ -237,6 +259,74 @@ public class ProductController {
 		}
 		return "redirect:/product/createProduct";	 
 	}
+	@PostMapping("/modifyProduct")
+	public String updateProduct(ProductVO vo,@RequestParam("majorCategory") String major,
+			@RequestParam("minorCategory") String minor,
+			@RequestParam("productImg") List<MultipartFile> list,
+			@RequestParam("thumbnailImg") MultipartFile thumb) {
+		System.out.println("/product/modify POST");
+		Map<String, Object> map = new HashMap<>();
+		map.put("major", major);
+		map.put("minor", minor);
+		
+		int cnum = productService.getCNum(map);
+		vo.setProductCategoryNo(cnum);
+		System.out.println(vo);
+		map.put("cnum", cnum);
+		map.put("vo", vo);
+		productService.updateProduct(vo);
+		
+		if(thumb !=null) {
+			List<ProductImageVO> iList = productService.getImg(vo.getProductNo());
+			
+			for (ProductImageVO ivo2 : iList) {
+				File file = new File(ivo2.getProductImagePath()+ivo2.getProductImageFolder()+"/"+ivo2.getProductImageFileName());
+				file.delete();
+			}
+			productService.deleteImage(vo.getProductNo());
+			ProductImageVO ivo = new ProductImageVO();
+			
+			SimpleDateFormat simple = new SimpleDateFormat("yyyyMMdd");
+			String today = simple.format(new Date());
+			ivo.setProductImageFolder(today);
+			list.add(thumb);
+			String uploadFolder ="C:/imgduck/product/"+today;
+			ivo.setProductImagePath("C:/imgduck/product/");
+			for(int i =0;i<list.size();i++ ) {
+					ivo.setProductThumbnail(0);
+					ivo.setProductImageProductNo(vo.getProductNo());
+				if(i==(list.size()-1)) {
+					ivo.setProductThumbnail(1);
+				}
+				String fileRealName = list.get(i).getOriginalFilename();
+				String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+				ivo.setProdcutImageFileRealName(fileRealName);
+				
+				UUID uuid = UUID.randomUUID();
+				String uu = uuid.toString().replace("-","");
+				
+				ivo.setProductImageFileName(uu+fileExtension);
+				
+				File folder = new File(uploadFolder);
+				if(!folder.exists()) {
+					folder.mkdirs();
+				}
+				File saveFile = new File(uploadFolder+"/"+uu+fileExtension);
+				productService.insertImg2(ivo);
+				try {
+					list.get(i).transferTo(saveFile);
+				} catch (IllegalStateException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+		}
+		
+
+		return "redirect:/product/createProduct";	 
+	}
 	
 	@GetMapping("/mainDisplayImg")
 	public ResponseEntity<byte[]> mainDisplayImg(String fileLoca, String fileName) {
@@ -260,23 +350,30 @@ public class ProductController {
 	@ResponseBody
 	public String insertBasket(@RequestBody ProductBasketVO vo) {
 		System.out.println(vo);
+		ProductVO pvo = productService.getContent(vo.getBasketProductNo());
+		if(pvo.getProductStock() == 0) return "empty";
 		if(productService.basketChk(vo)==1) return"fail";
 		productService.insertBasket(vo);
 		return"seccess";
 	}
 	@GetMapping("/plusQuantity")
-	public ModelAndView plusQ(ModelAndView modelAndView , int basketNo ,int q) {
+	public ModelAndView plusQ(ModelAndView modelAndView , int basketNo ,int q,int pNo) {
 		System.out.println("/plusQuantity GET");
+		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		ProductVO vo = productService.getContent(pNo);
+		if(q == vo.getProductStock()) {
+			return modelAndView;
+		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("basketNo",basketNo);
 		map.put("q",q+1);
 		productService.cQuantity(map);
-		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		
 		return modelAndView;
 	}
 	
 	@GetMapping("/minusQuantity")
-	public ModelAndView minusQ(ModelAndView modelAndView , int basketNo,int q) {
+	public ModelAndView minusQ(ModelAndView modelAndView , int basketNo,int q ) {
 		System.out.println("/minusQuantity GET");
 		modelAndView.setViewName("redirect:/user/userMyPage/3");
 		if(q==0) return modelAndView;

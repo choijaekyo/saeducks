@@ -46,6 +46,9 @@
 		        <ul class="list-unstyled mt-3 mb-4">
 		          <li>${proVo.productDetail}</li>
 		          <li>재고수량:${proVo.productStock}</li>
+		          <c:if test="${proVo.productStock == 0 }">
+		          	<li style="color:red;">품절</li>
+		          </c:if>
 		        </ul>
 		      </div>
 		    </div>

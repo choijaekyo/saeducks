@@ -80,6 +80,17 @@
 		(product_image_seq.NEXTVAL,#{productImagePath},#{productImageFolder},#{productImageFileName},
 		#{prodcutImageFileRealName},product_seq.CURRVAL,#{productThumbnail})
 	</insert>
+	
+	<insert id="insertImg2">
+		INSERT INTO product_image
+		VALUES
+		(product_image_seq.NEXTVAL,#{productImagePath},#{productImageFolder},#{productImageFileName},
+		#{prodcutImageFileRealName},#{productImageProductNo},#{productThumbnail})
+	</insert>
+	
+	<delete id="deleteImage">
+		DELETE FROM product_image WHERE product_image_product_no=#{num}
+	</delete>
 
 	<select id="getContent" resultType="prodcut">
 		SELECT * FROM product
@@ -155,6 +166,21 @@
 	<delete id="delBasekt">
 		DELETE FROM basket WHERE basket_no=#{basketNo} 
 	</delete>
+	
+	<select id="getOrder" resultType="order">
+		SELECT * FROM duck_order
+		WHERE order_user_no = #{userNo}
+	</select>
+	
+	<select id="getCt" resultType="category">
+		SELECT * FROM category WHERE category_no = #{categoryNo}
+	</select>
+	
+	<update id="updateProduct">
+		UPDATE PRODUCT SET product_name=#{productName},product_price_normal=#{productPriceNormal},product_price_selling=#{productPriceSelling},
+		product_detail=#{productDetail},product_stock=#{productStock},product_up_date=sysdate,product_category_no=#{productCategoryNo}
+		WHERE product_no=#{productNo}
+	</update>
 
 </mapper>
     
