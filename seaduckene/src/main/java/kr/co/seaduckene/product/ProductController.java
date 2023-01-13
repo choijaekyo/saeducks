@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -30,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.product.command.ProductImageVO;
@@ -37,6 +40,7 @@ import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.user.command.UserVO;
+import kr.co.seaduckene.user.service.IUserService;
 
 @Controller
 @RequestMapping("/product")
@@ -44,6 +48,8 @@ public class ProductController {
 	
 	@Autowired
 	private IProductService productService;
+	@Autowired
+	private IUserService userService;
 
 	@GetMapping("/createProduct")
 	public void createProduct(Model model) {
@@ -59,6 +65,28 @@ public class ProductController {
 		
 	}
 	
+	@GetMapping("/modifyProduct")
+	public void modify(Model model , int no) {
+		System.out.println("product/modifyProduct GET 요청");
+		ProductVO pvo = productService.getContent(no);
+		List<CategoryVO> list = productService.getCategory();
+		LinkedHashSet<String> major = new LinkedHashSet<String>();
+		CategoryVO cvo = productService.getCt(pvo.getProductCategoryNo());
+		for(CategoryVO vo : list) {
+			major.add(vo.getCategoryMajorTitle());
+		}
+		model.addAttribute("product", pvo);
+		model.addAttribute("major", major);
+		model.addAttribute("category", list);
+		model.addAttribute("cvo", cvo);
+		
+	}
+	
+	@GetMapping("/master")
+	public void master() {
+		
+	}
+	
 	@GetMapping("/order")
 	public void orderSheet(HttpSession session,Model model) {
 		System.out.println("controller동작 order/GET");
@@ -66,6 +94,10 @@ public class ProductController {
 		UserVO user = (UserVO)session.getAttribute("login");
 		int userNo = user.getUserNo();
 
+		// 주소목록 불러오기
+		List<AddressVO> addrList = userService.getUserAddr(userNo);
+		model.addAttribute("addrList", addrList);
+		
 		// 장바구니 상품 불러오기
 		List<ProductBasketVO> basketList = productService.getBasketList(userNo);
 		model.addAttribute("basketList",basketList);
@@ -73,12 +105,13 @@ public class ProductController {
 		int total = 0;
 		// 상품 썸네일 가져오기
 		for(ProductBasketVO product : basketList) {
-			ProductImageVO thumbnail = productService.getThumbnailImg(product.getBasketProductNo());
+			//ProductImageVO thumbnail = productService.getThumbnailImg(product.getBasketProductNo());
 			
 			// 총액 계산하기
 			total += product.getBasketQuantity()*product.getBasketPrice();
 		}
-		model.addAttribute("total",total);
+		//model.addAttribute("total",total);
+		session.setAttribute("total", total);
 	}
 	
 	@GetMapping("/productDetail")
@@ -138,11 +171,7 @@ public class ProductController {
 				
 		
 	}
-	
-	
-	@GetMapping("/finishOrder")
-	public void finishOrder() {}
-	
+
 	@PostMapping("/order")
 	public String order(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,
 						ProductOrderVO orderVo ,String userEmail, HttpSession session,
@@ -150,15 +179,23 @@ public class ProductController {
 		System.out.println("controller 동작");
 		System.out.println(orderVo);
 		System.out.println(userEmail);
+		System.out.println(orderVo.getOrderPaymentMethod());
 		
-		// order TABLE INSERT
-		UserVO user = (UserVO)session.getAttribute("login");	
-		String result = productService.order(orderProductNoList, orderVo, userEmail, user);
-		ra.addFlashAttribute("result", result);
-		if(result.equals("lack")) {
-			return "redirect:/product/order";	
-		}else {
-			return "redirect:/product/finishOrder";	
+		if(orderVo.getOrderPaymentMethod().equals("tossPay")){
+			session.setAttribute("orderList", orderProductNoList);
+			session.setAttribute("orderVo", orderVo);
+			session.setAttribute("userEmail", userEmail);
+			return "redirect:/product/payment";
+		} else {
+			// order TABLE INSERT
+			UserVO user = (UserVO)session.getAttribute("login");	
+			String result = productService.order(orderProductNoList, orderVo, userEmail, user);
+			ra.addFlashAttribute("result", result);
+			if(result.equals("lack")) {
+				return "redirect:/product/order";	
+			}else {
+				return "redirect:/user/userMyPage/4";	
+			}
 		}
 		
 	}
@@ -171,7 +208,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/createProduct")
-	public void insertProduct(ProductVO vo,@RequestParam("majorCategory") String major,
+	public String insertProduct(ProductVO vo,@RequestParam("majorCategory") String major,
 			@RequestParam("minorCategory") String minor,
 			@RequestParam("productImg") List<MultipartFile> list,
 			@RequestParam("thumbnailImg") MultipartFile thumb) {
@@ -222,6 +259,75 @@ public class ProductController {
 			}
 			
 		}
+		return "redirect:/product/createProduct";	 
+	}
+	@PostMapping("/modifyProduct")
+	public String updateProduct(ProductVO vo,@RequestParam("majorCategory") String major,
+			@RequestParam("minorCategory") String minor,
+			@RequestParam("productImg") List<MultipartFile> list,
+			@RequestParam("thumbnailImg") MultipartFile thumb) {
+		System.out.println("/product/modify POST");
+		Map<String, Object> map = new HashMap<>();
+		map.put("major", major);
+		map.put("minor", minor);
+		
+		int cnum = productService.getCNum(map);
+		vo.setProductCategoryNo(cnum);
+		System.out.println(vo);
+		map.put("cnum", cnum);
+		map.put("vo", vo);
+		productService.updateProduct(vo);
+		
+		if(thumb !=null) {
+			List<ProductImageVO> iList = productService.getImg(vo.getProductNo());
+			
+			for (ProductImageVO ivo2 : iList) {
+				File file = new File(ivo2.getProductImagePath()+ivo2.getProductImageFolder()+"/"+ivo2.getProductImageFileName());
+				file.delete();
+			}
+			productService.deleteImage(vo.getProductNo());
+			ProductImageVO ivo = new ProductImageVO();
+			
+			SimpleDateFormat simple = new SimpleDateFormat("yyyyMMdd");
+			String today = simple.format(new Date());
+			ivo.setProductImageFolder(today);
+			list.add(thumb);
+			String uploadFolder ="C:/imgduck/product/"+today;
+			ivo.setProductImagePath("C:/imgduck/product/");
+			for(int i =0;i<list.size();i++ ) {
+					ivo.setProductThumbnail(0);
+					ivo.setProductImageProductNo(vo.getProductNo());
+				if(i==(list.size()-1)) {
+					ivo.setProductThumbnail(1);
+				}
+				String fileRealName = list.get(i).getOriginalFilename();
+				String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+				ivo.setProdcutImageFileRealName(fileRealName);
+				
+				UUID uuid = UUID.randomUUID();
+				String uu = uuid.toString().replace("-","");
+				
+				ivo.setProductImageFileName(uu+fileExtension);
+				
+				File folder = new File(uploadFolder);
+				if(!folder.exists()) {
+					folder.mkdirs();
+				}
+				File saveFile = new File(uploadFolder+"/"+uu+fileExtension);
+				productService.insertImg2(ivo);
+				try {
+					list.get(i).transferTo(saveFile);
+				} catch (IllegalStateException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+		}
+		
+
+		return "redirect:/product/createProduct";	 
 	}
 	
 	@GetMapping("/mainDisplayImg")
@@ -246,23 +352,30 @@ public class ProductController {
 	@ResponseBody
 	public String insertBasket(@RequestBody ProductBasketVO vo) {
 		System.out.println(vo);
+		ProductVO pvo = productService.getContent(vo.getBasketProductNo());
+		if(pvo.getProductStock() == 0) return "empty";
 		if(productService.basketChk(vo)==1) return"fail";
 		productService.insertBasket(vo);
 		return"seccess";
 	}
 	@GetMapping("/plusQuantity")
-	public ModelAndView plusQ(ModelAndView modelAndView , int basketNo ,int q) {
+	public ModelAndView plusQ(ModelAndView modelAndView , int basketNo ,int q,int pNo) {
 		System.out.println("/plusQuantity GET");
+		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		ProductVO vo = productService.getContent(pNo);
+		if(q == vo.getProductStock()) {
+			return modelAndView;
+		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("basketNo",basketNo);
 		map.put("q",q+1);
 		productService.cQuantity(map);
-		modelAndView.setViewName("redirect:/user/userMyPage/3");
+		
 		return modelAndView;
 	}
 	
 	@GetMapping("/minusQuantity")
-	public ModelAndView minusQ(ModelAndView modelAndView , int basketNo,int q) {
+	public ModelAndView minusQ(ModelAndView modelAndView , int basketNo,int q ) {
 		System.out.println("/minusQuantity GET");
 		modelAndView.setViewName("redirect:/user/userMyPage/3");
 		if(q==0) return modelAndView;
@@ -284,7 +397,33 @@ public class ProductController {
 		return modelAndView;
 	}
 	
+	@GetMapping("/payment")
+	public void payment() {}
 	
+	@GetMapping("/success")
+	public String paycomplete(HttpSession session,RedirectAttributes ra,@RequestParam String paymentKey) {
+		System.out.println("페이먼트 키: "+paymentKey);
+		
+		@SuppressWarnings("unchecked")
+		List<Integer> orderProductNoList = (List<Integer>) session.getAttribute("orderList");
+		ProductOrderVO orderVo = (ProductOrderVO) session.getAttribute("orderVo");
+		orderVo.setPaymentKey(paymentKey);
+		String userEmail = (String) session.getAttribute("userEmail");
+		
+		UserVO user = (UserVO)session.getAttribute("login");	
+		String result = productService.order(orderProductNoList, orderVo, userEmail, user);
+		ra.addFlashAttribute("result", result);
+		if(result.equals("lack")) {
+			return "redirect:/product/order";	
+		}else {
+			return "redirect:/user/userMyPage/4";
+		}
+	}
+	
+	@GetMapping("/fail")
+	public String fail() {
+		return "redirect:/user/userMyPage/3";
+	}
 	
 	
 }

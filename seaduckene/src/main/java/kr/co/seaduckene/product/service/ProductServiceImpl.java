@@ -19,6 +19,7 @@ import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.mapper.IProductMapper;
 import kr.co.seaduckene.user.command.UserVO;
+import kr.co.seaduckene.user.mapper.IUserMapper;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -27,6 +28,8 @@ public class ProductServiceImpl implements IProductService {
 	private IProductMapper productMapper;
 	@Autowired
 	private IAddressMapper addressMapper;
+	@Autowired
+	private IUserMapper userMapper;
 	
 	
 	// 장바구니 상품 불러오기
@@ -91,9 +94,11 @@ public class ProductServiceImpl implements IProductService {
 				productMapper.updateStock(map);			
 			}
 		}
-		
-		// user TABLE UPDATE
-		updateEmail(userNo, userEmail);	
+		 UserVO userVo =  userMapper.getUserVoWithNo(userNo);
+		 if(userVo.getUserEmail() == null) {
+			// user TABLE UPDATE
+			updateEmail(userNo, userEmail);
+		 }
 		
 		// address TABLE INSERT
 		if(checkAddr(userNo, order.getOrderAddressDetail())== 0) {
@@ -203,4 +208,32 @@ public class ProductServiceImpl implements IProductService {
 		
 	}
 	
+	@Override
+	public List<ProductOrderVO> getOrder(int userNo) {
+		
+		return productMapper.getOrder(userNo);
+	} //주문정보 불러오기
+	
+	@Override
+	public CategoryVO getCt(int categoryNo) {
+		
+		return productMapper.getCt(categoryNo);
+	}
+	
+	@Override
+	public void updateProduct(ProductVO vo) {
+		productMapper.updateProduct(vo);
+		
+	}
+	@Override
+	public void insertImg2(ProductImageVO vo) {
+		productMapper.insertImg2(vo);
+		
+	}
+	
+	@Override
+	public void deleteImage(int num) {
+		productMapper.deleteImage(num);
+		
+	}
 }

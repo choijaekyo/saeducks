@@ -1,9 +1,11 @@
 package kr.co.seaduckene.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
+import kr.co.seaduckene.favorite.FavoriteVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
@@ -16,6 +18,9 @@ public interface IUserService {
 	// 유저 정보 가져오기
 	UserVO getUserVo(UserVO userVO);
 	
+	// userNo로 유저 정보 가져오기 
+	UserVO getUserVoWithNo(int userNo);
+	
 	// 유저 아이디 중복 확인
 	int checkId(String userId);
 	
@@ -26,7 +31,7 @@ public interface IUserService {
 	List<Categories> getCategories();
 	
 	// 유저 favorite table 연동
-	void updateUserFavorites(CategoryVO boardCategoryVO, int userNo);
+	void addUserFavorites(CategoryVO categoryVO, int userNo);
 	
 	// 유저에서 주소 테이블에 입력
 	String registAddr(AddressVO addressVO);
@@ -41,7 +46,7 @@ public interface IUserService {
 	List<CategoryVO> getUserCategories(int userNo);
 	
 	// 유저의 주소 정보를 불러오기
-	AddressVO getUserAddr(int userNo);
+	List<AddressVO> getUserAddr(int userNo);
 	
 	// 아이디 찾기
 	List<String> findAccount (String userName, String userEmail);
@@ -57,4 +62,22 @@ public interface IUserService {
 	
 	// 자동 로그인 해제
 	void undoAutoLogin(int userNo);
+	
+	// 현재 입력한 비밀번호 검증 
+	int checkCurrPw(Map<String, String> pwkMap);
+	
+	// 입력한 번호로 비밀번호 변경
+	void changePw(Map<String, String> pwkMap);
+	
+	// 유저 정보 변경 
+	void updateUserInfo(UserVO userVo);
+	
+	// 유저의 favorite 가져오기
+	List<FavoriteVO> getUserFavorites(int userNo);
+	
+	// 유저의 favorite 삭제
+	void deleteUserFavorites(Map<String, Object> deletedCount);
+	
+	// 유저의 favorite 변경
+	void updateUserFavorites(CategoryVO newCategoryVO, int userNo);
 }

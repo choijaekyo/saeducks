@@ -20,9 +20,10 @@ public interface IProductService {
 
 	// 장바구니 상품 불러오기
 	List<ProductBasketVO> getBasketList(int userNo);
-	
+
 	// 썸네일 가져오기
 	ProductImageVO getThumbnailImg(int productNo);
+
 	// 상품주문
 	String order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user);
 
@@ -40,7 +41,7 @@ public interface IProductService {
 
 	// 메인 상품 이미지 출력 세션 있음
 	List<ProductImageVO> mainImage(int productNo);
-	
+
 	// 메인 상품 이미지 출력 세션 없음
 	List<ProductImageVO> mainImageNo();
 
@@ -52,12 +53,25 @@ public interface IProductService {
 
 	// 장바구니 수량 변경
 	public void cQuantity(Map<String, Object> map);
-	
-	//장바구니 중복 체크
-	public int basketChk(ProductBasketVO vo);
-	
-	//장바구니 삭제
-	public void delBasekt(int basketNo);
-	
 
+	// 장바구니 중복 체크
+	public int basketChk(ProductBasketVO vo);
+
+	// 장바구니 삭제
+	public void delBasekt(int basketNo);
+
+	// 주문정보 불러오기
+	List<ProductOrderVO> getOrder(int userNo);
+
+	// 카테고리 정보 불러오기
+	CategoryVO getCt(int categoryNo);
+
+	// 상품정보 업데이트
+	void updateProduct(ProductVO vo);
+
+	// 상품사진 수정 새로 등록
+	void insertImg2(ProductImageVO vo);
+
+	// 기존사진 삭제
+	void deleteImage(int num);
 }

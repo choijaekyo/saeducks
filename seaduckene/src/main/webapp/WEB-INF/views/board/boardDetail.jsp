@@ -28,6 +28,7 @@
 			<p>
 				<fmt:formatDate value="${list.boardRegDate}" pattern="MM-dd HH:mm" />
 			</p>
+			<p>&nbsp&nbsp조회수: ${list.boardViews }</p>
 			<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">조회</a></li> -->
 
@@ -44,6 +45,7 @@
 			<div class="card-body">
 				<div class="mb-3">
 					<input type="hidden" name="boardNo" value="${ list.boardNo }">
+					<input type="hidden" name="boardCategoryNo" value="${ list.boardCategoryNo }">
 					<label for="title" class="form-label">제목</label> <input type="text"
 						class="form-control" id="title" name="boardTitle"
 						value="${list.boardTitle}" readonly>
@@ -179,6 +181,8 @@
 
 <script>
 	$(document).ready(function() {
+		
+		console.log('카테고리 번호' + '${list.boardCategoryNo}');
 
 		$(function() {
 			$('#summernote').summernote({
@@ -198,6 +202,8 @@
 			console.log('dwadwadwa' + replyUserNo);
 			console.log(reply);
 			console.log(boardNo);
+			
+	
 
 			/* const data = {
 					"boardNo":boardNo,

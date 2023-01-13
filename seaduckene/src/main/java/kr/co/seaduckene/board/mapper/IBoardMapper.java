@@ -3,6 +3,8 @@ package kr.co.seaduckene.board.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.product.command.ProductVO;
@@ -44,4 +46,12 @@ public interface IBoardMapper {
 	// 공지사항 리스트
 	List<NoticeVO> noticeLists(PageVO paging);
 	
+	// boardNo 찾기
+	int boardNoSearch(@Param("boardTitle") String boardTitle, @Param("boardContent") String boardContent);
+	
+	// 보드 이미지 등록
+	void boardImageAdd(@Param("boardNo") int boardNo, @Param("UUID") String UUID);
+	
+	// 조회수 추가
+	void addViewCount(int boardNo);
 }

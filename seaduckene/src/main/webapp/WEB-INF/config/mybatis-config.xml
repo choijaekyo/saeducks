@@ -22,6 +22,7 @@
 		<typeAlias type="kr.co.seaduckene.user.command.UserVO" alias="user"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardVO" alias="board"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductVO" alias="prodcut"/>
+		<typeAlias type="kr.co.seaduckene.favorite.FavoriteVO" alias="favorite"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductImageVO" alias="productImage"/>
 		<typeAlias type="kr.co.seaduckene.common.CategoryVO" alias="category"/>
 		<typeAlias type="kr.co.seaduckene.common.AddressVO" alias="address"/>
@@ -31,6 +32,10 @@
 		<typeAlias type="kr.co.seaduckene.common.NoticeVO" alias="notice"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardReplyVO" alias="boardReply"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardReplyListVO" alias="boardReplyList"/>
+		<typeAlias type="kr.co.seaduckene.board.command.BoardImageVO" alias="boardImage"/>
+		<typeAlias type="kr.co.seaduckene.admin.command.AdminVO" alias="admin"/>
+		<typeAlias type="kr.co.seaduckene.admin.command.AdminDateVO" alias="adminDate"/>
+		<typeAlias type="kr.co.seaduckene.product.command.ProductOrderVO" alias="order"/>
 	</typeAliases>
 	
 	<!-- 인터페이스 mapper 구현체 xml 파일의 경로를 표시하는 태그.

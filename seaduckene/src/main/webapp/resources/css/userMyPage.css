@@ -204,16 +204,6 @@
 	}
 }
 
-#userMyPage .update-container .category-button {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	border: 1px solid white;
-}
-
-#userMyPage .update-container .category-button:hover {
-	cursor: pointer;
-}
 
 #userMyPage .update-container select {
 	width: 200px; /* 원하는 너비설정 */
@@ -287,26 +277,26 @@
 	opacity: 0.1;
 }
 
-#myPageModal #myPage-modal-header {
+#myPageModal .myPage-modal-header,
+#addrListModal .myPage-modal-header {
 	border-bottom: none;
 	padding: 0;
 }
 
-#myPageModal #myPage-modal-header .close {
-	position: absolute;
-	right: 0;
-}
 
-#myPageModal #myPage-modal-header h4 {
+#myPageModal .myPage-modal-header h4,
+#addrListModal .myPage-modal-header h4 {
 	font-size: 18px;
 }
 
-#myPageModal #myPage-modal-content {
+#myPageModal .myPage-modal-content,
+#addrListModal .myPage-modal-content {
 	background-color: rgba(0, 0, 0, 0);
 	border: none;
 }
 
-#myPageModal .modalDesign {
+#myPageModal .modalDesign,
+#addrListModal .modalDesign {
 	width: 350px;
 	background-color: #E6E1C1;
 	color: black;
@@ -317,42 +307,31 @@
 	z-index: 1000;
 }
 
-#myPageModal .modalDesign form input.btn-a {
-	border-radius: 20px;
-	margin-top: 10px;
-	width: 300px;
-	height: 50px;
-	font-size: 20px;
-	color: white;
-	cursor: auto;
-	background-color: white;
-}
-
-#myPageModal .modalDesign form input.btn-a:hover {
-	opacity: 0.9;
-}
-
-#myPageModal .modalDesign form input.btn-a:focus {
-	border: 1px solid white;
-}
-
-#myPageModal .modalDesign form input.btn-a:hover {
-	opacity: 0.9;
-}
-
-#myPageModal .modal-submit-btn, #myPageModal .modal-cancel {
-	border-radius: 12px;
-}
-
-#myPageModal .modalDesign #myPage-modal-footer {
+#myPageModal .modalDesign .myPage-modal-body,
+#myPageModal .modalDesign .myPage-modal-footer,
+#addrListModal .modalDesign .myPage-modal-body,
+#addrListModal .modalDesign .myPage-modal-footer {
 	text-align: center;
 	border-top: none;
-}
-
-#myPageModal .modalDesign #myPage-modal-footer {
 	justify-content: center;
 }
 
+#addrListModal .modalDesign .myPage-modal-body {
+	overflow: auto;
+	height: 302px;
+}
+
+#addrListModal .modalDesign .myPage-modal-body .set-main {
+	cursor: pointer;
+}
+
+#addrListModal .modalDesign .myPage-modal-body hr {
+	margin-top: 5px; 
+}
+
+#addrListModal .modalDesign .btn-hr {
+	margin: 0;
+}
 /*============= END 모달 페이지 ==============*/
 
 /*============= END 마이페이지 페이지 ==============*/

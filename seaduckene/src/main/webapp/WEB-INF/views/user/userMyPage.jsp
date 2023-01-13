@@ -91,6 +91,7 @@
 							<p>아이디</p>
 							<div class="input-group inputArea">
 			                    <div class="col-md-12 col-sm-12 col-12">
+			                    	<input name="userNo" value="${user.userNo}" type="hidden">
 			                        <input name="userId" class="form-control join-input" type="text" placeholder="아이디" value="${user.userId}" id="userId" readonly />
 			                    </div>
 		                	</div>
@@ -110,13 +111,13 @@
 							<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="nickname-check"> <br>
 		   					<div class="input-group inputArea">
 				                <div class="col-md-12 col-sm-12 col-12">
-				            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" value="${user.userTel}" id="userTel" required/>
+				            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" value="${user.userTel}" id="userTel" maxlength="11" required/>
 			                    </div>
 		               		</div> <br>
 		               		<span class="basic-info">카테고리 정보</span> 
 							<ul class="category-wrap">
 							<c:forEach var="userCategory" items="${userCategoryList}" varStatus="status">
-								<li data-index='${status.index}'>
+								<li class="li-category" data-index='${status.index}'>
 									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example" >
 		                                    <option selected disabled>대 카테고리</option>
 		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
@@ -128,8 +129,8 @@
 		                            </select>
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>
-							</c:forEach>	               		
-							</ul> <br>
+							</c:forEach>	       
+							</ul>
 							<span class="basic-info">카테고리 추가</span> 
 							<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
 							<ul id="category-wrap" class="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
@@ -145,26 +146,27 @@
 		                            </select>
 		                            <a href="##" id="del-category"><i class="bi bi-dash-square"></i></a>
 								</li>					
-							</ul> <br>
+							</ul>
+							<input name="categoryIndex" type="hidden" id="category-index">
 							
 							<div class="optional-info"">
 								<span class="basic-info">추가 정보</span> <br>
-								<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="기본 주소" value="${userAddr.addressBasic}" id="addrBasic" readonly />
+				                        <input class="form-control join-input" type="text" placeholder="기본 주소" value="${userAddrList[0].addressBasic}" readonly />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressDetail" class="form-control join-input" type="text" placeholder="상세 주소" value="${userAddr.addressDetail}" id="addrDetail" />
+				                        <input class="form-control join-input" type="text" placeholder="상세 주소" value="${userAddrList[0].addressDetail}" readonly />
 				                    </div>
 		                		</div>	
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
-				                        <input name="addressZipNum" class="form-control join-input" type="text" placeholder="우편번호" value="${userAddr.addressZipNum}" id="addrZipNum" readonly />
+				                        <input class="form-control join-input" type="text" placeholder="우편번호" value="${userAddrList[0].addressZipNum}" readonly />
 				                    </div>
-		                		</div>	
+		                		</div>	<br>
+		                		<button type="button" onclick="showAddressModal()" class="btn btn-outline-success">주소록 확인</button>
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
 				                        <input name="userEmail" class="form-control join-input" type="text" placeholder="이메일" value="${user.userEmail}" id="userEmail" />
@@ -184,18 +186,89 @@
 							<input type="button" class="btn btn-sm btn-info btn-b" onclick="showUpdateModal()" value="수정하기" id="update"> &nbsp;&nbsp;
 							<input type="button" class="btn btn-sm btn-danger btn-b" onclick="showDeleteModal()" value="탈퇴하기" id="delete"> &nbsp;&nbsp;
 							<input type="button" class="btn btn-sm btn-b" onclick="history.back()" value="뒤로가기" id="back">
-						</form>
+							
+							   <!-- 주소록 모달  -->
+							   <div class="modal" id="addrListModal" data-bs-backdrop="static">
+							      <div class="modal-dialog modalDesign">
+							         <div class="modal-content myPage-modal-content">
+							            <div class="modal-header pt-3 myPage-modal-header">
+							               <h4 class="modal-title mx-auto">주소록</h4>
+							            </div>
+							            <div class="modal-body myPage-modal-body" id="address-outter"> 
+						                      <c:forEach var="addr" items="${userAddrList}" varStatus="status">
+						                        <div class="address-infos div-address" data-index="${status.count}">
+						                        	<hr>
+						                        	<c:if test="${status.index == 0}">
+							                        	<h5>메인 주소</h5>
+						                        	</c:if>
+						                        	<c:if test="${status.index != 0}">
+							                        	<a class="set-main">메인주소로 설정</a>
+						                        	</c:if>
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${addr.addressBasic}" readonly />
+									                    </div>
+							                		</div>	
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="${addr.addressDetail}" />
+									                    </div>
+							                		</div>	
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${addr.addressZipNum}" readonly />
+									                    </div>
+							                		</div>	<br>
+													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기"> <br>
+						                        </div>
+						                        <br>
+						                     </c:forEach> 
+							            </div>
+							            <hr class="btn-hr">
+							            <div class="modal-footer myPage-modal-footer">
+							               <button type="button" class="btn btn-success address-add" >주소 추가</button>
+							               <!-- 노드 복사용 더미 주소 div태그 -->
+						                        <div style="display: none;">
+						                        	<hr>
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="dummy" readonly />
+									                    </div>
+							                		</div>	
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="dummy"/>
+									                    </div>
+							                		</div>	
+													<div class="input-group inputArea">
+									                    <div class="col-md-12 col-sm-12 col-12">
+									                        <input class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="dummy" readonly />
+									                    </div>
+							                		</div>	<br>
+													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
+													<input type="button" class="btn btn-sm btn-b btn-danger address-del" value="삭제"> <br>
+						                        </div>					               
+							               <button type="button" class="btn btn-primary" >확인</button>
+							               <button type="button" class="btn btn-light modal-cancel" onclick="hideAddrModal()" data-bs-dismiss="modal">닫기</button>
+							            </div>
+							            <input name="addressCount" type="hidden" id="address-count">
+							         </div>
+							      </div>
+						      	<div id="modalMask"></div>
+							   </div>
+							</form>
 					</div>
 				</div>
 			</div>
 				
+				<!-- 비밀번호 인증 모달 -->
 			<div class="modal" id="myPageModal">
 			  <div class="modal-dialog modalDesign">
-			    <div class="modal-content" id="myPage-modal-content">
-			      <div class="modal-header pt-3" id="myPage-modal-header">
+			    <div class="modal-content myPage-modal-content">
+			      <div class="modal-header pt-3 myPage-modal-header">
 			        <h4 class="modal-title mx-auto">비밀번호 인증</h4>
 			      </div>
-			      <div class="modal-body" id="myPage-modal-footer">
+			      <div class="modal-body myPage-modal-body">
 			      	<form action="" method="post" id="modal-submit">
 				        <!-- <p>One fine body&hellip;</p> -->
 						<div class="input-group inputArea">
@@ -212,19 +285,19 @@
 		                    <div class="col-md-12 col-sm-12 col-12">
 		                        <input name="checkPw" class="form-control join-input" type="password" placeholder="비밀번호 확인" id="checkPw" />
 		                    </div>
-	                	</div>					        
-						<input type="submit" style="display: none" >							
+	                	</div>					        					
 			      	</form>
 			      </div>
-			      <div class="modal-footer" id="myPage-modal-footer">
+			      <div class="modal-footer myPage-modal-footer">
 			        <button type="button" class="btn btn-primary modal-submit-btn">내용 수정하기</button>
-			        <button type="button" class="btn btn-light modal-cancel" onclick="hideModal()" data-dismiss="modal">돌아가기</button>
+			        <button type="button" class="btn btn-light modal-cancel" onclick="hidePwModal()" data-dismiss="modal">돌아가기</button>
 			      </div>
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
 			  
 				<div id="modalMask"></div>
 			</div><!-- /.modal -->
+			
 				
 			<div class="tab-content">
 			<c:choose>
@@ -276,7 +349,7 @@
 				            <tr>
 				                <th scope="row" colspan="2" class="align-middle basket"> <a class="basketA" href="${pageContext.request.contextPath}/product/productDetail?productNo=${b.basketProductNo}"> ${b.basketProductName } </a></th>
 				                <td class="align-middle basket">&#8361;<fmt:formatNumber value="${b.basketPrice }" pattern="#,###" /></td>
-				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a class="basketA" href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-plus-square"></i></a>
+				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a class="basketA" href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}&pNo=${b.basketProductNo}"><i class="bi bi-plus-square"></i></a>
 				                    <a class="basketA" href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square"></i></a></td>
 				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${b.basketQuantity*b.basketPrice}" pattern="#,###" /> </td>
 				                <td class="align-middle basket"><button type="button" class="btn btn-danger basketDel" >삭제</button></td>
@@ -298,7 +371,43 @@
 			</div>
 		
 			<div class="tab-content">
+			<c:choose>
+			<c:when test="${toggle == 4}">					
 				<div class="tab-pane active" id="myOrder">
+			</c:when>
+			<c:otherwise>
+				<div class="tab-pane " id="myOrder">
+			</c:otherwise>
+		</c:choose>
+				<div class="container">
+				        <table class="table table-striped text-center " style="table-layout:fixed;">
+				            <thead>
+				            <tr>
+				                <th scope="col"colspan="2">상품사진</th>
+				                <th scope="col">상품</th>
+				                <th scope="col">수량</th>
+				                <th scope="col">결제가격</th>
+				                <th scope="col">배송상태</th>
+				            </tr>
+				            </thead>
+				            <tbody>
+				            <c:forEach var="o" items="${order }" varStatus="status">
+				            <tr>
+				                <th scope="row" colspan="2" class="align-middle basket"><img id="productThumb" src="<c:url value='/product/display2?no=${o.orderProductNo }' />" alt="상품이미지" style="height:225px; width:225px;"> </th>
+				                <td class="align-middle basket"><a class="basketA" href="${pageContext.request.contextPath}/product/productDetail?productNo=${o.orderProductNo}"> ${name[status.index] } </a></td>
+				                <td class="align-middle basket">${o.orderQuantity }&nbsp;
+				                    </td>
+				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${o.orderPrice}" pattern="#,###" /> </td>
+				                <td class="align-middle basket">${o.orderStatus }</td>
+				                <td style="display:none">${o.orderNo} </td> 
+				            </tr>
+				            </c:forEach>
+				            </tbody>
+				        </table>
+				        <div>
+				        	
+				        </div>
+				    </div>
 				</div>
 			</div>
 					
@@ -312,6 +421,8 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
+
+let nicknameCheck = true;
 	$(function() {
 		
 		 $('.title').on('click', 'li', function(e) {
@@ -463,6 +574,58 @@
 				}
 		}); //end 인증번호비교
 		
+		//let nicknameCheck = false; 맨위 jQuery 밖에 선언
+		// 닉네임 중복 확인.
+		$('#nickname-check').click(function() {
+			const userNickname = $('#userNickname').val();
+			console.log();
+			
+			if(userNickname === '') {
+				nicknameCheck = false;
+				$('#userNickname').focus();
+				alert('닉네임를 입력하세요.');
+				return;
+			} else if($('#userNickname').css('border-block-color') === 'rgb(255, 0, 0)') {
+				nicknameCheck = false;
+				$('#userNickname').focus();
+				alert('유효하지 않는 닉네임입니다.');
+				return;				
+			}
+			
+			$.ajax({
+				type:'POST',
+				url:'${pageContext.request.contextPath}/user/checkNickname',
+				contentType:'application/json',
+				dataType: 'text',
+				data:userNickname,
+				success: function(result) {
+					if (result === 'duplicated') {
+						$('#userNickname').focus();
+						
+						if ('${user.userNickname}' === userNickname) {
+							nicknameCheck = true;
+							$('#userNickname').css('border', '1px solid rgb(206, 212, 218)');
+							alert('본인이 사용 중인 닉네임은 중복확인할 수 없습니다.');
+						} else {
+							nicknameCheck = false;
+							$('#userNickname').css('border', '2px solid red');
+							alert('이 닉네임은 이미 사용 중입니다.');
+						}
+					} else {
+						nicknameCheck = true;
+						$('#userNickname').css('border', '2px solid rgb(34, 139, 34)');
+						alert('사용가능한 닉네임입니다!');
+					}
+				},
+				error: function() {
+					nicknameCheck = false;
+					$('#userNickname').css('border', '2px solid red');
+					alert('닉네임 확인에 실패했습니다.\n관리자에게 문의해주세요.');						
+				}
+				
+			});
+		});
+		
 		$('#currPw').hover(function() {
 			$(this).attr('placeholder', '영문 대/소문자, 숫자 8 ~ 16 자리');
 		}, function() {
@@ -499,8 +662,9 @@
 			$(this).attr('placeholder', '전화번호');			
 		});
 		
+		/* 비밀번호 모달 */
 		/*현재 비밀번호 형식 검사 스크립트*/
-		$('#currPw').keydown(function() {
+		$('#currPw').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if (!$('#myPageModal').hasClass('modiPw')) {
@@ -520,9 +684,8 @@
 		});
 		
         /*변경 비밀번호 형식 검사 스크립트*/
-		$('#modiPw').keydown(function() {
+		$('#modiPw').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
-            
             
             if(regex.test($(this).val() )) {
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
@@ -534,11 +697,11 @@
 	            }
             } else {
                 $(this).css('border', '2px solid red');
-            }      
+            }                  	
 		});
         
         /*확인 비밀번호 형식 검사 스크립트*/
-		$('#checkPw').keydown(function() {
+		$('#checkPw').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if ($('#myPageModal').hasClass('modiPw')) {
@@ -577,13 +740,17 @@
         $('#userName').keyup(function() {
         	$(this).css('color', 'black');
 			const regex = /^[가-힣a-zA-Z]+$/;
-			
-			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-				
+
+			if ($(this).val() === '${user.userName}') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
-                $(this).css('border', '2px solid red');
-			}	
+				if (regex.test($(this).val())) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+					
+				} else {
+	                $(this).css('border', '2px solid red');
+				}	
+			}
         });
         
         /* 닉네임 확인검사 */
@@ -591,12 +758,17 @@
         	$(this).css('color', 'black');
 			const regex = /^[\w가-힣\_\!\?]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
 			
-			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-				
+			if ($(this).val() === '${user.userNickname}') {
+				nicknameCheck = true;
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
-                $(this).css('border', '2px solid red');
-			}	
+				nicknameCheck = false;
+				if (regex.test($(this).val())) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				} else {
+	                $(this).css('border', '2px solid red');
+				}					
+			}
         });
         
         /* 전화번호 확인검사 */
@@ -604,32 +776,46 @@
         	$(this).css('color', 'black');
 			const regex = /^(010)[0-9]{8}$/; /* 010포함 숫자 11자리 */
 			
-			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-				
+			if ($(this).val() === '${user.userTel}') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
-                $(this).css('border', '2px solid red');
-			}	
+				if (regex.test($(this).val())) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+					
+				} else {
+	                $(this).css('border', '2px solid red');
+				}					
+			}
         });
                
         
         /* 이메일 확인검사 */
-        $('#userEmail').keydown(function() {
+        $('#userEmail').keyup(function() {
         	$(this).css('color', 'black');
         	const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
-			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-				
+			if ($(this).val() === '${user.userEmail}') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
-                $(this).css('border', '2px solid red');
-				 
+				if (regex.test($(this).val())) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				} else {
+	                $(this).css('border', '2px solid red');
+				}
 			}
-        	
         }); 
         
+        /*  주소 확인 검사 */
+        $('#addrDetail').keyup(function() {
+			if ($(this).val() === '${userAddrList[0].addressDetail}') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
+			} else {
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+			}
+        });
+        
         // 카테고리 추가
-       	const $lastLi = document.querySelector('#add-category').previousElementSibling.previousElementSibling.previousElementSibling.lastElementChild;
+       	const $lastLi = document.querySelector('#add-category').previousElementSibling.previousElementSibling.lastElementChild;
        	let indexLi = +($($lastLi).data('index'));
         $('#add-category').click(function() {
         	
@@ -645,12 +831,130 @@
         	
         });
      	   
-    	 // 카테고리 제거
-        $('.category-wrap').on('click', '#del-category' ,function() {
+    	// 카테고리 제거
+        $('.category-wrap').on('click', '#del-category' ,function(e) {
         	console.log(this);
+        	console.log($(this).css('opacity'));
+        	if($(this).css('opacity') == 0) {
+        		
+				$(this).hover(function() {
+					$(this).css('cursor', 'default');
+	        		e.preventDefault();
+				});
+        	}
         	this.parentNode.remove();
         });
-		
+    	 
+    	// 주소추가 버튼 클릭 이벤트 타겟 전달하기.
+    	$('#addrListModal').on('click', '.find-address', function(e) {
+    		console.log(e);
+    	
+    		searchAddress(e);
+    		//  커서를 상세주소 필드로 이동한다. - 주소 중복 제거 change 이벤트 때문에 포커스 다시 입힘.
+    		e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.focus();
+   		});
+    	
+    	// 주소록 모달 내 주소 추가
+    	let newAddrIndex = +('${userAddrList.size()}') + 1;
+    	$('.address-add').click(function(e) {
+	
+    		console.log(newAddrIndex);
+    		
+	   		const $fragNode = document.createDocumentFragment();
+	   		const $addrDiv = this.nextElementSibling.cloneNode(true);
+	   		console.log($addrDiv);
+	   		const $br = document.createElement('br');
+	   		
+	   		$($addrDiv).css('display', 'block');
+	   		$($addrDiv).addClass('address-infos');
+	   		$($addrDiv).data('index', newAddrIndex);
+	   		
+	   		$($addrDiv.querySelector('input.addrBasic')).attr('name', 'addressBasic');
+	   		$($addrDiv.querySelector('input.addrBasic')).val('');
+	   		$($addrDiv.querySelector('input.addrDetail')).attr('name', 'addressDetail');
+	   		$($addrDiv.querySelector('input.addrDetail')).val('');
+	   		$($addrDiv.querySelector('input.addrZipNum')).attr('name', 'addressZipNum');
+	   		$($addrDiv.querySelector('input.addrZipNum')).val('');
+	   		
+			$fragNode.appendChild($addrDiv);
+			$fragNode.appendChild($br);
+			
+	   		$('#address-outter').append($fragNode);
+	   		newAddrIndex = newAddrIndex + 1;
+   		});
+    	
+    	// 주소록 모달 내 주소 삭제
+    	$('#address-outter').on('click', '.address-del' , function(e) {
+			this.parentNode.nextElementSibling.remove();
+			this.parentNode.remove();
+		});
+    	
+    	// 주소록 모달 메인 주소로 설정
+    	$('#addrListModal').on('click', '.set-main', function(e) {
+   
+    		const addressIndex = $(this.parentNode).data('index');
+    		
+    		if (confirm('선택한 주소 정보를 메인 주소로 설정하시겠습니까?')) {
+    		
+				$.ajax({
+					type: 'POST',
+					url: '<c:url value="/user/changeMainAddress" />',
+					contentType: 'application/json',
+					dataType:'text',
+					data: addressIndex,
+					success: function(data) {
+						
+						alert(data);
+					},
+					error: function() {
+						alert('메인 주소 설정 전송 실패');
+					}
+				}); 
+			}
+    	});
+    	
+    	// 주소록 모달에서 addressDetail keyup 시 중복 체크 이벤트 추가
+    	$('#address-outter').on('keyup', 'input.addrDetail', function(e) {
+    		
+    		console.log($('.address-infos'));
+ 			 for (let $addressInfo of $('.address-infos')) {
+	    		if ($(this.parentNode.parentNode.parentNode).data('index') == $($addressInfo).data('index')) {
+					continue;	
+				}
+	    		console.log($($addressInfo.querySelector('input.addrBasic')).val());
+	    		console.log(this.parentNode.parentNode.previousElementSibling.firstElementChild.firstElementChild.value);
+				if ($($addressInfo.querySelector('input.addrBasic')).val() === this.parentNode.parentNode.previousElementSibling.firstElementChild.firstElementChild.value
+						&& $($addressInfo.querySelector('input.addrZipNum')).val() === this.parentNode.parentNode.nextElementSibling.firstElementChild.firstElementChild.value
+						&& $($addressInfo.querySelector('input.addrDetail')).val().trim() === this.value.trim()) {
+
+					alert('이미 입력된 주소입니다.');
+					this.value = '';
+					return;						
+				}
+			}  	
+ 			 
+   		});
+
+    	// 주소록 모달에서 addressBasic change 시 중복 체크 이벤트 추가
+    	$('#address-outter').on('blur', 'input.addrBasic', function(e) {
+    		
+ 			 for (let $addressInfo of $('.address-infos')) {
+	    		if ($(this.parentNode.parentNode.parentNode).data('index') == $($addressInfo).data('index')) {
+					continue;	
+				}
+				if ($($addressInfo.querySelector('input.addrDetail')).val() === this.parentNode.parentNode.nextElementSibling.firstElementChild.firstElementChild.value
+						&& $($addressInfo.querySelector('input.addrZipNum')).val() === this.parentNode.parentNode.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value
+						&& $($addressInfo.querySelector('input.addrBasic')).val().trim() === this.value.trim()) {
+
+					alert('이미 입력된 주소입니다.');
+					this.value = '';
+					this.parentNode.parentNode.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value ='';
+					return;						
+				}
+			}  	
+ 			 
+   		});
+    	
 	}); // end jQuery
 	
 	// 즉시 실행 함수 
@@ -726,7 +1030,7 @@
 	
 	// 다음 주소 api 사용해보기
 
-	function searchAddress() {
+	function searchAddress(e) {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -742,13 +1046,17 @@
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
                     addr = data.jibunAddress;
                 }
-
+				
+                console.log(e.target);
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('addrZipNum').value = data.zonecode;
-                document.getElementById('addrBasic').value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('addrDetail').focus();
-            }
+                e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value = data.zonecode;
+                e.target.parentNode.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.value = addr;
+                
+                // 커서를 기본주소 필드로 이동한다. - 주소 중복 제거 change 이벤트 때문에 포커스 기본 주소로 입힘.
+                 e.target.parentNode.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.focus();
+                 
+				}
+                
         }).open();
 	}
 	
@@ -756,9 +1064,12 @@
 	// 비밀번호 변경 모달 열기
 	function showModiPwModal() {
 		$('.modal-submit-btn').text('비밀번호 변경하기');
-		$('.modal-submit-btn').attr('onclick', 'ModiPwModal()');
 		$('.modiPw').css('display', 'inline-block');
 		$('.modiPw').attr('disabled', false);
+		$('.modal-submit-btn').attr('onclick', 'ModiPwModal()');
+		$("#currPw").attr('onkeyup', 'keyPressEnterModiPw()');
+		$("#modiPw").attr('onkeyup', 'keyPressEnterModiPw()');
+		$("#checkPw").attr('onkeyup', 'keyPressEnterModiPw()');
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
@@ -775,10 +1086,14 @@
 		$('.modiPw').css('display', 'none');
 		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'UpdateModal()');
+		$("#currPw").attr('onkeyup', 'keyPressEnterUpdate()');
+		$("#modiPw").attr('onkeyup', 'keyPressEnterUpdate()');
+		$("#checkPw").attr('onkeyup', 'keyPressEnterUpdate()');
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
-
+		$('#user-update-form').attr('action', '${pageContext.request.contextPath}/user/userUpdate');
+		
 		$('#myPageModal').toggleClass('modiPw', false);
 		$('#myPageModal').toggleClass('updateUser', true);
 		$('#myPageModal').toggleClass('deleteUser', false);
@@ -791,6 +1106,9 @@
 		$('.modiPw').css('display', 'none');
 		$('.modiPw').attr('disabled', true);
 		$('.modal-submit-btn').attr('onclick', 'DeleteModal()');
+		$("#currPw").attr('onkeyup', 'keyPressEnterDelete()');
+		$("#modiPw").attr('onkeyup', 'keyPressEnterDelete()');
+		$("#checkPw").attr('onkeyup', 'keyPressEnterDelete()');
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
@@ -802,11 +1120,85 @@
 		// 탈퇴 시 자동로그인 쿠키, 세션 지우기.
 	}
 	
+	// 비밀번호 종류 모달 닫기
+	function hidePwModal() {
+		$('#currPw').val('');
+		$('#modiPw').val('');
+		$('#checkPw').val('');
+		
+		$('#myPageModal').hide();
+	}
+	
+    // 비밀번호 종류 엔터 이벤트 시 submit 실행 코드.
+    function keyPressEnterModiPw() {
+    	if (window.event.keyCode == 13) {
+    		ModiPwModal();				
+		}
+    }
+    function keyPressEnterUpdate() {
+    	if (window.event.keyCode == 13) {
+    		UpdateModal();				
+		}
+    }
+    function keyPressEnterDelete() {
+    	if (window.event.keyCode == 13) {
+    		DeleteModal();				
+		}
+    }
+    
+	
+	// 주소록 모달 열기
+	function showAddressModal() {
+		$('#addrListModal').show();
+	}
+	
+	// 주소록 모달 닫기
+	function hideAddrModal() {
+	
+		for (let $addrBasic of $('.addrBasic')) {
+			if ($addrBasic.value.trim() === '') {
+				alert('주소 입력창이 비어있는 상태로 주소록 창을 닫을 수 없습니다.');
+				return;
+			}
+		}
+		for (let $addrDetail of $('.addrDetail')) {
+			if ($addrDetail.value.trim() === '') {
+				alert('주소 입력창이 비어있는 상태로 주소록 창을 닫을 수 없습니다.');
+				return;
+			}
+		}
+		for (let $addrZipNum of $('.addrZipNum')) {
+			if ($addrZipNum.value.trim() === '') {
+				alert('주소 입력창이 비어있는 상태로 주소록 창을 닫을 수 없습니다.');
+				return;
+			}
+		}
+		
+		
+		$('#addrListModal').hide();
+	}
+	
+	
+	// 비밀번호 변경 비동기 코드
 	function ModiPwModal() {
-		const currPw = $('#currPw').val();
-		const modiPw = $('#modiPw').val();
-		const checkPw = $('#checkPw').val();
+		const currPw = $('#currPw').val().trim();
+		const modiPw = $('#modiPw').val().trim();
+		const checkPw = $('#checkPw').val().trim();
 		const array = [currPw,modiPw,checkPw];
+		
+		if (currPw == '') {
+			alert('현재 비밀번호를 입력하세요.');
+			$('#currPw').focus();
+			return;
+		} else if($('#modiPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			alert('비밀번호를 다시 확인하세요.');
+			$('#modiPw').focus();
+			return;
+		} else if($('#checkPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			alert('비밀번호를 다시 확인하세요.');
+			$('#checkPw').focus();
+			return;
+		}
 		
 		$.ajax({
 			type:'POST',
@@ -817,16 +1209,13 @@
 			success: function(result) {
 				console.log(result);
 				
-				if (result === '1') {
-					console.log('통신성공');
-					
-					/* $('#modal-submit').submit(); */
-				} else if(result ==='0') {
-					
-				} else {
-					
+				if (result === 'wrongPw') {
+					alert('현재 비밀번호 입력이 잘못되었습니다.\n 다시 입력해주세요.');
+					$('#currPw').focus();
+				} else if(result ==='PwChanged') {
+					alert('비밀번호가 성공적으로 변경되었습니다.');
+					location.href='${pageContext.request.contextPath}/user/userMyPage/1';
 				}
-				
 			},
 			error: function(request, status, error) {
 				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
@@ -835,31 +1224,125 @@
 		
 	}
 	
+	// 유저 정보 변경 비동기 코드
 	function UpdateModal() {
-		const currPw = $('#currPw').val();
-		const checkPw = $('#checkPw').val();
+		const currPw = $('#currPw').val().trim();
+		const checkPw = $('#checkPw').val().trim();
 		const array = [currPw,checkPw];
+		
+		if($('#currPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			alert('비밀번호를 다시 확인하세요.');
+			$('#currPw').focus();
+			return;
+		} else if($('#checkPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			alert('비밀번호를 다시 확인하세요.');
+			$('#checkPw').focus();
+			return;
+		} else if($('#userName').css('border-block-color') === 'rgb(255, 0, 0)') {
+			hidePwModal();
+			$('#userName').focus();
+			alert('이름을 다시 확인하세요.');
+			return;
+		} else if(!nicknameCheck) {
+			hidePwModal();
+			$('#userNickname').focus();
+			alert('닉네임 중복확인이 필요합니다.');
+			return;
+		} else if($('#userNickname').css('border-block-color')  === 'rgb(255, 0, 0)' ) {
+			hidePwModal();
+			$('#userNickname').focus();
+			alert('닉네임을 다시 확인하세요.');
+			return;
+		} else if($('#userTel').css('border-block-color') === 'rgb(255, 0, 0)') {
+			hidePwModal();
+			$('#userTel').focus();
+			alert('전화번호를 다시 확인하세요.');
+			return;
+		} else if($('#userEmail').css('border-block-color') === 'rgb(255, 0, 0)') {
+			hidePwModal();
+			$('#userEmail').focus();
+			alert('이메일을 다시 확인하세요.');
+			return;
+		}
+		
+		/* if (true) {
+			
+			console.log($('.address-infos'));
+			
+			// 메인 주소, 그 외 주소들과 추가한 주소의 null 체크
+			// null 인 상태로 주소록 모달 창을 닫을 수가 없으니까 null 체크 안해도 됨.
+			 for (let $addressInfo of $('.address-infos')) {
+				console.log($addressInfo);
+				console.log($($addressInfo).data('index'));
+				if ($addressInfo.querySelector('.addrBasic').value.trim() === '') {
+					alert('주소록에 생성한 주소란에 값을 입력해주세요.');
+					hidePwModal();
+					showAddressModal()
+					
+					$addressInfo.querySelector('.addrBasic').focus();
+					return;
+				} else if ($addressInfo.querySelector('.addrDetail').value.trim() === '') {
+					alert('주소록에 생성한 주소란에 값을 입력해주세요.');
+					hidePwModal();
+					showAddressModal();
+					
+					$addressInfo.querySelector('.addrDetail').focus();
+					return;
+				} else if ($addressInfo.querySelector('.addrZipNum').value.trim() === '') {
+					alert('주소록에 생성한 주소란에 값을 입력해주세요.');
+					hidePwModal();
+					showAddressModal();
+					
+					$addressInfo.querySelector('.addrZipNum').focus();
+					return;
+				}
+			} 
+		} */
+		
+		let category_index_list = [];
+		let address_count_list = [];
+		
+		for (let $li_category of $('.li-category')) {
+			category_index_list.push($($li_category).data('index'));
+			
+		}
+		console.log(category_index_list);
+		
+		
+		for (let $div_address of $('.div-address')) {
+			address_count_list.push($($div_address).data('index'));
+		}
+		console.log(address_count_list);
+		
+		category_index_list = JSON.stringify(category_index_list);
+		address_count_list = JSON.stringify(address_count_list);
+		
+		$('#category-index').val(category_index_list);
+		$('#address-count').val(address_count_list);
+			
+		console.log(category_index_list);
+		console.log(address_count_list);
 		
 		$.ajax({
 			type:'POST',
-			url:'${pageContext.request.contextPath}/user/userUpdate',
+			url:'${pageContext.request.contextPath}/user/userUpdateConfirm',
 			contentType: 'application/json',
 			dataType:'text',
 			data:JSON.stringify(array),
 			success: function(result) {
 				console.log(result);
 				
-				if (result === '1') {
-					console.log('통신성공!');
+				if (result == 1) {
+					if (confirm('현재 적용된 내용으로 모든 정보가 수정됩니다.\n수정하시겠습니까?')) {
+						
+							
 					
-					/* $('#modal-submit').submit(); */
-				} else if(result ==='0') {
-					
+						$('#user-update-form').submit();
+					}
 				} else {
-					
+					alert('현재 비밀번호 입력이 잘못되었습니다.\n 다시 입력해주세요.');
+					$('#currPw').focus();
 				}
-				
-				
 			},
 			error: function(request, status, error) {
 				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');
@@ -868,9 +1351,10 @@
 		
 	}
 
+	// 계정 삭제 비동기 코드
 	function DeleteModal() {
-		const currPw = $('#currPw').val();
-		const checkPw = $('#checkPw').val();
+		const currPw = $('#currPw').val().trim();
+		const checkPw = $('#checkPw').val().trim();
 		const array = [currPw,checkPw];
 		
 		$.ajax({
@@ -885,7 +1369,7 @@
 				if (result === '1') {
 					console.log('통신성공!!');
 					
-					/* $('#modal-submit').submit(); */
+					/* $('#user-update-form').submit(); */
 				} else if(result ==='0') {
 					
 				} else {
@@ -900,14 +1384,7 @@
 		
 	}
 	
-	// 모달 닫기
-	function hideModal() {
-		$('#currPw').val('');
-		$('#modiPw').val('');
-		$('#checkPw').val('');
-		
-		$('#myPageModal').hide();
-	}
+
 	//장바구니 삭제
 	$('.basketDel').on('click',function(e){
 		console.log('장바구니삭제 클릭')
@@ -996,7 +1473,6 @@
 					$('#contentDiv').html(str);
 				}
 				
-					
 			); //end getJSON()
 			
 		}; //end getList()

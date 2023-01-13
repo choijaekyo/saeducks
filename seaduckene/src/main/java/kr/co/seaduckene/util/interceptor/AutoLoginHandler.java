@@ -12,7 +12,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.WebUtils;
 
 import kr.co.seaduckene.user.command.UserVO;
-import kr.co.seaduckene.user.mapper.IUserMapper;
 import kr.co.seaduckene.user.service.IUserService;
 import lombok.extern.log4j.Log4j;
 
@@ -33,11 +32,13 @@ public class AutoLoginHandler implements HandlerInterceptor {
 		// 쿠키의 세션 아이디 정보로 검색해서 얻은 유저 정보.
 		UserVO userVo = null;
 		if (autoLoginCookie != null) {
-			userVo = userService.getUserBySessionId(autoLoginCookie.getValue());;
+			userVo = userService.getUserBySessionId(autoLoginCookie.getValue());
 		}
-				 
+	
 		log.info("autoLogin userVo: " + userVo);
 
+		log.info(request.getRequestURL().toString());
+		
 		// 로그인 중
 		if (loginUser != null) {
 			// 이전에 자동로그인 선택함. == 쿠키 있음 <- userVo 변수 사용 가능.
@@ -53,6 +54,7 @@ public class AutoLoginHandler implements HandlerInterceptor {
 				}
 			} else { // 이전에 자동로그인 선택한 정보 없음. == 쿠키 없음.
 				// 이전에 자동로그인 해제하지 않음.
+				log.info(loginUser.getUserSessionId());
 				if (loginUser.getUserSessionId() != null) {
 					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter out = response.getWriter();

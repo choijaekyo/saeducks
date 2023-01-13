@@ -5,12 +5,15 @@
 <%@ include file="../include/header.jsp"%>
 
 <div class="container">
-	<div class="row mb-1">
-	  	<div class="col" style="position: relative;">
-	  		<button type="button" class="btn btn-warning w-auto rounded btn-shadow">대카테고리고리</button>
-	  		<button type="button" class="btn btn-success w-auto rounded">소소카테고리</button>
-	  		<button type="button" class="btn btn-info w-auto rounded">전체상품</button>
-	  		<a class="btn btn-info w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a>
+	<div class="row mb-3">
+	  	<div class="col col align-self-center" style="position: relative;">
+        	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107;">
+			    <li class="breadcrumb-item" id="majorTitle"></li>
+			    <li class="breadcrumb-item" id="minorTitle"></li>
+			    <li class=""><a class="ml-5 btn btn-info w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a></li>
+			  </ol>
+			</nav>
         </div>
 	</div>
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contentDiv">
@@ -20,8 +23,8 @@
 
 	</div>
 	<div class="row justify-content-center m-5">
-	  	<div class="col-1 w-auto">
-	  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
+	  	<div class="col-1 w-auto" style="display: none;">
+	  		<button  type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
 	  	</div>
 	</div>
 </div>
@@ -43,6 +46,9 @@
 		        <ul class="list-unstyled mt-3 mb-4">
 		          <li>${proVo.productDetail}</li>
 		          <li>재고수량:${proVo.productStock}</li>
+		          <c:if test="${proVo.productStock == 0 }">
+		          	<li style="color:red;">품절</li>
+		          </c:if>
 		        </ul>
 		      </div>
 		    </div>
@@ -90,25 +96,41 @@ $(function() {
 				console.log(list.length);
 				console.log(list);
 				
-				if(list.length === 0) isFinish = true;
+				if(list.length === 0){
+					isFinish = true;
+				} else {
+					$('.w-auto').css('display','block');
+				}
+				
+				
+				const majorTitle = list[0].categoryMajorTitle;
+				const minorTitle = list[0].categoryMinorTitle;
 				
 				for(let i=0; i<list.length; i++) {
 					
 					str += 
-					`<div class="col">
+				    `<div class="col">
 				    <div class="card shadow-sm detailButton" data-bno="` + list[i].boardNo + `">
-				      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">` + list[i].boardTitle + `</text></svg>
+				      <svg width="100%" height="225">
+				      
+				      
+				      <image href="/board/getImg/` + list[i].boardImageUuid + `" width="100%" height="100%" style="opacity: 0.5;"/>
+				      
+				      </svg>
 				      <div class="card-body">
-				        <p class="card-text">` + list[i].boardContent + `</p>
 				        <div class="d-flex justify-content-between align-items-center">
-				          <small class="text-muted">9 mins</small>
+							<small class="col-7"><p class="col-10 text-truncate" style="color: #5c5e5e; margin-bottom: 0;">` + list[i].boardTitle + `</p></small>
+							<small class="col-2"><p class="text-end" style="color: #5c5e5e; margin-bottom: 0;">` + timeForToday(list[i].boardRegDate) + `</p></small>
+							<small class="col-3"><p class="text-end" style="color: #5c5e5e; margin-bottom: 0;">조회수&nbsp` + list[i].boardViews + `</p></small>
 				        </div>
 				      </div>
 				    </div>
-			  		</div>`;		
+			  		</div>`;
 				}
 				
 				$('#contentDiv').html(str);
+				$('#majorTitle').html(majorTitle);
+				$('#minorTitle').html(minorTitle);
 			}
 			
 				
@@ -121,7 +143,31 @@ $(function() {
 			location.href='${pageContext.request.contextPath}/board/boardDetail/' + bno;
 			
 			
-		})
+		});
+		
+		function timeForToday(value) {
+			console.log(value);
+	        const today = new Date();
+	        const timeValue = new Date(value);
+
+	        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+	        if (betweenTime < 1) return '방금전';
+	        if (betweenTime < 60) {
+	            return betweenTime + '분전';
+	        }
+
+	        const betweenTimeHour = Math.floor(betweenTime / 60);
+	        if (betweenTimeHour < 24) {
+	            return betweenTimeHour + '시간전';
+	        }
+
+	        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+	        if (betweenTimeDay < 365) {
+	            return betweenTimeDay + '일전';
+	        }
+
+	        return Math.floor(betweenTimeDay / 365) + '년전';
+	 }
 		
 	}; //end getList()
 	

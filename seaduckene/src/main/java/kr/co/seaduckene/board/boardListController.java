@@ -5,11 +5,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +32,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.WebUtils;
 
 import com.google.gson.JsonObject;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.NoticeVO;
+import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.util.PageVO;
 import kr.co.seaduckene.util.summernoteCopy;
 
@@ -81,9 +87,9 @@ public class boardListController {
 	//게시글을 DB 등록 요청
 	@PostMapping("/boardWrite")
 	public String boardWrite(BoardVO vo, @RequestParam(value="filename", required=false) List<String> summerfile) throws Exception {
-//	public String boardWrite(BoardVO vo, @RequestParam(value="files") MultipartFile summerfile) throws Exception {
 		System.out.println("글 등록 요청이 들어옴!");
 		System.out.println("summerFile: " + summerfile);
+		System.out.println("첫번째 이미지: " + summerfile.get(0));
 		System.out.println("vo: " + vo);
 		String boardContent;
 		boardContent = vo.getBoardContent();
@@ -94,13 +100,52 @@ public class boardListController {
 		summernoteCopy copy = new summernoteCopy();
 		copy.summerCopy(summerfile);
 		
+		
+		
+		int boardNo = service.boardNoSearch(vo.getBoardTitle(), vo.getBoardContent());
+		service.boardImageAdd(boardNo, summerfile.get(0));
+		
 		return "redirect:/board/boardList/" + vo.getBoardCategoryNo();
 	}
 	
 	//상세보기 페이지
 	@GetMapping("/boardDetail/{boardNo}")
-	public String boardDetail(@PathVariable int boardNo, PageVO vo, Model model) {
+	public String boardDetail(@PathVariable int boardNo, PageVO vo, Model model, 
+							HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("boardNo" + boardNo);
+		
+		int userNo;
+		if(session.getAttribute("login") != null) {
+			UserVO userVo = (UserVO) session.getAttribute("login");
+			userNo = userVo.getUserNo();
+		} else {
+			userNo = 0;
+		}
+		System.out.println("최종 userNo: " + userNo);
+		
+		Cookie countView = WebUtils.getCookie(request, "countView" + userNo);
+		if(countView==null) {
+			System.out.println("countView 없음");
+			Cookie newCookie = new Cookie("countView"+userNo, "bNo"+boardNo);
+			newCookie.setMaxAge(60*60*2); // 두시간
+			response.addCookie(newCookie);
+			service.addViewCount(boardNo);
+		} else {
+			System.out.println("countView 있지롱");
+			
+			String value = countView.getValue();
+			String[] bNoArray = value.split("bNo");
+			List<String> bNoList = new ArrayList<String>(Arrays.asList(bNoArray)); 
+			System.out.println("쿠키에 저장된 글번호 리스트:" + bNoList);
+			System.out.println("가져온 value:" + value);
+			if(!bNoList.contains(Integer.toString(boardNo))) {
+				Cookie newCookie = new Cookie("countView"+userNo, value + "bNo"+boardNo);
+				newCookie.setMaxAge(60*60*2); // 두시간
+				response.addCookie(newCookie);
+				service.addViewCount(boardNo);
+			}
+		}
+
 		model.addAttribute("list", service.content(boardNo));
 		return "board/boardDetail";
 	}
@@ -121,10 +166,10 @@ public class boardListController {
 	
 	//글 삭제 처리
 	@PostMapping("/boardDelete")
-	public String boardDelete(int boardNo) {
+	public String boardDelete(int boardNo, int boardCategoryNo) {
 		service.delete(boardNo);
 		
-		return "redirect:/board/boardList";
+		return "redirect:/board/boardList/" + boardCategoryNo;
 	}
 	
 	// 공지사항 리스트
@@ -166,7 +211,8 @@ public class boardListController {
 		try { 
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/board/summernoteImage/"+savedFileName);
+			jsonObject.addProperty("url", "/board/summe"
+					+ "rnoteImage/"+savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 				
 		} catch (IOException e) {

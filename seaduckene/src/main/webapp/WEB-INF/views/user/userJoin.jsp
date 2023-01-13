@@ -67,7 +67,7 @@
 					<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="nickname-check"> <br>
    					<div class="input-group inputArea">
 		                <div class="col-md-12 col-sm-12 col-12">
-		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" required/>
+		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" maxlength="11" required/>
 	                    </div>
                		</div> <br>
 					
@@ -330,6 +330,7 @@
 				},
 				error: function() {
 					idCheck = false;
+					$('#userId').css('border', '2px solid red');
 					alert('아이디 확인에 실패했습니다.\n관리자에게 문의해주세요.');						
 				}
 				
@@ -340,7 +341,6 @@
 		// 닉네임 중복 확인.
 		$('#nickname-check').click(function() {
 			const userNickname = $('#userNickname').val();
-			console.log();
 			
 			if(userNickname === '') {
 				nicknameCheck = false;
@@ -350,7 +350,7 @@
 			} else if($('#userNickname').css('border-block-color') === 'rgb(255, 0, 0)') {
 				nicknameCheck = false;
 				$('#userNickname').focus();
-				alert('유효하지 않는 아이디입니다.');
+				alert('유효하지 않는 닉네임입니다.');
 				return;				
 			}
 			
@@ -374,6 +374,7 @@
 				},
 				error: function() {
 					nicknameCheck = false;
+					$('#userNickname').css('border', '2px solid red');
 					alert('닉네임 확인에 실패했습니다.\n관리자에게 문의해주세요.');						
 				}
 				
@@ -552,7 +553,7 @@
         
 	    // 회원가입 정보 넘기기 전에 입력값 검증. 함수 선언.
  		function join() {
- 			if (idCheck === false) {
+ 			if (!idCheck) {
 				alert('아이디 중복 확인이 필요합니다.');
 				$('#userId').focus();
 				return;
@@ -568,8 +569,8 @@
 				alert('이름을 다시 확인하세요.');
 				$('#userName').focus();				
 				return;
-			} else if ($('#userNickname').css('border-block-color') !== 'rgb(34, 139, 34)') {
-				alert('닉네임을 다시 확인하세요.');
+			} else if (!nicknameCheck) {
+				alert('닉네임 중복확인이 필요합니다.');
 				$('#userNickname').focus();				
 				return;
 			} else if ($('#userTel').css('border-block-color') !== 'rgb(34, 139, 34)') {
