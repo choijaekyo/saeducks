@@ -49,10 +49,10 @@ public interface IUserService {
 	List<AddressVO> getUserAddr(int userNo);
 	
 	// 아이디 찾기
-	List<String> findAccount (String userName, String userEmail);
+	List<String> findAccount(String userName, String userEmail);
 	
 	// 임시 비밀번호로 정보수정
-	void updatePw (String userId, String tmpPw);
+	void updatePw(String userId, String tmpPw);
 	
 	// 자동 로그인 설정
 	void setAutoLogin(UserVO userVo);
@@ -80,4 +80,7 @@ public interface IUserService {
 	
 	// 유저의 favorite 변경
 	void updateUserFavorites(CategoryVO newCategoryVO, int userNo);
+	
+	// 유저의 추가 주소 저장
+	void addNewAddress(AddressVO newAddressVo, int userNo);
 }

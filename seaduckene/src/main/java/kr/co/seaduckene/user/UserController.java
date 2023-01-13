@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -448,18 +449,44 @@ public class UserController {
 		
 		
 		log.info(addressCountList);
-		log.info(addressVO.getAddressBasic().split(","));
-		log.info(addressVO.getAddressDetail().split(","));
-		log.info(addressVO.getAddressZipNum().split(","));
-		
-		String[] addressBasicList = addressVO.getAddressBasic().split(",");
-		String[] addressDetailList = addressVO.getAddressDetail().split(",");
-		String[] addressZipNumList = addressVO.getAddressZipNum().split(",");
+		log.info(Arrays.toString(addressVO.getAddressBasic().split(",")));
+		log.info(Arrays.toString(addressVO.getAddressDetail().split(",")));
+		log.info(Arrays.toString(addressVO.getAddressZipNum().split(",")));
 		
 		List<AddressVO> currAddressList = userService.getUserAddr(userNo);
+
+		int allAddressCount = addressVO.getAddressBasic().split(",").length;
+		int currAddressCount = addressCountList.size();
 		
-		int allAddressCount = addressBasicList.length;
-		
+		if (currAddressCount < allAddressCount) {			
+			String[] addressBasicList = addressVO.getAddressBasic().split(",");
+			String[] addressDetailList = addressVO.getAddressDetail().split(",");
+			String[] addressZipNumList = addressVO.getAddressZipNum().split(",");
+			
+			
+			String[] newAddressBasicArray = new String[allAddressCount - currAddressCount];
+			String[] newAddressDetailArray = new String[allAddressCount - currAddressCount];
+			String[] newAddressZipNumArray = new String[allAddressCount - currAddressCount];
+			
+			
+			for (int i = currAddressCount; i < allAddressCount; i++) {
+				newAddressBasicArray[i - currAddressCount] = addressBasicList[i];
+				newAddressDetailArray[i - currAddressCount] = addressDetailList[i];
+				newAddressZipNumArray[i - currAddressCount] = addressZipNumList[i];
+			}
+			
+			String newAddressBasicString = String.join(",", newAddressBasicArray);
+			String newAddressDetailString =  String.join(",", newAddressDetailArray);
+			String newAddressZipNumString =  String.join(",", newAddressZipNumArray);
+			
+			AddressVO newAddressVo = new AddressVO();
+			newAddressVo.setAddressBasic(newAddressBasicString);
+			newAddressVo.setAddressDetail(newAddressDetailString);		
+			newAddressVo.setAddressZipNum(newAddressZipNumString);		
+			
+			log.info(newAddressVo);
+			userService.addNewAddress(newAddressVo, userNo);
+		}
 		
 		
 		

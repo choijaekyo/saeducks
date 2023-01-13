@@ -219,7 +219,8 @@
 									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${addr.addressZipNum}" readonly />
 									                    </div>
 							                		</div>	<br>
-													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기"> <br>
+													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
+													<input type="button" class="btn btn-sm btn-b btn-danger address-del" value="삭제"> <br>
 						                        </div>
 						                        <br>
 						                     </c:forEach> 

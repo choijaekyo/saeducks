@@ -20,5 +20,13 @@
 		UPDATE address SET address_detail = #{addressDetail}, address_basic = #{addressBasic}, address_zip_num = #{addressZipNum}
 		WHERE address_no = #{addressNo}
 	</update>
+	
+	<select id="getUserAddr" resultType="address">
+		SELECT * FROM address WHERE address_user_no = #{userNo} ORDER BY address_representative DESC
+	</select>	
+	
+	<insert id="addNewAddress">
+		INSERT INTO address VALUES (address_seq.NEXTVAL, #{addressDetail}, #{addressBasic}, #{addressZipNum}, #{addressRepresentative}, #{addressUserNo})
+	</insert>
 
 </mapper>

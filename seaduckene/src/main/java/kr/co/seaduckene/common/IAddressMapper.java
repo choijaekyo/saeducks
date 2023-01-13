@@ -1,5 +1,6 @@
 package kr.co.seaduckene.common;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IAddressMapper {
@@ -14,4 +15,11 @@ public interface IAddressMapper {
 	void updateAddr(AddressVO addressVO);
 	
 	// 주소삭제
+	
+	
+	// 유저의 주소 정보를 불러오기
+	List<AddressVO> getUserAddr(int userNo);
+	
+	// 유저의 추가 주소 저장
+	void addNewAddress(AddressVO newAddressVo);
 }

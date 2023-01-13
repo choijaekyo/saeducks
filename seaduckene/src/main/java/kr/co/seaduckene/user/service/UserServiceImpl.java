@@ -1,5 +1,6 @@
 package kr.co.seaduckene.user.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,7 +117,7 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public List<AddressVO> getUserAddr(int userNo) {
-		return userMapper.getUserAddr(userNo);
+		return addressMapper.getUserAddr(userNo);
 	}
 	
 	@Override
@@ -188,9 +189,9 @@ public class UserServiceImpl implements IUserService {
 	public void updateUserFavorites(CategoryVO newCategoryVO, int userNo) {
 		
 		String[] newMajorList = newCategoryVO.getCategoryMajorTitle().split(",");
-		log.info(newMajorList);
+		log.info(Arrays.toString(newMajorList));
 		String[] newMinorList = newCategoryVO.getCategoryMinorTitle().split(",");
-		log.info(newMinorList);
+		log.info(Arrays.toString(newMinorList));
 		
 		List<CategoryVO> currCategoryVOs = userMapper.getUserCategories(userNo);
 		List<FavoriteVO> currFavoriteVOs = userMapper.getUserFavorites(userNo);
@@ -208,6 +209,25 @@ public class UserServiceImpl implements IUserService {
 				
 				userMapper.updateUserFavorites(map);
 			}
+		}
+		
+	}
+	
+	@Override
+	public void addNewAddress(AddressVO newAddressVo, int userNo) {
+		
+		String[] addressBasicList = newAddressVo.getAddressBasic().split(",");
+		log.info(Arrays.toString(addressBasicList));
+		String[] addressDetailList = newAddressVo.getAddressDetail().split(",");
+		log.info(Arrays.toString(addressDetailList));
+		String[] addressZipNumList = newAddressVo.getAddressZipNum().split(",");
+		log.info(Arrays.toString(addressZipNumList));
+		
+		for (int i = 0; i < addressBasicList.length; i++) {
+			AddressVO addrVo = new AddressVO(0, addressDetailList[i], addressBasicList[i], addressZipNumList[i], 0, userNo);
+			
+			log.info(addrVo);
+			addressMapper.addNewAddress(addrVo);
 		}
 		
 	}
