@@ -14,9 +14,6 @@ public interface IAddressMapper {
 	// 주소수정
 	void updateAddr(AddressVO addressVO);
 	
-	// 주소삭제
-	
-	
 	// 유저의 주소 정보를 불러오기
 	List<AddressVO> getUserAddr(int userNo);
 	
@@ -28,5 +25,8 @@ public interface IAddressMapper {
 	
 	// rn 순서, userNo로 addressVO 얻기
 	AddressVO getUserAddressWithRn(Map<String, Integer> map);
+	
+	// addressNo, addressRepresentative 변경
+	void modiAddressNoAndRepresent(Map<String, Integer> map);
 	
 }

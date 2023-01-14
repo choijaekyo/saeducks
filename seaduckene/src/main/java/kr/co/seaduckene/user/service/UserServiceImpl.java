@@ -275,8 +275,7 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public void modiAddressNoAndRepresent(Map<String, Integer> map) {
-
-		
+		addressMapper.modiAddressNoAndRepresent(map);
 	}
 	
 }

@@ -61,11 +61,11 @@
 					    ORDER BY address_representative DESC, address_no 
 				    ) tbl
 			)
-		WHERE rn = #{addressRn};
+		WHERE rn = #{addressRn}
 	</select>
 	
-	<update id="">
-		UPDATE address SET address_no = #{}, address_representative = #{} WEHRE address_no = #{} AND address_user_no = #{}
+	<update id="modiAddressNoAndRepresent">
+		UPDATE address SET address_no = #{modiAddressNo}, address_representative = #{modiAddressRprsttv} WHERE address_no = #{whereAddressNo} AND address_user_no = #{whereUserNo}
 	</update>
 
 </mapper>

@@ -646,6 +646,8 @@ public class UserController {
 		AddressVO prevRprsttvAddress = userService.getUserAddressWithRn(1, userNo);
 		AddressVO nextRprsttvAddress = userService.getUserAddressWithRn(addressRn, userNo);
 		
+		log.info(prevRprsttvAddress);
+		log.info(nextRprsttvAddress);
 		Map<String, Integer> map1 = new HashMap<String, Integer>();
 		map1.put("whereUserNo", userNo);
 		map1.put("whereAddressNo", prevRprsttvAddress.getAddressNo());
@@ -657,7 +659,7 @@ public class UserController {
 		Map<String, Integer> map2 = new HashMap<String, Integer>();
 		map2.put("whereUserNo", userNo);
 		map2.put("whereAddressNo", nextRprsttvAddress.getAddressNo());
-		map2.put("modiAddressNo", 1);
+		map2.put("modiAddressNo", prevRprsttvAddress.getAddressNo());
 		map2.put("modiAddressRprsttv", 1);
 		
 		userService.modiAddressNoAndRepresent(map2);
@@ -670,7 +672,7 @@ public class UserController {
 		
 		userService.modiAddressNoAndRepresent(map3);
 		
-		return null;
+		return "changed";
 	}
 	
 	

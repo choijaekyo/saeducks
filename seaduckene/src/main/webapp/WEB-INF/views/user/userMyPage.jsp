@@ -899,8 +899,7 @@ let nicknameCheck = true;
     		const addressCount = $(this.parentNode).data('index');
     		console.log(addressCount);
     		
-    		if (confirm('선택한 주소 정보를 메인 주소로 설정하시겠습니까?')) {
-    		
+    		if (confirm('선택한 주소 정보를 메인 주소로 설정하시겠습니까?\n설정 시 기본 변경 사항들은 초기화 됩니다.')) {
 				$.ajax({
 					type: 'POST',
 					url: '<c:url value="/user/changeMainAddress" />',
@@ -909,7 +908,10 @@ let nicknameCheck = true;
 					data: JSON.stringify(addressCount),
 					success: function(data) {
 						
-						alert(data);
+						if (data === 'changed') {
+							alert('메인 주소가 변경되었습니다.');
+							location.reload(true);
+						}
 					},
 					error: function() {
 						alert('메인 주소 설정 전송 실패');
@@ -1011,7 +1013,6 @@ let nicknameCheck = true;
 				
        			// 현재 li의 선택된 대 카테고리 === 서버에서 favorite의 대 카테고리
 	       		if (serverMajorCategory === majors) {
-
 	       			
 	       			for (let minorOfMajor of minors) {
 				        const $option = document.createElement('option');					
@@ -1178,7 +1179,6 @@ let nicknameCheck = true;
 				return;
 			}
 		}
-		
 		
 		$('#addrListModal').hide();
 	}
