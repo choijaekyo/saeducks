@@ -1,5 +1,8 @@
 package kr.co.seaduckene.admin.service;
 
+import java.util.List;
+
+import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
 import kr.co.seaduckene.common.NoticeVO;
 
@@ -10,5 +13,8 @@ public interface IAdminService {
 	
 	// 공지사항 글 쓰기
 	void write(NoticeVO noticeVO);
+	
+	// 유저 정보 검색
+	List<AdminSearchVO> usersSearch(String search);
 	
 }

@@ -13,4 +13,19 @@
 		INSERT INTO notice (notice_no, notice_title, notice_content) 
 		VALUES (notice_no_seq.NEXTVAL, #{noticeTitle}, #{noticeContent})
 	</insert>
+	
+	<select id="usersSearch" resultType="adminSearch">
+		SELECT u.user_id, u.user_name, u.user_tel, u.user_email, 
+		       d.order_num, d.order_quantity, d.order_price, d.order_status,
+		       d.order_recipient_name, d.order_recipient_tel,
+		       d.order_address_zip_num, d.order_address_basic,
+		       d.order_address_detail, d.order_payment_method,
+		       d.order_return_bank, d.order_return_account
+		FROM duck_user u
+		INNER JOIN duck_order d
+		ON u.user_no = d.order_user_no
+		WHERE u.user_name LIKE #{search} 
+		OR u.user_tel LIKE #{search}
+		OR d.order_num LIKE #{search}
+	</select>
 </mapper>

@@ -365,3 +365,18 @@ CREATE SEQUENCE admin_date_log_seq
     
 INSERT INTO admin_login (admin_no, admin_id, admin_pw) 
 VALUES (admin_login_seq.NEXTVAL, 'admin', 'admin');
+
+SELECT u.user_id, u.user_name, u.user_tel, u.user_email, 
+       d.order_num, d.order_quantity, d.order_price, d.order_status,
+       d.order_recipient_name, d.order_recipient_tel,
+       d.order_address_zip_num, d.order_address_basic,
+       d.order_address_detail, d.order_payment_method,
+       d.order_return_bank, d.order_return_account
+FROM duck_user u
+INNER JOIN duck_order d
+ON u.user_no = d.order_user_no
+WHERE u.user_name LIKE '%최재교%';
+
+INSERT INTO duck_order 
+VALUES (order_seq.NEXTVAL, 1, '202301161111', 1, sysdate, 1, 3000, '배송중', '임인규', 01067883798, 70587, '서울시 용산구', '용산대로 23 1층', '카드결제', '농협', '10101010101');
+commit;
