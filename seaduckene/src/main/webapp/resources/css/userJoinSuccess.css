@@ -1,6 +1,11 @@
 @charset "UTF-8";
 
 #userJoin-wrap .title,
-#userJoin-wrap .content {
+#userJoin-wrap .content,
+#userJoin-wrap .buttons {
 	text-align: center;
+}
+
+#userJoin-wrap .buttons {
+	margin-top: 100px;
 }
