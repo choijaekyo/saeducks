@@ -19,7 +19,6 @@ import kr.co.seaduckene.product.command.ProductOrderVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.mapper.IProductMapper;
 import kr.co.seaduckene.user.command.UserVO;
-import kr.co.seaduckene.user.mapper.IUserMapper;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -28,8 +27,6 @@ public class ProductServiceImpl implements IProductService {
 	private IProductMapper productMapper;
 	@Autowired
 	private IAddressMapper addressMapper;
-	@Autowired
-	private IUserMapper userMapper;
 	
 	
 	// 장바구니 상품 불러오기
@@ -42,8 +39,26 @@ public class ProductServiceImpl implements IProductService {
 		return productMapper.getThumbnailImg(productNo);
 	}
 	
+	// 상품 재고수량 확인
+	public String checkStock (List<Integer> orderProductNoList, UserVO user) {
+			int userNo = user.getUserNo();
+		
+		for(int productNo : orderProductNoList) {
+			Map<String, Object> basketMap = new HashMap<String, Object>();
+			basketMap.put("userNo", userNo);
+			basketMap.put("productNo", productNo);
+			ProductBasketVO basket = productMapper.getBasket(basketMap);
+			
+			int stock = productMapper.getContent(productNo).getProductStock();
+			if(stock < basket.getBasketQuantity()) {
+				return "lack";
+			}
+		}
+		return "possible";
+	}
+	
 	@Override
-	public String order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user) {
+	public void order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user) {
 		int userNo = user.getUserNo();
 		
 		// 주문번호 날짜 8자리
@@ -80,23 +95,19 @@ public class ProductServiceImpl implements IProductService {
 			ProductVO product = productMapper.getContent(productNo);
 			int stock = product.getProductStock();
 			
-			if(quantity > stock) {
-				return "lack";
-			}else {
-				productMapper.order(order);
+			productMapper.order(order);
 				
-				// 상품 재고 수량 수정			
-				int newStock = stock - quantity;
-
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("stock", newStock);
-				map.put("productNo", productNo);
-				productMapper.updateStock(map);			
-			}
+			// 상품 재고 수량 수정			
+			int newStock = stock - quantity;
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("stock", newStock);
+			map.put("productNo", productNo);
+			productMapper.updateStock(map);			
+		
 		}
-		 UserVO userVo =  userMapper.getUserVoWithNo(userNo);
-		 if(userVo.getUserEmail() == null) {
-			// user TABLE UPDATE
+		// user TABLE UPDATE
+		 if(user.getUserEmail() == null) {
 			updateEmail(userNo, userEmail);
 		 }
 		
@@ -108,8 +119,8 @@ public class ProductServiceImpl implements IProductService {
 		// 장바구니 비우기
 		productMapper.deleteBasket(userNo);
 		
-		return "done";
 	}
+	
 	
 	// 주문user Email UPDATE
 	public void updateEmail(int userNo, String userEmail) {
@@ -134,11 +145,7 @@ public class ProductServiceImpl implements IProductService {
 				order.getOrderAddressZipNum(),1,userNo);
 		addressMapper.addAddress(addrVo);
 	}
-	
-	// 주문성공 시 재고수량 수정
-	public void updateStock(int productNo,int quantity) {
 
-	}
 	
 	//카테고리 가져오기
 	@Override
@@ -179,8 +186,8 @@ public class ProductServiceImpl implements IProductService {
 	}
 	
 	@Override
-	public List<ProductImageVO> mainImage(int productNo) {
-		return productMapper.mainImage(productNo);
+	public List<ProductImageVO> mainImage(int userNo) {
+		return productMapper.mainImage(userNo);
 	}
 	
 	@Override

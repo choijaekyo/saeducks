@@ -92,7 +92,8 @@ ul, ol, dl, li {
 }
 
 #main_container_one {
-	margin-bottom: 70px
+	margin-top: 15px;
+	margin-bottom: 70px;
 }
 
 #section_gap_id {
@@ -223,14 +224,15 @@ header{
    .nav-container .login-box {
       position: absolute;
        right: 10px;
-       top: 3px;55
+       top: 3px;
    }
    
    .navbar .container .navbar-collapse .navbar-nav{
-   	background-color: white;
-   	border-radius: 2%;
+      background-color: white;
+      border-radius: 2%;
 	}
 }
+   
 .nav-category li .dropdown-toggle::after {
    display: none;
 }

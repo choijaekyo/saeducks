@@ -45,10 +45,10 @@
 					</c:choose>
 					<c:choose>
 						<c:when test="${toggle == 2}">		
-						  <li class="breadcrumb-item active" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
+						  <li class="breadcrumb-item active myBoard" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
 						</c:when>
 						<c:otherwise>
-						  <li class="breadcrumb-item" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
+						  <li class="breadcrumb-item myBoard" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
@@ -1401,6 +1401,10 @@ let nicknameCheck = true;
 		
 	});
 	
+	$('#orderBtn').click(function() {
+		location.href ="<c:url value = '/product/order' />";
+	});
+	
 	const input = document.querySelector('#user-profile-pic');
 	
 	function readURL(input) {
@@ -1421,8 +1425,9 @@ let nicknameCheck = true;
 	});	
 	
 	
-	$(function() {
+	$('.myBoard').click(function() {
 		
+	
 		//등록하기 버튼 클릭 이벤트
 		$('#the-btn').click(function() {
 			if(!isFinish) {
@@ -1450,7 +1455,7 @@ let nicknameCheck = true;
 			}
 			
 			$.getJSON(
-				'<c:url value="/board/boardLists?pageNum='+ page +'" />',
+				'<c:url value="/board/boardMyList?pageNum='+ page +'" />',
 				function(list) {
 					console.log(list.length);
 					console.log(list);
@@ -1472,19 +1477,14 @@ let nicknameCheck = true;
 					    </div>
 				  		</div>`;		
 					}
-					
 					$('#contentDiv').html(str);
 				}
 				
 			); //end getJSON()
 			
-		}; //end getList()
-		
-		$('#orderBtn').click(function() {
-			location.href ="<c:url value = '/product/order' />";
-		});
-		
+		} //end getList()
 	});
+	
 	
 	
 </script>

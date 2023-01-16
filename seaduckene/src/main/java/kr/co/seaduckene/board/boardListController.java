@@ -58,6 +58,7 @@ public class boardListController {
 		System.out.println("게시판 목록으로 이동!");
 		model.addAttribute("categoryNo", categoryNo);
 		model.addAttribute("productList", service.proList(categoryNo));
+		model.addAttribute("category",service.getCategory(categoryNo));
 		
 		return "board/boardList";
 	}
@@ -71,10 +72,6 @@ public class boardListController {
 		
 		return service.list(paging,categoryNo);
 	}
-	
-	//내 글 목록으로 이동
-	@GetMapping("/boardMyList")
-	public void boardMyList() {}
 	
 	//글쓰기 페이지로 이동 요청
 	@GetMapping("/boardWrite/{categoryNo}")

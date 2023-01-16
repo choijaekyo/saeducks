@@ -27,21 +27,9 @@
 		]]>
 	</select>
 	
-	<select id="myList" resultType="board">
-		SELECT *
-		FROM
-		    (
-		    SELECT ROWNUM AS rn, tbl.* FROM
-		        (
-		        SELECT * FROM board
-		        ORDER BY board_no DESC
-		        ) tbl
-		    ) b
-		<![CDATA[
-		WHERE rn > (#{pageNum}-1) * #{cpp}
-		AND rn <= #{pageNum} * #{cpp}
-		]]>
-	
+	<select id="getCategory" resultType="category">
+		SELECT * FROM category
+		WHERE category_no = #{categoryNo}
 	</select>
 	
 	<select id="proList" resultType="prodcut">

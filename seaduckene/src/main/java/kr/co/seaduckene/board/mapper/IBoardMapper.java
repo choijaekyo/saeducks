@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import kr.co.seaduckene.board.command.BoardVO;
+import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.util.BoardUserVO;
@@ -19,8 +20,8 @@ public interface IBoardMapper {
 	// 글 목록
 	List<BoardVO> list(Map<String, Object> map);
 	
-	// 내가 쓴 글 목록
-	List<BoardVO> myList(PageVO paging);
+	// 카테고리 이름
+	CategoryVO getCategory (int categoryNo);
 	
 	// 상세보기
 	BoardVO content(int bno);

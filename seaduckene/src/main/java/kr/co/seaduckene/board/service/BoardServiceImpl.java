@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.mapper.IBoardMapper;
+import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.util.BoardUserVO;
@@ -35,8 +36,9 @@ public class BoardServiceImpl implements IBoardService {
 		return mapper.list(map);
 	}
 	
-	public List<BoardVO> myList (PageVO paging) {
-		return mapper.myList(paging);
+	@Override
+	public CategoryVO getCategory(int categoryNo) {
+		return mapper.getCategory(categoryNo);
 	}
 
 	@Override

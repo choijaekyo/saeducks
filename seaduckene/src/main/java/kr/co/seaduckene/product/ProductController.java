@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -165,11 +163,8 @@ public class ProductController {
 			result = FileCopyUtils.copyToByteArray(file);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 		return result;
-				
-		
 	}
 
 	@PostMapping("/order")
@@ -181,19 +176,21 @@ public class ProductController {
 		System.out.println(userEmail);
 		System.out.println(orderVo.getOrderPaymentMethod());
 		
-		if(orderVo.getOrderPaymentMethod().equals("tossPay")){
-			session.setAttribute("orderList", orderProductNoList);
-			session.setAttribute("orderVo", orderVo);
-			session.setAttribute("userEmail", userEmail);
-			return "redirect:/product/payment";
-		} else {
-			// order TABLE INSERT
-			UserVO user = (UserVO)session.getAttribute("login");	
-			String result = productService.order(orderProductNoList, orderVo, userEmail, user);
+		UserVO user = (UserVO)session.getAttribute("login");	
+		
+		String result =  productService.checkStock(orderProductNoList, user);
+		
+		if(result.equals("lack")) {
 			ra.addFlashAttribute("result", result);
-			if(result.equals("lack")) {
-				return "redirect:/product/order";	
-			}else {
+			return "redirect:/product/order";
+		} else {
+			if(orderVo.getOrderPaymentMethod().equals("tossPay")) {
+				session.setAttribute("orderList", orderProductNoList);
+				session.setAttribute("orderVo", orderVo);
+				session.setAttribute("userEmail", userEmail);
+				return "redirect:/product/payment";
+			} else {
+				productService.order(orderProductNoList, orderVo, userEmail, user);
 				return "redirect:/user/userMyPage/4";	
 			}
 		}
@@ -401,7 +398,7 @@ public class ProductController {
 	public void payment() {}
 	
 	@GetMapping("/success")
-	public String paycomplete(HttpSession session,RedirectAttributes ra,@RequestParam String paymentKey) {
+	public String paycomplete(HttpSession session,@RequestParam String paymentKey) {
 		System.out.println("페이먼트 키: "+paymentKey);
 		
 		@SuppressWarnings("unchecked")
@@ -411,13 +408,9 @@ public class ProductController {
 		String userEmail = (String) session.getAttribute("userEmail");
 		
 		UserVO user = (UserVO)session.getAttribute("login");	
-		String result = productService.order(orderProductNoList, orderVo, userEmail, user);
-		ra.addFlashAttribute("result", result);
-		if(result.equals("lack")) {
-			return "redirect:/product/order";	
-		}else {
-			return "redirect:/user/userMyPage/4";
-		}
+		productService.order(orderProductNoList, orderVo, userEmail, user);
+		
+		return "redirect:/user/userMyPage/4";
 	}
 	
 	@GetMapping("/fail")
