@@ -42,36 +42,15 @@ prefix="c"%>
             <div class="card-body">
               <div class="input-group mb-3">
                 <span class="input-group-text">이름</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Username"
-                  aria-label="Username"
-                  name="Username"
-                  id="Username"
-                />
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username" name="Username" id="Username" />
                 <span class="input-group-text">전화번호</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="UserPhonNumber"
-                  aria-label="UserPhonNumber"
-                  name="UserPhonNumber"
-                  id="UserPhonNumber"
-                />
+                <input type="text" class="form-control" placeholder="UserPhonNumber" aria-label="UserPhonNumber" name="UserPhonNumber" id="UserPhonNumber" />
                 <span class="input-group-text">주문번호</span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="OrderNumber"
-                  aria-label="OrderNumber"
-                  name="OrderNumber"
-                  id="OrderNumber"
-                />
+                <input type="text" class="form-control" placeholder="OrderNumber" aria-label="OrderNumber" name="OrderNumber" id="OrderNumber" />
               </div>
               <div class="table-responsive">
                 <table class="table table-striped table-borderless" id="contentDiv">
-                  <!-- 정보 출력 -->
+                  <tr id="tr-noti"><th>검색하세요</th></tr>
                 </table>
               </div>
             </div>
@@ -102,7 +81,7 @@ prefix="c"%>
             function(result) {
               
               if(result.length === 0){
-                str = '<p>정보가 없습니다.</p>';
+                str = '<tr><th>검색 결과가 없습니다.</th></tr>';
                 console.log('asdasdasd'+result.length);
               } else {
                 for(let i=0; i<result.length; i++) {
@@ -178,6 +157,7 @@ prefix="c"%>
                 console.log(str);
               }
               console.log('if 나와서 : ' + str);
+              $('#tr-noti').css('display','none');
               $('#contentDiv').html(str);
             }
           ); //end getJSON()
