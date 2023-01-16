@@ -253,15 +253,6 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	@GetMapping("/userMyPageBoardList")
-	@ResponseBody
-	public List<BoardVO> userBoardList(PageVO paging) {
-		
-		paging.setCpp(9);
-		
-		return boardService.myList(paging);
-	}
-	
 
 	@ResponseBody
 	@PostMapping("/checkId")
