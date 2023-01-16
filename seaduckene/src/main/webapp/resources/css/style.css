@@ -223,14 +223,17 @@ header{
    .nav-container .login-box {
       position: absolute;
        right: 10px;
-       top: 3px;
-
+       top: 3px;55
    }
+   
+   .navbar .container .navbar-collapse .navbar-nav{
+   	background-color: white;
+   	border-radius: 2%;
+	}
 }
 .nav-category li .dropdown-toggle::after {
    display: none;
 }
-
 
 .container input:focus,
 .container select:focus,

@@ -29,6 +29,7 @@
   	<a class="" href="<c:url value='/product/createProduct' />">상품등록</a>
     <a class="" href="<c:url value='/admin/NoticeAddPage' />">공지등록</a>
     <a class="" href="<c:url value='/board/notice' />">공지사항</a>
+    <a class="" href="<c:url value='/admin/userSearch' />">유저검색</a>
     
   </body>
 </html>

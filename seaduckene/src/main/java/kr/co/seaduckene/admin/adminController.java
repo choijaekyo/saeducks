@@ -53,5 +53,7 @@ public class adminController {
 		return "redirect:/admin/adminMain";
 	}
 	
+	@GetMapping("/userSearch")
+	public void userSearch() {}	
 	
 }
