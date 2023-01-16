@@ -89,4 +89,10 @@ public interface IProductMapper {
 	//기존사진 삭제
 	void deleteImage(int num);
 	
+	// 유저 삭제 시 유저 정보 삭제
+	void deleteUserAllInfoOrder(int userNo);
+	
+	// 유저 삭제 시 유저 정보 삭제
+	void deleteUserAllInfoBasket(int userNo);
+	
 }

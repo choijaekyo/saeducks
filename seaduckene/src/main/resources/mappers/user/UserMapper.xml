@@ -111,10 +111,6 @@
 		ORDER BY u.user_no, c.category_major_title, c.category_minor_title
 	</select>
 	
-	<select id="getUserAddr" resultType="address">
-		SELECT * FROM address WHERE address_user_no = #{userNo} ORDER BY address_representative DESC
-	</select>
-	
 	<select id="findAccount" resultType="String">
 		SELECT user_id FROM duck_user
 		WHERE user_name = #{userName} AND user_email = #{userEmail}
@@ -161,11 +157,19 @@
 	
 	<delete id="deleteUserFavorites">
 		DELETE FROM favorite 
-		WHERE favorite_no in <include refid="delete_favorite_where"></include>
+		WHERE favorite_no in <include refid="delete_favorite_where" />
 	</delete>
 	
 	<update id="updateUserFavorites">
-		UPDATE  favorite SET favorite_category_no = #{categoryNo} WHERE favorite_no = #{favoriteNo} AND favorite_user_no = #{userNo}
+		UPDATE favorite SET favorite_category_no = #{categoryNo} WHERE favorite_no = #{favoriteNo} AND favorite_user_no = #{userNo}
 	</update>	
+	
+	<delete id="deleteUserAllInfoUser">
+		DELETE FROM duck_user WHERE user_no = #{userNo}
+	</delete>
+	
+	<delete id="deleteUserAllInfofavorite">
+		DELETE FROM favorite WHERE favorite_user_no = #{userNo}
+	</delete>
 	
 </mapper>

@@ -131,7 +131,7 @@ public class ProductServiceImpl implements IProductService {
 	public void addAddress(ProductOrderVO order,int userNo) {
 		AddressVO addrVo = new AddressVO(0,order.getOrderAddressDetail(),
 				order.getOrderAddressBasic(),
-				order.getOrderAddressZipNum(),userNo);
+				order.getOrderAddressZipNum(),1,userNo);
 		addressMapper.addAddress(addrVo);
 	}
 	

@@ -1,17 +1,25 @@
 package kr.co.seaduckene.user.service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.IAddressMapper;
 import kr.co.seaduckene.favorite.FavoriteVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
+import kr.co.seaduckene.product.mapper.IProductMapper;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.mapper.IUserMapper;
@@ -26,6 +34,9 @@ public class UserServiceImpl implements IUserService {
 	
 	@Autowired
 	private IAddressMapper addressMapper;
+	
+	@Autowired
+	private IProductMapper productMapper;
 
 	@Override
 	public void registUser(UserVO userVO) {
@@ -116,7 +127,7 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public List<AddressVO> getUserAddr(int userNo) {
-		return userMapper.getUserAddr(userNo);
+		return addressMapper.getUserAddr(userNo);
 	}
 	
 	@Override
@@ -188,9 +199,9 @@ public class UserServiceImpl implements IUserService {
 	public void updateUserFavorites(CategoryVO newCategoryVO, int userNo) {
 		
 		String[] newMajorList = newCategoryVO.getCategoryMajorTitle().split(",");
-		log.info(newMajorList);
+		log.info(Arrays.toString(newMajorList));
 		String[] newMinorList = newCategoryVO.getCategoryMinorTitle().split(",");
-		log.info(newMinorList);
+		log.info(Arrays.toString(newMinorList));
 		
 		List<CategoryVO> currCategoryVOs = userMapper.getUserCategories(userNo);
 		List<FavoriteVO> currFavoriteVOs = userMapper.getUserFavorites(userNo);
@@ -210,6 +221,101 @@ public class UserServiceImpl implements IUserService {
 			}
 		}
 		
+	}
+	
+	@Override
+	public void addNewAddress(AddressVO newAddressVo, int userNo) {
+		
+		String[] addressBasicList = newAddressVo.getAddressBasic().split(",");
+		log.info(Arrays.toString(addressBasicList));
+		String[] addressDetailList = newAddressVo.getAddressDetail().split(",");
+		log.info(Arrays.toString(addressDetailList));
+		String[] addressZipNumList = newAddressVo.getAddressZipNum().split(",");
+		log.info(Arrays.toString(addressZipNumList));
+		
+		for (int i = 0; i < addressBasicList.length; i++) {
+			AddressVO addrVo = new AddressVO(0, addressDetailList[i], addressBasicList[i], addressZipNumList[i], 0, userNo);
+			
+			log.info(addrVo);
+			addressMapper.addNewAddress(addrVo);
+		}
+		
+	}
+	
+	@Override
+	public void deleteUserAddress(Map<String, Object> deletedCount) {
+		addressMapper.deleteUserAddress(deletedCount);
+	}
+	
+	@Override
+	public void updateUserAddress(AddressVO newAddressVO, int userNo) {
+		
+		String[] newAddressBasicList = newAddressVO.getAddressBasic().split(",");
+		log.info(Arrays.toString(newAddressBasicList));
+		String[] newAddressDetailList = newAddressVO.getAddressDetail().split(",");
+		log.info(Arrays.toString(newAddressDetailList));
+		String[] newAddressZipNumList = newAddressVO.getAddressZipNum().split(",");
+		log.info(Arrays.toString(newAddressZipNumList));
+		
+		List<AddressVO> currAddressVOs = addressMapper.getUserAddr(userNo);
+		
+		for (int i = 0; i < newAddressBasicList.length; i++) {
+			if (!currAddressVOs.get(i).getAddressBasic().equals(newAddressBasicList[i])
+				|| !currAddressVOs.get(i).getAddressDetail().trim().equals(newAddressDetailList[i].trim())
+				|| !currAddressVOs.get(i).getAddressZipNum().equals(newAddressZipNumList[i])) {
+
+				AddressVO modiAddressVo = new AddressVO(currAddressVOs.get(i).getAddressNo(), newAddressDetailList[i], newAddressBasicList[i], newAddressZipNumList[i], 0, userNo);
+				
+				log.info(modiAddressVo);
+				
+				addressMapper.updateAddr(modiAddressVo);
+			}
+		}
+	}
+	
+	@Override
+	public AddressVO getUserAddressWithRn(int addressIndex, int userNo) {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("addressRn", addressIndex);
+		map.put("userNo", userNo);
+		
+		return addressMapper.getUserAddressWithRn(map);
+	}
+	
+	@Override
+	public void modiAddressNoAndRepresent(Map<String, Integer> map) {
+		addressMapper.modiAddressNoAndRepresent(map);
+	}
+	
+	@Override
+	public void deleteUserAllInfo(int userNo, HttpServletRequest request, HttpServletResponse response) {
+		userMapper.deleteUserAllInfoUser(userNo);
+		userMapper.deleteUserAllInfofavorite(userNo);
+		addressMapper.deleteUserAllInfo(userNo);
+		productMapper.deleteUserAllInfoOrder(userNo);
+		productMapper.deleteUserAllInfoBasket(userNo);
+		
+		HttpSession session = request.getSession();
+		
+		Cookie autoLoginCookie = WebUtils.getCookie(request, "autoLoginCookie");
+		if (autoLoginCookie != null) {
+			UserVO userVo = userMapper.getUserBySessionId(autoLoginCookie.getValue());
+			log.info("autoLogin userVo: " + userVo);
+			
+			if (userVo != null) {
+				// 쿠키 삭제는 받아온 쿠키 객체를 직접 지운다
+				autoLoginCookie.setPath(request.getContextPath() + "/");
+				autoLoginCookie.setMaxAge(0);
+				response.addCookie(autoLoginCookie);
+				userMapper.undoAutoLogin(userVo.getUserNo());
+			}
+			
+		}
+		
+		if (session.getAttribute("login") != null) {
+			session.removeAttribute("login");
+		}
 	}
 	
 }

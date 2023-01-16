@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -113,8 +114,9 @@ public class UserController {
 			
 		}
 		
-		
-		session.removeAttribute("login");
+		if (session.getAttribute("login") != null) {
+			session.removeAttribute("login");
+		}
 		modelAndView.setViewName("redirect:/user/userLogin");
 		
 		return modelAndView;
@@ -330,12 +332,10 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/userUpdateConfirm")
+	@PostMapping("/userPwConfirm")
 	public String userUpdateConfirm(@RequestBody List<String> passwords, HttpServletRequest request) {
 		String userPw = passwords.get(0);
 		String checkPw = passwords.get(1);
-		
-		
 		
 		HttpSession session = request.getSession();
 		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
@@ -384,12 +384,13 @@ public class UserController {
 		}
 		
 		deletedFavoriteIndexMap.put("deleted_favorite_index", deletedFavoriteIndex);
-		deletedFavoriteIndexMap.put("size", deletedFavoriteIndex.size());
+//		deletedFavoriteIndexMap.put("size", deletedFavoriteIndex.size());
 		deletedFavoriteIndexMap.put("userNo", userNo);
 		if (deletedFavoriteIndex.size() > 0) {
 			userService.deleteUserFavorites(deletedFavoriteIndexMap);
 		}
 		
+		// 저장된 카테고리 수정 코드
 		int currUserFavortiesCount = categoryIndexList.size();
 		
 		if (currUserFavortiesCount > 0) {
@@ -414,8 +415,6 @@ public class UserController {
 			log.info(modiCategoryVo);
 			userService.updateUserFavorites(modiCategoryVo, userNo);
 		}
-		
-		
 		
 		// 추가된 카테고리 insert 코드
 		log.info(categoryVO.getCategoryMajorTitle());
@@ -449,40 +448,92 @@ public class UserController {
 		
 		
 		log.info(addressCountList);
-		log.info(addressVO.getAddressBasic());
-		log.info(addressVO.getAddressDetail());
-		log.info(addressVO.getAddressZipNum());
+		log.info(Arrays.toString(addressVO.getAddressBasic().split(",")));
+		log.info(Arrays.toString(addressVO.getAddressDetail().split(",")));
+		log.info(Arrays.toString(addressVO.getAddressZipNum().split(",")));
 		
+		List<AddressVO> beforeDeleteAddressList = userService.getUserAddr(userNo);
+
+		int allAddressCount = addressVO.getAddressBasic().split(",").length;
+		int currAddressCount = addressCountList.size();
 		
+		// 저장된 주소 삭제 코드
+		List<Integer> deletedAddressCount = new ArrayList<>();
+		Map<String, Object> deletedAddressCountMap = new HashMap<>();
+		for (int i = 0; i < beforeDeleteAddressList.size(); i++) {
+			if (addressCountList.contains(Integer.toString(i + 1))) {
+				continue;
+			} else {
+				deletedAddressCount.add(i + 1);
+			}
+		}
 		
+		deletedAddressCountMap.put("deleted_adderss_count", deletedAddressCount);
+//		deletedAddressCountMap.put("size", deletedAddressCount.size());
+		deletedAddressCountMap.put("userNo", userNo);
 		
-		/*
-			SELECT * from(
-			    SELECT ROWNUM rn, tbl.*
-			    from (
-			    select f.favorite_no, u.user_no, c.category_no , c.category_major_title, c.category_minor_title
-			    from favorite f JOIN duck_user u on f.favorite_user_no = u.user_no
-			                    JOIN category c on f.favorite_category_no = c.category_no
-			    ORDER BY c.category_major_title, c.category_minor_title
-			    )tbl
-			)
-			WHERE rn = 4; 
-			rn은 data-count의 값을 받아서 쓸 수 있으면 됨. 
-			추가 삭제 전에 먼저 조회해서  f.favorite_no 반환하고 favorite table에서 이 번호를 삭제하면 삭제 처리 될듯.
-		*/
-		/* 순서 컬럼이 초과된 주소록 조회 문
-			select * from(
-			    SELECT ROWNUM rn, tbl.*
-			    from
-			    (
-			    SELECT * FROM address
-			    WHERE address_user_no = 1
-			    ORDER BY address_representative DESC
-			    ) tbl
-			)
-			where rn = 1;		
+		log.info("deletedAddressCountMap: " + deletedAddressCountMap);
 		
-		*/
+		if (deletedAddressCount.size() > 0) {
+			 userService.deleteUserAddress(deletedAddressCountMap);
+		}
+ 
+		// 저장된 주소 변경 코드
+		if (currAddressCount > 0) {
+			String[] addressBasicList = addressVO.getAddressBasic().split(",");
+			String[] addressDetailList = addressVO.getAddressDetail().split(",");
+			String[] addressZipNumList = addressVO.getAddressZipNum().split(",");
+			
+			String[] modiAddressBasicArray = new String[currAddressCount];
+			String[] modiAddressDetailArray = new String[currAddressCount];
+			String[] modiAddressZipNumArray = new String[currAddressCount];
+			
+			for (int i = 0; i < currAddressCount; i++) {
+				modiAddressBasicArray[i] = addressBasicList[i];
+				modiAddressDetailArray[i] = addressDetailList[i];
+				modiAddressZipNumArray[i] = addressZipNumList[i];
+			}
+			
+			String modiAddressBasicString = String.join(",", modiAddressBasicArray);
+			String modiAddressDetailString = String.join(",", modiAddressDetailArray);
+			String modiAddressZipNumString = String.join(",", modiAddressZipNumArray);
+			
+			AddressVO modiAddressVo = new AddressVO(0, modiAddressDetailString, modiAddressBasicString, modiAddressZipNumString, 0, userNo);
+			userService.updateUserAddress(modiAddressVo, userNo);
+		}
+		
+		// 추가된 주소 insert 코드
+		if (currAddressCount < allAddressCount) {			
+			String[] addressBasicList = addressVO.getAddressBasic().split(",");
+			String[] addressDetailList = addressVO.getAddressDetail().split(",");
+			String[] addressZipNumList = addressVO.getAddressZipNum().split(",");
+			
+			String[] newAddressBasicArray = new String[allAddressCount - currAddressCount];
+			String[] newAddressDetailArray = new String[allAddressCount - currAddressCount];
+			String[] newAddressZipNumArray = new String[allAddressCount - currAddressCount];
+			
+			for (int i = currAddressCount; i < allAddressCount; i++) {
+				newAddressBasicArray[i - currAddressCount] = addressBasicList[i];
+				newAddressDetailArray[i - currAddressCount] = addressDetailList[i];
+				newAddressZipNumArray[i - currAddressCount] = addressZipNumList[i];
+			}
+			
+			String newAddressBasicString = String.join(",", newAddressBasicArray);
+			String newAddressDetailString =  String.join(",", newAddressDetailArray);
+			String newAddressZipNumString =  String.join(",", newAddressZipNumArray);
+			
+			AddressVO newAddressVo = new AddressVO();
+			newAddressVo.setAddressBasic(newAddressBasicString);
+			newAddressVo.setAddressDetail(newAddressDetailString);		
+			newAddressVo.setAddressZipNum(newAddressZipNumString);		
+			
+			log.info(newAddressVo);
+			userService.addNewAddress(newAddressVo, userNo);
+		}
+		
+		log.info("allAddressCount: " + allAddressCount);
+		log.info("currAddressCount: " + currAddressCount);
+		
 		
 		if (profilePic.getSize() != 0) {
 			SimpleDateFormat simple = new SimpleDateFormat("yyyyMMdd");
@@ -530,13 +581,13 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	@ResponseBody
 	@PostMapping("/userDelete")
-	public String userDelete(@RequestBody List<String> passwords) {
-		String userPw = passwords.get(0);
-		String checkPw = passwords.get(1);
+	public ModelAndView userDelete(int userNo, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) {
 		
-		return Integer.toString(1);
+		userService.deleteUserAllInfo(userNo, request, response);
+		modelAndView.setViewName("redirect:/user/userLogin");
+		
+		return modelAndView;
 	}
 	
 	@GetMapping("/userFindAccount")
@@ -585,13 +636,42 @@ public class UserController {
 	
 	@ResponseBody
 	@PostMapping("/changeMainAddress")
-	public ModelAndView changeMainAddress(@RequestBody String addressIndex, ModelAndView modelAndView) {
-		log.info(addressIndex);
+	public String changeMainAddress(@RequestBody String addressCount, HttpSession session) {
+		log.info(addressCount);
 		
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
+		int addressRn = Integer.parseInt(addressCount);
 		
+		AddressVO prevRprsttvAddress = userService.getUserAddressWithRn(1, userNo);
+		AddressVO nextRprsttvAddress = userService.getUserAddressWithRn(addressRn, userNo);
 		
+		log.info(prevRprsttvAddress);
+		log.info(nextRprsttvAddress);
+		Map<String, Integer> map1 = new HashMap<String, Integer>();
+		map1.put("whereUserNo", userNo);
+		map1.put("whereAddressNo", prevRprsttvAddress.getAddressNo());
+		map1.put("modiAddressNo", 0);
+		map1.put("modiAddressRprsttv", 0);
 		
-		return null;
+		userService.modiAddressNoAndRepresent(map1);
+		
+		Map<String, Integer> map2 = new HashMap<String, Integer>();
+		map2.put("whereUserNo", userNo);
+		map2.put("whereAddressNo", nextRprsttvAddress.getAddressNo());
+		map2.put("modiAddressNo", prevRprsttvAddress.getAddressNo());
+		map2.put("modiAddressRprsttv", 1);
+		
+		userService.modiAddressNoAndRepresent(map2);
+		
+		Map<String, Integer> map3 = new HashMap<String, Integer>();
+		map3.put("whereUserNo", userNo);
+		map3.put("whereAddressNo", 0);
+		map3.put("modiAddressNo", nextRprsttvAddress.getAddressNo());
+		map3.put("modiAddressRprsttv", 0);
+		
+		userService.modiAddressNoAndRepresent(map3);
+		
+		return "changed";
 	}
 	
 	

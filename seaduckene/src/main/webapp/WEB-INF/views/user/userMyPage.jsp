@@ -192,7 +192,7 @@
 							      <div class="modal-dialog modalDesign">
 							         <div class="modal-content myPage-modal-content">
 							            <div class="modal-header pt-3 myPage-modal-header">
-							               <h4 class="modal-title mx-auto">주소록</h4>
+							               <h4 class="modal-title mx-auto">주소록</h4> 
 							            </div>
 							            <div class="modal-body myPage-modal-body" id="address-outter"> 
 						                      <c:forEach var="addr" items="${userAddrList}" varStatus="status">
@@ -208,18 +208,22 @@
 									                    <div class="col-md-12 col-sm-12 col-12">
 									                        <input name="addressBasic" class="form-control join-input addrBasic" type="text" placeholder="기본 주소" value="${addr.addressBasic}" readonly />
 									                    </div>
-							                		</div>	
+							                		</div>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
 									                        <input name="addressDetail" class="form-control join-input addrDetail" type="text" placeholder="상세 주소" value="${addr.addressDetail}" />
 									                    </div>
-							                		</div>	
+							                		</div>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
 									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${addr.addressZipNum}" readonly />
 									                    </div>
 							                		</div>	<br>
-													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기"> <br>
+													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
+													<c:if test="${status.index != 0}">
+														<input type="button" class="btn btn-sm btn-b btn-danger address-del" value="삭제">
+						                        	</c:if>
+													 <br>
 						                        </div>
 						                        <br>
 						                     </c:forEach> 
@@ -851,7 +855,7 @@ let nicknameCheck = true;
     	
     		searchAddress(e);
     		//  커서를 상세주소 필드로 이동한다. - 주소 중복 제거 change 이벤트 때문에 포커스 다시 입힘.
-    		e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.focus();
+    		e.target.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.focus();
    		});
     	
     	// 주소록 모달 내 주소 추가
@@ -892,19 +896,22 @@ let nicknameCheck = true;
     	// 주소록 모달 메인 주소로 설정
     	$('#addrListModal').on('click', '.set-main', function(e) {
    
-    		const addressIndex = $(this.parentNode).data('index');
+    		const addressCount = $(this.parentNode).data('index');
+    		console.log(addressCount);
     		
-    		if (confirm('선택한 주소 정보를 메인 주소로 설정하시겠습니까?')) {
-    		
+    		if (confirm('선택한 주소 정보를 메인 주소로 설정하시겠습니까?\n설정 시 기본 변경 사항들은 초기화 됩니다.')) {
 				$.ajax({
 					type: 'POST',
 					url: '<c:url value="/user/changeMainAddress" />',
 					contentType: 'application/json',
 					dataType:'text',
-					data: addressIndex,
+					data: JSON.stringify(addressCount),
 					success: function(data) {
 						
-						alert(data);
+						if (data === 'changed') {
+							alert('메인 주소가 변경되었습니다.');
+							location.reload(true);
+						}
 					},
 					error: function() {
 						alert('메인 주소 설정 전송 실패');
@@ -1006,7 +1013,6 @@ let nicknameCheck = true;
 				
        			// 현재 li의 선택된 대 카테고리 === 서버에서 favorite의 대 카테고리
 	       		if (serverMajorCategory === majors) {
-
 	       			
 	       			for (let minorOfMajor of minors) {
 				        const $option = document.createElement('option');					
@@ -1049,11 +1055,11 @@ let nicknameCheck = true;
 				
                 console.log(e.target);
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.firstElementChild.value = data.zonecode;
-                e.target.parentNode.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.value = addr;
+                e.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.value = addr;
+                e.target.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.value = data.zonecode;
                 
                 // 커서를 기본주소 필드로 이동한다. - 주소 중복 제거 change 이벤트 때문에 포커스 기본 주소로 입힘.
-                 e.target.parentNode.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.focus();
+                e.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.focus();
                  
 				}
                 
@@ -1112,6 +1118,7 @@ let nicknameCheck = true;
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
+		$('#user-update-form').attr('action', '${pageContext.request.contextPath}/user/userDelete');
 		
 		$('#myPageModal').toggleClass('modiPw', false);
 		$('#myPageModal').toggleClass('updateUser', false);
@@ -1173,7 +1180,6 @@ let nicknameCheck = true;
 				return;
 			}
 		}
-		
 		
 		$('#addrListModal').hide();
 	}
@@ -1325,7 +1331,7 @@ let nicknameCheck = true;
 		
 		$.ajax({
 			type:'POST',
-			url:'${pageContext.request.contextPath}/user/userUpdateConfirm',
+			url:'${pageContext.request.contextPath}/user/userPwConfirm',
 			contentType: 'application/json',
 			dataType:'text',
 			data:JSON.stringify(array),
@@ -1334,8 +1340,6 @@ let nicknameCheck = true;
 				
 				if (result == 1) {
 					if (confirm('현재 적용된 내용으로 모든 정보가 수정됩니다.\n수정하시겠습니까?')) {
-						
-							
 					
 						$('#user-update-form').submit();
 					}
@@ -1359,23 +1363,22 @@ let nicknameCheck = true;
 		
 		$.ajax({
 			type:'POST',
-			url:'${pageContext.request.contextPath}/user/userDelete',
+			url:'${pageContext.request.contextPath}/user/userPwConfirm',
 			contentType: 'application/json',
 			dataType:'text',
 			data:JSON.stringify(array),
 			success: function(result) {
 				console.log(result);
 				
-				if (result === '1') {
-					console.log('통신성공!!');
+				if (result == 1) {
+					if (confirm('계정을 삭제하시면 되돌릴 수 없습니다.\n삭제하시겠습니까?')) {
 					
-					/* $('#user-update-form').submit(); */
-				} else if(result ==='0') {
-					
+						$('#user-update-form').submit();
+					}
 				} else {
-					
+					alert('현재 비밀번호 입력이 잘못되었습니다.\n 다시 입력해주세요.');
+					$('#currPw').focus();
 				}
-				
 			},
 			error: function(request, status, error) {
 				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');

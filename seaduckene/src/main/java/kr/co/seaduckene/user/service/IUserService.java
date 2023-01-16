@@ -3,6 +3,9 @@ package kr.co.seaduckene.user.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.favorite.FavoriteVO;
@@ -49,10 +52,10 @@ public interface IUserService {
 	List<AddressVO> getUserAddr(int userNo);
 	
 	// 아이디 찾기
-	List<String> findAccount (String userName, String userEmail);
+	List<String> findAccount(String userName, String userEmail);
 	
 	// 임시 비밀번호로 정보수정
-	void updatePw (String userId, String tmpPw);
+	void updatePw(String userId, String tmpPw);
 	
 	// 자동 로그인 설정
 	void setAutoLogin(UserVO userVo);
@@ -80,4 +83,22 @@ public interface IUserService {
 	
 	// 유저의 favorite 변경
 	void updateUserFavorites(CategoryVO newCategoryVO, int userNo);
+	
+	// 유저의 추가 주소 저장
+	void addNewAddress(AddressVO newAddressVo, int userNo);
+	
+	// 유저의 address 삭제
+	void deleteUserAddress(Map<String, Object> deletedCount);
+	
+	// 유저의 address 변경
+	void updateUserAddress(AddressVO newAddressVO, int userNo);
+	
+	// rn 순서, userNo로 addressVO 얻기
+	AddressVO getUserAddressWithRn(int addressIndex, int userNo);
+	
+	// addressNo, addressRepresentative 변경
+	void modiAddressNoAndRepresent(Map<String, Integer> map);
+	
+	// 유저 삭제 시 유저 정보 삭제
+	void deleteUserAllInfo(int userNo, HttpServletRequest request, HttpServletResponse response);
 }

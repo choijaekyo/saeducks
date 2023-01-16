@@ -4,6 +4,22 @@
 
 <mapper namespace="kr.co.seaduckene.common.IAddressMapper">
 
+	<sql id="delete_address_where">
+		<foreach collection="deleted_adderss_count" item="item" index="index" separator="," open="(" close=")">
+			(SELECT tbl2.address_no
+				  FROM (
+					  SELECT ROWNUM rn, tbl1.*
+						  FROM (
+								SELECT *
+								FROM address
+								WHERE address_user_no = #{userNo}
+								ORDER BY address_representative DESC, address_no 
+						  ) tbl1
+					  ) tbl2
+			  WHERE rn = #{item})
+		</foreach>
+	</sql>
+
 	<insert id="addAddress">
 		INSERT INTO address VALUES
 		(address_seq.NEXTVAL,
@@ -20,5 +36,40 @@
 		UPDATE address SET address_detail = #{addressDetail}, address_basic = #{addressBasic}, address_zip_num = #{addressZipNum}
 		WHERE address_no = #{addressNo}
 	</update>
+	
+	<select id="getUserAddr" resultType="address">
+		SELECT * FROM address WHERE address_user_no = #{userNo} ORDER BY address_representative DESC, address_no 
+	</select>	
+	
+	<insert id="addNewAddress">
+		INSERT INTO address VALUES (address_seq.NEXTVAL, #{addressDetail}, #{addressBasic}, #{addressZipNum}, #{addressRepresentative}, #{addressUserNo})
+	</insert>
+	
+	<delete id="deleteUserAddress">
+		DELETE FROM address 
+		WHERE address_no in <include refid="delete_address_where" />
+	</delete>	
+	
+	<select id="getUserAddressWithRn" resultType="address">
+		select * from
+			(
+			    SELECT ROWNUM rn, tbl.*
+			    from
+				    (
+					    SELECT * FROM address
+					    WHERE address_user_no = #{userNo}
+					    ORDER BY address_representative DESC, address_no 
+				    ) tbl
+			)
+		WHERE rn = #{addressRn}
+	</select>
+	
+	<update id="modiAddressNoAndRepresent">
+		UPDATE address SET address_no = #{modiAddressNo}, address_representative = #{modiAddressRprsttv} WHERE address_no = #{whereAddressNo} AND address_user_no = #{whereUserNo}
+	</update>
+	
+	<delete id="deleteUserAllInfo">
+		DELETE FROM address WHERE address_user_no = #{userNo}
+	</delete>	
 
 </mapper>

@@ -19,10 +19,12 @@ import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.util.BoardUserVO;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Handles requests for the application home page.
  */
+@Log4j
 @Controller
 public class HomeController {
 	
