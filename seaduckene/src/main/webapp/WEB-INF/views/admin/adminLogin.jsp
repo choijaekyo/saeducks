@@ -128,7 +128,7 @@
           <label for="floatingPassword">비밀번호를 입력 하세요.</label>
         </div>
 
-        <button class="w-100 btn btn-lg btn-primary" type="button">로그인</button>
+        <button class="w-100 btn btn-lg btn-primary" type="button" id="user-login-submit">로그인</button>
       </form>
     </main>
 

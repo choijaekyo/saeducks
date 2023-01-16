@@ -58,6 +58,7 @@ public class boardListController {
 		System.out.println("게시판 목록으로 이동!");
 		model.addAttribute("categoryNo", categoryNo);
 		model.addAttribute("productList", service.proList(categoryNo));
+		model.addAttribute("category",service.getCategory(categoryNo));
 		
 		return "board/boardList";
 	}
@@ -72,10 +73,6 @@ public class boardListController {
 		return service.list(paging,categoryNo);
 	}
 	
-	//내 글 목록으로 이동
-	@GetMapping("/boardMyList")
-	public void boardMyList() {}
-	
 	//글쓰기 페이지로 이동 요청
 	@GetMapping("/boardWrite/{categoryNo}")
 	public String boardWrite(@PathVariable int categoryNo, Model model) {
@@ -88,23 +85,32 @@ public class boardListController {
 	@PostMapping("/boardWrite")
 	public String boardWrite(BoardVO vo, @RequestParam(value="filename", required=false) List<String> summerfile) throws Exception {
 		System.out.println("글 등록 요청이 들어옴!");
-		System.out.println("summerFile: " + summerfile);
-		System.out.println("첫번째 이미지: " + summerfile.get(0));
-		System.out.println("vo: " + vo);
-		String boardContent;
-		boardContent = vo.getBoardContent();
-		String editordata = boardContent.replaceAll("summernoteImage","getImg");
-		vo.setBoardContent(editordata);
-		service.write(vo);
+		if(summerfile == null) {
+			System.out.println("vo: " + vo);
+			
+			service.write(vo);
+			
+			int boardNo = service.boardNoSearch(vo.getBoardTitle(), vo.getBoardContent());
+			service.boardImageAdd(boardNo, "saeduckBoardImage.png");
+		} else {
+			System.out.println("summerFile: " + summerfile);
+			System.out.println("첫번째 이미지: " + summerfile.get(0));
+			System.out.println("vo: " + vo);
+			
+			String boardContent;
+			boardContent = vo.getBoardContent();
+			String editordata = boardContent.replaceAll("summernoteImage","getImg");
+			vo.setBoardContent(editordata);
+			service.write(vo);
+			
+			summernoteCopy copy = new summernoteCopy();
+			copy.summerCopy(summerfile);
+			
+			int boardNo = service.boardNoSearch(vo.getBoardTitle(), vo.getBoardContent());
+			service.boardImageAdd(boardNo, summerfile.get(0));
+		}
 
-		summernoteCopy copy = new summernoteCopy();
-		copy.summerCopy(summerfile);
-		
-		
-		
-		int boardNo = service.boardNoSearch(vo.getBoardTitle(), vo.getBoardContent());
-		service.boardImageAdd(boardNo, summerfile.get(0));
-		
+
 		return "redirect:/board/boardList/" + vo.getBoardCategoryNo();
 	}
 	

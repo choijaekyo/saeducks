@@ -27,21 +27,9 @@
 		]]>
 	</select>
 	
-	<select id="myList" resultType="board">
-		SELECT *
-		FROM
-		    (
-		    SELECT ROWNUM AS rn, tbl.* FROM
-		        (
-		        SELECT * FROM board
-		        ORDER BY board_no DESC
-		        ) tbl
-		    ) b
-		<![CDATA[
-		WHERE rn > (#{pageNum}-1) * #{cpp}
-		AND rn <= #{pageNum} * #{cpp}
-		]]>
-	
+	<select id="getCategory" resultType="category">
+		SELECT * FROM category
+		WHERE category_no = #{categoryNo}
 	</select>
 	
 	<select id="proList" resultType="prodcut">
@@ -94,7 +82,7 @@
 		    (
 		    SELECT ROWNUM AS rn, tbl.* FROM
 		        (
-		            SELECT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
+		            SELECT DISTINCT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
 		            FROM duck_user d INNER JOIN favorite f
 		                             ON #{userNo} = f.favorite_user_no
 		                             INNER JOIN category c
@@ -138,11 +126,11 @@
 		        (
 		            SELECT *
 		            FROM notice
+		            ORDER BY notice_no DESC
 		        ) tbl
 		    ) s
 		WHERE rn > 0
 		AND rn <= 5
-		ORDER BY notice_no DESC
 		]]>
 	</select>
 	
@@ -155,11 +143,11 @@
 		        (
 		            SELECT *
 		            FROM notice
+		            ORDER BY notice_no DESC
 		        ) tbl
 		    ) s
 		WHERE rn > (#{pageNum}-1) * #{cpp}
 		AND rn <= #{pageNum} * #{cpp}
-		ORDER BY notice_no DESC
 		]]>
 	</select>
 	

@@ -86,6 +86,7 @@
 				$('#modifyForm').submit();
 			}
 		}); //수정 버튼 이벤트 처리 끝. */
+		
 		$('#summernote').summernote('pasteHTML', '${list.boardContent}');
 		$('#delBtn')
 				.click(

@@ -55,6 +55,8 @@
         
         getLists(1, false);
         
+        let pageList = 0;
+        
         function getLists(page, reset) {
             
             console.log('getList 함수 호출');
@@ -77,10 +79,10 @@
                         
                         str += 
                         `<div class="accordion-item border shadow">
-                            <h2 class="accordion-header" id="flush-headingOne` + i + `">
-                                <button class="accordion-button collapsed text-black-50" id="btn-noti-btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne` + i + `" aria-expanded="false" aria-controls="flush-collapseOne` + i + `">` + lists[i].noticeTitle + `</button>
+                            <h2 class="accordion-header" id="flush-headingOne` + page + i + `">
+                                <button class="accordion-button collapsed text-black-50" id="btn-noti-btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne` + page + i + `" aria-expanded="false" aria-controls="flush-collapseOne` + page + i + `">` + lists[i].noticeTitle + `</button>
                             </h2>
-                            <div id="flush-collapseOne` + i + `" class="accordion-collapse collapse" aria-labelledby="flush-headingOne` + i + `" data-bs-parent="#accordionFlushExample">
+                            <div id="flush-collapseOne` + page + i + `" class="accordion-collapse collapse" aria-labelledby="flush-headingOne` + page + i + `" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body">` + lists[i].noticeContent + `</div>
                             </div>
                             </div>`;
