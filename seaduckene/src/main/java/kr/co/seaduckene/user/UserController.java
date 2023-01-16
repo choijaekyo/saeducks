@@ -439,91 +439,95 @@ public class UserController {
 		
 		
 		log.info(addressCountList);
-		log.info(Arrays.toString(addressVO.getAddressBasic().split(",")));
-		log.info(Arrays.toString(addressVO.getAddressDetail().split(",")));
-		log.info(Arrays.toString(addressVO.getAddressZipNum().split(",")));
 		
 		List<AddressVO> beforeDeleteAddressList = userService.getUserAddr(userNo);
 
-		int allAddressCount = addressVO.getAddressBasic().split(",").length;
-		int currAddressCount = addressCountList.size();
-		
-		// 저장된 주소 삭제 코드
-		List<Integer> deletedAddressCount = new ArrayList<>();
-		Map<String, Object> deletedAddressCountMap = new HashMap<>();
-		for (int i = 0; i < beforeDeleteAddressList.size(); i++) {
-			if (addressCountList.contains(Integer.toString(i + 1))) {
-				continue;
-			} else {
-				deletedAddressCount.add(i + 1);
+		if (addressVO.getAddressBasic() != null) {
+			log.info(Arrays.toString(addressVO.getAddressBasic().split(",")));
+			log.info(Arrays.toString(addressVO.getAddressDetail().split(",")));
+			log.info(Arrays.toString(addressVO.getAddressZipNum().split(",")));
+			
+			int allAddressCount = addressVO.getAddressBasic().split(",").length;
+			int currAddressCount = addressCountList.size();
+			
+			// 저장된 주소 삭제 코드
+			List<Integer> deletedAddressCount = new ArrayList<>();
+			Map<String, Object> deletedAddressCountMap = new HashMap<>();
+			for (int i = 0; i < beforeDeleteAddressList.size(); i++) {
+				if (addressCountList.contains(Integer.toString(i + 1))) {
+					continue;
+				} else {
+					deletedAddressCount.add(i + 1);
+				}
 			}
-		}
-		
-		deletedAddressCountMap.put("deleted_adderss_count", deletedAddressCount);
+			
+			deletedAddressCountMap.put("deleted_adderss_count", deletedAddressCount);
 //		deletedAddressCountMap.put("size", deletedAddressCount.size());
-		deletedAddressCountMap.put("userNo", userNo);
-		
-		log.info("deletedAddressCountMap: " + deletedAddressCountMap);
-		
-		if (deletedAddressCount.size() > 0) {
-			 userService.deleteUserAddress(deletedAddressCountMap);
-		}
- 
-		// 저장된 주소 변경 코드
-		if (currAddressCount > 0) {
-			String[] addressBasicList = addressVO.getAddressBasic().split(",");
-			String[] addressDetailList = addressVO.getAddressDetail().split(",");
-			String[] addressZipNumList = addressVO.getAddressZipNum().split(",");
+			deletedAddressCountMap.put("userNo", userNo);
 			
-			String[] modiAddressBasicArray = new String[currAddressCount];
-			String[] modiAddressDetailArray = new String[currAddressCount];
-			String[] modiAddressZipNumArray = new String[currAddressCount];
+			log.info("deletedAddressCountMap: " + deletedAddressCountMap);
 			
-			for (int i = 0; i < currAddressCount; i++) {
-				modiAddressBasicArray[i] = addressBasicList[i];
-				modiAddressDetailArray[i] = addressDetailList[i];
-				modiAddressZipNumArray[i] = addressZipNumList[i];
+			if (deletedAddressCount.size() > 0) {
+				userService.deleteUserAddress(deletedAddressCountMap);
 			}
 			
-			String modiAddressBasicString = String.join(",", modiAddressBasicArray);
-			String modiAddressDetailString = String.join(",", modiAddressDetailArray);
-			String modiAddressZipNumString = String.join(",", modiAddressZipNumArray);
-			
-			AddressVO modiAddressVo = new AddressVO(0, modiAddressDetailString, modiAddressBasicString, modiAddressZipNumString, 0, userNo);
-			userService.updateUserAddress(modiAddressVo, userNo);
-		}
-		
-		// 추가된 주소 insert 코드
-		if (currAddressCount < allAddressCount) {			
-			String[] addressBasicList = addressVO.getAddressBasic().split(",");
-			String[] addressDetailList = addressVO.getAddressDetail().split(",");
-			String[] addressZipNumList = addressVO.getAddressZipNum().split(",");
-			
-			String[] newAddressBasicArray = new String[allAddressCount - currAddressCount];
-			String[] newAddressDetailArray = new String[allAddressCount - currAddressCount];
-			String[] newAddressZipNumArray = new String[allAddressCount - currAddressCount];
-			
-			for (int i = currAddressCount; i < allAddressCount; i++) {
-				newAddressBasicArray[i - currAddressCount] = addressBasicList[i];
-				newAddressDetailArray[i - currAddressCount] = addressDetailList[i];
-				newAddressZipNumArray[i - currAddressCount] = addressZipNumList[i];
+			// 저장된 주소 변경 코드
+			if (currAddressCount > 0) {
+				String[] addressBasicList = addressVO.getAddressBasic().split(",");
+				String[] addressDetailList = addressVO.getAddressDetail().split(",");
+				String[] addressZipNumList = addressVO.getAddressZipNum().split(",");
+				
+				String[] modiAddressBasicArray = new String[currAddressCount];
+				String[] modiAddressDetailArray = new String[currAddressCount];
+				String[] modiAddressZipNumArray = new String[currAddressCount];
+				
+				for (int i = 0; i < currAddressCount; i++) {
+					modiAddressBasicArray[i] = addressBasicList[i];
+					modiAddressDetailArray[i] = addressDetailList[i];
+					modiAddressZipNumArray[i] = addressZipNumList[i];
+				}
+				
+				String modiAddressBasicString = String.join(",", modiAddressBasicArray);
+				String modiAddressDetailString = String.join(",", modiAddressDetailArray);
+				String modiAddressZipNumString = String.join(",", modiAddressZipNumArray);
+				
+				AddressVO modiAddressVo = new AddressVO(0, modiAddressDetailString, modiAddressBasicString, modiAddressZipNumString, 0, userNo);
+				userService.updateUserAddress(modiAddressVo, userNo);
 			}
 			
-			String newAddressBasicString = String.join(",", newAddressBasicArray);
-			String newAddressDetailString =  String.join(",", newAddressDetailArray);
-			String newAddressZipNumString =  String.join(",", newAddressZipNumArray);
+			// 추가된 주소 insert 코드
+			if (currAddressCount < allAddressCount) {			
+				String[] addressBasicList = addressVO.getAddressBasic().split(",");
+				String[] addressDetailList = addressVO.getAddressDetail().split(",");
+				String[] addressZipNumList = addressVO.getAddressZipNum().split(",");
+				
+				String[] newAddressBasicArray = new String[allAddressCount - currAddressCount];
+				String[] newAddressDetailArray = new String[allAddressCount - currAddressCount];
+				String[] newAddressZipNumArray = new String[allAddressCount - currAddressCount];
+				
+				for (int i = currAddressCount; i < allAddressCount; i++) {
+					newAddressBasicArray[i - currAddressCount] = addressBasicList[i];
+					newAddressDetailArray[i - currAddressCount] = addressDetailList[i];
+					newAddressZipNumArray[i - currAddressCount] = addressZipNumList[i];
+				}
+				
+				String newAddressBasicString = String.join(",", newAddressBasicArray);
+				String newAddressDetailString =  String.join(",", newAddressDetailArray);
+				String newAddressZipNumString =  String.join(",", newAddressZipNumArray);
+				
+				AddressVO newAddressVo = new AddressVO();
+				newAddressVo.setAddressBasic(newAddressBasicString);
+				newAddressVo.setAddressDetail(newAddressDetailString);		
+				newAddressVo.setAddressZipNum(newAddressZipNumString);		
+				
+				log.info(newAddressVo);
+				userService.addNewAddress(newAddressVo, userNo);
+			}
 			
-			AddressVO newAddressVo = new AddressVO();
-			newAddressVo.setAddressBasic(newAddressBasicString);
-			newAddressVo.setAddressDetail(newAddressDetailString);		
-			newAddressVo.setAddressZipNum(newAddressZipNumString);		
+			log.info("allAddressCount: " + allAddressCount);
+			log.info("currAddressCount: " + currAddressCount);
 			
-			log.info(newAddressVo);
-			userService.addNewAddress(newAddressVo, userNo);
 		}
-		
-		log.info("allAddressCount: " + allAddressCount);
-		log.info("currAddressCount: " + currAddressCount);
 		
 		
 		if (profilePic.getSize() != 0) {

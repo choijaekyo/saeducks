@@ -84,7 +84,7 @@
 							<div class="clearfix">
 								<div class="file-upload">
 									<span>+</span>
-									<input name="profilePic" type="file" class="upload" id="user-profile-pic" accept=".jpg, .jpeg, .png, .gif, .bmp" > <br>
+									<input name="profilePic" type="file" class="upload" id="user-profile-pic" accept="image/*" > <br>
 								</div>
 							</div>
 							<span>기본 정보</span> <br> <br>
@@ -1419,9 +1419,25 @@ let nicknameCheck = true;
 		}
 	}
 	
+    // 프로필 이미지파일 제한
 	// 이벤트를 바인딩해서 input에 파일이 올라올때 (input에 change를 트리거할때) 위의 함수를 this context로 실행합니다.
 	$("#user-profile-pic").change(function(){
-	   readURL(this);
+		
+		if (this.files[0]) {
+			if (!this.files[0].type.includes('image/')) {
+				alert("이미지 파일만 등록 가능합니다.");
+				const dt = new DataTransfer();
+				this.files = dt.files;
+				
+				 $('#image_section').attr('src', '<c:url value="/resources/img/profile.png" />');  
+				return;
+			} else {
+				readURL(this);				
+			}
+		} else {
+			 $('#image_section').attr('src', '<c:url value="/resources/img/profile.png" />');  
+			readURL(this);
+		}
 	});	
 	
 	
