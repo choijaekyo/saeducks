@@ -103,15 +103,15 @@
 	</select>
 	
 	<select id="mainImage" resultType="productImage">
-		<![CDATA[
+		
         SELECT *
 		FROM
 		    (
 		    SELECT ROWNUM AS rn, tbl.* FROM
 		        (
-		            SELECT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail
+		            SELECT DISTINCT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail
 		            FROM duck_user d INNER JOIN favorite f
-		                             ON #{userNo} = f.favorite_user_no
+		                             ON f.favorite_user_no = #{userNo}
 		                             INNER JOIN category c
 		                             ON f.favorite_category_no = c.category_no
 		                             INNER JOIN product p
@@ -121,6 +121,7 @@
 		            WHERE i.product_thumbnail = 1
 		        ) tbl
 		    ) b
+		<![CDATA[
 		WHERE rn > 0
 		AND rn <= 9
 		]]>
@@ -133,7 +134,7 @@
 		    (
 		    SELECT ROWNUM AS rn, tbl.* FROM
 		        (
-		            SELECT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail, b.board_views
+		            SELECT DISTINCT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail, b.board_views
 		            FROM board b INNER JOIN category c
 		                             ON b.board_category_no = c.category_no
 		                             INNER JOIN product p

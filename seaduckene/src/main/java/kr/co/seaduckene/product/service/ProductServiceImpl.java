@@ -179,8 +179,8 @@ public class ProductServiceImpl implements IProductService {
 	}
 	
 	@Override
-	public List<ProductImageVO> mainImage(int productNo) {
-		return productMapper.mainImage(productNo);
+	public List<ProductImageVO> mainImage(int userNo) {
+		return productMapper.mainImage(userNo);
 	}
 	
 	@Override

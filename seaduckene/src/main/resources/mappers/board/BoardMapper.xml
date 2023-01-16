@@ -94,7 +94,7 @@
 		    (
 		    SELECT ROWNUM AS rn, tbl.* FROM
 		        (
-		            SELECT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
+		            SELECT DISTINCT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
 		            FROM duck_user d INNER JOIN favorite f
 		                             ON #{userNo} = f.favorite_user_no
 		                             INNER JOIN category c

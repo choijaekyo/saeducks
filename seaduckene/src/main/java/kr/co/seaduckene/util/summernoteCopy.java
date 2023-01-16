@@ -13,7 +13,7 @@ public class summernoteCopy {
 	public Map<String, Object> summerCopy(List<String> fileList) throws Exception {
 
 		Map<String, Object> result = new HashMap<String, Object>();
-		// 원본 파일경로
+		if(fileList != null ) {
 		for (int i = 0; i < fileList.size(); i++) {
 			String oriFilePath = "C:/imgduck/temp/" + fileList.get(i);
 
@@ -39,6 +39,7 @@ public class summernoteCopy {
 				delFile.delete();
 			}
 			
+			}
 		}
 		result.put("SUCCESS", true);
 		return result;

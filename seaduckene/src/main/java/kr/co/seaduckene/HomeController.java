@@ -2,6 +2,7 @@ package kr.co.seaduckene;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.product.command.ProductImageVO;
 import kr.co.seaduckene.product.service.IProductService;
+import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.util.BoardUserVO;
 
 /**
@@ -48,16 +50,22 @@ public class HomeController {
 		
 		List<ProductImageVO> list;
 		List<BoardUserVO> bList;
+		UserVO loginVo = (UserVO)session.getAttribute("login");
 		
-		if(session.getAttribute("login") == null) {
+		if(loginVo == null) {
 			System.out.println("login 세션 없음");
 			list = service.mainImageNo();
 			bList = bService.bUserNoList();
+		
 		} else {
 			System.out.println("login 세션 있음");
-			list = service.mainImage(1);
-			bList = bService.bUserList(1);
+			list = service.mainImage(loginVo.getUserNo());
+			bList = bService.bUserList(loginVo.getUserNo());
+			
 		}
+		
+		System.out.println("사진리스트:"+list);
+		
 
 		model.addAttribute("boardList", bList );
 		model.addAttribute("mainListImg", list );
