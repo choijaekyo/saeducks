@@ -26,7 +26,7 @@
 			id="board-detail-item">
 
 			<p>
-				<fmt:formatDate value="${list.boardRegDate}" pattern="MM-dd HH:mm" />
+				<fmt:formatDate value="${list.boardRegDate}" pattern="dd/MM/yyyy" />
 			</p>
 			<p>&nbsp&nbsp조회수: ${list.boardViews }</p>
 			<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
@@ -35,7 +35,6 @@
 		</div>
 	</div>
 </div>
-
 
 <form action="${pageContext.request.contextPath}/board/boardModify"
 	id="writeForm" method="post">
@@ -58,13 +57,13 @@
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList'/>'
-						class="right btn btn-info" id="modallistBtn">목록가기</a>
+						class="right btn btn-info" id="listBtn">목록가기</a>
 					<button type="submit" class="right btn btn-info" id="ModBtn">수정하기</button>
 				</div>
 			</div>
 		</div>
 	</div>
-</form>
+</form> 
 
 <div class="container">
 	<div class="card-body">
@@ -119,9 +118,6 @@
 				</div>
 			</c:if>
 			
-			
-			
-
 			<hr>
 
 			<div id="replyList">
@@ -180,6 +176,7 @@
 
 
 <script>
+
 	$(document).ready(function() {
 		
 		console.log('카테고리 번호' + '${list.boardCategoryNo}');
@@ -193,7 +190,8 @@
 			$('.note-statusbar').hide();
 			$('.note-editable').css('background', '	#FFFFFF');
 		});
-
+		
+		
 		$('#replyRegist').click(function() {
 
 			const boardNo = '${list.boardNo}';
@@ -203,22 +201,7 @@
 			console.log(reply);
 			console.log(boardNo);
 			
-	
-
-			/* const data = {
-					"boardNo":boardNo,
-					"reply":reply,
-					"replyBoardNo":replyBoardNo,
-					"replyUserNo":replyUserNo
-			};
-			console.log(data); */
-
-			/* if(reply === '') {
-				alert('내용을 입력하세요!')
-				return;
-			} */
-			
-			if($('#reply').val().trim() === '' ) {
+			if($('#reply').val().trim() === '') {
 				alert('내용을 입력해주세요!');
 				return;
 			}
@@ -260,10 +243,7 @@
 			getList(++page, false);
 		});
 	 
-		
-		
-		
-		 
+
 		
 		let page = 1;
 		let strAdd = '';
@@ -397,6 +377,8 @@
 			
 			
 			
+			
+			
 		}) //modalDelBtn click event 끝.
 		
 		$('.modalbuttonESC').click(function() {
@@ -415,11 +397,11 @@
 			const gap = date.getTime() - millis;
 			
 			let time; //리턴할 시간
-			if(gap < 30 * 30 * 12 * 10) { //1일 미만일 경우
-				if(gap < 30 * 30 * 10) { //1시간 미만일 경우
+			if(gap < 60 * 60 * 24 * 1000) { //1일 미만일 경우
+				if(gap < 60 * 60 * 1000) { //1시간 미만일 경우
 					time = '방금 전';
 				} else {
-					time = parseInt(gap / (1 * 30 * 30)) + '시간 전';
+					time = parseInt(gap / (1000 * 60 * 60)) + '시간 전';
 				}
 			} else { //1일 이상인 경우
 				const regDate = new Date(millis);
@@ -427,7 +409,7 @@
 				const month = regDate.getMonth() + 1; //월
 				const day = regDate.getDate(); //일
 				
-				time = year + '월' + month + '년' + day + '일';
+				time = year + '년' + month + '월' + day + '일';
 			}
 			
 			return time;

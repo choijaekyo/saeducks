@@ -113,6 +113,7 @@ public class boardListController {
 			service.boardImageAdd(boardNo, summerfile.get(0));
 		}
 
+
 		return "redirect:/board/boardList/" + vo.getBoardCategoryNo();
 	}
 	
