@@ -153,6 +153,7 @@ public class boardListController {
 		}
 
 		model.addAttribute("list", service.content(boardNo));
+		
 		return "board/boardDetail";
 	}
 	
