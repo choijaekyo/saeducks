@@ -439,13 +439,13 @@ public class UserController {
 		
 		
 		log.info(addressCountList);
-		log.info(Arrays.toString(addressVO.getAddressBasic().split(",")));
-		log.info(Arrays.toString(addressVO.getAddressDetail().split(",")));
-		log.info(Arrays.toString(addressVO.getAddressZipNum().split(",")));
 		
 		List<AddressVO> beforeDeleteAddressList = userService.getUserAddr(userNo);
 
 		if (addressVO.getAddressBasic() != null) {
+			log.info(Arrays.toString(addressVO.getAddressBasic().split(",")));
+			log.info(Arrays.toString(addressVO.getAddressDetail().split(",")));
+			log.info(Arrays.toString(addressVO.getAddressZipNum().split(",")));
 			
 			int allAddressCount = addressVO.getAddressBasic().split(",").length;
 			int currAddressCount = addressCountList.size();
