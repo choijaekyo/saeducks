@@ -50,6 +50,4 @@
 		<mybatis-spring:scan base-package="kr.co.seaduckene.product.mapper"/>
 		<mybatis-spring:scan base-package="kr.co.seaduckene.common"/>
 		<mybatis-spring:scan base-package="kr.co.seaduckene.admin.mapper"/>
-		
-		 
 </beans>
