@@ -67,5 +67,9 @@
 	<update id="modiAddressNoAndRepresent">
 		UPDATE address SET address_no = #{modiAddressNo}, address_representative = #{modiAddressRprsttv} WHERE address_no = #{whereAddressNo} AND address_user_no = #{whereUserNo}
 	</update>
+	
+	<delete id="deleteUserAllInfo">
+		DELETE FROM address WHERE address_user_no = #{userNo}
+	</delete>	
 
 </mapper>

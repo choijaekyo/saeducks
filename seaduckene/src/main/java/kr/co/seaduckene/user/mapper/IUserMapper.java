@@ -75,7 +75,12 @@ public interface IUserMapper {
 	// 유저의 favorite 삭제
 	void deleteUserFavorites(Map<String, Object> deletedCount);
 	
-	// f유저의 favorite 변경
+	// 유저의 favorite 변경
 	void updateUserFavorites(Map<String, Integer> map);
+	
+	// 유저 삭제 시 유저 정보 삭제
+	void deleteUserAllInfoUser(int userNo);
 
+	// 유저 삭제 시 유저 정보 삭제
+	void deleteUserAllInfofavorite(int userNo);
 }

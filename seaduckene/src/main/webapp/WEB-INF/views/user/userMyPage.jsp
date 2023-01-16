@@ -1118,6 +1118,7 @@ let nicknameCheck = true;
 		$("#currPw").css('border', 'none');
 		$("#modiPw").css('border', 'none');
 		$("#checkPw").css('border', 'none');
+		$('#user-update-form').attr('action', '${pageContext.request.contextPath}/user/userDelete');
 		
 		$('#myPageModal').toggleClass('modiPw', false);
 		$('#myPageModal').toggleClass('updateUser', false);
@@ -1330,7 +1331,7 @@ let nicknameCheck = true;
 		
 		$.ajax({
 			type:'POST',
-			url:'${pageContext.request.contextPath}/user/userUpdateConfirm',
+			url:'${pageContext.request.contextPath}/user/userPwConfirm',
 			contentType: 'application/json',
 			dataType:'text',
 			data:JSON.stringify(array),
@@ -1362,23 +1363,22 @@ let nicknameCheck = true;
 		
 		$.ajax({
 			type:'POST',
-			url:'${pageContext.request.contextPath}/user/userDelete',
+			url:'${pageContext.request.contextPath}/user/userPwConfirm',
 			contentType: 'application/json',
 			dataType:'text',
 			data:JSON.stringify(array),
 			success: function(result) {
 				console.log(result);
 				
-				if (result === '1') {
-					console.log('통신성공!!');
+				if (result == 1) {
+					if (confirm('계정을 삭제하시면 되돌릴 수 없습니다.\n삭제하시겠습니까?')) {
 					
-					/* $('#user-update-form').submit(); */
-				} else if(result ==='0') {
-					
+						$('#user-update-form').submit();
+					}
 				} else {
-					
+					alert('현재 비밀번호 입력이 잘못되었습니다.\n 다시 입력해주세요.');
+					$('#currPw').focus();
 				}
-				
 			},
 			error: function(request, status, error) {
 				console.log('서버 연결에 실패했습니다.\n관리자에게 문의해주세요.');

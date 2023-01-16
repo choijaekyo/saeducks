@@ -181,6 +181,14 @@
 		product_detail=#{productDetail},product_stock=#{productStock},product_up_date=sysdate,product_category_no=#{productCategoryNo}
 		WHERE product_no=#{productNo}
 	</update>
+	
+	<delete id="deleteUserAllInfoOrder">
+		DELETE FROM duck_order WHERE order_user_no = #{userNo}
+	</delete>	
+	
+	<delete id="deleteUserAllInfoBasket">
+		DELETE FROM basket WHERE basket_user_no = #{userNo}
+	</delete>	
 
 </mapper>
     

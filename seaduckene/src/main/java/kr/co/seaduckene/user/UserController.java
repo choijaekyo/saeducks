@@ -114,8 +114,9 @@ public class UserController {
 			
 		}
 		
-		
-		session.removeAttribute("login");
+		if (session.getAttribute("login") != null) {
+			session.removeAttribute("login");
+		}
 		modelAndView.setViewName("redirect:/user/userLogin");
 		
 		return modelAndView;
@@ -331,12 +332,10 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/userUpdateConfirm")
+	@PostMapping("/userPwConfirm")
 	public String userUpdateConfirm(@RequestBody List<String> passwords, HttpServletRequest request) {
 		String userPw = passwords.get(0);
 		String checkPw = passwords.get(1);
-		
-		
 		
 		HttpSession session = request.getSession();
 		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
@@ -582,13 +581,13 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	@ResponseBody
 	@PostMapping("/userDelete")
-	public String userDelete(@RequestBody List<String> passwords) {
-		String userPw = passwords.get(0);
-		String checkPw = passwords.get(1);
+	public ModelAndView userDelete(int userNo, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) {
 		
-		return Integer.toString(1);
+		userService.deleteUserAllInfo(userNo, request, response);
+		modelAndView.setViewName("redirect:/user/userLogin");
+		
+		return modelAndView;
 	}
 	
 	@GetMapping("/userFindAccount")

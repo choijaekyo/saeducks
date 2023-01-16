@@ -5,14 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.IAddressMapper;
 import kr.co.seaduckene.favorite.FavoriteVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
+import kr.co.seaduckene.product.mapper.IProductMapper;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.mapper.IUserMapper;
@@ -27,6 +34,9 @@ public class UserServiceImpl implements IUserService {
 	
 	@Autowired
 	private IAddressMapper addressMapper;
+	
+	@Autowired
+	private IProductMapper productMapper;
 
 	@Override
 	public void registUser(UserVO userVO) {
@@ -276,6 +286,36 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void modiAddressNoAndRepresent(Map<String, Integer> map) {
 		addressMapper.modiAddressNoAndRepresent(map);
+	}
+	
+	@Override
+	public void deleteUserAllInfo(int userNo, HttpServletRequest request, HttpServletResponse response) {
+		userMapper.deleteUserAllInfoUser(userNo);
+		userMapper.deleteUserAllInfofavorite(userNo);
+		addressMapper.deleteUserAllInfo(userNo);
+		productMapper.deleteUserAllInfoOrder(userNo);
+		productMapper.deleteUserAllInfoBasket(userNo);
+		
+		HttpSession session = request.getSession();
+		
+		Cookie autoLoginCookie = WebUtils.getCookie(request, "autoLoginCookie");
+		if (autoLoginCookie != null) {
+			UserVO userVo = userMapper.getUserBySessionId(autoLoginCookie.getValue());
+			log.info("autoLogin userVo: " + userVo);
+			
+			if (userVo != null) {
+				// 쿠키 삭제는 받아온 쿠키 객체를 직접 지운다
+				autoLoginCookie.setPath(request.getContextPath() + "/");
+				autoLoginCookie.setMaxAge(0);
+				response.addCookie(autoLoginCookie);
+				userMapper.undoAutoLogin(userVo.getUserNo());
+			}
+			
+		}
+		
+		if (session.getAttribute("login") != null) {
+			session.removeAttribute("login");
+		}
 	}
 	
 }

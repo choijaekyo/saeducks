@@ -29,4 +29,7 @@ public interface IAddressMapper {
 	// addressNo, addressRepresentative 변경
 	void modiAddressNoAndRepresent(Map<String, Integer> map);
 	
+	// 유저 삭제 시 유저 정보 삭제
+	void deleteUserAllInfo(int userNo);
+	
 }

@@ -3,6 +3,9 @@ package kr.co.seaduckene.user.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.favorite.FavoriteVO;
@@ -95,4 +98,7 @@ public interface IUserService {
 	
 	// addressNo, addressRepresentative 변경
 	void modiAddressNoAndRepresent(Map<String, Integer> map);
+	
+	// 유저 삭제 시 유저 정보 삭제
+	void deleteUserAllInfo(int userNo, HttpServletRequest request, HttpServletResponse response);
 }
