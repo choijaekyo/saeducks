@@ -102,7 +102,6 @@ $(function() {
 					$('.w-auto').css('display','block');
 				}
 				
-				
 				const majorTitle = list[0].categoryMajorTitle;
 				const minorTitle = list[0].categoryMinorTitle;
 				

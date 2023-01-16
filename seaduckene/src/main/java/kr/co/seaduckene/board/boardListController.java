@@ -93,7 +93,7 @@ public class boardListController {
 		System.out.println("vo: " + vo);
 		String boardContent;
 		boardContent = vo.getBoardContent();
-		String editordata = boardContent.replaceAll("summernoteImage","getImg");
+		String editordata = boardContent.replaceAll("summernoteImage", "getImg");
 		vo.setBoardContent(editordata);
 		service.write(vo);
 
