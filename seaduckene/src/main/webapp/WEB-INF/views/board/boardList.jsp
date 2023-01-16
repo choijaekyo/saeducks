@@ -23,13 +23,10 @@
 
 	</div>
 	<div class="row justify-content-center m-5">
-<<<<<<< HEAD
-	  	<div class="col-1 w-auto" style="display: none;">
-	  		<button  type="button" class="btn btn-primary rounded" id="moreBtn">더보기</button>
-=======
+
 	  	<div class="col-1 w-auto" style="display: none;" id="div-btn">
 	  		<button  type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
->>>>>>> branch 'master' of https://github.com/choijaekyo/saeducks.git
+
 	  	</div>
 	</div>
 </div>
@@ -106,11 +103,9 @@ $(function() {
 					str = '등록된 글이 없습니다. 첫 번째 글을 등록해 보세요.';
 					$('#contentDiv').html(str);
 				} else {
-<<<<<<< HEAD
-					$('moreBtn').css('display','block');
-=======
+
 					$('#div-btn').css('display','block');
->>>>>>> branch 'master' of https://github.com/choijaekyo/saeducks.git
+
 				}
 				
 				const majorTitle = list[0].categoryMajorTitle;
@@ -141,11 +136,9 @@ $(function() {
 				$('#contentDiv').html(str);
 				
 				if(page*9 > list.length) {
-<<<<<<< HEAD
-					$('moreBtn').css('display','none');
-=======
+
 					$('#div-btn').css('display','none');
->>>>>>> branch 'master' of https://github.com/choijaekyo/saeducks.git
+
 				}
 			}
 		
