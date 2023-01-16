@@ -138,11 +138,11 @@
 		        (
 		            SELECT *
 		            FROM notice
+		            ORDER BY notice_no DESC
 		        ) tbl
 		    ) s
 		WHERE rn > 0
 		AND rn <= 5
-		ORDER BY notice_no DESC
 		]]>
 	</select>
 	
@@ -155,11 +155,11 @@
 		        (
 		            SELECT *
 		            FROM notice
+		            ORDER BY notice_no DESC
 		        ) tbl
 		    ) s
 		WHERE rn > (#{pageNum}-1) * #{cpp}
 		AND rn <= #{pageNum} * #{cpp}
-		ORDER BY notice_no DESC
 		]]>
 	</select>
 	
