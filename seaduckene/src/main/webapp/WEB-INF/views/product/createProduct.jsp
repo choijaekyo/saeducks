@@ -127,6 +127,7 @@
     </style>
   </head>
   <body>
+  <a href="<c:url value='/'/>" >홈으로</a>
     <section class="form-signin w-100 m-auto">
       <div class="col-md-12">
         <h1 class="add-product-title h1">상품등록</h1>
@@ -193,7 +194,7 @@
                 <label for="thumbnailImg">썸네일이미지</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="file" name="thumbnailImg" id="thumbnailImg" accept=".jpg, .jpeg, .png, .gif, .bmp" required />
+                <input class="form-control" type="file" name="thumbnailImg" id="thumbnailImg" accept="image/*" required />
               </div>
             </div>
             <div class="input-group inputArea">
@@ -201,7 +202,7 @@
                 <label for="productImg">상품이미지(최대2개)</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="file" name="productImg" id="productImg" accept=".jpg, .jpeg, .png, .gif, .bmp" multiple="multiple" required />
+                <input class="form-control" type="file" name="productImg" id="productImg" accept="image/*" multiple="multiple" required />
               </div>
             </div>
             <div class="input-group inputArea">
@@ -252,7 +253,7 @@
         	const realPrice = $('#realPrice').val();
     	    if (salePrice != '' && realPrice != '') {
         	
-	        	if (realPrice < salePrice) {
+	        	if (+(realPrice) < +(salePrice)) {
 					alert('할인가가 판매가를 넘을 수 없습니다.');
 					this.value = '';
 				}

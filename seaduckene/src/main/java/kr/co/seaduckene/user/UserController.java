@@ -209,6 +209,7 @@ public class UserController {
 		if(ovo != null) {
 			for(ProductOrderVO order : ovo) {
 				ProductVO vo2 = productService.getContent(order.getOrderProductNo());
+				
 				name.add(vo2.getProductName());
 			}
 		}

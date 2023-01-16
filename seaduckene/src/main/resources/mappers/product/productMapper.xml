@@ -129,24 +129,26 @@
 	
 	<select id="mainImageNo" resultType="productImage">
 		<![CDATA[
-		SELECT *
-		FROM
-		    (
-		    SELECT ROWNUM AS rn, tbl.* FROM
-		        (
-		            SELECT DISTINCT i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail, b.board_views
-		            FROM board b INNER JOIN category c
-		                             ON b.board_category_no = c.category_no
-		                             INNER JOIN product p
-		                             ON c.category_no = p.product_category_no
-		                             INNER JOIN product_image i
-		                             ON p.product_no = i.product_image_product_no
-		            WHERE i.product_thumbnail = 1 
-		            ORDER BY b.board_views DESC
-		        ) tbl
-		    ) b
-		WHERE rn > 0
-		AND rn <= 9
+		select * from(
+			SELECT ROWNUM AS rn,a.*
+	      FROM
+	          (
+	          SELECT DISTINCT tbl.product_image_no, tbl.product_image_path, tbl.product_image_folder, tbl.product_image_file_name, tbl.prodcut_image_file_real_name, tbl.product_image_product_no, tbl.product_thumbnail FROM
+	              (
+	                  SELECT  i.product_image_no, i.product_image_path, i.product_image_folder, i.product_image_file_name, i.prodcut_image_file_real_name, i.product_image_product_no, i.product_thumbnail, b.board_views
+	                  FROM board b INNER JOIN category c
+	                                   ON b.board_category_no = c.category_no
+	                                   INNER JOIN product p
+	                                   ON c.category_no = p.product_category_no
+	                                   INNER JOIN product_image i
+	                                   ON p.product_no = i.product_image_product_no
+	                  WHERE i.product_thumbnail = 1 
+	                  ORDER BY b.board_views DESC
+	              ) tbl
+	          ) a
+	            )
+      WHERE rn > 0
+      AND rn <= 9
 		]]>
 	</select>
 	
@@ -190,6 +192,9 @@
 	<delete id="deleteUserAllInfoBasket">
 		DELETE FROM basket WHERE basket_user_no = #{userNo}
 	</delete>	
-
+	
+	<delete id="delProduct">
+		DELETE FROM product WHERE product_no=#{no}
+	</delete>
 </mapper>
     
