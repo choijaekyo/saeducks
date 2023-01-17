@@ -33,4 +33,5 @@ public class AdminServiceImpl implements IAdminService {
 	public List<AdminSearchVO> usersSearch(String search) {
 		return adminMapper.usersSearch("%" + search + "%");
 	}
+	
 }

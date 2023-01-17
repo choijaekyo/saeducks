@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
     <meta name="generator" content="Hugo 0.104.2" />
-    <title>Signin Template · Bootstrap v5.2</title>
+    <title>세덕이네 관리자 페이지</title>
     
     <!-- 부트스트랩  CDM -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" />

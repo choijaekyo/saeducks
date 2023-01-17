@@ -16,4 +16,5 @@ public interface IAdminMapper {
 	
 	// 유저 정보 검색
 	List<AdminSearchVO> usersSearch(String search);
+	
 }

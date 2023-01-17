@@ -24,6 +24,11 @@ public class AutoLoginHandler implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
+		if (request.getRequestURI().contains("/admin") || request.getRequestURI().equals("/product/createProduct")) {
+			return true;
+		}
+		
 		Cookie autoLoginCookie = WebUtils.getCookie(request, "autoLoginCookie");
 		HttpSession session = request.getSession();
 		// 현재 로그인 상태의 세션에서 얻은 유저 정보.
