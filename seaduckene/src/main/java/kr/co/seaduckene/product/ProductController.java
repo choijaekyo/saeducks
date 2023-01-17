@@ -79,6 +79,12 @@ public class ProductController {
 		model.addAttribute("cvo", cvo);
 		
 	}
+	@GetMapping("/deleteProduct")
+	public String delProduct(int no) {
+		System.out.println("product/deleteProduct GET 요청");
+		productService.delProduct(no);
+		return "redirect:/";
+	}
 	
 	@GetMapping("/master")
 	public void master() {
@@ -342,6 +348,7 @@ public class ProductController {
 		
 		return result;
 	}
+
 	
 	
 	

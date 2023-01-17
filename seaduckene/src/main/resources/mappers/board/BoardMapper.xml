@@ -84,11 +84,12 @@
 		        (
 		            SELECT DISTINCT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
 		            FROM duck_user d INNER JOIN favorite f
-		                             ON #{userNo} = f.favorite_user_no
+		                             ON f.favorite_user_no= #{userNo}
 		                             INNER JOIN category c
 		                             ON f.favorite_category_no = c.category_no
 		                             INNER JOIN board b
 		                             ON c.category_no = b.board_category_no
+		                             WHERE d.user_no=#{userNo}
 		        ) tbl
 		    ) s
 		WHERE rn > 0

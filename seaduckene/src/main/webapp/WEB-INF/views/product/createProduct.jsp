@@ -127,6 +127,7 @@
     </style>
   </head>
   <body>
+  <a href="<c:url value='/'/>" >홈으로</a>
     <section class="form-signin w-100 m-auto">
       <div class="col-md-12">
         <h1 class="add-product-title h1">상품등록</h1>
@@ -252,7 +253,7 @@
         	const realPrice = $('#realPrice').val();
     	    if (salePrice != '' && realPrice != '') {
         	
-	        	if (realPrice < salePrice) {
+	        	if (+(realPrice) < +(salePrice)) {
 					alert('할인가가 판매가를 넘을 수 없습니다.');
 					this.value = '';
 				}

@@ -243,4 +243,9 @@ public class ProductServiceImpl implements IProductService {
 		productMapper.deleteImage(num);
 		
 	}
+	@Override
+	public void delProduct(int no) {
+		productMapper.delProduct(no);
+		
+	}
 }
