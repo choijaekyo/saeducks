@@ -32,6 +32,23 @@ prefix="c"%>
         padding-bottom: 40px;
         background-color: #fff9d6;
       }
+      
+      a#main {
+		display: block;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background: tomato;
+		text-align: center;
+		line-height: 50px;
+		margin-right: 20px;
+		text-decoration: none;
+		color: white;
+		
+		position: fixed;
+		bottom: 20px;
+		right: 10px;
+	}
     </style>
   </head>
   <body>
@@ -48,19 +65,97 @@ prefix="c"%>
                 <span class="input-group-text">주문번호</span>
                 <input type="text" class="form-control" placeholder="OrderNumber" aria-label="OrderNumber" name="OrderNumber" id="OrderNumber" />
               </div>
-              <div class="table-responsive">
-                <table class="table table-striped table-borderless" id="contentDiv">
-                  <tr id="tr-noti"><th>검색하세요</th></tr>
-                </table>
-              </div>
+             
+                   <c:forEach var="li" items="${list }">
+                    <div class="table-responsive">
+                	<table class="table table-striped table-borderless" class="contentDiv">
+                   	<thead>
+                      <tr>
+                        <th class="mx-auto">아이디</th>
+                        <th>이름</th>
+                        <th>전화번호</th>
+                        <th>이메일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>${li.userId }</td>
+                        <td class="border-start">${li.userTel }</td>
+                        <td class="border-start">${li.userName }</td>
+                        <td class="border-start">${li.userEmail }</td>
+                      </tr>
+                    </tbody>
+
+                    <thead>
+                      <tr>
+                        <th>주문번호</th>
+                        <th>주문수량</th>
+                        <th>주문가격</th>
+                        <th>주문상태</th>
+                        <th>송장번호</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>${li.orderNum }</td>
+                        <td class="border-start">${li.orderQuantity }</td>
+                        <td class="border-start">${li.orderPrice }</td>
+                        <td class="border-start">${li.orderStatus }</td>
+                        <td class="border-start"><input type="text" name="invoiceNo" /><button>등록</button></td>
+                      </tr>
+                    </tbody>
+
+                    <thead>
+                      <tr>
+                        <th>수취인</th>
+                        <th>수취인 연락처</th>
+                        <th>우편번호</th>
+                        <th>동주소</th>
+                        <th>상세주소</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>${li.orderRecipientName }</td>
+                        <td class="border-start">${li.orderRecipientTel }</td>
+                        <td class="border-start">${li.orderAddressZipNum }</td>
+                        <td class="border-start">${li.orderAddressBasic }</td>
+                        <td class="border-start">${li.orderAddressDetail }</td>
+                      </tr>
+                    </tbody>
+
+                    <thead>
+                      <tr>
+                        <th>결제방법</th>
+                        <th>환불은행</th>
+                        <th>환불계좌</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>${li.orderPaymentMethod }</td>
+                        <td class="border-start">${li.orderReturnBank }</td>
+                        <td class="border-start">${li.orderReturnAccount }</td>
+                        <td class="border-start">
+	                        <button class="cancle">주문취소</button>
+	                        <button class="refund">환불</button>
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+                      </table>
+              	</div>
+              	<hr>
+               </c:forEach>
+              
             </div>
           </div>
         </div>
       </div>
     </div>
-
+	<a id="main" href="<c:url value='/admin/adminMain'/>" >main</a>
     <script>
-      $('.card-body').on('keyup', 'input', function(e) {
+     $('.card-body').on('keyup', 'input', function(e) {
 
         let str = '';
         var search = '';
@@ -74,7 +169,7 @@ prefix="c"%>
             search = document.getElementById('OrderNumber').value;
           } else {
             return;
-          }
+        }
 
           $.getJSON(
             '<c:url value="/admin/usersSearch?search='+ search +'" />',
@@ -109,6 +204,7 @@ prefix="c"%>
                         <th>주문수량</th>
                         <th>주문가격</th>
                         <th>주문상태</th>
+                        <th>송장번호</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -117,13 +213,14 @@ prefix="c"%>
                         <td class="border-start">` + result[i].orderQuantity + `</td>
                         <td class="border-start">` + result[i].orderPrice + `</td>
                         <td class="border-start">` + result[i].orderStatus + `</td>
+                        <td class="border-start"><input type="text" name="invoiceNo" /><button>등록</button></td>
                       </tr>
                     </tbody>
 
                     <thead>
                       <tr>
-                        <th>받는사람</th>
-                        <th>전화번호</th>
+                        <th>수취인</th>
+                        <th>수취인 연락처</th>
                         <th>우편번호</th>
                         <th>동주소</th>
                         <th>상세주소</th>
@@ -151,6 +248,10 @@ prefix="c"%>
                         <td>` + result[i].orderPaymentMethod + `</td>
                         <td class="border-start">` + result[i].orderReturnBank + `</td>
                         <td class="border-start">` + result[i].orderReturnAccount + `</td>
+                        <td class="border-start">
+	                        <button class="cancle">주문취소</button>
+	                        <button class="refund">환불</button>
+                        </td>
                       </tr>
                     </tbody>`;
                   }
@@ -162,7 +263,7 @@ prefix="c"%>
             }
           ); //end getJSON()
         }
-      });
+      }); 
     </script>
   </body>
 </html>

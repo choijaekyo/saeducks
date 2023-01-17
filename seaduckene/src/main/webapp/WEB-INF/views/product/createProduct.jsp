@@ -127,7 +127,7 @@
     </style>
   </head>
   <body>
-  <a href="<c:url value='/'/>" >홈으로</a>
+  
     <section class="form-signin w-100 m-auto">
       <div class="col-md-12">
         <h1 class="add-product-title h1">상품등록</h1>
@@ -226,7 +226,8 @@
         </div>
       </div>
     </section>
-
+	<a id="main" href="<c:url value='/admin/adminMain'/>" >main</a>
+	
     <script>
       const regprice = /^[0-9]$/;
 

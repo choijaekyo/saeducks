@@ -30,6 +30,11 @@ public class AdminServiceImpl implements IAdminService {
 	}
 	
 	@Override
+	public List<AdminSearchVO> allOrder() {
+		return adminMapper.allOrder();
+	}
+	
+	@Override
 	public List<AdminSearchVO> usersSearch(String search) {
 		return adminMapper.usersSearch("%" + search + "%");
 	}
