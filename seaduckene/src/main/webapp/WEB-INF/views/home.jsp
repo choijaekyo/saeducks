@@ -10,7 +10,7 @@
 		<div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
 	      	<c:forEach var="i" items="${mainListImg}">
-	        	<div class="swiper-slide img-fluid"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="<c:url value='${pageContext.request.contextPath}/product/mainDisplayImg?fileLoca=${i.productImageFolder}&fileName=${i.productImageFileName}' />" alt=".."></a></div>
+	        	<div class="swiper-slide img-fluid"><a href="<c:url value='/product/productDetail?productNo=${i.productImageProductNo }'/>" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="<c:url value='/product/mainDisplayImg?fileLoca=${i.productImageFolder}&fileName=${i.productImageFileName}' />" alt=".."></a></div>
 	        </c:forEach>
 	      </div>
 	    </div>
@@ -29,16 +29,17 @@
 		        </div>
 		        <div class="row mb_30">
 		        	<c:forEach var="b" items="${boardList}">
+		        	<input type="hidden" value="${b.boardNo}" class="bno">
 		            <div class="col-lg-4 col-md-6">
-		                <div class="facilities_item">
-		                    <h4 class="sec_h4">
+		                <div class="facilities_item items${b.boardNo}">
+		                    <h4 class="sec_h4 text-truncate">
 			                    <i class="bi bi-trophy-fill"></i>
 			                    ${b.boardTitle}
 		                    </h4>
 		                    <%-- <p class="d-inline-block text-truncate">내용 : ${b.boardContent}</p> --%>
 		                    <p>조회수 : ${b.boardViews}</p>
 		                    <p>소카테고리 : ${b.categoryMinorTitle}</p>
-		                    <%-- <p>작성자 : ${b.userNickname}</p> --%>
+		                    <p>작성자 : ${b.userNickname}</p>
 		                </div>
 		            </div>
 		            </c:forEach>
@@ -51,3 +52,25 @@
 
 
 <%@ include file="include/footer.jsp"%>
+
+
+<script>
+
+	$(function () {
+		
+		$('.facilities_item').hover(function() {
+			$('.facilities_item').css('cursor', 'pointer');
+		});
+			
+		const bnoo = $('.bno');
+		for (let $bnoo of bnoo) {
+			$('.items' + $bnoo.value).click(function() {
+				location.href='${pageContext.request.contextPath}/board/boardDetail/'+$bnoo.value;
+			});
+		}
+
+		
+	});
+
+
+</script>

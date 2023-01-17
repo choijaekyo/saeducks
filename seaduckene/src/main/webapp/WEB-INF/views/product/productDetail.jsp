@@ -91,6 +91,7 @@
 							<i class="bi-cart-fill me-1"></i> Add to cart
 						</button>
 						<a href="<c:url value="/product/modifyProduct?no=${vo.productNo }"/>">수정</a>
+						<a href="<c:url value="/product/deleteProduct?no=${vo.productNo }"/>">삭제</a>
 					</div>
 				</div>
 			</div>

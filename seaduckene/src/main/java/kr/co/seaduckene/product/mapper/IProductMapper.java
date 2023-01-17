@@ -40,6 +40,9 @@ public interface IProductMapper {
 
 	// 장바구니수량,가격 가져오기
 	ProductBasketVO getBasket(Map<String, Object> map);
+	
+	//상품삭제
+	void delProduct(int no);
 
 	// 카테고리 리스트 갖고오기
 	List<CategoryVO> getCategory();
