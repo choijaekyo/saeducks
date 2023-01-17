@@ -45,5 +45,7 @@ public class AdminSearchVO {
 	private String orderReturnBank;
 	private String orderReturnAccount;
 	private Timestamp orderRegDate;
+	private String orderInvoiceNo;
+	private String orderReturnReason;
 
 }

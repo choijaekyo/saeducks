@@ -18,6 +18,6 @@ public interface IAdminService {
 	List<AdminSearchVO> allOrder();
 	
 	// 유저 정보 검색
-	List<AdminSearchVO> usersSearch(String search);
+	List<AdminSearchVO> usersSearch(String type, String keyword);
 	
 }

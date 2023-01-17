@@ -318,4 +318,13 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 	
+	@Override
+	public int checkUser(String userId, String userEmail) {
+		Map<String, Object> map =  new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("userEmail", userEmail);
+				
+		return userMapper.checkUser(map);
+	}
+	
 }

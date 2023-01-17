@@ -101,4 +101,7 @@ public interface IUserService {
 	
 	// 유저 삭제 시 유저 정보 삭제
 	void deleteUserAllInfo(int userNo, HttpServletRequest request, HttpServletResponse response);
+	
+	// 비밀번호 찾기 유저정보 확인
+	int checkUser(String userId, String userEmail);
 }

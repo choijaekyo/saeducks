@@ -7,7 +7,7 @@
 
 	<sql id="search">
 		<if test="type == 'name'">WHERE u.user_name LIKE '%'||#{keyword}||'%'</if>
-		<if test="type == 'phon'">WHERE u.user_tel LIKE '%'||#{keyword}||'%'</if>
+		<if test="type == 'phone'">WHERE u.user_tel LIKE '%'||#{keyword}||'%'</if>
 		<if test="type == 'orderNum'">WHERE d.order_num LIKE '%'||#{keyword}||'%'</if>
 	</sql>
 	
@@ -32,6 +32,6 @@
 		INNER JOIN duck_order d
 		ON u.user_no = d.order_user_no
 		<include refid="search" />
-		ORDER BY 
+		ORDER BY d.order_reg_date DESC
 	</select>
 </mapper>

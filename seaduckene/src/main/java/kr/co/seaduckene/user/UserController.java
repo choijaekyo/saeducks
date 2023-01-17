@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -603,12 +604,20 @@ public class UserController {
 	public void userFindPw() {}
 	
 	@PostMapping("/userFindPw")
-	public String userFindPw(String userId, String userEmail) {
+	public String userFindPw(String userId, String userEmail, Model model) {
+		String tmpPw = null;
 		// mailService에서 임시비밀번호 보내기
-		String tmpPw = mailService.sendTmpPw(userEmail);
-		// mapper에서 임시비밀번호로 비밀번호 수정하기
-		userService.updatePw(userId, tmpPw);
-		return "/user/userLogin";
+		if(userService.checkUser(userId,userEmail)== 1) {
+			tmpPw = mailService.sendTmpPw(userEmail);
+			
+			// mapper에서 임시비밀번호로 비밀번호 수정하기
+			userService.updatePw(userId, tmpPw);
+			return "/user/userLogin";
+		} else {
+			model.addAttribute("msg","noUser");
+			return "/user/userFindPw";
+		}
+		
 	}
 	
 	@ResponseBody
@@ -669,6 +678,7 @@ public class UserController {
 		
 		return "changed";
 	}
+	
 	
 	
 
