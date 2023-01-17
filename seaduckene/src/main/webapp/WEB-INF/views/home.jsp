@@ -10,7 +10,7 @@
 		<div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
 	      	<c:forEach var="i" items="${mainListImg}">
-	        	<div class="swiper-slide img-fluid"><a href="#" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="<c:url value='/product/mainDisplayImg?fileLoca=${i.productImageFolder}&fileName=${i.productImageFileName}' />" alt=".."></a></div>
+	        	<div class="swiper-slide img-fluid"><a href="<c:url value='/product/productDetail?productNo=${i.productImageProductNo }'/>" style="width: 100%; height: 100%; text-align: center; line-height: 50%;"><img src="<c:url value='/product/mainDisplayImg?fileLoca=${i.productImageFolder}&fileName=${i.productImageFileName}' />" alt=".."></a></div>
 	        </c:forEach>
 	      </div>
 	    </div>
