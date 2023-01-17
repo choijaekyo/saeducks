@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
 import kr.co.seaduckene.admin.service.IAdminService;
+import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.util.summernoteCopy;
 
@@ -53,7 +56,14 @@ public class adminController {
 		return "redirect:/admin/adminMain";
 	}
 	
+	@GetMapping("/usersSearch")
+	@ResponseBody
+	public List<AdminSearchVO> usersSearch(String search) {
+		return service.usersSearch(search);
+	}
+	
 	@GetMapping("/userSearch")
-	public void userSearch() {}	
+	public void userSearch() {
+	}	
 	
 }

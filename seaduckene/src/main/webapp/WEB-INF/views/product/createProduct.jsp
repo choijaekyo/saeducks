@@ -127,6 +127,7 @@
     </style>
   </head>
   <body>
+  <a href="<c:url value='/'/>" >홈으로</a>
     <section class="form-signin w-100 m-auto">
       <div class="col-md-12">
         <h1 class="add-product-title h1">상품등록</h1>
@@ -193,7 +194,7 @@
                 <label for="thumbnailImg">썸네일이미지</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="file" name="thumbnailImg" id="thumbnailImg" accept=".jpg, .jpeg, .png, .gif, .bmp" required />
+                <input class="form-control" type="file" name="thumbnailImg" id="thumbnailImg" accept="image/*" required />
               </div>
             </div>
             <div class="input-group inputArea">
@@ -201,7 +202,7 @@
                 <label for="productImg">상품이미지(최대2개)</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="file" name="productImg" id="productImg" accept=".jpg, .jpeg, .png, .gif, .bmp" multiple="multiple" required />
+                <input class="form-control" type="file" name="productImg" id="productImg" accept="image/*" multiple="multiple" required />
               </div>
             </div>
             <div class="input-group inputArea">
@@ -252,21 +253,52 @@
         	const realPrice = $('#realPrice').val();
     	    if (salePrice != '' && realPrice != '') {
         	
-	        	if (realPrice < salePrice) {
+	        	if (+(realPrice) < +(salePrice)) {
 					alert('할인가가 판매가를 넘을 수 없습니다.');
 					this.value = '';
 				}
 			}
         });
         
-        $('input[multiple=multiple]').change(function(e) {
+        // 썸네일 이미지파일 제한
+        $('#thumbnailImg').change(function(e) {
+     	
+       		console.log(this.files[0]);
+       		if (this.files[0]) {
+				if (!this.files[0].type.includes('image/')) {
+					alert("이미지 파일만 등록 가능합니다.");
+					const dt = new DataTransfer();
+					this.files = dt.files;
+					return;
+				}
+			}
+		
+		});
+        
+        // 상품 이미지파일 제한
+        $('#productImg').change(function(e) {
         	if (this.files.length > 2) {
 				alert('상품이미지는 최대 2개까지만 선택하세요!');
 				
 				const dt = new DataTransfer();
 				this.files = dt.files;
+				return;
 			}
-        });
+        	
+     	
+			for (let i = 0; i < this.files.length; i++) {
+        		console.log(this.files[i].type);
+        		if (this.files[i]) {
+					if (!this.files[i].type.includes('image/')) {
+						alert("이미지 파일만 등록 가능합니다.");
+						const dt = new DataTransfer();
+						this.files = dt.files;
+						return;
+					}
+        		}
+			}	
+		
+		});
         
       }); //end jQuery
     </script>

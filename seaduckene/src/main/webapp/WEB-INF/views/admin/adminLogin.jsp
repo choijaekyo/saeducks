@@ -12,8 +12,6 @@
     <meta name="generator" content="Hugo 0.104.2" />
     <title>세덕이네 관리자 페이지</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/" />
-
     <!-- 부트스트랩  CDM -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
