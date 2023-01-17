@@ -233,8 +233,15 @@ public class UserServiceImpl implements IUserService {
 		String[] addressZipNumList = newAddressVo.getAddressZipNum().split(",");
 		log.info(Arrays.toString(addressZipNumList));
 		
+		AddressVO addrVo = null;
+		
 		for (int i = 0; i < addressBasicList.length; i++) {
-			AddressVO addrVo = new AddressVO(0, addressDetailList[i], addressBasicList[i], addressZipNumList[i], 0, userNo);
+			
+			if (addressMapper.getUserAddr(userNo).size() == 0 && i == 0) {				
+				addrVo = new AddressVO(0, addressDetailList[i], addressBasicList[i], addressZipNumList[i], 1, userNo);
+			} else {
+				addrVo = new AddressVO(0, addressDetailList[i], addressBasicList[i], addressZipNumList[i], 0, userNo);
+			}
 			
 			log.info(addrVo);
 			addressMapper.addNewAddress(addrVo);

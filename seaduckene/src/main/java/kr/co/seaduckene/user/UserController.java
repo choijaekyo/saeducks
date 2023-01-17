@@ -240,11 +240,7 @@ public class UserController {
 		
 		List<AddressVO> userAddrList = userService.getUserAddr(userNo);
 		
-		log.info(userAddrList);
-		if (userAddrList.size() != 0) {
-			modelAndView.addObject("userAddrList", userAddrList);			
-		}
-		
+		modelAndView.addObject("userAddrList", userAddrList);			
 		
 		return modelAndView;
 	}
