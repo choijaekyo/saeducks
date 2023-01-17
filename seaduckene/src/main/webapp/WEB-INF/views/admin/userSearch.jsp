@@ -97,8 +97,8 @@ prefix="c"%>
                     <tbody>
                       <tr>
                         <td>` + result[i].userId + `</td>
-                        <td class="border-start">` + result[i].userTel + `</td>
                         <td class="border-start">` + result[i].userName + `</td>
+                        <td class="border-start">` + result[i].userTel + `</td>
                         <td class="border-start">` + result[i].userEmail + `</td>
                       </tr>
                     </tbody>

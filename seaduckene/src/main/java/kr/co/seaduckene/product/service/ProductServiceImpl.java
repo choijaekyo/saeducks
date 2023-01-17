@@ -112,7 +112,7 @@ public class ProductServiceImpl implements IProductService {
 		 }
 		
 		// address TABLE INSERT
-		if(checkAddr(userNo, order.getOrderAddressDetail())== 0) {
+		if(checkAddr(userNo, order.getOrderAddressDetail(),order.getOrderAddressZipNum())== 0) {
 			addAddress(order, userNo);
 		}
 		
@@ -131,19 +131,30 @@ public class ProductServiceImpl implements IProductService {
 	}
 	
 	// 기 등록된 주소인지 여부 확인
-	public int checkAddr(int userNo, String addressDetail) {
+	public int checkAddr(int userNo, String addressDetail, String addressZipnum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
 		map.put("OrderAddressDetail", addressDetail.replaceAll(" ", ""));
+		map.put("zipNum", addressZipnum);
 		return addressMapper.checkAddr(map);
 	}
 	
 	// 주소테이블에 신규주소 등록
 	public void addAddress(ProductOrderVO order,int userNo) {
-		AddressVO addrVo = new AddressVO(0,order.getOrderAddressDetail(),
-				order.getOrderAddressBasic(),
-				order.getOrderAddressZipNum(),1,userNo);
-		addressMapper.addAddress(addrVo);
+		
+		if(addressMapper.getUserAddr(userNo)==null) {
+			AddressVO addrVo = new AddressVO(0,order.getOrderAddressDetail(),
+					order.getOrderAddressBasic(),
+					order.getOrderAddressZipNum(),1,userNo);
+				addressMapper.addAddress(addrVo);
+		}else {
+			AddressVO addrVo = new AddressVO(0,order.getOrderAddressDetail(),
+					order.getOrderAddressBasic(),
+					order.getOrderAddressZipNum(),0,userNo);
+				addressMapper.addAddress(addrVo);
+		}
+		
+		
 	}
 
 	

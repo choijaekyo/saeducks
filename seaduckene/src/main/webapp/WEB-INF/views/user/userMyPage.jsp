@@ -392,6 +392,7 @@
 				                <th scope="col">수량</th>
 				                <th scope="col">결제가격</th>
 				                <th scope="col">배송상태</th>
+				                <th scope="col">비고 </th>
 				            </tr>
 				            </thead>
 				            <tbody>
@@ -403,6 +404,8 @@
 				                    </td>
 				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${o.orderPrice}" pattern="#,###" /> </td>
 				                <td class="align-middle basket">${o.orderStatus }</td>
+				                <td class="align-middle basket"> <button class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/product/refund?no=${o.orderProductNo }'" >주문취소<br> 환불신청</button> </td>
+				                
 				                <td style="display:none">${o.orderNo} </td> 
 				            </tr>
 				            </c:forEach>

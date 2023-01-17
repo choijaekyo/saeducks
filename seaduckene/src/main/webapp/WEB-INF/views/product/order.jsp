@@ -223,7 +223,7 @@
 							<div class="btn-group" role="group">
 								<div class="btn-group" role="group">
 									<input class="form-control" type="text"
-										name="orderAddressZipNum" id="orderAddressZipNum" readonly />
+										name="orderAddressZipNum" id="orderAddressZipNum" readonly value="${addrList[0].addressZipNum }"   />
 								</div>
 								<button type="button"
 									class="btn btn-outline-secondary findAddrBtn"
@@ -240,7 +240,7 @@
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
 							<input class="form-control" type="text" name="orderAddressBasic"
-								id="orderAddressBasic" readonly />
+								id="orderAddressBasic" value="${addrList[0].addressBasic }" readonly />
 						</div>
 					</div>
 
@@ -250,7 +250,7 @@
 						</div>
 						<div class="col-md-7 col-sm-12 col-12">
 							<input class="form-control" type="text" name="orderAddressDetail"
-								id="orderAddressDetail" />
+								id="orderAddressDetail" value="${addrList[0].addressDetail }" />
 						</div>
 					</div>
 

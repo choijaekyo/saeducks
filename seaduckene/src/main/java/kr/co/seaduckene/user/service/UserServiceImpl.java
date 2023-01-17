@@ -83,14 +83,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public String registAddr(AddressVO addressVO) {
 		
-		String addressDetail = addressVO.getAddressDetail();
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userNo", addressVO.getAddressUserNo());
-		// 유저 등록에서 확인하는데 product의 코드 그냥 사용함.
-		map.put("OrderAddressDetail", addressDetail.replaceAll(" ", ""));
-		
-		if (addressMapper.checkAddr(map) != 0)  return "fail";
+		addressVO.setAddressRepresentative(1);
 		
 		addressMapper.addAddress(addressVO);
 		/* addressMapper.addAddress(addressVO, userNo); */

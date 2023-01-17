@@ -23,13 +23,14 @@
 	<insert id="addAddress">
 		INSERT INTO address VALUES
 		(address_seq.NEXTVAL,
-		#{addressDetail}, #{addressBasic}, #{addressZipNum}, default, #{addressUserNo})
+		#{addressDetail}, #{addressBasic}, #{addressZipNum}, #{addressRepresentative}, #{addressUserNo})
 	</insert>
 
 	<select id="checkAddr" resultType="int">
 		SELECT COUNT(*) FROM address
 		WHERE address_user_no=#{userNo} AND
-		TRIM(address_detail)=#{OrderAddressDetail}
+		REPLACE(address_detail,' ','')=#{OrderAddressDetail} AND
+		address_zip_num=#{zipNum}
 	</select>
 
 	<update id="updateAddr">
@@ -38,7 +39,7 @@
 	</update>
 	
 	<select id="getUserAddr" resultType="address">
-		SELECT * FROM address WHERE address_user_no = #{userNo} ORDER BY address_representative DESC, address_no 
+		SELECT * FROM address WHERE address_user_no = #{userNo} ORDER BY address_representative DESC, address_no DESC
 	</select>	
 	
 	<insert id="addNewAddress">
