@@ -113,7 +113,6 @@
 	</select>
 
 	<select id="mainImage" resultType="productImage">
-		
         SELECT *
 		FROM
 		    (
@@ -139,6 +138,7 @@
 	
 	<select id="mainImageNo" resultType="productImage">
 		<![CDATA[
+
 		SELECT * FROM(
 		SELECT ROWNUM AS rn,a.* FROM
           (
@@ -158,6 +158,7 @@
             )
       WHERE rn > 0
       AND rn <= 9
+
 		]]>
 	</select>
 
