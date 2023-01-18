@@ -42,8 +42,8 @@ public class boardReplyLikeController {
 	
 	@PostMapping("/listLike")
 	@ResponseBody
-	public List<Integer> listLike(@RequestBody String userId) {
-		return service.listLike(userId);
+	public List<BoardReplyLikeVO> listLike(@RequestBody int userNo) {
+		return service.listLike(userNo);
 	}
 	
 	

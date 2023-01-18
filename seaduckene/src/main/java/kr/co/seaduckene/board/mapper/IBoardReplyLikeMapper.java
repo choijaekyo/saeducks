@@ -19,7 +19,7 @@ public interface IBoardReplyLikeMapper {
 	void makeLike(int no);
 
 	// 현재 로그인 중인 사용자가 글 목록으로 왔을 때 좋아요 한 게시물 체크
-	List<Integer> listLike(String userId);
+	List<BoardReplyLikeVO> listLike(int userNo);
 
 
 }

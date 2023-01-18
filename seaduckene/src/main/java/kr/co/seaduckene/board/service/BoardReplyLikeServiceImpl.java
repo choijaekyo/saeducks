@@ -37,8 +37,8 @@ public class BoardReplyLikeServiceImpl implements IBoardReplyLikeService {
 	}
 
 	@Override
-	public List<Integer> listLike(String userId) {
-		return mapper.listLike(userId);
+	public List<BoardReplyLikeVO> listLike(int userNo) {
+		return mapper.listLike(userNo);
 	}
 
 

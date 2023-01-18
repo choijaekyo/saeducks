@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.seaduckene.board.command.BoardReplyLikeVO;
 import kr.co.seaduckene.board.command.BoardReplyListVO;
 import kr.co.seaduckene.board.command.BoardReplyVO;
 import kr.co.seaduckene.board.service.IBoardReplyLikeService;
 import kr.co.seaduckene.board.service.IBoardReplyService;
+import kr.co.seaduckene.user.command.UserVO;
 
 @RestController
 @RequestMapping("/reply")
@@ -50,6 +52,10 @@ public class boardReplyController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
 		map.put("total", total);
+		
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
+		List<BoardReplyLikeVO> like = lService.listLike(userNo);
+		map.put("like", like);
 		
 		
 		//reply마다 좋아요의 총 개수, 눌렀는지 누르지 않았는지 좋아요 인식,

@@ -26,9 +26,9 @@
 		UPDATE replyLike SET like_state=1 WHERE like_no=#{no}
 	</update>
 	
-	<select id="listLike" resultType="int">
-		SELECT FROM replyLike
-		WHERE like_user_no = #{likeUserNo}
+	<select id="listLike" resultType="replyLike">
+		SELECT * FROM replyLike
+		WHERE like_user_no = #{userNo}
 	</select>
 	
 </mapper>
