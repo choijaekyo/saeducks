@@ -102,10 +102,11 @@ $(function() {
 					isFinish = true;
 					str = '등록된 글이 없습니다. 첫 번째 글을 등록해 보세요.';
 					$('#contentDiv').html(str);
+					$('#contentDiv').css('display','block');
+					$('#contentDiv').css('text-align','center');
+					$('#contentDiv').css('line-height','150px');
 				} else {
-
 					$('#div-btn').css('display','block');
-
 				}
 				
 				for(let i=0; i<list.length; i++) {
