@@ -39,6 +39,7 @@ import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/product")
@@ -426,8 +427,19 @@ public class ProductController {
 	}
 	
 	@GetMapping("/refund")
-	public void refund1() {
+	public void refund1(int no,Model model) {
+		ProductVO vo= productService.getContent(no);
+		model.addAttribute("vo", vo);
 		
+	}
+	@PostMapping("/refund")
+	public String refund(@RequestParam("refundType") String type, String productName, @RequestParam("reasonForRefund") String reason) {
+		System.out.println(type);
+		System.out.println(productName);
+		System.out.println(reason);
+			
+		
+		return"redirect:/";
 	}
 	
 	
