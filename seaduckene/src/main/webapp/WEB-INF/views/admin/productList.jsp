@@ -50,6 +50,7 @@ pageEncoding="UTF-8"%>
 		bottom: 20px;
 		right: 10px;
 	}
+	
     </style>
   </head>
   <body>
