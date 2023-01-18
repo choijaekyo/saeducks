@@ -2,11 +2,8 @@ package kr.co.seaduckene.board;
 
 
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -19,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.seaduckene.board.command.BoardReplyLikeVO;
 import kr.co.seaduckene.board.command.BoardReplyListVO;
 import kr.co.seaduckene.board.command.BoardReplyVO;
 import kr.co.seaduckene.board.service.IBoardReplyLikeService;
 import kr.co.seaduckene.board.service.IBoardReplyService;
-import kr.co.seaduckene.user.command.UserVO;
 
 @RestController
 @RequestMapping("/reply")

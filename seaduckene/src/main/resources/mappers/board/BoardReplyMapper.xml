@@ -12,21 +12,25 @@
 	</insert>
 	
   	<select id="getList" resultType="boardReplyList">
-	<![CDATA[
+	<![CDATA[	
 	SELECT * FROM
- 	  	(
-	  	SELECT ROWNUM AS rn, tbl.* FROM
-			 (
-                SELECT * FROM reply r
-                LEFT JOIN duck_user du
-                ON r.reply_user_no = du.user_no
-                WHERE r.reply_board_no = #{bno}
-                ORDER BY r.reply_no DESC
-              ) tbl
-        )
-		WHERE rn > (#{paging.pageNum}-1) * #{paging.cpp}
-		AND rn <= #{paging.pageNum} * #{paging.cpp}
- 	 ]]>
+	(
+	SELECT ROWNUM AS rn, 
+	tbl.reply_no, tbl.reply_content, tbl.reply_reg_date, tbl.reply_up_date, tbl.reply_board_no, tbl.reply_user_no,
+	tbl2.user_no, tbl2.user_nickname, 
+	(SELECT COUNT(*) FROM replylike WHERE like_reply_no = tbl.reply_no AND like_state = 1) AS like_count FROM
+	     (
+	        SELECT * FROM reply r
+	        WHERE r.reply_board_no = #{bno}
+	      ) tbl,
+	      (
+	        SELECT * FROM duck_user du
+	      ) tbl2
+	WHERE tbl.reply_user_no = tbl2.user_no
+	)
+	WHERE rn > (#{paging.pageNum}-1) * #{paging.cpp}
+	AND rn <= #{paging.pageNum} * #{paging.cpp}
+ 	]]>
   </select>
   
   <select id="getTotal" resultType="int">

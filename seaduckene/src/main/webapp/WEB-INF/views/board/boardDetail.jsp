@@ -288,7 +288,7 @@
 					<div class="d-flex align-items-center mb-3"></div>
 						<div class="reply-content"> <strong class='left'>`+ replyList[i].userNickname +`</strong> &nbsp&nbsp&nbsp
 							<small class='left'>` + timeStamp(replyList[i].replyRegDate) + `</small>
-							<a id="likeBtn" href="#"><img src="${pageContext.request.contextPath}/resources/img/like.png" width="20px" ackground-size="contain"></a>
+							<a id="likeBtn" href="#"><img src="${pageContext.request.contextPath}/resources/img/like.png" width="20px" ackground-size="contain"></a><p>`+ replyList[i].likeCount +`</p>
 							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem;">` + replyList[i].replyContent.replaceAll('\r', '<br>') + `</p></a>
 						</div>
 					
