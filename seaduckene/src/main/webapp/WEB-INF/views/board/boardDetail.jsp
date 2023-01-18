@@ -299,9 +299,9 @@
 							
 						for (let j = 0; j < like.length; j++) {
 							if (replyList[i].replyNo == like[j].likeReplyNo && like[j].likeState == 1) {
-								strAdd += `<img src="${pageContext.request.contextPath}/resources/img/like2.png" width="20px" ackground-size="contain">`;
+								strAdd += `<img src="${pageContext.request.contextPath}/resources/img/like2.png" width="20px" ackground-size="contain"><p>`+ replyList[i].likeCount +`</p>`;
 							} else {
-								strAdd += `<img src="${pageContext.request.contextPath}/resources/img/like.png" width="20px" ackground-size="contain">`;
+								strAdd += `<img src="${pageContext.request.contextPath}/resources/img/like.png" width="20px" ackground-size="contain"><p>`+ replyList[i].likeCount +`</p>`;
 							}
 							
 						}  strAdd += 
@@ -325,7 +325,6 @@
 			
 			if ('${login.userNickname}' === $(this)[0].parentNode.firstElementChild.textContent){
 				const replyNo = $(this).data('replyNo');
-				console.log("바보 아님" + replyNo);
 				$('#modalRno').val(replyNo);
 				$('#modalReply').val($(this).text());
 				$('#replyModal').modal('show');
@@ -360,16 +359,20 @@
 			        	 } else {
 			        		 e.target.setAttribute('src', '${pageContext.request.contextPath}/img/like.png');
 			        	 }
-			          
-			          
 			         } //end function
-			      
 			      ); //end getJSON()
+<<<<<<< HEAD
+=======
 			
+>>>>>>> refs/remotes/origin/gyu
 		}) //좋아요 event click end.
+<<<<<<< HEAD
+
+=======
 		
 		
 		
+>>>>>>> refs/remotes/origin/gyu
 		$('#modalModBtn').click(function() {
 			
 			const reply = $('#modalReply').val();
@@ -404,10 +407,7 @@
 				error: function() {
 					alert('수정에 실패했습니다. 관리자에게 문의하세요!');
 				}
-				
 			}); //end ajax(수정) 
-			
-		
 		}); //modalModBtn click event 수정 끝.
 		
 		
