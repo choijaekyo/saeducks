@@ -1282,9 +1282,14 @@ let nicknameCheck = true;
 			$('#userEmail').focus();
 			alert('이메일을 다시 확인하세요.');
 			return;
+		} else if ($('#userEmail').val().trim() != '' && $('#emailConf').css('display') === 'none') {
+			hidePwModal();
+			$('#userEmail').focus();
+			alert('이메일을 인증하세요.');
+			return;
 		}
 		
-		// 주소가 null 인 상태로 주소록 모달 창을 닫을 수가 없으니까 null 체크 안해도 됨.
+		// 주소가 null 인 상태로 주소록 모달 창을 닫을 수가 없으니까 주소는 null 체크 안해도 됨.
 		
 		if ($('#emailConf').css('display') === 'block' && $('#confBtn').css('display') !== 'none') {
 			$('#email-auth-code').focus();
