@@ -85,7 +85,7 @@ pageEncoding="UTF-8"%>
                     <tbody>
                       <tr>
                         <td>${li.productNo }</td>
-                        <td class="border-start">${li.productName }</td>
+                        <td class="border-start"><a href="${pageContext.request.contextPath }/product/productDetail?productNo=${li.productNo }">${li.productName} </a> </td>
                         <td class="border-start">${li.productPriceNormal }</td>
                         <td class="border-start">${li.productPriceSelling }</td>
                         <td class="border-start">${li.productStock }</td>

@@ -42,6 +42,7 @@
   	<div class="container w-100 m-auto">
       <div class="row">
 	      <div class="col text-center">
+	      	<a class="btn btn-warning" href="<c:url value='/' />">홈으로</a>
 	      	<a class="btn btn-primary" href="<c:url value='/product/createProduct' />">상품등록</a>
 	      	<a class="btn btn-primary" href="<c:url value='/admin/productList' />">상품목록</a>
 		    <a class="btn btn-success" href="<c:url value='/admin/NoticeAddPage' />">공지등록</a>
