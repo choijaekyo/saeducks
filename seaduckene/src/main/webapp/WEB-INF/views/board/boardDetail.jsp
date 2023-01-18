@@ -361,18 +361,9 @@
 			        	 }
 			         } //end function
 			      ); //end getJSON()
-<<<<<<< HEAD
-=======
-			
->>>>>>> refs/remotes/origin/gyu
-		}) //좋아요 event click end.
-<<<<<<< HEAD
 
-=======
-		
-		
-		
->>>>>>> refs/remotes/origin/gyu
+		}) //좋아요 event click end.
+
 		$('#modalModBtn').click(function() {
 			
 			const reply = $('#modalReply').val();
