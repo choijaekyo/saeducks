@@ -2,6 +2,7 @@ package kr.co.seaduckene.board;
 
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,9 +54,15 @@ public class boardReplyController {
 		map.put("list", list);
 		map.put("total", total);
 		
-		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
-		List<BoardReplyLikeVO> like = lService.listLike(userNo);
-		map.put("like", like);
+		if (session.getAttribute("login") != null) {
+			int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
+			List<BoardReplyLikeVO> like = lService.listLike(userNo);
+			System.out.println(like);
+			if (like == null) {
+				like = new ArrayList<BoardReplyLikeVO>();
+			}
+			map.put("like", like);
+		}
 		
 		
 		//reply마다 좋아요의 총 개수, 눌렀는지 누르지 않았는지 좋아요 인식,
