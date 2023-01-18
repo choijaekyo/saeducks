@@ -268,10 +268,10 @@
 						console.log("total "+ total);
 						console.log("reply ", replyList);
 						console.log("like" , like);
-						console.log("like" , like[0].likeNo);
+					/* 	console.log("like" , like[0].likeNo);
 						console.log("like" , like[0].likeReplyNo);
 						console.log("like" , like[0].likeUserNo);
-						console.log("like" , like[0].likeState);
+						console.log("like" , like[0].likeState); */
 						
 						if(reset) {
 							strAdd = '';
@@ -296,25 +296,28 @@
 							<small class='left'>` + timeStamp(replyList[i].replyRegDate) + `</small>
 							<a id="likeBtn" href="#">`;
 							
+							let likeSuccess = `<img class="classlikeBtn" src="${pageContext.request.contextPath}/resources/img/like.png" width="20px"><span>`+ replyList[i].likeCount +`</span>`;
 							
-						for (let j = 0; j < like.length; j++) {
-							if (replyList[i].replyNo == like[j].likeReplyNo && like[j].likeState == 1) {
-								strAdd += `<img src="${pageContext.request.contextPath}/resources/img/like2.png" width="20px" ackground-size="contain"><p>`+ replyList[i].likeCount +`</p>`;
-							} else {
-								strAdd += `<img src="${pageContext.request.contextPath}/resources/img/like.png" width="20px" ackground-size="contain"><p>`+ replyList[i].likeCount +`</p>`;
+							if (like != null) {
+								for (let j = 0; j < like.length; j++) {
+									if (replyList[i].replyNo == like[j].likeReplyNo && like[j].likeState == 1) {
+										likeSuccess = `<img class="classlikeBtn" src="${pageContext.request.contextPath}/resources/img/like2.png" width="20px"><span>`+ replyList[i].likeCount +`</span>`;
+										break;
+									}
+									
+								}
 							}
-							
-						}  strAdd += 
-							`</a>
+						  strAdd += 
+							likeSuccess +`</a>
+				 		<input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
 							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem;">` + replyList[i].replyContent.replaceAll('\r', '<br>') + `</p></a>
 						</div>
 					
 				</div>
-				 <input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
 				 <input type="hidden" id="hiddenUserNo" name="userNo" value="`+ replyList[i].userNo +`">
 				`; 
 						}	
-						const replyNo = document.getElementsByClassName("hiddenReplyNo");
+						
 						$('#replyList').html(strAdd);
 					}		
 			)
@@ -332,19 +335,23 @@
 			
 		}); //rpleyList click event 끝.
 		
-		
-		
 		$('#replyList').on('click', '#likeBtn', function(e) {
+			e.preventDefault();
+		});
+		
+		$('#replyList').on('click', '.classlikeBtn', function(e) {
 			e.preventDefault();
 			console.log('좋아요!');
 			console.log(e.target);
 			
 			let str = '';
 			const userNo = '${login.userNo}';
-			const replyNo = document.getElementsByClassName("hiddenReplyNo");
-
+			const replyNo = this.parentNode.nextElementSibling.value;
+			let span = this.nextElementSibling;
+			
+			console.log("replyNo의 값 : ", replyNo);
+			console.log("this.nextElementSibling : " , this.nextElementSibling);
 			console.log("userNo의 값 : " + userNo);
-			console.log("replyNo의 값 : " + replyNo);
 			console.log("str의 값 : " + str);
 			if(userNo==''){
 				alert('좋아요기능은 로그인이 필요합니다');
@@ -355,24 +362,20 @@
 			         function(result) {
 			        	 if(result === 1) {
 			        		 e.target.setAttribute('src', '${pageContext.request.contextPath}/img/like2.png');
-			        		 
+			        		 span.textContent = +span.textContent + 1;
+			        		 console.log("span.textContent : ",span.textContent);
 			        	 } else {
 			        		 e.target.setAttribute('src', '${pageContext.request.contextPath}/img/like.png');
+			        		 span.textContent = +span.textContent - 1;
+			        		 console.log("span.textContent : ",span.textContent);
+			        		
 			        	 }
+			        	 
 			         } //end function
 			      ); //end getJSON()
-<<<<<<< HEAD
-=======
-			
->>>>>>> refs/remotes/origin/gyu
-		}) //좋아요 event click end.
-<<<<<<< HEAD
 
-=======
-		
-		
-		
->>>>>>> refs/remotes/origin/gyu
+		}) //좋아요 event click end.
+
 		$('#modalModBtn').click(function() {
 			
 			const reply = $('#modalReply').val();
