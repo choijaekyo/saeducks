@@ -39,6 +39,7 @@ import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/product")
@@ -273,7 +274,7 @@ public class ProductController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("major", major);
 		map.put("minor", minor);
-		
+		System.out.println("파일 들어왓니:"+thumb.getSize());
 		int cnum = productService.getCNum(map);
 		vo.setProductCategoryNo(cnum);
 		System.out.println(vo);
@@ -281,7 +282,9 @@ public class ProductController {
 		map.put("vo", vo);
 		productService.updateProduct(vo);
 		
-		if(thumb.getSize() != 0) {
+
+		if(thumb.getSize() !=0) {
+
 			List<ProductImageVO> iList = productService.getImg(vo.getProductNo());
 			
 			for (ProductImageVO ivo2 : iList) {
@@ -425,8 +428,22 @@ public class ProductController {
 	}
 	
 	@GetMapping("/refund")
-	public void refund1() {
+	public void refund1(int no,Model model) {
+		ProductVO vo= productService.getContent(no);
+		model.addAttribute("vo", vo);
 		
+	}
+	@PostMapping("/refund")
+	public String refund(@RequestParam("refundType") String type, int productNo, @RequestParam("reasonForRefund") String reason) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("productNo",productNo);
+		map.put("reason", reason);
+		productService.refund(map);
+			
+		
+		return"redirect:/";
 	}
 	
 	

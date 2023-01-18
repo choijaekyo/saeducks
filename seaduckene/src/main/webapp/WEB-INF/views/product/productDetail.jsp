@@ -90,7 +90,9 @@
 							id="cartBtn">
 							<i class="bi-cart-fill me-1"></i> Add to cart
 						</button>
-						<a href="<c:url value="/product/modifyProduct?no=${vo.productNo }"/>">수정</a>
+						<c:if test="${admin != null }">
+							<a href="<c:url value="/product/modifyProduct?no=${vo.productNo }"/>">수정</a>
+						</c:if>
 					</div>
 				</div>
 			</div>

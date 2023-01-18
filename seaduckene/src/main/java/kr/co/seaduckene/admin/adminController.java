@@ -2,6 +2,8 @@ package kr.co.seaduckene.admin;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,13 @@ public class adminController {
 
 	// 관리자 로그인페이지
 	@GetMapping("/adminLogin")
-	public void adminLogin() {}
+	public String adminLogin(HttpSession session) {
+		
+		if(session.getAttribute("admin")==null) {
+			return"/admin/adminLogin";
+		}
+		return"/admin/adminMain";
+	}
 	
 	// 관리자 로그인
 	@PostMapping("/adminLoginAuth")

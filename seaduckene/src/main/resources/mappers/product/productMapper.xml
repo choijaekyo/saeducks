@@ -214,5 +214,9 @@
 	<delete id="delProduct">
 		DELETE FROM product WHERE product_no=#{no}
 	</delete>
+	
+	<update id="refund">
+		UPDATE duck_order SET order_status=#{type},order_return_reason=#{reason} WHERE order_product_no=#{productNo}
+	</update>
 </mapper>
     
