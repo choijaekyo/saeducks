@@ -128,6 +128,12 @@
 
             <ul class="nav login-box">
             <c:choose>
+            <c:when test="${admin!=null }">
+            	<li class="nav-item"><a href="<c:url value='#' />"
+                  class="nav-link link-dark px-2">관리자접속중</a></li>
+               <li class="nav-item"><a href="<c:url value='/admin/adminMain' />"
+                  class="nav-link link-dark px-2">관리자메인</a></li>
+            </c:when>
             <c:when test="${login == null}">
                <li class="nav-item"><a href="<c:url value='/user/userLogin' />"
                   class="nav-link link-dark px-2">Login</a></li>

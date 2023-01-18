@@ -19,11 +19,36 @@
 <link
 	href="${pageContext.request.contextPath }/resources/css/createProduct.css"
 	rel="stylesheet">
+	
+	<style>
+	
+		a#main {
+			display: block;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background: tomato;
+			text-align: center;
+			line-height: 50px;
+			margin-right: 20px;
+			text-decoration: none;
+			color: white;
+			
+			position: fixed;
+			bottom: 20px;
+			right: 10px;
+		}
+		body{
+			background-color:#fff9d6;
+		}
+	
+	</style>
+	<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js" ></script>
 </head>
 <body>
-	<%@ include file="../include/header.jsp"%>
+	
 
-	<section class="py-5">
+	<section class="py-5" style="margin-top:100px;">
 		<div class="col-md-12">
 			<h1 class="add-product-title h1 ">상품수정</h1>
 		</div>
@@ -162,7 +187,8 @@
 			</div>
 		</div>
 	</section>
-	<%@ include file="../include/footer.jsp"%>
+	<a id="main" href="<c:url value='/admin/adminMain'/>" >main</a>
+	
 
 </body>
 </html>
@@ -199,7 +225,74 @@
 				$('.modifyImg').css('display', 'none');
 			}
 
-		})
+		});
+				
+		// 썸네일 이미지파일 제한
+        $('#thumbnailImg').change(function(e) {
+     	
+       		console.log(this.files[0]);
+       		if (this.files[0]) {
+				if (!this.files[0].type.includes('image/')) {
+					alert("이미지 파일만 등록 가능합니다.");
+					const dt = new DataTransfer();
+					this.files = dt.files;
+					return;
+				}
+			}
+		
+		});
+        
+        // 상품 이미지파일 제한
+        $('#productImg').change(function(e) {
+        	if (this.files.length > 2) {
+				alert('상품이미지는 최대 2개까지만 선택하세요!');
+				
+				const dt = new DataTransfer();
+				this.files = dt.files;
+				return;
+			}
+        	
+     	
+			for (let i = 0; i < this.files.length; i++) {
+        		console.log(this.files[i].type);
+        		if (this.files[i]) {
+					if (!this.files[i].type.includes('image/')) {
+						alert("이미지 파일만 등록 가능합니다.");
+						const dt = new DataTransfer();
+						this.files = dt.files;
+						return;
+					}
+        		}
+			}	
+		
+		});
+        
+        // 썸네일 이미지파일 제한
+        $('#thumbnailImg').change(function(e) {
+     	
+       		console.log(this.files[0]);
+       		if (this.files[0]) {
+				if (!this.files[0].type.includes('image/')) {
+					alert("이미지 파일만 등록 가능합니다.");
+					const dt = new DataTransfer();
+					this.files = dt.files;
+					return;
+				}
+			}
+		
+		});
+        
+        $('form').on('blur', 'input[name^=productPrice]', function(e) {
+        	const salePrice = $('#salePrice').val();
+        	const realPrice = $('#realPrice').val();
+    	    if (salePrice != '' && realPrice != '') {
+        	
+	        	if (+(realPrice) < +(salePrice)) {
+					alert('할인가가 판매가를 넘을 수 없습니다.');
+					this.value = '';
+				}
+			}
+        });
 
 	});//end jQuery
 </script>

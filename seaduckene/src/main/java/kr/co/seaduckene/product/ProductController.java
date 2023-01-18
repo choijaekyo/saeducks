@@ -274,7 +274,7 @@ public class ProductController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("major", major);
 		map.put("minor", minor);
-		
+		System.out.println("파일 들어왓니:"+thumb.getSize());
 		int cnum = productService.getCNum(map);
 		vo.setProductCategoryNo(cnum);
 		System.out.println(vo);
@@ -282,7 +282,7 @@ public class ProductController {
 		map.put("vo", vo);
 		productService.updateProduct(vo);
 		
-		if(thumb !=null) {
+		if(thumb.getSize() !=0) {
 			List<ProductImageVO> iList = productService.getImg(vo.getProductNo());
 			
 			for (ProductImageVO ivo2 : iList) {
@@ -331,7 +331,7 @@ public class ProductController {
 		}
 		
 
-		return "redirect:/product/createProduct";	 
+		return "redirect:/admin/adminMain";	 
 	}
 	
 	@GetMapping("/mainDisplayImg")
