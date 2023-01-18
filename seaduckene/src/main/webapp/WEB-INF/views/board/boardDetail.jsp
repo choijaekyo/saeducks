@@ -310,11 +310,11 @@
 						</div>
 					
 				</div>
-				 <input type="hidden" id="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
+				 <input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
 				 <input type="hidden" id="hiddenUserNo" name="userNo" value="`+ replyList[i].userNo +`">
 				`; 
 						}	
-						
+						const replyNo = document.getElementsByClassName("hiddenReplyNo");
 						$('#replyList').html(strAdd);
 					}		
 			)
@@ -342,7 +342,7 @@
 			
 			let str = '';
 			const userNo = '${login.userNo}';
-			const replyNo = document.getElementById("hiddenReplyNo").value;
+			const replyNo = document.getElementsByClassName("hiddenReplyNo");
 
 			console.log("userNo의 값 : " + userNo);
 			console.log("replyNo의 값 : " + replyNo);
