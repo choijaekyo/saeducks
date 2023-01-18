@@ -43,4 +43,22 @@ public class AdminServiceImpl implements IAdminService {
 		map.put("keyword", keyword);
 		return adminMapper.usersSearch(map);
 	}
+	
+	@Override
+	public void insertInvoice(String invoiceNum, String orderNum) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("invoiceNum", invoiceNum);
+		map.put("orderNum", orderNum);
+		adminMapper.insertInvoice(map);;
+	}
+	
+	@Override
+	public void cancleOrder(String orderNum) {
+		adminMapper.cancleOrder(orderNum);
+	}
+	
+	@Override
+	public void refund(String orderNum) {
+		adminMapper.refund(orderNum);
+	}
 }

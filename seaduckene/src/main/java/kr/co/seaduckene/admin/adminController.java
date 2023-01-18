@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
@@ -61,4 +62,29 @@ public class adminController {
 		model.addAttribute("list" , list);
 	}	
 	
+	//송장번호 등록
+	@GetMapping("/invoice")
+	public String insertInvoice(String invoiceNum, String orderNum, RedirectAttributes ra) {
+		System.out.println("송장번호:" + invoiceNum);
+		System.out.println("주문번호:" + orderNum);
+		service.insertInvoice(invoiceNum, orderNum);
+		ra.addFlashAttribute("msg", "done");
+		return "redirect:/admin/userSearch";
+	}
+	
+	// 주문취소
+	@GetMapping("/cancle")
+	public String cancleOrder(String orderNum, RedirectAttributes ra) {
+		service.cancleOrder(orderNum);
+		ra.addFlashAttribute("msg", "cancle");
+		return "redirect:/admin/userSearch";
+	}
+	
+	// 환불처리
+	@GetMapping("/refund")
+	public String refund(String orderNum, RedirectAttributes ra) {
+		service.refund(orderNum);
+		ra.addFlashAttribute("msg", "refund");
+		return "redirect:/admin/userSearch";
+	}
 }

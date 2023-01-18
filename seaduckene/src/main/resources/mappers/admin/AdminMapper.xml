@@ -9,6 +9,7 @@
 		<if test="type == 'name'">WHERE u.user_name LIKE '%'||#{keyword}||'%'</if>
 		<if test="type == 'phone'">WHERE u.user_tel LIKE '%'||#{keyword}||'%'</if>
 		<if test="type == 'orderNum'">WHERE d.order_num LIKE '%'||#{keyword}||'%'</if>
+		<if test="type == 'orderStatus'">WHERE d.order_status LIKE '%'||#{keyword}||'%'</if>
 	</sql>
 	
 	<select id="getAdminVo" resultType="admin">
@@ -27,11 +28,27 @@
 		       d.order_address_zip_num, d.order_address_basic,
 		       d.order_address_detail, d.order_payment_method,
 		       d.order_return_bank, d.order_return_account,
-		       d.order_reg_date
+		       d.order_reg_date,d.order_invoice_no
 		FROM duck_user u
 		INNER JOIN duck_order d
 		ON u.user_no = d.order_user_no
 		<include refid="search" />
 		ORDER BY d.order_reg_date DESC
 	</select>
+	
+	<update id="insertInvoice">
+		UPDATE duck_order SET order_invoice_no = #{invoiceNum},order_status = '배송중'
+		WHERE order_num = #{orderNum}
+	</update>
+	
+		<update id="cancleOrder">
+		UPDATE duck_order SET order_status = '취소완료'
+		WHERE order_num = #{orderNum}
+	</update>
+	
+	<update id="refund">
+		UPDATE duck_order SET order_status = '반품완료'
+		WHERE order_num = #{orderNum}
+	</update>
+	
 </mapper>

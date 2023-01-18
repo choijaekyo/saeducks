@@ -20,4 +20,13 @@ public interface IAdminService {
 	// 유저 정보 검색
 	List<AdminSearchVO> usersSearch(String type, String keyword);
 	
+	// 송장번호 등록 
+	void insertInvoice (String invoiceNum, String orderNum);
+	
+	// 주문취소
+	void cancleOrder (String orderNum);
+	
+	// 환불처리 
+	void refund (String orderNum);
+	
 }
