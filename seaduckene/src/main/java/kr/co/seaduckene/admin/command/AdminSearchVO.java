@@ -37,12 +37,15 @@ public class AdminSearchVO {
 	private int orderPrice;
 	private String orderStatus;
 	private String orderRecipientName;
-	private int orderRecipientTel;
-	private int orderAddressZipNum;
+	private String orderRecipientTel;
+	private String orderAddressZipNum;
 	private String orderAddressBasic;
 	private String orderAddressDetail;
 	private String orderPaymentMethod;
 	private String orderReturnBank;
 	private String orderReturnAccount;
+	private Timestamp orderRegDate;
+	private String orderInvoiceNo;
+	private String orderReturnReason;
 
 }

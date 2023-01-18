@@ -1,6 +1,8 @@
 package kr.co.seaduckene.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +32,16 @@ public class AdminServiceImpl implements IAdminService {
 	}
 	
 	@Override
-	public List<AdminSearchVO> usersSearch(String search) {
-		return adminMapper.usersSearch("%" + search + "%");
+	public List<AdminSearchVO> allOrder() {
+		return adminMapper.allOrder();
+	}
+	
+	@Override
+	public List<AdminSearchVO> usersSearch(String type, String keyword) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		return adminMapper.usersSearch(map);
 	}
 	
 }

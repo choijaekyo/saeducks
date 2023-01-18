@@ -425,5 +425,10 @@ public class ProductController {
 		return "redirect:/user/userMyPage/3";
 	}
 	
+	@GetMapping("/refund")
+	public void refund1() {
+		
+	}
+	
 	
 }

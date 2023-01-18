@@ -127,10 +127,11 @@
     </style>
   </head>
   <body>
+  <%@ include file="../include/header.jsp"%>
   
     <section class="form-signin w-100 m-auto">
       <div class="col-md-12">
-        <h1 class="add-product-title h1">상품등록</h1>
+        <h1 class="add-product-title h1">주문취소/환불신청</h1>
       </div>
       <div class="container">
         <div class="row">
@@ -143,17 +144,11 @@
                 <div class="row">
                   <div class="col-6">
                     <select class="form-select" aria-label="Default select example" name="majorCategory" id="majorCategory" >
-                      <option selected disabled>대 카테고리</option>
-                      <c:forEach var="list" items="${major}">
-                        <option>${list}</option>
-                      </c:forEach>
+                        <option>주문취소</option>
+                        <option>환불신청</option>
                     </select>
                   </div>
-                  <div class="col-6">
-                    <select class="form-select" aria-label="Default select example" name="minorCategory" id="minorCategory" >
-                      <option selected disabled>소 카테고리</option>
-                    </select>
-                  </div>
+             
                 </div>
               </div>
             </div>
@@ -165,49 +160,10 @@
                 <input class="form-control" type="text" name="productName" id="productName" required />
               </div>
             </div>
+           
             <div class="input-group inputArea">
               <div class="col-md-2 offset-md-1 col-sm-12 col-12">
-                <label for="realPrice">판매가</label>
-              </div>
-              <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="text" name="productPriceNormal" id="realPrice" required />
-              </div>
-            </div>
-            <div class="input-group inputArea">
-              <div class="col-md-2 offset-md-1 col-sm-12 col-12">
-                <label for="salePrice">할인가</label>
-              </div>
-              <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="text" name="productPriceSelling" id="salePrice" required pattern="[0-9]+" />
-              </div>
-            </div>
-            <div class="input-group inputArea">
-              <div class="col-md-2 offset-md-1 col-sm-12 col-12">
-                <label for="quantity">재고수량</label>
-              </div>
-              <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="text" name="productStock" id="quantity" required pattern="[0-9]+" />
-              </div>
-            </div>
-            <div class="input-group inputArea">
-              <div class="col-md-2 offset-md-1 col-sm-12 col-12">
-                <label for="thumbnailImg">썸네일이미지</label>
-              </div>
-              <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="file" name="thumbnailImg" id="thumbnailImg" accept="image/*" required />
-              </div>
-            </div>
-            <div class="input-group inputArea">
-              <div class="col-md-2 offset-md-1 col-sm-12 col-12">
-                <label for="productImg">상품이미지(최대2개)</label>
-              </div>
-              <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="file" name="productImg" id="productImg" accept="image/*" multiple="multiple" required />
-              </div>
-            </div>
-            <div class="input-group inputArea">
-              <div class="col-md-2 offset-md-1 col-sm-12 col-12">
-                <label for="productContent">상품설명</label>
+                <label for="productContent">환불사유</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
                 <textarea class="form-control" type="text" name="productDetail" id="productContent" required ></textarea>
@@ -226,82 +182,21 @@
         </div>
       </div>
     </section>
-	<a id="main" href="<c:url value='/admin/adminMain'/>" >main</a>
-	
+    <%@ include file="../include/footer.jsp"%>
+      </body>
     <script>
-      const regprice = /^[0-9]$/;
+      
 
       $(function () {
-        //대카테고리 선택에 이은 소카테고리 분류
-        $("#majorCategory").on("change", function (e) {
-          const major = $(this).val();
-          $("#minorCategory").empty();
-          $.getJSON(
-            '<c:url value="/product/getCategory?major=' + major + '"/>',
-            function (list) {
-              for (let i = 0; i < list.length; i++) {
-                const $option = document.createElement("option");
-                $option.textContent = list[i];
-                $("#minorCategory").append($option);
-              }
-            }
-          ); //endJSON
-        }); //end 소카테고리
         
         
-        $('form').on('blur', 'input[name^=productPrice]', function(e) {
-        	const salePrice = $('#salePrice').val();
-        	const realPrice = $('#realPrice').val();
-    	    if (salePrice != '' && realPrice != '') {
-        	
-	        	if (+(realPrice) < +(salePrice)) {
-					alert('할인가가 판매가를 넘을 수 없습니다.');
-					this.value = '';
-				}
-			}
-        });
         
-        // 썸네일 이미지파일 제한
-        $('#thumbnailImg').change(function(e) {
-     	
-       		console.log(this.files[0]);
-       		if (this.files[0]) {
-				if (!this.files[0].type.includes('image/')) {
-					alert("이미지 파일만 등록 가능합니다.");
-					const dt = new DataTransfer();
-					this.files = dt.files;
-					return;
-				}
-			}
-		
-		});
-        
-        // 상품 이미지파일 제한
-        $('#productImg').change(function(e) {
-        	if (this.files.length > 2) {
-				alert('상품이미지는 최대 2개까지만 선택하세요!');
-				
-				const dt = new DataTransfer();
-				this.files = dt.files;
-				return;
-			}
-        	
-     	
-			for (let i = 0; i < this.files.length; i++) {
-        		console.log(this.files[i].type);
-        		if (this.files[i]) {
-					if (!this.files[i].type.includes('image/')) {
-						alert("이미지 파일만 등록 가능합니다.");
-						const dt = new DataTransfer();
-						this.files = dt.files;
-						return;
-					}
-        		}
-			}	
-		
-		});
+       
         
       }); //end jQuery
     </script>
-  </body>
+    
+
+    
+
 </html>

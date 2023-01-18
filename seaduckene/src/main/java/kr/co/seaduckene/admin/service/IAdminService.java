@@ -14,7 +14,10 @@ public interface IAdminService {
 	// 공지사항 글 쓰기
 	void write(NoticeVO noticeVO);
 	
+	// 모든 주문 확인
+	List<AdminSearchVO> allOrder();
+	
 	// 유저 정보 검색
-	List<AdminSearchVO> usersSearch(String search);
+	List<AdminSearchVO> usersSearch(String type, String keyword);
 	
 }

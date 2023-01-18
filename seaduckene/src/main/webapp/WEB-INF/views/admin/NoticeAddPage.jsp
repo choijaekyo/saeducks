@@ -26,6 +26,27 @@
 	<!-- summernote 추가 -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js" defer></script>
+	
+	<style>
+	
+		a#main {
+			display: block;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background: tomato;
+			text-align: center;
+			line-height: 50px;
+			margin-right: 20px;
+			text-decoration: none;
+			color: white;
+			
+			position: fixed;
+			bottom: 20px;
+			right: 10px;
+		}
+	
+	</style>
    
   </head>
   <body>
@@ -48,7 +69,7 @@
 	  		</div>
 	  	</div>
   	</form>
-  	
+  	<a id="main" href="<c:url value='/admin/adminMain'/>" >main</a>
   	<!-- 스와이프 js -->
 	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   	
@@ -179,5 +200,6 @@
 		}
   	});
   	</script>
+  	
   </body>
 </html>
