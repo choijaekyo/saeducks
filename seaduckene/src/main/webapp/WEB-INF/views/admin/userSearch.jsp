@@ -105,7 +105,7 @@ prefix="c"%>
                         <td class="border-start">${li.orderStatus }</td>
                         <c:choose>
                         	<c:when test="${li.orderInvoiceNo == null}">
-                        		<td class="border-start"><input type="text" name="invoiceNo" class="invoiceNo${li.orderNum }" /><button>등록</button></td>
+                        		<td class="border-start"><input type="text" name="invoiceNo" /><button class="invoiceNo${li.orderNum }">등록</button></td>
                         	</c:when>
                         	<c:otherwise>
                         		<td class="border-start">${li.orderInvoiceNo }</td>
@@ -194,7 +194,7 @@ prefix="c"%>
     	           }
     	         } 
     	       });
-    		
+
     		
 		});
     
