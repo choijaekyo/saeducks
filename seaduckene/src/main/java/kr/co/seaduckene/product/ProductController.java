@@ -433,10 +433,13 @@ public class ProductController {
 		
 	}
 	@PostMapping("/refund")
-	public String refund(@RequestParam("refundType") String type, String productName, @RequestParam("reasonForRefund") String reason) {
-		System.out.println(type);
-		System.out.println(productName);
-		System.out.println(reason);
+	public String refund(@RequestParam("refundType") String type, int productNo, @RequestParam("reasonForRefund") String reason) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("productNo",productNo);
+		map.put("reason", reason);
+		productService.refund(map);
 			
 		
 		return"redirect:/";

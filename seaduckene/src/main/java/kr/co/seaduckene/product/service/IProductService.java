@@ -80,4 +80,7 @@ public interface IProductService {
 
 	// 기존사진 삭제
 	void deleteImage(int num);
+
+	// 환불/주문취소 신청
+	void refund(Map<String, Object> map);
 }

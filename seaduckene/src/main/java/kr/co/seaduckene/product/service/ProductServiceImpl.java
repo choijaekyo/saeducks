@@ -259,4 +259,9 @@ public class ProductServiceImpl implements IProductService {
 		productMapper.delProduct(no);
 		
 	}
+	@Override
+	public void refund(Map<String, Object> map) {
+		productMapper.refund(map);
+		
+	}
 }

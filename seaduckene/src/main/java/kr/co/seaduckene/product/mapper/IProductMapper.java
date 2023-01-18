@@ -98,4 +98,7 @@ public interface IProductMapper {
 	// 유저 삭제 시 유저 정보 삭제
 	void deleteUserAllInfoBasket(int userNo);
 	
+	//환불/주문취소 신청
+	void refund(Map<String, Object> map);
+	
 }

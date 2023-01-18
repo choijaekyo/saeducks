@@ -27,20 +27,20 @@
       
       <div class="container" style="margin-top: 150px; margin-bottom: 150px;">
       <div class="col-md-12">
-        <h1 class="add-product-title h1">주문취소/환불신청</h1>
+        <h1 class="add-product-title h1">주문취소/반품신청</h1>
       </div>
         <div class="row">
           <form action="<c:url value='/product/refund'/>" method="post" class="productForm" enctype="multipart/form-data" >
             <div class="input-group inputArea">
               <div class="col-md-2 offset-md-1 col-sm-12 col-12">
-                <label for="reason">카테고리</label>
+                <label for="reason">주문/반품</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
                 <div class="row">
                   <div class="col-6">
                     <select class="form-select" aria-label="Default select example" name="refundType" id="reason" >
-                        <option>주문취소</option>
-                        <option>환불신청</option>
+                        <option>취소요청</option>
+                        <option>반품요청</option>
                     </select>
                   </div>
              
@@ -64,6 +64,7 @@
                 <textarea class="form-control" type="text" name="reasonForRefund" id="productContent" required ></textarea>
               </div>
             </div>
+            <input type="text" value="${vo.productNo }" style="display: none;" name="productNo"/>
 
             <div class="inputArea input-group">
               <div class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4" >
