@@ -36,6 +36,7 @@
 		<typeAlias type="kr.co.seaduckene.admin.command.AdminVO" alias="admin"/>
 		<typeAlias type="kr.co.seaduckene.admin.command.AdminDateVO" alias="adminDate"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductOrderVO" alias="order"/>
+		<typeAlias type="kr.co.seaduckene.board.command.BoardReplyLikeVO" alias="replyLike"/>
 	</typeAliases>
 	
 	<!-- 인터페이스 mapper 구현체 xml 파일의 경로를 표시하는 태그.

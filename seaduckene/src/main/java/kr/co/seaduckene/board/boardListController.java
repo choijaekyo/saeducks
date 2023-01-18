@@ -152,7 +152,15 @@ public class boardListController {
 			}
 		}
 
-		model.addAttribute("list", service.content(boardNo));
+		/*
+		 * model.addAttribute("list", service.content(boardNo));
+		 */
+	
+		BoardVO board = service.content(boardNo);
+		int categoryNo = board.getBoardCategoryNo();
+
+		model.addAttribute("category",service.getCategory(categoryNo));
+		model.addAttribute("list", board);
 		
 		return "board/boardDetail";
 	}
