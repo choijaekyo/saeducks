@@ -511,15 +511,27 @@
         /* 이메일 확인검사 */
         $('#userEmail').keyup(function() {
         	$(this).css('color', 'black');
-			const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+        	const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
-			if (regex.test($(this).val())) {
-                $(this).css('border', '2px solid rgb(34, 139, 34)');
-				
+			if ($(this).val() === '') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
-                $(this).css('border', '2px solid red');
+				if (regex.test($(this).val())) {
+	                $(this).css('border', '2px solid rgb(34, 139, 34)');
+				} else {
+	                $(this).css('border', '2px solid red');
+				}
 			}
         }); 
+        
+        /*  주소 확인 검사 */
+        $('#addrDetail').keyup(function() {
+			if ($(this).val() === '') {
+				$(this).css('border', '1px solid rgb(206, 212, 218)');
+			} else {
+                $(this).css('border', '2px solid rgb(34, 139, 34)');
+			}
+        });
         
         // 카테고리 추가
         $('#add-category').click(function() {
@@ -577,6 +589,10 @@
 				alert('전화번호를 다시 확인하세요.');
 				$('#userTel').focus();				
 				return;
+			} else if ($('#userEmail').css('border-block-color') === 'rgb(255, 0, 0)') {
+				alert('이메일을 다시 확인하세요.');
+				$('#userEmail').focus();				
+				return;
 			} else {
 				const majors = $('select[name=categoryMajorTitle]');
 				
@@ -617,7 +633,13 @@
 					$('#userEmail').focus();
 					return;
 				} 
-        	}
+        	} else {
+        		if ($('#addrDetail').val() === '' || $('#addrDetail').val() === '' || $('#addrBasic').val() === '') {
+					if (!confirm('쇼핑 서비스의 추가 정보에 이메일과 주소를 설정하지 않으시면 나중에 회원 정보를 찾을 수 없습니다.')) {
+						return;
+					}
+				}
+			}
         	
         	$('#user-join-form').submit();
  		}

@@ -22,7 +22,7 @@
 		<div class="container">
 			<div class="row middleBox">
 				<div class="col-sm-12">
-					<h1 class="find-account h1">비밀번호 찾기</h1>
+					<h1 class="find-Pw h1">비밀번호 찾기</h1>
 				</div>
 				<form class="findPwForm" method="post" action="<c:url value='/user/userFindPw' />">
 					<div class="middleBox col-sm-12">
@@ -44,12 +44,14 @@
 									id="emailConf">
 									<div class="col-md-12 col-sm-12 col-12 beforeConf">
 										<input class="form-control" type="text" name="confNum"
-											id="confNum" placeholder="이메일 인증 코드" required /> <input
+											id="confNum" placeholder="이메일 인증 코드" required /> 
+											<p id="confMailRes"></p>
+											<input
 											class="btn btn-lg " type="button"
 											name="confCheckBtn" id="confCheckBtn" value="인증하기" />
 									</div>
 									<br>
-									<p id="confMailRes"></p>
+									
 								</div>
 								<div>
 									<label></label>
@@ -73,12 +75,13 @@
 
 <script>
 	$(function() {
-		$('#userFindAccount').on('click', '.radio', function(e) {
-			if ($(this).data('check') == 1) {
-				$('.description-1').css('display', 'inline');
-				$('.description-2').css('display', 'none');
-			}
-		}); 
+
+		const msg = '${msg}';
+		console.log('msg:' + msg);
+		if(msg === 'noUser'){
+			alert('입력하신 정보와 일치하는 계정이 없습니다.\n정확한 정보를 확인하신 후 재 시도 부탁드립니다. \n 서비스 이용 시 이메일 인증을 받지 않은 경우 \n 아이디 찾기가 어려운 점 양해 부탁드리며, \n 재가입 부탁드립니다.');
+		}
+		
 		
 		// 인증번호 이메일 전송
 		let authCode = '';

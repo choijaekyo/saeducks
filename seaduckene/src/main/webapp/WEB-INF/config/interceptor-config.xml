@@ -14,6 +14,7 @@
 	<bean id="userLoginVerifHandler" class="kr.co.seaduckene.util.interceptor.UserLoginVerifHandler" />
 	<bean id="autoLoginHandler" class="kr.co.seaduckene.util.interceptor.AutoLoginHandler" />
 	<bean id="adminLoginSuccessHandler" class="kr.co.seaduckene.util.interceptor.AdminLoginSuccessHandler" />
+	<bean id="adminLoginAccessHandler" class="kr.co.seaduckene.util.interceptor.AdminLoginAccessHandler" />
 	
 	<mvc:interceptors>
 
@@ -49,6 +50,12 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/adminLoginAuth" />
 			<ref bean="adminLoginSuccessHandler" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/product/createProduct" />
+			<mvc:mapping path="/admin/**" />
+			<ref bean="adminLoginAccessHandler" />
 		</mvc:interceptor>
 		
 	</mvc:interceptors>

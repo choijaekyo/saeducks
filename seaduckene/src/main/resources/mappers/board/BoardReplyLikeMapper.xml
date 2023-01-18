@@ -5,7 +5,31 @@
 
 <mapper namespace="kr.co.seaduckene.board.mapper.IBoardReplyLikeMapper">
 	
+	<select id="searchLike" resultType="replyLike">
+		SELECT * FROM replyLike
+		WHERE like_reply_no = #{likeReplyNo}
+		AND like_user_no = #{likeUserNo}
+	</select>
 	
+	<insert id="createLike">
+		INSERT INTO replyLike
+		(like_no,like_reply_no,like_user_no)
+		VALUES
+		(reply_like_no_seq.NEXTVAL,#{likeReplyNo},#{likeUserNo})
+	</insert>
+	
+	<update id="deleteLike">
+		UPDATE replyLike SET like_state=0 WHERE like_no=#{no}
+	</update>
+	
+	<update id="makeLike">
+		UPDATE replyLike SET like_state=1 WHERE like_no=#{no}
+	</update>
+	
+	<select id="listLike" resultType="int">
+		SELECT FROM replyLike
+		WHERE like_user_no = #{likeUserNo}
+	</select>
 	
 </mapper>
 

@@ -172,4 +172,9 @@
 		DELETE FROM favorite WHERE favorite_user_no = #{userNo}
 	</delete>
 	
+	<select id="checkUser" resultType="int">
+		SELECT COUNT(*) FROM duck_user
+		WHERE user_id = #{userId} AND user_email = #{userEmail}
+	</select>
+	
 </mapper>

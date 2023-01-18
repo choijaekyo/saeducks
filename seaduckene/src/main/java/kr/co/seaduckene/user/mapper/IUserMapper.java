@@ -83,4 +83,7 @@ public interface IUserMapper {
 
 	// 유저 삭제 시 유저 정보 삭제
 	void deleteUserAllInfofavorite(int userNo);
+	
+	// 비밀번호 찾기 유저정보 확인
+	int checkUser(Map<String, Object> map);
 }

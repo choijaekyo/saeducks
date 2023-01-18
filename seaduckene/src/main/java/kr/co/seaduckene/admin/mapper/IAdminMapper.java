@@ -1,6 +1,7 @@
 package kr.co.seaduckene.admin.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
@@ -14,6 +15,10 @@ public interface IAdminMapper {
 	// 공지사항 글 쓰기
 	void write(NoticeVO noticeVO);
 	
+	// 모든 주문 확인
+	List<AdminSearchVO> allOrder();
+	
 	// 유저 정보 검색
-	List<AdminSearchVO> usersSearch(String search);
+	List<AdminSearchVO> usersSearch(Map<String, Object> map);
+	
 }

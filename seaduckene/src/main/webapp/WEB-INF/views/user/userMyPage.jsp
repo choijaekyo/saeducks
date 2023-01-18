@@ -169,6 +169,11 @@
 		                		<button type="button" onclick="showAddressModal()" class="btn btn-outline-success">주소록 확인</button>
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
+							            <c:if test="${user.userEmail == null}">
+							            	<br>
+							            	<span style="color: red;">*이메일을 등록하지 않으면 아이디나 비밀번호를 분실 시 찾을 수 없습니다.</span>
+							            	<br>
+							            </c:if>
 				                        <input name="userEmail" class="form-control join-input" type="text" placeholder="이메일" value="${user.userEmail}" id="userEmail" />
 				                    </div>
 		                		</div>	
@@ -195,6 +200,10 @@
 							               <h4 class="modal-title mx-auto">주소록</h4> 
 							            </div>
 							            <div class="modal-body myPage-modal-body" id="address-outter"> 
+							            <c:if test="${userAddrList.size() == 0}">
+							            	<h4>등록하신 주소가 없습니다.</h4>
+							            </c:if>
+							            <c:if test="${userAddrList.size() != 0}">
 						                      <c:forEach var="addr" items="${userAddrList}" varStatus="status">
 						                        <div class="address-infos div-address" data-index="${status.count}">
 						                        	<hr>
@@ -222,11 +231,12 @@
 													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
 													<c:if test="${status.index != 0}">
 														<input type="button" class="btn btn-sm btn-b btn-danger address-del" value="삭제">
-						                        	</c:if>
+													</c:if>
 													 <br>
 						                        </div>
 						                        <br>
 						                     </c:forEach> 
+							            </c:if>
 							            </div>
 							            <hr class="btn-hr">
 							            <div class="modal-footer myPage-modal-footer">
@@ -801,7 +811,7 @@ let nicknameCheck = true;
         	$(this).css('color', 'black');
         	const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
-			if ($(this).val() === '${user.userEmail}') {
+			if ($(this).val() === '${user.userEmail}' || $(this).val() === '') {
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
 				if (regex.test($(this).val())) {
@@ -814,7 +824,7 @@ let nicknameCheck = true;
         
         /*  주소 확인 검사 */
         $('#addrDetail').keyup(function() {
-			if ($(this).val() === '${userAddrList[0].addressDetail}') {
+			if ($(this).val() === '${userAddrList[0].addressDetail}' || $(this).val() === '') {
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
@@ -1272,7 +1282,21 @@ let nicknameCheck = true;
 			$('#userEmail').focus();
 			alert('이메일을 다시 확인하세요.');
 			return;
+		} else if ($('#userEmail').val().trim() != '' && $('#emailConf').css('display') === 'none') {
+			hidePwModal();
+			$('#userEmail').focus();
+			alert('이메일을 인증하세요.');
+			return;
 		}
+		
+		// 주소가 null 인 상태로 주소록 모달 창을 닫을 수가 없으니까 주소는 null 체크 안해도 됨.
+		
+		if ($('#emailConf').css('display') === 'block' && $('#confBtn').css('display') !== 'none') {
+			$('#email-auth-code').focus();
+			alert('이메일을 인증하세요.');
+			return;
+		}
+			
 		
 		/* if (true) {
 			

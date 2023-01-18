@@ -10,7 +10,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, 그리고 Bootstrap 기여자들">
 <meta name="generator" content="Hugo 0.104.2">
-<title>Signin Template · Bootstrap v5.2</title>
+<title>세덕이네 관리자 페이지</title>
 
 <link rel="canonical"
 	href="https://getbootstrap.kr/docs/5.2/examples/sign-in/">
@@ -132,7 +132,7 @@
 		</form>
 	</main>
 
-
+	
 
 
 

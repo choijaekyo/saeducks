@@ -11,10 +11,9 @@
 <div class="container"> 
 	<div class="card" style="width: 18rem;" id="board-detail-card">
 		<div class="card-body" id="board-detail-card-body">
-			<h5 class="card-title">~~게시판 입니다.</h5>
-			<p class="card-text">~~게시판에 걸맞는 글을 작성해 주세요.</p>
-			<button id="board-detail-card-body-button" type="button"
-				class="btn btn-primary HomeButtonController">Home</button>
+			<h5 class="card-title">${category.categoryMinorTitle}게시판 입니다.</h5>
+			<p class="card-text">${category.categoryMinorTitle}게시판 규칙을 꼭 지켜주세요!</p>
+			<button id="board-detail-card-body-button" type="button" class="btn btn-primary HomeButtonController">Home</button>
 		</div>
 	</div>
 </div>
@@ -177,6 +176,7 @@
 
 <script>
 
+
 	$(document).ready(function() {
 		
 		console.log('카테고리 번호' + '${list.boardCategoryNo}');
@@ -230,13 +230,13 @@
 		});//댓글 등록 이벤트 끝.
 		
 		//댓글 등록 키 이벤트
-		$('#reply').keyup(function(e) {
+	/* 	$('#reply').keyup(function(e) {
 			if(e.key === 'Enter') {
 				$('#replyRegist').click();
 			} else {
 				return;
 			}
-		}); //키이벤트 끝
+		}); //키이벤트 끝 */
 		
 		//더보기 이벤트
 		$('#moreList').click(function() {
@@ -288,11 +288,15 @@
 					<div class="d-flex align-items-center mb-3"></div>
 						<div class="reply-content"> <strong class='left'>`+ replyList[i].userNickname +`</strong> &nbsp&nbsp&nbsp
 							<small class='left'>` + timeStamp(replyList[i].replyRegDate) + `</small>
+							<a id="likeBtn" href="#"><img src="${pageContext.request.contextPath}/resources/img/like.png" width="20px" ackground-size="contain"></a>
 							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem;">` + replyList[i].replyContent.replaceAll('\r', '<br>') + `</p></a>
 						</div>
 					
-				</div>`; 
-						}
+				</div>
+				 <input type="hidden" id="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
+				 <input type="hidden" id="hiddenUserNo" name="userNo" value="`+ replyList[i].userNo +`">
+				`; 
+						}	
 						
 						$('#replyList').html(strAdd);
 					}		
@@ -311,6 +315,52 @@
 				}
 			
 		}); //rpleyList click event 끝.
+		
+		
+		
+		$('#replyList').on('click', '#likeBtn', function(e) {
+			e.preventDefault();
+			console.log('좋아요!');
+			console.log(e.target);
+			
+			let str = '';
+			const userNo = '${login.userNo}';
+			const replyNo = document.getElementById("hiddenReplyNo").value;
+
+			console.log("userNo의 값 : " + userNo);
+			console.log("replyNo의 값 : " + replyNo);
+			console.log("str의 값 : " + str);
+			if(userNo==''){
+				alert('좋아요기능은 로그인이 필요합니다');
+				return;
+			}
+			$.getJSON(
+			         '<c:url value="/snsBoard/likeUpdate?likeUserNo=' + userNo + '&likeReplyNo=' + replyNo + '"/>',
+			         function(result) {
+			        	 if(result === 1) {
+			        		 e.target.setAttribute('src', '${pageContext.request.contextPath}/img/like2.png');
+			        	 } else {
+			        		 e.target.setAttribute('src', '${pageContext.request.contextPath}/img/like.png');
+			        	 }
+			          
+			          
+			         } //end function
+			      
+			      ); //end getJSON()
+			
+			
+			
+			
+			
+			
+			
+		
+		
+		}) //좋아요 event click end.
+		
+
+		
+		
 		
 		$('#modalModBtn').click(function() {
 			
@@ -352,6 +402,7 @@
 		
 		}); //modalModBtn click event 수정 끝.
 		
+		
 		$('#modalDelBtn').click(function() {
 			
 			const replyNo = $('#modalRno').val();
@@ -373,11 +424,6 @@
 				}
 				
 			}) //ajax 끝.
-			
-			
-			
-			
-			
 			
 		}) //modalDelBtn click event 끝.
 		
