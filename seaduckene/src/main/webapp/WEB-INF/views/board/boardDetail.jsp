@@ -308,7 +308,6 @@
 			
 			if ('${login.userNickname}' === $(this)[0].parentNode.firstElementChild.textContent){
 				const replyNo = $(this).data('replyNo');
-				console.log("바보 아님" + replyNo);
 				$('#modalRno').val(replyNo);
 				$('#modalReply').val($(this).text());
 				$('#replyModal').modal('show');
@@ -342,26 +341,10 @@
 			        	 } else {
 			        		 e.target.setAttribute('src', '${pageContext.request.contextPath}/img/like.png');
 			        	 }
-			          
-			          
 			         } //end function
-			      
 			      ); //end getJSON()
-			
-			
-			
-			
-			
-			
-			
-		
-		
 		}) //좋아요 event click end.
-		
 
-		
-		
-		
 		$('#modalModBtn').click(function() {
 			
 			const reply = $('#modalReply').val();
@@ -396,10 +379,7 @@
 				error: function() {
 					alert('수정에 실패했습니다. 관리자에게 문의하세요!');
 				}
-				
 			}); //end ajax(수정) 
-			
-		
 		}); //modalModBtn click event 수정 끝.
 		
 		
