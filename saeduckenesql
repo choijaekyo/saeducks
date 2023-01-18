@@ -380,22 +380,3 @@ WHERE u.user_name LIKE '%최재교%';
 INSERT INTO duck_order 
 VALUES (order_seq.NEXTVAL, 1, '202301161111', 1, sysdate, 1, 3000, '배송중', '임인규', 01067883798, 70587, '서울시 용산구', '용산대로 23 1층', '카드결제', '농협', '10101010101');
 commit;
-
-
-SELECT * FROM
-(
-SELECT ROWNUM AS rn, tbl.*, tbl2.*, (SELECT COUNT(*) FROM replylike WHERE like_reply_no = 1 AND like_state = 1) AS like_count FROM
-     (
-        SELECT * FROM reply r
-        WHERE r.reply_board_no = 24
-      ) tbl,
-      (
-        SELECT * FROM duck_user du
-      ) tbl2
-WHERE tbl.reply_user_no = tbl2.user_no
-) 
-WHERE rn > 0
-AND rn <= 9;
-
---LEFT JOIN replylike rl
---        ON r.reply_no = rl.like_reply_no
