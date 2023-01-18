@@ -56,6 +56,10 @@ public class boardReplyController {
 		map.put("list", list);
 		map.put("total", total);
 		
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
+		List<BoardReplyLikeVO> like = lService.listLike(userNo);
+		map.put("like", like);
+		
 		
 		//reply마다 좋아요의 총 개수, 눌렀는지 누르지 않았는지 좋아요 인식,
 		//replyno 그 replyno에 있는 좋아요 개수를 뽑아 올 수 있다.

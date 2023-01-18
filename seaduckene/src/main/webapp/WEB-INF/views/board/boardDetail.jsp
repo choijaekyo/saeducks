@@ -263,9 +263,15 @@
 							
 						let total = data.total;
 						let replyList = data.list;
+						let like = data.like;
 						
 						console.log("total "+ total);
 						console.log("reply ", replyList);
+						console.log("like" , like);
+						console.log("like" , like[0].likeNo);
+						console.log("like" , like[0].likeReplyNo);
+						console.log("like" , like[0].likeUserNo);
+						console.log("like" , like[0].likeState);
 						
 						if(reset) {
 							strAdd = '';
@@ -288,7 +294,18 @@
 					<div class="d-flex align-items-center mb-3"></div>
 						<div class="reply-content"> <strong class='left'>`+ replyList[i].userNickname +`</strong> &nbsp&nbsp&nbsp
 							<small class='left'>` + timeStamp(replyList[i].replyRegDate) + `</small>
-							<a id="likeBtn" href="#"><img src="${pageContext.request.contextPath}/resources/img/like.png" width="20px" ackground-size="contain"></a>
+							<a id="likeBtn" href="#">`;
+							
+							
+						for (let j = 0; j < like.length; j++) {
+							if (replyList[i].replyNo == like[j].likeReplyNo && like[j].likeState == 1) {
+								strAdd += `<img src="${pageContext.request.contextPath}/resources/img/like2.png" width="20px" ackground-size="contain">`;
+							} else {
+								strAdd += `<img src="${pageContext.request.contextPath}/resources/img/like.png" width="20px" ackground-size="contain">`;
+							}
+							
+						}  strAdd += 
+							`</a>
 							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem;">` + replyList[i].replyContent.replaceAll('\r', '<br>') + `</p></a>
 						</div>
 					
@@ -339,6 +356,7 @@
 			         function(result) {
 			        	 if(result === 1) {
 			        		 e.target.setAttribute('src', '${pageContext.request.contextPath}/img/like2.png');
+			        		 
 			        	 } else {
 			        		 e.target.setAttribute('src', '${pageContext.request.contextPath}/img/like.png');
 			        	 }
@@ -348,17 +366,7 @@
 			      
 			      ); //end getJSON()
 			
-			
-			
-			
-			
-			
-			
-		
-		
 		}) //좋아요 event click end.
-		
-
 		
 		
 		
