@@ -45,6 +45,10 @@
 			bottom: 20px;
 			right: 10px;
 		}
+		
+	body {
+        background-color: #fff9d6;
+      }
 	
 	</style>
    

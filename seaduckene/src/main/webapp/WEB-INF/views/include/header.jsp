@@ -59,8 +59,11 @@
                      class="nav-link dropdown-toggle" href="#" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false">안씀</a>
                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<c:url value='product/master' />">마스터창(임시)</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='#' />">2</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/admin/adminLogin' />">관리자 로그인</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/admin/adminMain' />">관리자메인</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/admin/userSearch' />">주문목록</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/admin/productList' />">상품목록</a></li>
+               
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
