@@ -43,9 +43,10 @@
       <div class="row">
 	      <div class="col text-center">
 	      	<a class="btn btn-primary" href="<c:url value='/product/createProduct' />">상품등록</a>
-		    <a class="btn btn-danger" href="<c:url value='/admin/NoticeAddPage' />">공지등록</a>
+	      	<a class="btn btn-primary" href="<c:url value='/admin/productList' />">상품목록</a>
+		    <a class="btn btn-success" href="<c:url value='/admin/NoticeAddPage' />">공지등록</a>
 		    <a class="btn btn-success" href="<c:url value='/board/notice' />">공지사항</a>
-		    <a class="btn btn-info" href="<c:url value='/admin/userSearch' />">유저검색</a>
+		    <a class="btn btn-info" href="<c:url value='/admin/userSearch' />">주문목록</a>
 	      </div>
       </div>
      </div>

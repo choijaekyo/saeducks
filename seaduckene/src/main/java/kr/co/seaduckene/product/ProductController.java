@@ -281,7 +281,7 @@ public class ProductController {
 		map.put("vo", vo);
 		productService.updateProduct(vo);
 		
-		if(thumb !=null) {
+		if(thumb.getSize() != 0) {
 			List<ProductImageVO> iList = productService.getImg(vo.getProductNo());
 			
 			for (ProductImageVO ivo2 : iList) {
@@ -328,9 +328,8 @@ public class ProductController {
 			}
 			
 		}
-		
 
-		return "redirect:/product/createProduct";	 
+		return "redirect:/admin/productList";	 
 	}
 	
 	@GetMapping("/mainDisplayImg")

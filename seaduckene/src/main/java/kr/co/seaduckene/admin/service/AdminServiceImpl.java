@@ -11,6 +11,7 @@ import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
 import kr.co.seaduckene.admin.mapper.IAdminMapper;
 import kr.co.seaduckene.common.NoticeVO;
+import kr.co.seaduckene.product.command.ProductVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -29,11 +30,6 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public void write(NoticeVO noticeVO) {
 		adminMapper.write(noticeVO);
-	}
-	
-	@Override
-	public List<AdminSearchVO> allOrder() {
-		return adminMapper.allOrder();
 	}
 	
 	@Override
@@ -61,4 +57,21 @@ public class AdminServiceImpl implements IAdminService {
 	public void refund(String orderNum) {
 		adminMapper.refund(orderNum);
 	}
+	
+	@Override
+	public List<ProductVO> getProductList(String type, String keyword) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		return adminMapper.getProductList(map);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

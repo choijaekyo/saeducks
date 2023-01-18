@@ -25,23 +25,26 @@ public class adminController {
 	@Autowired
 	private IAdminService service;
 
+	// 관리자 로그인페이지
 	@GetMapping("/adminLogin")
 	public void adminLogin() {}
 	
+	// 관리자 로그인
 	@PostMapping("/adminLoginAuth")
-	public ModelAndView adminLogin(AdminVO adminVO, ModelAndView modelAndView) {
-		
-		modelAndView.addObject("adminVO", service.getAdminVo(adminVO));
-		
+	public ModelAndView adminLogin(AdminVO adminVO, ModelAndView modelAndView) {		
+		modelAndView.addObject("adminVO", service.getAdminVo(adminVO));	
 		return modelAndView;
 	}
 	
+	// 관리자 메인
 	@GetMapping("/adminMain")
 	public void adminMain() {}
 	
+	// 공지사항 등록 페이지
 	@GetMapping("/NoticeAddPage")
 	public void NoticeAddPage() {}
 	
+	// 공지사항 등록
 	@PostMapping("/adminNoticeCreate")
 	public String adminNoticeCreate(NoticeVO vo, @RequestParam(value="filename", required=false) List<String> summerfile) throws Exception {
 		String noticeContent;
@@ -56,6 +59,7 @@ public class adminController {
 		return "redirect:/admin/adminMain";
 	}
 	
+	// 주문목록 페이지
 	@GetMapping("/userSearch")
 	public void userSearch(Model model,String type, String keyword) {
 		List<AdminSearchVO> list = service.usersSearch(type, keyword);
@@ -87,4 +91,24 @@ public class adminController {
 		ra.addFlashAttribute("msg", "refund");
 		return "redirect:/admin/userSearch";
 	}
+	
+	// 상품목록 페이지
+	@GetMapping("/productList")
+	public void productList(Model model,String type, String keyword) {
+		model.addAttribute("list", service.getProductList(type, keyword));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
 import kr.co.seaduckene.common.NoticeVO;
+import kr.co.seaduckene.product.command.ProductVO;
 
 public interface IAdminMapper {
 
@@ -15,10 +16,7 @@ public interface IAdminMapper {
 	// 공지사항 글 쓰기
 	void write(NoticeVO noticeVO);
 	
-	// 모든 주문 확인
-	List<AdminSearchVO> allOrder();
-	
-	// 유저 정보 검색
+	// 주문목록
 	List<AdminSearchVO> usersSearch(Map<String, Object> map);
 	
 	// 송장번호 등록 
@@ -29,4 +27,14 @@ public interface IAdminMapper {
 	
 	// 환불처리 
 	void refund (String orderNum);
+	
+	// 상품목록
+	List<ProductVO> getProductList(Map<String, Object> map);
+	
+	
+	
+	
+	
+	
+	
 }
