@@ -39,6 +39,10 @@ public class BoardReplyListVO {
 	private int boardNo;
 	private int userNo;
 	
+	
+	//카운터를 추가해서 총 개수를 구하자.
+	//컨트롤러에서 스크립터에다가 리스트 불러오는 게 비동기니까, 비동기 구문을 하나 더해서 좋아요를 했는지 안했는지 넣자.
+	//
 }
 
  
