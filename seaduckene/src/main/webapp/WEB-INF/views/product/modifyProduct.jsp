@@ -177,7 +177,7 @@
 						</div>
 						<div class="col-md-3 col-sm-6 col-6">
 							<button type="button"
-								class="cancel_btn btn btn-outline-secondary">취소</button>
+								class="cancel_btn btn btn-outline-secondary" onclick="history.back()">취소</button>
 						</div>
 					</div>
 
