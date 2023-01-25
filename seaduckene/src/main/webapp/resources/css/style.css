@@ -42,6 +42,14 @@ table {
 
 /*=========웹폰트 선언=========*/
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*===========================*/
 
 /*디자인 시작시 기본 선언*/
@@ -54,7 +62,7 @@ table {
 body, html {
 	width: 100%;
 	min-width: 320px;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'GangwonEdu_OTFBoldA', sans-serif;
 }
 
 img {
