@@ -20,12 +20,14 @@
 		    (
 		    SELECT ROWNUM AS rn, tbl.* FROM
 		        (
-		        SELECT * 
+		        SELECT d.*, i.*, c.*, u.user_nickname AS writer
                 FROM board d
                 INNER JOIN boardImage i
                 ON d.board_no = i.board_board_no
                 INNER JOIN category c
             	ON d.board_category_no = c.category_no
+            	INNER JOIN duck_user u
+            	ON d.board_user_no = u.user_no
 		        WHERE d.board_category_no = #{categoryNo}
                 ORDER BY d.board_no DESC
 		        ) tbl

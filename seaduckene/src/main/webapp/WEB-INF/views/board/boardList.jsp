@@ -120,11 +120,14 @@ $(function() {
 				      <image href="/board/getImg/` + list[i].boardImageUuid + `" width="100%" height="100%" style="opacity: 0.5;"/>
 				      
 				      </svg>
-				      <div class="card-body">
-				        <div class="d-flex justify-content-between align-items-center">
-							<small class="col-8"><p class="col-10 text-truncate" style="color: #5c5e5e; margin-bottom: 0;">` + list[i].boardTitle + `</p></small>
-							<small class="col-2"><p  style="color: #5c5e5e; margin-bottom: 0;">` + timeForToday(list[i].boardRegDate) + `&nbsp</p></small>
-							<small class="col-2"><p style="color: #5c5e5e; margin-bottom: 0;">조회수&nbsp` + list[i].boardViews + `</p></small>
+				      <div class="card-body container">
+				        <div class="d-flex justify-content-between align-items-center row">
+							<p class="col-8 text-truncate" style="color: #5c5e5e; margin-bottom: 0;"><small >` + list[i].boardTitle + `</small></p>
+							<p class="col-4" style="color: #5c5e5e; margin-bottom: 0;"><small >` + timeForToday(list[i].boardRegDate) + `&nbsp;</small></p>
+							<p class="col-8"></p>
+							<p class="col-4" style="color: #5c5e5e; margin-bottom: 0;"><small >조회수&nbsp;` + list[i].boardViews + `</small></p>
+							<p class="col-8"></p>
+							<p class="col-4"  style="color: #5c5e5e; margin-bottom: 0;"><small >작성자&nbsp;` + list[i].writer + `</small></p>
 				        </div>
 				      </div>
 				    </div>
