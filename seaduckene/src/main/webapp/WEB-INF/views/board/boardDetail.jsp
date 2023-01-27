@@ -306,7 +306,7 @@
 						  strAdd += 
 							likeSuccess +`</a>
 				 		<input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
-							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style=" border: none;">` + replyList[i].replyContent.replaceAll('\n\r', '<br>') + `</p></a>
+							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style=" border: none;">` + replyList[i].replyContent.replaceAll('\r', '<br>') + `</p>
 						</div>
 					
 				</div>
