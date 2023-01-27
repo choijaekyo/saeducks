@@ -55,7 +55,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
-                  <li class="nav-item dropdown"><a
+                <%--   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false">안씀</a>
                      <ul class="dropdown-menu">
@@ -73,7 +73,7 @@
                         <li><a class="dropdown-item" href="<c:url value='/product/createProduct' />">상품등록</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/user/userBasket' />">장바구니</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/product/productDetail?productNo=4' />">상품상세</a></li>
-                     </ul></li>
+                     </ul></li> --%>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false"> 미디어 </a>

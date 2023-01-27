@@ -188,6 +188,7 @@
 		SELECT * FROM duck_order
 		WHERE
 		order_user_no = #{userNo}
+		ORDER BY order_no desc
 	</select>
 
 	<select id="getCt" resultType="category">
