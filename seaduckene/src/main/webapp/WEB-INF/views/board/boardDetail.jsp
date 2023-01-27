@@ -55,7 +55,7 @@
 
 				</div>
 				<div id="board-detail-button">
-					<a href='<c:url value='/board/boardList'/>'
+					<a href='<c:url value='/board/boardList/1'/>'
 						class="right btn btn-info" id="listBtn">목록가기</a>
 					<button type="submit" class="right btn btn-info" id="ModBtn">수정하기</button>
 				</div>
