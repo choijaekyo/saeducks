@@ -1,6 +1,7 @@
 package kr.co.seaduckene.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.common.CategoryVO;
@@ -52,4 +53,7 @@ public interface IBoardService {
 	
 	// 조회수 추가 
 	void addViewCount(int boardNo);
+	
+	//내글 가져오기
+	List<BoardVO> getMyList(Map<String, Object> data);
 }

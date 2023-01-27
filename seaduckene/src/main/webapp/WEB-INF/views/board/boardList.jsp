@@ -8,7 +8,7 @@
 	<div class="row mb-3">
 	  	<div class="col col align-self-center" style="position: relative;">
         	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107;">
+			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107; margin-top:10px;">
 			    <li class="breadcrumb-item" id="majorTitle">${category.categoryMajorTitle}</li>
 			    <li class="breadcrumb-item" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
 			    <li class=""><a class="ml-5 btn btn-info btn-sm w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a></li>

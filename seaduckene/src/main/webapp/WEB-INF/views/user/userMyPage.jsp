@@ -322,13 +322,20 @@
 					<div class="tab-pane" id="myboard">
 				</c:otherwise>
 			</c:choose>
-						<div class="container">
-							<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contentDiv">
-	
-									<!-- 비동기 방식으로 서버와 통신을 진행한 후 
-										목록을 만들어서 붙일 예정. -->
+			<div class="container">
+			<table class="table table-striped text-center " style="table-layout:fixed;">
 						
-							</div>
+						<thead>
+				            <tr>
+				                <th scope="col"colspan="2">제목</th>
+				                <th scope="col">작성일</th>
+				                <th scope="col">조회수</th>
+				            </tr>
+				            </thead>
+							<tbody id="contentDiv">
+							
+							</tbody>
+							 </table>
 							<div class="row justify-content-center row-div-2">
 							  	<div class="col-1 w-auto mt-3">
 							  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
@@ -336,7 +343,7 @@
 							</div>
 						</div>
 					</div>
-			</div>
+			
 		
 			<div class="tab-content">
 		<c:choose>
@@ -363,8 +370,9 @@
 				            <tr>
 				                <th scope="row" colspan="2" class="align-middle basket"> <a class="basketA" href="${pageContext.request.contextPath}/product/productDetail?productNo=${b.basketProductNo}"> ${b.basketProductName } </a></th>
 				                <td class="align-middle basket">&#8361;<fmt:formatNumber value="${b.basketPrice }" pattern="#,###" /></td>
-				                <td class="align-middle basket">${b.basketQuantity }&nbsp;<a class="basketA" href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}&pNo=${b.basketProductNo}"><i class="bi bi-plus-square"></i></a>
-				                    <a class="basketA" href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square"></i></a></td>
+				                <td class="align-middle basket">${b.basketQuantity }&nbsp;
+				                <a class="basketA" href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}&pNo=${b.basketProductNo}"><i class="bi bi-plus-square"></i></a>
+				                <a class="basketA" href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square" id="minusQuantity"></i></a></td>
 				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${b.basketQuantity*b.basketPrice}" pattern="#,###" /> </td>
 				                <td class="align-middle basket"><button type="button" class="btn btn-danger basketDel" >삭제</button></td>
 				                <td style="display:none">${b.basketNo} </td> 
@@ -477,6 +485,8 @@ let nicknameCheck = true;
 			}
 			
 		}); 
+		 
+		
 		
 		// 대 카테고리 선택시 소 카테고리 바뀜.
 		$('.category-wrap').on('change', 'select[name=categoryMajorTitle]', function(e) {
@@ -1516,18 +1526,21 @@ let nicknameCheck = true;
 					
 					for(let i=0; i<list.length; i++) {
 						
+						let date = new Date(list[i].boardRegDate)
+						console.log(date);
 						str += 
-						`<div class="col">
-					    <div class="card shadow-sm">
-					      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">` + list[i].boardTitle + `</text></svg>
-					      <div class="card-body">
-					        <p class="card-text">` + list[i].boardContent + `</p>
-					        <div class="d-flex justify-content-between align-items-center">
-					          <small class="text-muted">9 mins</small>
-					        </div>
-					      </div>
-					    </div>
-				  		</div>`;		
+							`
+				        
+				            
+				            
+				            <tr>
+				                <th scope="row" colspan="2" class="align-middle basket"><a href="${pageContext.request.contextPath}/board/boardDetail/`+list[i].boardNo+`" class="basketA">`+list[i].boardTitle+`</a></th>
+				                <td class="align-middle basket">`+date.getFullYear()+`/`+(date.getMonth()+1)+`/`+date.getDate()+`</td>
+				                <td class="align-middle basket">`+list[i].boardViews+`</td>
+				            </tr>
+				            
+				       
+				        `;		
 					}
 					$('#contentDiv').html(str);
 				}

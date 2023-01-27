@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -305,6 +307,22 @@ public class boardListController {
 			}
 			
 		}	
+	}
+	@GetMapping("boardMyList")
+	@ResponseBody
+	public List<BoardVO> myList(int pageNum,HttpSession session) {
+		System.out.println("GET boardMyList 요청");
+		int userNo = ((UserVO)session.getAttribute("login")).getUserNo();
+		Map<String, Object> data = new HashMap<String, Object>();
+		PageVO paging = new PageVO();
+		paging.setPageNum(pageNum);
+		data.put("page", paging);
+		data.put("userNo", userNo);
+		List<BoardVO> list= service.getMyList(data);
+		
+		System.out.println("가져온 리스트:"+list);
+		
+		return list;
 	}
 	
 	

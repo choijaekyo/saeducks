@@ -167,6 +167,23 @@
 		WHERE board_no = #{boardNo}
 	</update>
 	
+	<select id="getMyList" resultType="board">
+		<![CDATA[
+		SELECT *
+		FROM
+		    (
+		    SELECT ROWNUM AS rn, tbl.* FROM
+		        (
+		            SELECT *
+		            FROM board
+		            WHERE board_user_no=#{userNo}
+		        ) tbl
+		    ) s
+		WHERE rn > (#{page.pageNum}-1) * #{page.cpp}
+		AND rn <= #{page.pageNum} * #{page.cpp}
+		]]>
+	</select>
+	
 </mapper>
 
 

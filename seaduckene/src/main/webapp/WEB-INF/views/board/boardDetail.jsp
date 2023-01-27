@@ -25,7 +25,7 @@
 			id="board-detail-item">
 
 			<p>
-				<fmt:formatDate value="${list.boardRegDate}" pattern="dd/MM/yyyy" />
+				<fmt:formatDate value="${list.boardRegDate}" pattern="yyyy/MM/dd" />
 			</p>
 			<p>&nbsp&nbsp조회수: ${list.boardViews }</p>
 			<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
