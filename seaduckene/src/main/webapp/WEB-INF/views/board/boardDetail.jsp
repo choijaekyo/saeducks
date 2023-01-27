@@ -25,7 +25,7 @@
 			id="board-detail-item">
 
 			<p>
-				<fmt:formatDate value="${list.boardRegDate}" pattern="dd/MM/yyyy" />
+				<fmt:formatDate value="${list.boardRegDate}" pattern="yyyy/MM/dd" />
 			</p>
 			<p>&nbsp&nbsp조회수: ${list.boardViews }</p>
 			<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
@@ -55,7 +55,7 @@
 
 				</div>
 				<div id="board-detail-button">
-					<a href='<c:url value='/board/boardList'/>'
+					<a href='<c:url value='/board/boardList/1'/>'
 						class="right btn btn-info" id="listBtn">목록가기</a>
 					<button type="submit" class="right btn btn-info" id="ModBtn">수정하기</button>
 				</div>
@@ -182,7 +182,7 @@
 				toolbar : false
 			});
 			$('#summernote').summernote('disable');
-			$('#summernote').summernote('pasteHTML', '${list.boardContent}');
+			$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
 			$('.note-statusbar').hide();
 			$('.note-editable').css('background', '	#FFFFFF');
 		});
@@ -220,7 +220,7 @@
 				error : function() {
 					alert('등록에 실패했습니다. 관리자에게 문의해주세요.');
 				}
-
+ 
 			}); //ajax 끝.
 
 		});//댓글 등록 이벤트 끝.
@@ -303,10 +303,14 @@
 									
 								}
 							}
+							
+							
 						  strAdd += 
 							likeSuccess +`</a>
-				 		<input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
-							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style=" border: none;">` + replyList[i].replyContent.replaceAll('\r', '<br>') + `</p>
+
+				 			<input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
+							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem; word-break: break-all; border: none;">` + replyList[i].replyContent.replaceAll('\n', '<br>') + `</p>
+
 						</div>
 					
 				</div>
@@ -325,7 +329,8 @@
 			if ('${login.userNickname}' === $(this)[0].parentNode.firstElementChild.textContent){
 				const replyNo = $(this).data('replyNo');
 				$('#modalRno').val(replyNo);
-				$('#modalReply').val($(this).text());
+				console.log($(this).html());
+				$('#modalReply').val($(this).html().replaceAll('<br>', '\n'));
 				$('#replyModal').modal('show');
 				}
 			

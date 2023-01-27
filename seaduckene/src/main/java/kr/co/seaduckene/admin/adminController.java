@@ -44,6 +44,15 @@ public class adminController {
 		return modelAndView;
 	}
 	
+	// 관리자 로그아웃 
+	@GetMapping("/adminLogout")
+	public String adminLogout(HttpSession session, RedirectAttributes ra) {
+		session.removeAttribute("admin");
+		
+		ra.addFlashAttribute("msg", "adminLogout");
+		return "redirect:/";
+	}
+	
 	// 관리자 메인
 	@GetMapping("/adminMain")
 	public void adminMain() {}

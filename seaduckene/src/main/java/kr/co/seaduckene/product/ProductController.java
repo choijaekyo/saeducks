@@ -393,7 +393,7 @@ public class ProductController {
 	public ModelAndView minusQ(ModelAndView modelAndView , int basketNo,int q ) {
 		System.out.println("/minusQuantity GET");
 		modelAndView.setViewName("redirect:/user/userMyPage/3");
-		if(q==0) return modelAndView;
+		if(q==1) return modelAndView;
 		Map<String, Object> map = new HashMap<>();
 		map.put("basketNo",basketNo);
 		map.put("q",q-1);

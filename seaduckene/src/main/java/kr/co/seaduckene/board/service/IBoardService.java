@@ -1,6 +1,7 @@
 package kr.co.seaduckene.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.common.CategoryVO;
@@ -45,11 +46,14 @@ public interface IBoardService {
 	List<NoticeVO> noticeLists(PageVO paging);
 	
 	// boardNo 찾기
-	int boardNoSearch(String boardTitle, String boardContent);
+	int boardNoSearch(int boardUserNo);
 	
 	// 보드 이미지 등록
 	void boardImageAdd(int boardNo, String UUID);
 	
 	// 조회수 추가 
 	void addViewCount(int boardNo);
+	
+	//내글 가져오기
+	List<BoardVO> getMyList(Map<String, Object> data);
 }

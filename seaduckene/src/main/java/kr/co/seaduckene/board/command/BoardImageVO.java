@@ -51,6 +51,8 @@ public class BoardImageVO {
 	private String categoryMajorTitle;
 	private String categoryMinorTitle;
 	private Timestamp categoryRegDate;
+
+	private String writer;
 	
 }
 

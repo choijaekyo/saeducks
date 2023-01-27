@@ -55,7 +55,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                <ul class="navbar-nav">
-                  <li class="nav-item dropdown"><a
+                <%--   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false">안씀</a>
                      <ul class="dropdown-menu">
@@ -73,7 +73,7 @@
                         <li><a class="dropdown-item" href="<c:url value='/product/createProduct' />">상품등록</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/user/userBasket' />">장바구니</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/product/productDetail?productNo=4' />">상품상세</a></li>
-                     </ul></li>
+                     </ul></li> --%>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false"> 미디어 </a>
@@ -132,7 +132,7 @@
             <ul class="nav login-box">
             <c:choose>
             <c:when test="${admin!=null }">
-            	<li class="nav-item"><a href="<c:url value='#' />"
+            	<li class="nav-item admin_logout"><a href="<c:url value='/admin/adminLogout' />"
                   class="nav-link link-dark px-2">관리자접속중</a></li>
                <li class="nav-item"><a href="<c:url value='/admin/adminMain' />"
                   class="nav-link link-dark px-2">관리자메인</a></li>
@@ -155,3 +155,14 @@
       </nav>
       
    </header>
+   
+   <script>
+	$(document).ready(function() {
+		$('.admin_logout .link-dark').hover(function() {
+			$(this).text('로그아웃 하기');
+		}, function() {
+			$(this).text('관리자접속중');
+			
+		});
+	})
+   </script>

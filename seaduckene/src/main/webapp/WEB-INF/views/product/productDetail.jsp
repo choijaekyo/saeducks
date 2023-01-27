@@ -115,6 +115,11 @@
 				return;
 			}
 			let ea = $('#inputQuantity').val();
+			console.log(ea);
+			if(ea == 0){
+				alert('0개는 주문이 안됩니다!');
+				return;
+			}
 			$.ajax({
 				type : 'post',
 				url : '<c:url value="/product/insertBasket"/>',

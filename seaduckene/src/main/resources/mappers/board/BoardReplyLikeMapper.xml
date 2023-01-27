@@ -13,9 +13,9 @@
 	
 	<insert id="createLike">
 		INSERT INTO replyLike
-		(like_no,like_reply_no,like_user_no)
+		(like_no,like_reply_no,like_user_no,like_state)
 		VALUES
-		(reply_like_no_seq.NEXTVAL,#{likeReplyNo},#{likeUserNo})
+		(reply_like_no_seq.NEXTVAL,#{likeReplyNo},#{likeUserNo},1)
 	</insert>
 	
 	<update id="deleteLike">

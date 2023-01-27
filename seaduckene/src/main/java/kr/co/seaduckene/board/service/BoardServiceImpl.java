@@ -20,7 +20,7 @@ public class BoardServiceImpl implements IBoardService {
 
 	@Autowired
 	private IBoardMapper mapper;
-	
+
 	@Override
 	public void write(BoardVO vo) {
 		System.out.println("서비스 vo 들어옮" + vo);
@@ -32,10 +32,10 @@ public class BoardServiceImpl implements IBoardService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("paging", paging);
 		map.put("categoryNo", categoryNo);
-		
+
 		return mapper.list(map);
 	}
-	
+
 	@Override
 	public CategoryVO getCategory(int categoryNo) {
 		return mapper.getCategory(categoryNo);
@@ -49,15 +49,15 @@ public class BoardServiceImpl implements IBoardService {
 	@Override
 	public void update(BoardVO vo) {
 		mapper.update(vo);
-		
+
 	}
 
 	@Override
 	public void delete(int bno) {
 		mapper.delete(bno);
-		
+
 	}
-	
+
 	@Override
 	public List<ProductVO> proList(int categoryNo) {
 		return mapper.proList(categoryNo);
@@ -67,45 +67,39 @@ public class BoardServiceImpl implements IBoardService {
 	public List<BoardUserVO> bUserList(int userNo) {
 		return mapper.bUserList(userNo);
 	}
-	
+
 	@Override
 	public List<BoardUserVO> bUserNoList() {
 		return mapper.bUserNoList();
 	}
-	
+
 	@Override
 	public List<NoticeVO> noticeList() {
 		return mapper.noticeList();
 	}
-	
+
 	@Override
 	public List<NoticeVO> noticeLists(PageVO paging) {
 		return mapper.noticeLists(paging);
 	}
-	
+
 	@Override
-	public int boardNoSearch(String boardTitle, String boardContent) {
-		return mapper.boardNoSearch(boardTitle, boardContent);
+	public int boardNoSearch(int boardUserNo) {
+		return mapper.boardNoSearch(boardUserNo);
 	}
-	
+
 	@Override
 	public void boardImageAdd(int boardNo, String UUID) {
 		mapper.boardImageAdd(boardNo, UUID);
 	}
-	
+
 	@Override
 	public void addViewCount(int boardNo) {
 		mapper.addViewCount(boardNo);
 	}
+
+	@Override
+	public List<BoardVO> getMyList(Map<String, Object> data) {
+		return mapper.getMyList(data);
+	}
 }
-
-
-
-
-
-
-
-
-
-
-

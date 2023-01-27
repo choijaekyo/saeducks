@@ -5,6 +5,14 @@
 
 <mapper namespace="kr.co.seaduckene.board.mapper.IBoardMapper">
 
+	<resultMap type="board" id="boardCLOB">
+		<result property="boardContent" column="board_content" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+
+	<resultMap type="boardUser" id="boardUserCLOB">
+		<result property="boardContent" column="board_content" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	
 	<select id="list" resultType="boardImage">
 		<![CDATA[
 		SELECT *
@@ -12,12 +20,14 @@
 		    (
 		    SELECT ROWNUM AS rn, tbl.* FROM
 		        (
-		        SELECT * 
+		        SELECT d.*, i.*, c.*, u.user_nickname AS writer
                 FROM board d
                 INNER JOIN boardImage i
                 ON d.board_no = i.board_board_no
                 INNER JOIN category c
             	ON d.board_category_no = c.category_no
+            	INNER JOIN duck_user u
+            	ON d.board_user_no = u.user_no
 		        WHERE d.board_category_no = #{categoryNo}
                 ORDER BY d.board_no DESC
 		        ) tbl
@@ -57,7 +67,7 @@
 	</insert>
 	
 	<!-- 글 상세 보기 -->
-	<select id="content" resultType="board">
+	<select id="content" resultMap="boardCLOB">
 		SELECT * FROM board
 		WHERE board_no = #{boardNo}
 	</select> 
@@ -75,22 +85,27 @@
 		WHERE board_no = #{boardNo}
 	</delete>
 
-	<select id="bUserList" resultType="boardUser">
+	<select id="bUserList" resultMap="boardUserCLOB">
 		<![CDATA[
 		SELECT *
 		FROM
 		    (
-		    SELECT ROWNUM AS rn, tbl.* FROM
-		        (
-		            SELECT DISTINCT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
-		            FROM duck_user d INNER JOIN favorite f
-		                             ON f.favorite_user_no= #{userNo}
-		                             INNER JOIN category c
-		                             ON f.favorite_category_no = c.category_no
-		                             INNER JOIN board b
-		                             ON c.category_no = b.board_category_no
-		                             WHERE d.user_no=#{userNo}
-		        ) tbl
+		    SELECT ROWNUM AS rn, tbl2.* FROM
+		    	(
+			    SELECT tbl.*, bb.board_content
+			     FROM
+			        (
+			            SELECT DISTINCT c.category_no, b.board_no, b.board_title, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
+			            FROM duck_user d INNER JOIN favorite f
+			                             ON f.favorite_user_no= #{userNo}
+			                             INNER JOIN category c
+			                             ON f.favorite_category_no = c.category_no
+			                             INNER JOIN board b
+			                             ON c.category_no = b.board_category_no
+			                             WHERE d.user_no=#{userNo}
+			        ) tbl 	INNER JOIN board bb
+			     ON tbl.category_no = bb.board_category_no
+		        ) tbl2
 		    ) s
 		WHERE rn > 0
 		AND rn <= 9
@@ -98,7 +113,7 @@
 		]]>
 	</select>
 	
-	<select id="bUserNoList" resultType="boardUser">
+	<select id="bUserNoList" resultMap="boardUserCLOB">
 		<![CDATA[
 		SELECT *
 		FROM
@@ -154,8 +169,16 @@
 	
 	<!-- boardNo 찾기 -->
 	<select id="boardNoSearch" resultType="int">
-		SELECT board_no FROM board
-		WHERE board_title = #{boardTitle} AND board_content = #{boardContent}
+		SELECT s.board_no FROM
+			(
+			SELECT ROWNUM AS rn, tbl.* FROM 
+				(
+					SELECT board_no FROM board
+					WHERE board_user_no = #{boardUserNo}
+					ORDER BY board_reg_date DESC
+				) tbl
+			) s
+		WHERE rn = 1 
 	</select>
 	
 	<insert id="boardImageAdd">
@@ -166,6 +189,23 @@
 		UPDATE board SET board_views = board_views + 1
 		WHERE board_no = #{boardNo}
 	</update>
+	
+	<select id="getMyList" resultType="board">
+		<![CDATA[
+		SELECT *
+		FROM
+		    (
+		    SELECT ROWNUM AS rn, tbl.* FROM
+		        (
+		            SELECT *
+		            FROM board
+		            WHERE board_user_no=#{userNo}
+		        ) tbl
+		    ) s
+		WHERE rn > (#{page.pageNum}-1) * #{page.cpp}
+		AND rn <= #{page.pageNum} * #{page.cpp}
+		]]>
+	</select>
 	
 </mapper>
 

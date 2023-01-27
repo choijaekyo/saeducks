@@ -8,7 +8,7 @@
 	<div class="row mb-3">
 	  	<div class="col col align-self-center" style="position: relative;">
         	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107;">
+			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107; margin-top:10px;">
 			    <li class="breadcrumb-item" id="majorTitle">${category.categoryMajorTitle}</li>
 			    <li class="breadcrumb-item" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
 			    <li class=""><a class="ml-5 btn btn-info btn-sm w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a></li>
@@ -120,11 +120,14 @@ $(function() {
 				      <image href="/board/getImg/` + list[i].boardImageUuid + `" width="100%" height="100%" style="opacity: 0.5;"/>
 				      
 				      </svg>
-				      <div class="card-body">
-				        <div class="d-flex justify-content-between align-items-center">
-							<small class="col-8"><p class="col-10 text-truncate" style="color: #5c5e5e; margin-bottom: 0;">` + list[i].boardTitle + `</p></small>
-							<small class="col-2"><p  style="color: #5c5e5e; margin-bottom: 0;">` + timeForToday(list[i].boardRegDate) + `&nbsp</p></small>
-							<small class="col-2"><p style="color: #5c5e5e; margin-bottom: 0;">조회수&nbsp` + list[i].boardViews + `</p></small>
+				      <div class="card-body container">
+				        <div class="d-flex justify-content-between align-items-center row">
+							<p class="col-8 text-truncate" style="color: #5c5e5e; margin-bottom: 0;"><small >` + list[i].boardTitle + `</small></p>
+							<p class="col-4" style="color: #5c5e5e; margin-bottom: 0;"><small >` + timeForToday(list[i].boardRegDate) + `&nbsp;</small></p>
+							<p class="col-8"></p>
+							<p class="col-4" style="color: #5c5e5e; margin-bottom: 0;"><small >조회수&nbsp;` + list[i].boardViews + `</small></p>
+							<p class="col-8"></p>
+							<p class="col-4"  style="color: #5c5e5e; margin-bottom: 0;"><small >작성자&nbsp;` + list[i].writer + `</small></p>
 				        </div>
 				      </div>
 				    </div>

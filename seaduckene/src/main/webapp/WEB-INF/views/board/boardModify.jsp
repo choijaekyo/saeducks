@@ -29,7 +29,7 @@
 					</div> --%>
 
 					<div class="form-group">
-						<label>제목</label> <input class="form-control" name="boardTitle"
+						<label>제목</label> <input class="form-control" name="boardTitle" maxlength="50"
 							value="${list.boardTitle}">
 					</div>
 					<div class="form-group boardContent-summernote">
@@ -87,7 +87,7 @@
 			}
 		}); //수정 버튼 이벤트 처리 끝. */
 		
-		$('#summernote').summernote('pasteHTML', '${list.boardContent}');
+		$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
 		$('#delBtn')
 				.click(
 						function() {
