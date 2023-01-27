@@ -24,7 +24,7 @@
    <div class="container">
       <div class="form-group">
          <label for="exampleFormControlInput1">제목</label> 
-         <input type="text" class="form-control" id="exampleFormControlInput1" name="boardTitle" placeholder="제목을 작성해주세요." >
+         <input type="text" class="form-control" id="exampleFormControlInput1" name="boardTitle" placeholder="제목을 작성해주세요." maxlength="50" >
       </div>
 
       <div class="form-group boardContent-summernote">
