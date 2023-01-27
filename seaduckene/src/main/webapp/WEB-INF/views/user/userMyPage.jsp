@@ -409,7 +409,7 @@
 				                <th scope="col">상품</th>
 				                <th scope="col">수량</th>
 				                <th scope="col">결제가격</th>
-				                <th scope="col">배송상태</th>
+				                <th scope="col">주문상태</th>
 				                <th scope="col">비고 </th>
 				            </tr>
 				            </thead>
@@ -423,11 +423,17 @@
 				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${o.orderPrice}" pattern="#,###" /> </td>
 				                <td class="align-middle basket">${o.orderStatus }</td>
 				                <c:choose>
-				                	<c:when test="${o.orderStatus =='주문취소' }">
-				                		<td class="align-middle basket"> 주문취소상태 </td>
+				                	<c:when test="${o.orderStatus =='취소요청' }">
+				                		<td class="align-middle basket"> 취소요청완료 </td>
 				                	</c:when>
-				                	<c:when test="${o.orderStatus =='반품신청' }">
-				                		<td class="align-middle basket"> 반품신청상태 </td>
+				                	<c:when test="${o.orderStatus =='취소완료'  }">
+				                		<td class="align-middle basket"> </td>
+				                	</c:when>
+				                	<c:when test="${o.orderStatus =='반품요청' }">
+				                		<td class="align-middle basket"> 반품요청완료 </td>
+				                	</c:when>
+				                	<c:when test="${o.orderStatus =='반품완료' }">
+				                		<td class="align-middle basket">  </td>
 				                	</c:when>
 				                	<c:otherwise>
 				                		<td class="align-middle basket"> <button class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/product/refund?no=${o.orderProductNo }'" >주문취소<br> 반품신청</button> </td>

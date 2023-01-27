@@ -40,7 +40,8 @@ $(function(){
 	const orderName = 'seduckeneOrder' + '${orderVo.orderRecipientTel}';
 	const customerName = '${orderVo.orderRecipientName}';
 	
-	var clientKey = 'test_ck_Lex6BJGQOVDZG4A9EdO8W4w2zNbg';
+	var clientKey = '${clientKey}';
+	console.log('클라이언트키:' + clientKey);
 	var tossPayments = TossPayments(clientKey);
 	
 	function toss(){

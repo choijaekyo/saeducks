@@ -39,8 +39,8 @@
 	id="writeForm" method="post">
 
 	<div class="container">
-		<div class="card mb-4">
-			<div class="card-body">
+		<!-- <div class="card mb-4">
+			<div class="card-body"> -->
 				<div class="mb-3">
 					<input type="hidden" name="boardNo" value="${ list.boardNo }">
 					<input type="hidden" name="boardCategoryNo" value="${ list.boardCategoryNo }">
@@ -60,8 +60,8 @@
 					<button type="submit" class="right btn btn-info" id="ModBtn">수정하기</button>
 				</div>
 			</div>
-		</div>
-	</div>
+<!-- 		</div>
+	</div> -->
 </form> 
 
 <div class="container">
@@ -95,11 +95,7 @@
 			
 			<!-- 로그인 시 -->
 			<c:if test="${login != null}">
-				<div class="col-auto">
-					<div class="avatar avatar-online">
-						<img src="assets/img/avatars/6.jpg" alt="#" class="avatar-img">
-					</div>
-				</div>
+
 
 				<div class="col">
 					<div class="d-flex align-items-center mb-3">
@@ -135,9 +131,9 @@
 			
 		</div>
 		<br>
-		 <button type="button" class="form-control" id="moreList">더보기(페이징)</button>
+		 <button type="button" class="form-control" id="moreList">더보기</button>
 	</div>
-	<hr>
+
 </div>
 
 
@@ -146,9 +142,9 @@
 	<div class="modal-dialog modal-md">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h4 class="modal-title">댓글수정</h4>
 				<button type="button" class="btn btn-default pull-right modalbuttonESC"
 					data-dismiss="modal">닫기</button>
-				<h4 class="modal-title">댓글수정</h4>
 			</div>
 			<div class="modal-body">
 				<!-- 수정폼 id값을 확인하세요-->
@@ -257,7 +253,7 @@
 			$.getJSON(
 					"<c:url value='/reply/getList/' />" + bno + "/" + pageNum,
 					function(data) {
-						console.log('ㅎㅎㅎ', data);
+						console.log('data', data);
 						
 						console.log("data " + data.total);
 							
@@ -294,7 +290,7 @@
 					<div class="d-flex align-items-center mb-3"></div>
 						<div class="reply-content"> <strong class='left'>`+ replyList[i].userNickname +`</strong> &nbsp&nbsp&nbsp
 							<small class='left'>` + timeStamp(replyList[i].replyRegDate) + `</small>
-							<a id="likeBtn" href="#">`;
+							<a style="text-decoration:none; color : black;" id="likeBtn" href="#">`;
 							
 							let likeSuccess = `<img class="classlikeBtn" src="${pageContext.request.contextPath}/resources/img/like.png" width="20px"><span>`+ replyList[i].likeCount +`</span>`;
 							
@@ -310,7 +306,7 @@
 						  strAdd += 
 							likeSuccess +`</a>
 				 		<input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
-							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem;">` + replyList[i].replyContent.replaceAll('\r', '<br>') + `</p></a>
+							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style=" border: none;">` + replyList[i].replyContent.replaceAll('\n\r', '<br>') + `</p></a>
 						</div>
 					
 				</div>

@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>seaduck e ne</title>
 
-<!-- 부트스트랩  CDM -->
+<!-- 부트스트랩  CDN -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -20,6 +20,7 @@
 <!--개인 디자인 추가-->
 <link href="${pageContext.request.contextPath }/resources/css/order.css"
 	rel="stylesheet">	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <!-- toss  -->
 <script src="https://js.tosspayments.com/v1/payment"></script>
 
@@ -74,7 +75,8 @@
 					<hr>
 					<!-- 반복문으로 상품목록!! -->
 					<c:forEach var="product" items="${basketList }">
-						<div class="container">
+						<c:if test="${product.basketQuantity != 0 }">
+							<div class="container">
 							<div class="productDetail ">
 								<div class="row">
 									<div
@@ -100,6 +102,7 @@
 							</div>
 							<hr>
 						</div>
+						</c:if>
 					</c:forEach>
 
 					<div class="container">
@@ -161,9 +164,18 @@
 						<div class="inputArea input-group">
 							<div class="col-md-2 offset-md-1 col-sm-12 col-12"></div>
 							<div class="col-md-9 col-sm-12 col-12">
+								
+								<i class="bi bi-chat-right-quote-fill"></i>
 								<p>
 									무통장입금 시 <strong>입금자명</strong>과 <strong>주문자명</strong>은 <strong>동일</strong>해야합니다.
 									<br> 만일 입금자명과 주문자명이 상이한 경우 고객센터로 문의 부탁드립니다.
+								</p>
+								<br>
+								<i class="bi bi-chat-right-quote-fill"></i>
+								<p>
+									입금은행 : 신한은행 <br>
+									계좌번호 : 110-413-402222 <br>
+									예금주명 : 박세덕 <br>
 								</p>
 							</div>
 						</div>

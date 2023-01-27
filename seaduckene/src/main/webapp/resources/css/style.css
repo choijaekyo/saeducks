@@ -42,6 +42,23 @@ table {
 
 /*=========웹폰트 선언=========*/
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*===========================*/
 
 /*디자인 시작시 기본 선언*/
@@ -54,7 +71,7 @@ table {
 body, html {
 	width: 100%;
 	min-width: 320px;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'GangwonEdu_OTFBoldA', sans-serif;
 }
 
 img {
@@ -201,6 +218,7 @@ ul, ol, dl, li {
 
 header{
    height: 160px;
+   font-size: 20px;
 }
 
 #main-img {

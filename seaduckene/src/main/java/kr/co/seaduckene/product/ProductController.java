@@ -14,6 +14,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,12 +45,16 @@ import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/product")
+@PropertySource("classpath:tossPay.properties")
 public class ProductController {
 	
 	@Autowired
 	private IProductService productService;
 	@Autowired
 	private IUserService userService;
+	
+	@Value("${toss.clientKey}")
+	private String clientKey;
 
 	@GetMapping("/createProduct")
 	public void createProduct(Model model) {
@@ -187,6 +193,8 @@ public class ProductController {
 		
 		String result =  productService.checkStock(orderProductNoList, user);
 		
+		
+		
 		if(result.equals("lack")) {
 			ra.addFlashAttribute("result", result);
 			return "redirect:/product/order";
@@ -195,6 +203,7 @@ public class ProductController {
 				session.setAttribute("orderList", orderProductNoList);
 				session.setAttribute("orderVo", orderVo);
 				session.setAttribute("userEmail", userEmail);
+				ra.addFlashAttribute("clientKey", clientKey);
 				return "redirect:/product/payment";
 			} else {
 				productService.order(orderProductNoList, orderVo, userEmail, user);
@@ -443,7 +452,7 @@ public class ProductController {
 		productService.refund(map);
 			
 		
-		return"redirect:/";
+		return"redirect:/user/userMyPage/4";
 	}
 	
 	
