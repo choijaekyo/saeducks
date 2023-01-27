@@ -186,7 +186,7 @@
 				toolbar : false
 			});
 			$('#summernote').summernote('disable');
-			$('#summernote').summernote('pasteHTML', '${list.boardContent}');
+			$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
 			$('.note-statusbar').hide();
 			$('.note-editable').css('background', '	#FFFFFF');
 		});
@@ -307,10 +307,12 @@
 									
 								}
 							}
+							
+							
 						  strAdd += 
 							likeSuccess +`</a>
-				 		<input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
-							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem;">` + replyList[i].replyContent.replaceAll('\r', '<br>') + `</p></a>
+				 			<input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
+							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem; word-break: break-all;">` + replyList[i].replyContent.replaceAll('\n', '<br>') + `</p>
 						</div>
 					
 				</div>
@@ -329,7 +331,8 @@
 			if ('${login.userNickname}' === $(this)[0].parentNode.firstElementChild.textContent){
 				const replyNo = $(this).data('replyNo');
 				$('#modalRno').val(replyNo);
-				$('#modalReply').val($(this).text());
+				console.log($(this).html());
+				$('#modalReply').val($(this).html().replaceAll('<br>', '\n'));
 				$('#replyModal').modal('show');
 				}
 			

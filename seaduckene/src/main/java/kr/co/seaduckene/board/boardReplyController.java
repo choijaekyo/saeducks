@@ -39,6 +39,8 @@ public class boardReplyController {
 	public String replyRegist(@RequestBody BoardReplyVO vo) {
 		service.replyRegist(vo);
 		
+		System.out.println("댓글 객체" + vo);
+		
 		return "regSuccess";
 	}
 	

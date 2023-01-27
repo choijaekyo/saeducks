@@ -45,7 +45,7 @@ public interface IBoardService {
 	List<NoticeVO> noticeLists(PageVO paging);
 	
 	// boardNo 찾기
-	int boardNoSearch(String boardTitle, String boardContent);
+	int boardNoSearch(int boardUserNo);
 	
 	// 보드 이미지 등록
 	void boardImageAdd(int boardNo, String UUID);
