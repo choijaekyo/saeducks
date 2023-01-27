@@ -92,7 +92,7 @@ public class boardListController {
 			
 			service.write(vo);
 			
-			int boardNo = service.boardNoSearch(vo.getBoardTitle(), vo.getBoardContent());
+			int boardNo = service.boardNoSearch(vo.getBoardUserNo());
 			service.boardImageAdd(boardNo, "saeduckBoardImage.png");
 		} else {
 			System.out.println("summerFile: " + summerfile);
@@ -108,7 +108,7 @@ public class boardListController {
 			summernoteCopy copy = new summernoteCopy();
 			copy.summerCopy(summerfile);
 			
-			int boardNo = service.boardNoSearch(vo.getBoardTitle(), vo.getBoardContent());
+			int boardNo = service.boardNoSearch(vo.getBoardUserNo());
 			service.boardImageAdd(boardNo, summerfile.get(0));
 		}
 

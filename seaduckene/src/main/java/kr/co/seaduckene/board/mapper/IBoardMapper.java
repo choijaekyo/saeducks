@@ -48,8 +48,8 @@ public interface IBoardMapper {
 	List<NoticeVO> noticeLists(PageVO paging);
 
 	// boardNo 찾기
-	int boardNoSearch(@Param("boardTitle") String boardTitle, @Param("boardContent") String boardContent);
-
+	int boardNoSearch(int boardUserNo);
+	
 	// 보드 이미지 등록
 	void boardImageAdd(@Param("boardNo") int boardNo, @Param("UUID") String UUID);
 

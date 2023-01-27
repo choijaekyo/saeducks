@@ -84,8 +84,8 @@ public class BoardServiceImpl implements IBoardService {
 	}
 
 	@Override
-	public int boardNoSearch(String boardTitle, String boardContent) {
-		return mapper.boardNoSearch(boardTitle, boardContent);
+	public int boardNoSearch(int boardUserNo) {
+		return mapper.boardNoSearch(boardUserNo);
 	}
 
 	@Override
