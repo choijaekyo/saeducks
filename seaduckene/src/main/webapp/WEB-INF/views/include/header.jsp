@@ -132,7 +132,7 @@
             <ul class="nav login-box">
             <c:choose>
             <c:when test="${admin!=null }">
-            	<li class="nav-item"><a href="<c:url value='#' />"
+            	<li class="nav-item admin_logout"><a href="<c:url value='/admin/adminLogout' />"
                   class="nav-link link-dark px-2">관리자접속중</a></li>
                <li class="nav-item"><a href="<c:url value='/admin/adminMain' />"
                   class="nav-link link-dark px-2">관리자메인</a></li>
@@ -155,3 +155,14 @@
       </nav>
       
    </header>
+   
+   <script>
+	$(document).ready(function() {
+		$('.admin_logout .link-dark').hover(function() {
+			$(this).text('로그아웃 하기');
+		}, function() {
+			$(this).text('관리자접속중');
+			
+		});
+	})
+   </script>

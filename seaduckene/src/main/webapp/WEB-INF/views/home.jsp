@@ -69,9 +69,10 @@
 				location.href='${pageContext.request.contextPath}/board/boardDetail/'+$bnoo.value;
 			});
 		}
-
 		
 	});
 
-
+	if ('${msg}' === 'adminLogout') {
+		alert('관리자 계정을 로그아웃하셨습니다.');
+	}
 </script>
