@@ -61,6 +61,11 @@
 	<select id="getCategory" resultType="category">
 		SELECT * FROM category
 	</select>
+	
+	<select id="getMajor" resultType="String">
+		SELECT DISTINCT category_major_title
+		FROM category
+	</select>
 
 	<select id="getMinor" resultType="String">
 		SELECT category_minor_title

@@ -35,6 +35,9 @@ public interface IProductService {
 
 	// 카테고리 리스트 불러오기
 	List<CategoryVO> getCategory();
+	
+	// 대 카테고리 불러오기
+	List<String> getMajor();
 
 	// 소카테고리 불러오기
 	List<String> getMinor(String major);

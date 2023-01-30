@@ -46,6 +46,9 @@ public interface IProductMapper {
 
 	// 카테고리 리스트 갖고오기
 	List<CategoryVO> getCategory();
+	
+	// 대 카테고리 불러오기
+	List<String> getMajor();
 
 	// 소 카테고리 불러오기
 	List<String> getMinor(String major);
