@@ -22,10 +22,10 @@
 		 <div class="col-lg-12 col-md-12 col-sm-12" id="userJoin-wrap">
 			<div class="title">
 				<h2>회원가입</h2>
-				<ol>
-					<li style="font-size: 16px"><span>1</span> 약관동의 ─</li>
-					<li style="font-size: 18px"><span>2</span> 정보입력 ─</li>
-					<li style="font-size: 16px"><span>3</span> 가입완료</li> 
+				<ol class="ps-0">
+					<li style="font-size: 18px"><span>1</span> 정보입력 </li>
+					<li style="font-size: 16px"> ─</li>
+					<li style="font-size: 16px"><span>2</span> 가입완료</li> 
 				</ol>
 			</div>
 			<div class="join-container">

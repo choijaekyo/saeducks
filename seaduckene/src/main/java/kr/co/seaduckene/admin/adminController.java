@@ -14,15 +14,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
 import kr.co.seaduckene.admin.service.IAdminService;
 import kr.co.seaduckene.common.NoticeVO;
+import kr.co.seaduckene.user.command.Categories;
+import kr.co.seaduckene.user.service.IUserService;
 import kr.co.seaduckene.util.summernoteCopy;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Controller
 @RequestMapping("/admin")
 public class adminController {
+	
+	@Autowired
+	private IUserService userService;
 	
 	@Autowired
 	private IAdminService service;
@@ -115,17 +125,23 @@ public class adminController {
 		model.addAttribute("list", service.getProductList(type, keyword));
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 카테고리별 게시글 문의 요청
+	@GetMapping("/askCategory")
+	public void askCategory(Model model) {
+		
+		List<Categories> categoryList = userService.getCategories();
+		
+		ObjectMapper categoryListConverter = new ObjectMapper();
+		
+		String categoryListJson = null;
+		try {
+			categoryListJson = categoryListConverter.writeValueAsString(categoryList);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.info(categoryListJson);
+		model.addAttribute("categoryListJson", categoryListJson);
+	}
 	
 }

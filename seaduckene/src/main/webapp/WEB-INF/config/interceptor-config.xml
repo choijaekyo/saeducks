@@ -34,6 +34,7 @@
 			<mvc:mapping path="/product/order" />
 			<mvc:mapping path="/board/boardWrite/**" />
 			<mvc:mapping path="/board/boardModify" />
+			<mvc:mapping path="/admin/askCategory" />
 			<ref bean="userLoginAccessHandler" />
 		</mvc:interceptor>
 		
