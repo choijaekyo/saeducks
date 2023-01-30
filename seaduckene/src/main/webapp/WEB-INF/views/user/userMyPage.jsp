@@ -797,10 +797,20 @@ let nicknameCheck = true;
 			}
         });
         
+        /* 전화번호 문자열 입력 방지 */
+        $('#userTel').keydown(function(e) {
+            // Only ASCII character in that range allowed
+            const ASCIICode = (e.which) ? e.which : e.keyCode;
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+        });
+        
         /* 전화번호 확인검사 */
         $('#userTel').keyup(function() {
-        	$(this).css('color', 'black');
+
+			$(this).css('color', 'black');
 			const regex = /^(010)[0-9]{8}$/; /* 010포함 숫자 11자리 */
+
 			
 			if ($(this).val() === '${user.userTel}') {
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
@@ -820,7 +830,7 @@ let nicknameCheck = true;
         	$(this).css('color', 'black');
         	const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
-			if ($(this).val().trim() === '${user.userEmail}' || $(this).val().trim() === '') {
+			if ($(this).val() === '${user.userEmail}' || $(this).val() === '') {
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
 				if (regex.test($(this).val())) {
@@ -833,7 +843,7 @@ let nicknameCheck = true;
         
         /*  주소 확인 검사 */
         $('#addrDetail').keyup(function() {
-			if ($(this).val().trim() === '${userAddrList[0].addressDetail}' || $(this).val().trim() === '') {
+			if ($(this).val() === '${userAddrList[0].addressDetail}' || $(this).val() === '') {
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
