@@ -50,13 +50,9 @@
 		        (
 		        SELECT * FROM product
 		        WHERE product_category_no = #{categoryNo}
-		        ORDER BY product_no ASC
+		        ORDER BY product_reg_date DESC
 		        ) tbl
-		    ) b
-		<![CDATA[
-		WHERE rn > 0
-		AND rn <= 3
-		]]>
+		    )
 	</select>
 	
 	<!-- 글 등록 -->

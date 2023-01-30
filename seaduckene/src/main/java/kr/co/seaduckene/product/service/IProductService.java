@@ -83,4 +83,7 @@ public interface IProductService {
 
 	// 환불/주문취소 신청
 	void refund(Map<String, Object> map);
+	
+	// 상품 리스트 
+	List<ProductVO> getProductList(int categoryNo);
 }

@@ -2,6 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ include file="../include/header.jsp"%>
 
 <div class="container">
@@ -32,32 +33,53 @@
 </div>
 
 <div class="container container-board-div2">
-	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-	<c:forEach var="proVo" items="${productList}">
-		  <div class="col productcard">
-		  <a href="${pageContext.request.contextPath }/product/productDetail?productNo=${proVo.productNo}" id="cardA">
-		    <div class="card mb-4 rounded-3 shadow-sm">
-		      <div class="card-header py-3">
-		        <h4 class="my-0 fw-normal">${proVo.productName }</h4>
-		      </div>
-		      
-		      		<img id="productThumb" src="<c:url value='/product/display2?no=${proVo.productNo }' />" alt="상품이미지" style="height:225px;">
-		      
-		      <div class="card-body">
-		        <h1 class="card-title pricing-card-title">&#8361;<fmt:formatNumber value="${proVo.productPriceSelling}" pattern="#,###" /></h1>
-		        <ul class="list-unstyled mt-3 mb-4">
-		          <li>${proVo.productDetail}</li>
-		          <li>재고수량:${proVo.productStock}</li>
-		          <c:if test="${proVo.productStock == 0 }">
-		          	<li style="color:red;">품절</li>
-		          </c:if>
-		        </ul>
-		      </div>
-		    </div>
-		    </a>
-		  </div>
-	  </c:forEach>
+	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center" >
+	
+		<c:forEach var="proVo" items="${productList}" varStatus="st">
+			
+				
+					<c:if test="${st.count <= 3}">
+					
+						<div class="col productcard">
+							<a
+								href="${pageContext.request.contextPath }/product/productDetail?productNo=${proVo.productNo}"
+								id="cardA">
+								<div class="card mb-4 rounded-3 shadow-sm">
+									<div class="card-header py-3">
+										<h4 class="my-0 fw-normal">${proVo.productName }</h4>
+									</div>
+
+									<img id="productThumb"
+										src="<c:url value='/product/display2?no=${proVo.productNo }' />"
+										alt="상품이미지" style="height: 225px;">
+
+									<div class="card-body">
+										<h1 class="card-title pricing-card-title">
+											&#8361;
+											<fmt:formatNumber value="${proVo.productPriceSelling}"
+												pattern="#,###" />
+										</h1>
+										<ul class="list-unstyled mt-3 mb-4">
+											<li>${proVo.productDetail}</li>
+											<li>재고수량:${proVo.productStock}</li>
+											<c:if test="${proVo.productStock == 0 }">
+												<li style="color: red;">품절</li>
+											</c:if>
+										</ul>
+									</div>
+								</div>
+							</a>
+						</div>
+					</c:if>
+		</c:forEach>
+		
 	</div>
+	<div style="text-align: center;">
+	  <c:if test="${fn:length(productList) > 3}">
+	  	<button id="moreProBtn" class="btn btn-primary btn-sm">더보기</button>
+	  </c:if>
+	  
+	  </div>
 </div>
 <%@ include file="../include/footer.jsp"%>
 
@@ -81,6 +103,10 @@ $(function() {
 	let isFinish = false;
 	console.log(categoryNo);
 	getList(1, false);
+	
+	$('#moreProBtn').click(function() {
+		location.href = '${pageContext.request.contextPath}/product/productList?categoryNo='+categoryNo;
+	});
 	
 	function getList(page, reset) {
 		

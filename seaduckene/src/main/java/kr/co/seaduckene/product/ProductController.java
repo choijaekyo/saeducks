@@ -455,5 +455,10 @@ public class ProductController {
 		return"redirect:/user/userMyPage/4";
 	}
 	
+	@GetMapping("/productList")
+	public void productList(int categoryNo, Model model) {
+		model.addAttribute("productList", productService.getProductList(categoryNo));
+	}
+	
 	
 }
