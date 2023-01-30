@@ -8,7 +8,9 @@
 	<insert id="replyRegist">
 		INSERT INTO reply
 		(reply_no, reply_content, reply_board_no ,reply_user_no)
-		VALUES(reply_no_seq.NEXTVAL, #{replyContent}, #{replyBoardNo}, #{replyUserNo}) 
+		
+		VALUES(reply_no_seq.NEXTVAL, #{replyContent}, #{replyBoardNo}, #{replyUserNo})
+		
 	</insert>
 	
   	<select id="getList" resultType="boardReplyList">
@@ -27,9 +29,11 @@
 	        SELECT * FROM duck_user du
 	      ) tbl2
 	WHERE tbl.reply_user_no = tbl2.user_no
+	ORDER BY tbl.reply_no DESC
 	)
 	WHERE rn > (#{paging.pageNum}-1) * #{paging.cpp}
 	AND rn <= #{paging.pageNum} * #{paging.cpp}
+
  	]]>
   </select>
   

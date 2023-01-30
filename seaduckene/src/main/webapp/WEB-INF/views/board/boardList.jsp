@@ -8,7 +8,7 @@
 	<div class="row mb-3">
 	  	<div class="col col align-self-center" style="position: relative;">
         	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107; margin-top:10px;">
+			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107;">
 			    <li class="breadcrumb-item" id="majorTitle">${category.categoryMajorTitle}</li>
 			    <li class="breadcrumb-item" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
 			    <li class=""><a class="ml-5 btn btn-info btn-sm w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a></li>
@@ -26,7 +26,7 @@
 
 	  	<div class="col-1 w-auto" style="display: none;" id="div-btn">
 	  		<button  type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
-
+			
 	  	</div>
 	</div>
 </div>
@@ -36,18 +36,20 @@
 	<c:forEach var="proVo" items="${productList}">
 		  <div class="col productcard">
 		  <a href="${pageContext.request.contextPath }/product/productDetail?productNo=${proVo.productNo}" id="cardA">
-		    <div class="card mb-4 rounded-3 shadow-sm">
-		      <div class="card-header py-3">
-		        <h4 class="my-0 fw-normal">${proVo.productName }</h4>
+		    <div class="card mb-4 rounded-3 shadow-sm ">
+		      <div class="card-header py-3" >
+		        <h4 class="my-0 fw-normal col-12 text-truncate">${proVo.productName }</h4>
 		      </div>
 		      
 		      		<img id="productThumb" src="<c:url value='/product/display2?no=${proVo.productNo }' />" alt="상품이미지" style="height:225px;">
 		      
 		      <div class="card-body">
 		        <h1 class="card-title pricing-card-title">&#8361;<fmt:formatNumber value="${proVo.productPriceSelling}" pattern="#,###" /></h1>
-		        <ul class="list-unstyled mt-3 mb-4">
-		          <li>${proVo.productDetail}</li>
+		        <ul class="list-unstyled mt-3 mb-4 ">
+		          <li class="col-12 text-truncate mb-3" >${proVo.productDetail}</li>
+		           <c:if test="${proVo.productStock != 0 }">
 		          <li>재고수량:${proVo.productStock}</li>
+		          </c:if>
 		          <c:if test="${proVo.productStock == 0 }">
 		          	<li style="color:red;">품절</li>
 		          </c:if>
