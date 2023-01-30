@@ -813,10 +813,20 @@ let nicknameCheck = true;
 			}
         });
         
+        /* 전화번호 문자열 입력 방지 */
+        $('#userTel').keydown(function(e) {
+            // Only ASCII character in that range allowed
+            const ASCIICode = (e.which) ? e.which : e.keyCode;
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+        });
+        
         /* 전화번호 확인검사 */
         $('#userTel').keyup(function() {
-        	$(this).css('color', 'black');
+
+			$(this).css('color', 'black');
 			const regex = /^(010)[0-9]{8}$/; /* 010포함 숫자 11자리 */
+
 			
 			if ($(this).val() === '${user.userTel}') {
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
@@ -1307,7 +1317,7 @@ let nicknameCheck = true;
 			$('#userEmail').focus();
 			alert('이메일을 다시 확인하세요.');
 			return;
-		} else if ($('#userEmail').val().trim() != '' && $('#emailConf').css('display') === 'none') {
+		} else if ($('#userEmail').css('border-block-color') !== 'rgb(206, 212, 218)' && $('#emailConf').css('display') === 'none') {
 			hidePwModal();
 			$('#userEmail').focus();
 			alert('이메일을 인증하세요.');

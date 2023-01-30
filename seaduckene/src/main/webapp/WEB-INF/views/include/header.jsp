@@ -126,6 +126,15 @@
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/26' />">인도식</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/27' />">동남아식</a></li>
                      </ul></li>
+                  <li class="nav-item dropdown"><a
+                     class="nav-link dropdown-toggle" href="#" role="button"
+                     data-bs-toggle="dropdown" aria-expanded="false"> 공지 & 건의 </a>
+                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="<c:url value='/board/notice' />">공지사항</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/user/categoryRequest' />">카테고리 건의</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='#' />">Q & A</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='#' />">????</a></li>
+                     </ul></li>
                </ul>
             </div>
 

@@ -140,7 +140,7 @@
                 		</div>	
 					</div> <br> <br>
 					<input type="button" class="btn btn-sm btn-info btn-b" value="가입하기" id="user-join-submit"> &nbsp;&nbsp;
-					<input type="button" class="btn btn-sm btn-danger btn-b" value="뒤로가기">
+					<input type="button" class="btn btn-sm btn-danger btn-b" value="뒤로가기" onclick="back()">
 				</form>
 			</div>
 		</div>
@@ -155,6 +155,10 @@
 
 
 <script>
+
+	function back() {
+		window.history.back();
+	}
 
 	let optionCheck = false;
 	$(function() {
@@ -493,6 +497,14 @@
 			} else {
                 $(this).css('border', '2px solid red');
 			}	
+        });
+        
+        /* 전화번호 문자열 입력 방지 */
+        $('#userTel').keydown(function(e) {
+            // Only ASCII character in that range allowed
+            const ASCIICode = (e.which) ? e.which : e.keyCode;
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
         });
         
         /* 전화번호 확인검사 */

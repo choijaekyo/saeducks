@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -675,6 +676,16 @@ public class UserController {
 		return "changed";
 	}
 	
+	@GetMapping("/categoryRequest")
+	public void categoryRequest(Model model) {
+		List<CategoryVO> list = productService.getCategory();
+		LinkedHashSet<String> major = new LinkedHashSet<String>();
+		
+		for(CategoryVO vo : list) {
+			major.add(vo.getCategoryMajorTitle());
+		}
+		model.addAttribute("major", major);
+	}
 	
 	
 
