@@ -125,7 +125,7 @@ public class adminController {
 		model.addAttribute("list", service.getProductList(type, keyword));
 	}
 	
-	// 카테고리별 게시글 문의 요청
+	// 카테고리별 게시글 문의 요청 페이지 이동
 	@GetMapping("/askCategory")
 	public void askCategory(Model model) {
 		
@@ -144,4 +144,14 @@ public class adminController {
 		model.addAttribute("categoryListJson", categoryListJson);
 	}
 	
+	// 카테고리별 게시글 문의 요청
+	@PostMapping("/askCategory")
+	public void askCategory(String majorCategory, String minorCategory, String title, String content, int userNo) {
+		log.info(majorCategory);
+		log.info(minorCategory);
+		log.info(title);
+		log.info(content);
+		
+		
+	}
 }

@@ -676,17 +676,5 @@ public class UserController {
 		return "changed";
 	}
 	
-	@GetMapping("/categoryRequest")
-	public void categoryRequest(Model model) {
-		List<CategoryVO> list = productService.getCategory();
-		LinkedHashSet<String> major = new LinkedHashSet<String>();
-		
-		for(CategoryVO vo : list) {
-			major.add(vo.getCategoryMajorTitle());
-		}
-		model.addAttribute("major", major);
-	}
-	
-	
 
 }

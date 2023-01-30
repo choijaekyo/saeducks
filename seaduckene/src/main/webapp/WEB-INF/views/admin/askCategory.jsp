@@ -21,6 +21,7 @@
       <div class="container">
         <div class="row">
           <form action="<c:url value='/admin/askCategory'/>" method="post">
+          	<input type="hidden" value="${login.userNo}">
             <div class="input-group inputArea">
               <div class="col-md-2 offset-md-1 col-sm-12 col-12">
                 <label for="category">카테고리</label>
@@ -48,7 +49,7 @@
                 <label for="cate">제목</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="text" name="categoryRequestitle" id="categoryRequestitle" required />
+                <input class="form-control" type="text" name="title" id="title" required />
               </div>
             </div>
             <div class="input-group inputArea">
@@ -56,7 +57,7 @@
                 <label for="productContent">요청사유</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
-                <textarea class="form-control"  name="categoryRequesContent" id="categoryRequesContent" required ></textarea>
+                <textarea class="form-control"  name="content" id="content" required ></textarea>
               </div>
             </div>
 
@@ -75,4 +76,57 @@
     
     	<%@ include file="../include/footer.jsp" %>
 </body>
+
+<script>
+
+$(function() {
+	const categoryListJson = '${categoryListJson}';
+	
+	const categoryList = JSON.parse(categoryListJson);
+	
+	const $majorCategorySelect = $('#majorCategory')[0];
+	
+	const $fragOpts1 = document.createDocumentFragment();
+	
+	for (let i = 0; i < categoryList.length; i++) {
+		const $option = document.createElement('option');
+		$option.textContent = categoryList[i].categoryMajorTitle;
+        $fragOpts1.appendChild($option);
+	}
+	
+	$majorCategorySelect.appendChild($fragOpts1);
+	
+	$('#majorCategory').on('change', function() {
+		for (let i = 0; i < categoryList.length; i++) {
+			const categoryMajorTitle = categoryList[i].categoryMajorTitle;
+			const $fragOpts2 = document.createDocumentFragment();
+			
+			if (categoryMajorTitle === this.value) {
+				const categoryMinorList = categoryList[i].categoryMinorList;
+				
+				const $optDefault = document.createElement('option');
+				$($optDefault).attr('selected', 'true');			
+				$($optDefault).attr('disabled', 'true');			
+				$($optDefault).text('소 카테고리');
+				
+				$fragOpts2.appendChild($optDefault);
+				
+				for (let i = 0; i < categoryMinorList.length; i++) {
+					const $option = document.createElement('option');
+					$option.textContent = categoryMinorList[i];
+		        	$fragOpts2.appendChild($option);
+				}
+				
+				const $minorCategorySelect = $('#minorCategory')[0];
+				$($minorCategorySelect).html('');
+		        $minorCategorySelect.appendChild($fragOpts2);
+				
+			}
+		}
+		
+	});
+	
+}); // end jQuery
+
+</script>
 </html>
