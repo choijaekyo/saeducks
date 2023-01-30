@@ -820,7 +820,7 @@ let nicknameCheck = true;
         	$(this).css('color', 'black');
         	const regex = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 			
-			if ($(this).val() === '${user.userEmail}' || $(this).val() === '') {
+			if ($(this).val().trim() === '${user.userEmail}' || $(this).val().trim() === '') {
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
 				if (regex.test($(this).val())) {
@@ -833,7 +833,7 @@ let nicknameCheck = true;
         
         /*  주소 확인 검사 */
         $('#addrDetail').keyup(function() {
-			if ($(this).val() === '${userAddrList[0].addressDetail}' || $(this).val() === '') {
+			if ($(this).val().trim() === '${userAddrList[0].addressDetail}' || $(this).val().trim() === '') {
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
@@ -1291,7 +1291,7 @@ let nicknameCheck = true;
 			$('#userEmail').focus();
 			alert('이메일을 다시 확인하세요.');
 			return;
-		} else if ($('#userEmail').val().trim() != '' && $('#emailConf').css('display') === 'none') {
+		} else if ($('#userEmail').css('border-block-color') !== 'rgb(206, 212, 218)' && $('#emailConf').css('display') === 'none') {
 			hidePwModal();
 			$('#userEmail').focus();
 			alert('이메일을 인증하세요.');
