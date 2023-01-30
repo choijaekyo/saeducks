@@ -78,6 +78,7 @@
 
                const $input = document.createElement('input');
                $input.setAttribute('name', 'filename');
+               $input.setAttribute('type', 'hidden');
                $input.setAttribute('value', result[3]);
 
                document.getElementById('writeForm').appendChild($input);

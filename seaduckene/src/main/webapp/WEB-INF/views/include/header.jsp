@@ -76,7 +76,7 @@
                      </ul></li> --%>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 미디어 </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-radioactive"></i> 미디어 </a>
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/1' />">영화</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/2' />">드라마</a></li>
@@ -85,7 +85,7 @@
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 인물 </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-bounding-box"></i> 인물 </a>
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/5' />">배우</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/6' />">아이돌</a></li>
@@ -95,7 +95,7 @@
                      </ul></li>
                  <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 여행 </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-airplane"></i> 여행 </a>
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/10' />">아프리카</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/11' />">중동</a></li>
@@ -107,7 +107,7 @@
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 패션 </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-shop"></i> 패션 </a>
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/17' />">상의</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/18' />">하의</a></li>
@@ -117,7 +117,7 @@
                      </ul></li>
                   <li class="nav-item dropdown"><a
                      class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 음식 </a>
+                     data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-cup-hot"></i> 음식 </a>
                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/22' />">한식</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/board/boardList/23' />">중식</a></li>

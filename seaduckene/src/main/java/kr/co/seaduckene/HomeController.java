@@ -62,7 +62,6 @@ public class HomeController {
 			System.out.println("login 세션 있음");
 			list = service.mainImage(loginVo.getUserNo());
 			bList = bService.bUserList(loginVo.getUserNo());
-			
 		}
 		
 		System.out.println("사진리스트:"+list);
@@ -71,6 +70,8 @@ public class HomeController {
 		model.addAttribute("boardList", bList );
 		model.addAttribute("mainListImg", list );
 		model.addAttribute("serverTime", formattedDate );
+		
+		
 		
 		return "home";
 	}
