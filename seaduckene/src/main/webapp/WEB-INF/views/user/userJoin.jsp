@@ -140,7 +140,7 @@
                 		</div>	
 					</div> <br> <br>
 					<input type="button" class="btn btn-sm btn-info btn-b" value="가입하기" id="user-join-submit"> &nbsp;&nbsp;
-					<input type="button" class="btn btn-sm btn-danger btn-b" value="뒤로가기">
+					<input type="button" class="btn btn-sm btn-danger btn-b" value="뒤로가기" onclick="back()">
 				</form>
 			</div>
 		</div>
@@ -155,6 +155,10 @@
 
 
 <script>
+
+	function back() {
+		window.history.back();
+	}
 
 	let optionCheck = false;
 	$(function() {
