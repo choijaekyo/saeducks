@@ -678,7 +678,7 @@ public class UserController {
 		return "changed";
 	}
 	
-	@GetMapping("userAskCategoryBoardDetail/{askBoardNo}")
+	@GetMapping("/userAskCategoryBoardDetail/{askBoardNo}")
 	public String userAskCategoryBoardDetail(@PathVariable int askBoardNo, Model model) {
 		AskCategoryBoardVO askCategoryBoard = userService.getAskCategoryBoard(askBoardNo);
 		

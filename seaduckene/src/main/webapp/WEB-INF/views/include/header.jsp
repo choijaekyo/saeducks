@@ -98,7 +98,6 @@
                         <li><a class="dropdown-item" href="<c:url value='/board/notice' />">공지사항</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/admin/askCategoryBoard' />">카테고리 건의</a></li>
                         <li><a class="dropdown-item" href="<c:url value='#' />">Q & A</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/user/userMyPage/5' />">내 게시글 문의</a></li>
                         <li><a class="dropdown-item" href="<c:url value='#' />">????</a></li>
                      </ul></li>
                </ul>

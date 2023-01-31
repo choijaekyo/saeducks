@@ -163,7 +163,7 @@ public class adminController {
 		return "admin/askAdminList";
 	}
 	
-	// 관리자 탯글 요청
+	// 관리자 댓글 요청
 	@PostMapping("/askAdminReply")
 	public String askAdminReply(String askNo, String reply) {
 		
