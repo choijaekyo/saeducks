@@ -165,6 +165,9 @@ prefix="c"%>
                         <td class="border-start">${li.orderReturnReason }</td>
                         <td class="border-start">
 	                    	<c:choose>
+	                    		<c:when test="${li.orderStatus == '배송준비중'}">
+	                    			<button class="refundBtn${li.orderNum }">취소완료</button>
+	                    		</c:when>
 	                    		<c:when test="${li.orderStatus == '배송중'}">
 	                    			<button class="refundBtn${li.orderNum }">반품완료</button>
 	                    		</c:when>

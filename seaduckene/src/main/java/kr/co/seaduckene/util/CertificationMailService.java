@@ -51,7 +51,7 @@ public class CertificationMailService {
 	public String sendTmpPw(String email) {
 		makeTmpPw();
 		System.out.println("임시비밀번호: " + tmpPw);
-		String setFrom = "waytogo_816@naver.com"; // email-config에 설정한 발신용 이메일 주소
+		String setFrom = "s949794@naver.com"; // email-config에 설정한 발신용 이메일 주소
 		String toMail = email;
 		String title = "임시 비밀번호 입니다.";
 		String content = "<br><br>" +
