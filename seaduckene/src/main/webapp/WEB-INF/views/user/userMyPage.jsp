@@ -19,51 +19,71 @@
 
 	<section id="userMyPage" >
 		<div class="container">
-		<div class="row mypage-wrap">
-		 <div class="col-lg-12 col-md-12 col-sm-12 ">
-			<div class="title">
-			<c:choose>
-				<c:when test="${toggle == 2}">					
-					<h2>내 게시판</h2>
-				</c:when>
-				<c:when test="${toggle == 3}">					
-					<h2>장바구니</h2>
-				</c:when>
-				<c:otherwise>
-					<h2>마이페이지</h2>
-				</c:otherwise>
-			</c:choose>
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-					<c:choose>
-						<c:when test="${toggle == 1}">		
-						  <li class="breadcrumb-item active" data-head="1"><a data-toggle="tab" href="#myinfo">내 정보</a></li>
-						</c:when>
-						<c:otherwise>
-						  <li class="breadcrumb-item" data-head="1"><a data-toggle="tab" href="#myinfo">내 정보</a></li>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${toggle == 2}">		
-						  <li class="breadcrumb-item active myBoard" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
-						</c:when>
-						<c:otherwise>
-						  <li class="breadcrumb-item myBoard" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${toggle == 3}">		
-						  <li class="breadcrumb-item active" data-head="3"><a data-toggle="tab" href="#myBasket">장바구니</a></li>
-						</c:when>
-						<c:otherwise>
-						  <li class="breadcrumb-item" data-head="3"><a data-toggle="tab" href="#myBasket">장바구니</a></li>
-						</c:otherwise>
-					</c:choose>
-					  
-					  <li class="breadcrumb-item" data-head="4"><a data-toggle="tab" href="#myOrder">주문정보</a></li>
-					</ol>
-				</nav>				
-			</div>
+			<div class="row mypage-wrap">
+			 <div class="col-lg-12 col-md-12 col-sm-12 ">
+				<div class="title">
+				<c:choose>
+					<c:when test="${toggle == 2}">					
+						<h2>내 게시판</h2>
+					</c:when>
+					<c:when test="${toggle == 3}">					
+						<h2>장바구니</h2>
+					</c:when>
+					<c:when test="${toggle == 4}">					
+						<h2>주문정보</h2>
+					</c:when>
+					<c:when test="${toggle == 5}">					
+						<h2>내 문의사항</h2>
+					</c:when>
+					<c:otherwise>
+						<h2>마이페이지</h2>
+					</c:otherwise>
+				</c:choose>
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+						<c:choose>
+							<c:when test="${toggle == 1}">		
+							  <li class="breadcrumb-item active" data-head="1"><a data-toggle="tab" href="#myinfo">내 정보</a></li>
+							</c:when>
+							<c:otherwise>
+							  <li class="breadcrumb-item" data-head="1"><a data-toggle="tab" href="#myinfo">내 정보</a></li>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${toggle == 2}">		
+							  <li class="breadcrumb-item active myBoard" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
+							</c:when>
+							<c:otherwise>
+							  <li class="breadcrumb-item myBoard" data-head="2"><a data-toggle="tab" href="#myboard">내 글</a></li>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${toggle == 3}">		
+							  <li class="breadcrumb-item active" data-head="3"><a data-toggle="tab" href="#myBasket">장바구니</a></li>
+							</c:when>
+							<c:otherwise>
+							  <li class="breadcrumb-item" data-head="3"><a data-toggle="tab" href="#myBasket">장바구니</a></li>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${toggle == 4}">		
+							  <li class="breadcrumb-item active" data-head="4"><a data-toggle="tab" href="#myOrder">주문정보</a></li>
+							</c:when>
+							<c:otherwise>
+							  <li class="breadcrumb-item" data-head="4"><a data-toggle="tab" href="#myOrder">주문정보</a></li>
+							</c:otherwise>
+						</c:choose>				  
+						<c:choose>
+							<c:when test="${toggle == 5}">		
+						  		<li class="breadcrumb-item active" data-head="5"><a data-toggle="tab" href="#myAsk">내 문의사항</a></li>
+							</c:when>
+							<c:otherwise>
+						  		<li class="breadcrumb-item" data-head="5"><a data-toggle="tab" href="#myAsk">내 문의사항</a></li>
+							</c:otherwise>
+						</c:choose>				  
+						</ol>
+					</nav>				
+				</div>
 			<div class="tab-content">
 		<c:choose>
 			<c:when test="${toggle == 1}">					
@@ -71,8 +91,8 @@
 			</c:when>
 			<c:otherwise>
 				<div class="tab-pane" id="myinfo" >
-				</c:otherwise>
-			</c:choose>
+			</c:otherwise>
+		</c:choose>
 					<div class="update-container">
 						<form action="" method="post" enctype="multipart/form-data" id="user-update-form">
 						<c:if test="${user.userProfilePath == '프로필 경로'}">
@@ -271,7 +291,7 @@
 						      	<div id="modalMask"></div>
 							   </div>
 							</form>
-					</div>
+						</div>
 				</div>
 			</div>
 				
@@ -314,35 +334,35 @@
 			
 				
 			<div class="tab-content">
-			<c:choose>
-				<c:when test="${toggle == 2}">					
-					<div class="tab-pane active" id="myboard">
-				</c:when>
-				<c:otherwise>
-					<div class="tab-pane" id="myboard">
-				</c:otherwise>
-			</c:choose>
-			<div class="container">
-			<table class="table table-striped text-center " style="table-layout:fixed;">
-						
-						<thead>
-				            <tr>
-				                <th scope="col"colspan="2">제목</th>
-				                <th scope="col">작성일</th>
-				                <th scope="col">조회수</th>
-				            </tr>
+		<c:choose>
+			<c:when test="${toggle == 2}">					
+				<div class="tab-pane active" id="myboard">
+			</c:when>
+			<c:otherwise>
+				<div class="tab-pane" id="myboard">
+			</c:otherwise>
+		</c:choose>
+					<div class="container">
+						<table class="table table-striped text-center " style="table-layout:fixed;">
+							<thead>
+					            <tr>
+					                <th scope="col"colspan="2">제목</th>
+					                <th scope="col">작성일</th>
+					                <th scope="col">조회수</th>
+					            </tr>
 				            </thead>
 							<tbody id="contentDiv">
 							
 							</tbody>
-							 </table>
-							<div class="row justify-content-center row-div-2">
-							  	<div class="col-1 w-auto mt-3">
-							  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
-							  	</div>
-							</div>
+						 </table>
+						<div class="row justify-content-center row-div-2">
+						  	<div class="col-1 w-auto mt-3">
+						  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
+						  	</div>
 						</div>
 					</div>
+				</div>
+			</div>
 			
 		
 			<div class="tab-content">
@@ -401,7 +421,7 @@
 				<div class="tab-pane " id="myOrder">
 			</c:otherwise>
 		</c:choose>
-				<div class="container">
+					<div class="container">
 				        <table class="table table-striped text-center " style="table-layout:fixed;">
 				            <thead>
 				            <tr>
@@ -414,44 +434,93 @@
 				            </tr>
 				            </thead>
 				            <tbody>
-				            <c:forEach var="o" items="${order }" varStatus="status">
-				            <tr>
-				                <th scope="row" colspan="2" class="align-middle basket"><img id="productThumb" src="<c:url value='/product/display2?no=${o.orderProductNo }' />" alt="상품이미지" style="height:225px; width:225px;"> </th>
-				                <td class="align-middle basket"><a class="basketA" href="${pageContext.request.contextPath}/product/productDetail?productNo=${o.orderProductNo}"> ${name[status.index] } </a></td>
-				                <td class="align-middle basket">${o.orderQuantity }&nbsp;
-				                    </td>
-				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${o.orderPrice}" pattern="#,###" /> </td>
-				                <td class="align-middle basket">${o.orderStatus }</td>
-				                <c:choose>
-				                	<c:when test="${o.orderStatus =='취소요청' }">
-				                		<td class="align-middle basket"> 취소요청완료 </td>
-				                	</c:when>
-				                	<c:when test="${o.orderStatus =='취소완료'  }">
-				                		<td class="align-middle basket"> </td>
-				                	</c:when>
-				                	<c:when test="${o.orderStatus =='반품요청' }">
-				                		<td class="align-middle basket"> 반품요청완료 </td>
-				                	</c:when>
-				                	<c:when test="${o.orderStatus =='반품완료' }">
-				                		<td class="align-middle basket">  </td>
-				                	</c:when>
-				                	<c:otherwise>
-				                		<td class="align-middle basket"> <button class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/product/refund?no=${o.orderProductNo }'" >주문취소<br> 반품신청</button> </td>
-				                	</c:otherwise>
-				                </c:choose>
-				                <td style="display:none">${o.orderNo} </td> 
-				            </tr>
-				            </c:forEach>
+					            <c:forEach var="o" items="${order }" varStatus="status">
+					            <tr>
+					                <th scope="row" colspan="2" class="align-middle basket"><img id="productThumb" src="<c:url value='/product/display2?no=${o.orderProductNo }' />" alt="상품이미지" style="height:225px; width:225px;"> </th>
+					                <td class="align-middle basket"><a class="basketA" href="${pageContext.request.contextPath}/product/productDetail?productNo=${o.orderProductNo}"> ${name[status.index] } </a></td>
+					                <td class="align-middle basket">${o.orderQuantity }&nbsp;
+					                    </td>
+					                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${o.orderPrice}" pattern="#,###" /> </td>
+					                <td class="align-middle basket">${o.orderStatus }</td>
+					                <c:choose>
+					                	<c:when test="${o.orderStatus =='취소요청' }">
+					                		<td class="align-middle basket"> 취소요청완료 </td>
+					                	</c:when>
+					                	<c:when test="${o.orderStatus =='취소완료'  }">
+					                		<td class="align-middle basket"> </td>
+					                	</c:when>
+					                	<c:when test="${o.orderStatus =='반품요청' }">
+					                		<td class="align-middle basket"> 반품요청완료 </td>
+					                	</c:when>
+					                	<c:when test="${o.orderStatus =='반품완료' }">
+					                		<td class="align-middle basket">  </td>
+					                	</c:when>
+					                	<c:otherwise>
+					                		<td class="align-middle basket"> <button class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/product/refund?no=${o.orderProductNo }'" >주문취소<br> 반품신청</button> </td>
+					                	</c:otherwise>
+					                </c:choose>
+				                	<td style="display:none">${o.orderNo} </td> 
+				            	</tr>
+				            	</c:forEach>
 				            </tbody>
-				        </table>
-				        <div>
-				        	
+			        	</table>
+			        <div>
+		        </div>
+		    </div>
+		    </div>
+		    </div>
+				    <div class="tab-content">
+				<c:choose>
+					<c:when test="${toggle == 5}">					
+						<div class="tab-pane active" id="myAsk">
+					</c:when>
+					<c:otherwise>
+						<div class="tab-pane" id="myAsk">
+					</c:otherwise>
+				</c:choose>
+							<div class="container">		
+							<c:if test="${askCategoryBoardList.size() == 0}">
+								<div class="text-center h3">문의글이 없습니다.</div>
+							</c:if>
+							<c:if test="${askCategoryBoardList.size() > 0}">
+							<div class="text-center">게시판 관련 문의글</div>
+								<table class="table table-striped text-center " style="table-layout:fixed;">				
+									<thead>
+										<tr>
+											<th scope="col">대 카테고리</th>
+											<th scope="col">소 카테고리</th>
+											<th scope="col"colspan="2">제목</th>
+											<th scope="col">답변 상태</th>
+										</tr>
+									</thead>
+									<tbody >
+									<c:forEach var="askCategoryBoard" items="${askCategoryBoardList}" varStatus="status">
+							            	<tr>
+							                	<td class="align-middle basket">${askCategoryBoard.askBoardMajorCategory}</td>
+							                	<td class="align-middle basket">${askCategoryBoard.askBoardMinorCategory}</td>
+								                	<td scope="row" colspan="2" class="align-middle basket">
+											            <a href="${pageContext.request.contextPath}/user/userAskCategoryBoardDetail/${askCategoryBoard.askBoardNo}" class="askCategoryBoardDetail" >
+								                			${askCategoryBoard.askBoardTitle}
+											            </a>
+								                	</td>
+								                <c:if test="${empty askCategoryBoard.askBoardReplyContent}">
+								                	<td class="align-middle basket">답변 대기 중</td>
+								                </c:if>
+								                <c:if test="${not empty askCategoryBoard.askBoardReplyContent}">
+								                	<td class="align-middle basket">답변 완료</td>
+								                </c:if>
+							            	</tr>						
+									</c:forEach>
+									</tbody>
+								</table>
+							</c:if>
+							</div>
 				        </div>
 				    </div>
+				    
 				</div>
 			</div>
-					
-	</div>
+		</div>
 	</section>
 
 
@@ -488,7 +557,9 @@ let nicknameCheck = true;
 				$('#userMyPage .title h2').text('장바구니');
 			} else if($(this).data('head') == '4') {
 				$('#userMyPage .title h2').text('주문정보');
-			}
+			} else if($(this).data('head') == '5') {
+				$('#userMyPage .title h2').text('내 문의사항');
+			} 
 			
 		}); 
 		 
@@ -1506,7 +1577,7 @@ let nicknameCheck = true;
 	$('.myBoard').click(function() {
 		
 	
-		//등록하기 버튼 클릭 이벤트
+		//더보기 버튼 클릭 이벤트
 		$('#the-btn').click(function() {
 			if(!isFinish) {
 				page++;

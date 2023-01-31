@@ -34,5 +34,10 @@ public interface IAdminMapper {
 	
 	// 카테고리별 테이블 문의글 저장	
 	void insertCategoryBoard(AskCategoryBoardVO askCateBoVo);
+	
+	// 카테고리별 게시판 문의글 가져오기
+	List<AskCategoryBoardVO> getAskCategoryBoardList(int userNo);
 
+	// 카테고리별 게시판 문의글 상세보기 가져오기
+	AskCategoryBoardVO getAskCategoryBoard(int askBoardNo);
 }

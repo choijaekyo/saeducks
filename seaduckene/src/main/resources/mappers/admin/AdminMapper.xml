@@ -17,6 +17,10 @@
 		<if test="type == 'productName'">WHERE product_name LIKE '%'||#{keyword}||'%'</if>
 	</sql>
 	
+		<resultMap type="askCategoryBoard" id="askCategoryBoardCLOB">
+		<result property="askBoardContent" column="ask_board_content" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	
 	<select id="getAdminVo" resultType="admin">
 		SELECT * FROM admin_login WHERE admin_id = #{adminId} AND admin_pw = #{adminPw}
 	</select>
@@ -62,9 +66,20 @@
 	</select>
 	
 	<insert id="insertCategoryBoard">
-		INSERT INTO ask_category_board 
+		INSERT INTO ask_category_board
 		VALUES (ask_category_board_seq.NEXTVAL, #{askBoardMajorCategory}, #{askBoardMinorCategory}, #{askBoardTitle}
 		, #{askBoardContent}, default, #{askBoardReplyContent}, #{askBoardUserNo})
 	</insert>
+	
+	<select id="getAskCategoryBoardList" resultType="askCategoryBoard">
+		SELECT * FROM ask_category_board
+		WHERE ask_board_user_no = #{userNo} 
+		ORDER BY ask_board_user_no DESC
+	</select>
+	
+	<select id="getAskCategoryBoard" resultMap="askCategoryBoardCLOB">
+		SELECT * FROM ask_category_board
+		WHERE ask_board_no = #{askBoardNo}
+	</select>
 
 </mapper>

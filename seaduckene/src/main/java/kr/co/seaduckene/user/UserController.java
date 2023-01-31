@@ -47,6 +47,7 @@ import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
+import kr.co.seaduckene.util.AskCategoryBoardVO;
 import kr.co.seaduckene.util.CertificationMailService;
 import lombok.extern.log4j.Log4j;
 
@@ -238,7 +239,12 @@ public class UserController {
 		
 		List<AddressVO> userAddrList = userService.getUserAddr(userNo);
 		
-		modelAndView.addObject("userAddrList", userAddrList);			
+		modelAndView.addObject("userAddrList", userAddrList);
+		
+		
+		List<AskCategoryBoardVO> askCategoryBoardList = userService.getAskCategoryBoardList(userNo);
+		
+		modelAndView.addObject("askCategoryBoardList", askCategoryBoardList);
 		
 		return modelAndView;
 	}
@@ -672,5 +678,13 @@ public class UserController {
 		return "changed";
 	}
 	
+	@GetMapping("userAskCategoryBoardDetail/{askBoardNo}")
+	public String userAskCategoryBoardDetail(@PathVariable int askBoardNo, Model model) {
+		AskCategoryBoardVO askCategoryBoard = userService.getAskCategoryBoard(askBoardNo);
+		
+		model.addAttribute("askCategoryBoard", askCategoryBoard);
+		
+		return "/user/userAskCategoryBoardDetail";
+	}
 
 }
