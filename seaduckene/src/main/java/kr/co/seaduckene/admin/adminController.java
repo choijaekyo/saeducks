@@ -28,6 +28,7 @@ import kr.co.seaduckene.user.service.IUserService;
 import kr.co.seaduckene.util.AskCategoryBoardVO;
 import kr.co.seaduckene.util.summernoteCopy;
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/admin")
@@ -128,6 +129,7 @@ public class adminController {
 		model.addAttribute("list", service.getProductList(type, keyword));
 	}
 
+	// 문의 페이지
 	@GetMapping("/askWrite")
 	public String askWrite(Model model, HttpSession session) {
 		UserVO userVo = (UserVO) session.getAttribute("login");
@@ -136,6 +138,7 @@ public class adminController {
 		return "admin/askWrite";
 	}
 
+	// 문의 글쓰기 요청
 	@PostMapping("/askWrite")
 	public String askWrite(AskListVO vo) {
 		
@@ -146,6 +149,29 @@ public class adminController {
 		service.setAsk(vo);
 		
 		return "redirect:/admin/askWrite";
+	}
+	
+	// 관리자 문의 게시판
+	@GetMapping("/askAdminList")
+	public String askAdminList(Model model, String type, String keyword) {
+
+		List<AskListVO> list = service.getAskSearchList(type, keyword);
+		model.addAttribute("searchList" , list);
+		
+		model.addAttribute("askAdminList",service.getAdminAskLisk());
+
+		return "admin/askAdminList";
+	}
+	
+	// 관리자 탯글 요청
+	@PostMapping("/askAdminReply")
+	public String askAdminReply(String askNo, String reply) {
+		
+		String content = ((String) reply.replace("\r\n","<br>"));
+
+		service.setAskReply(askNo, content);
+		
+		return "redirect:/admin/askAdminList";
 	}
 	
 	// 카테고리별 게시글 문의 요청 페이지 이동

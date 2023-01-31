@@ -38,6 +38,7 @@
 			<mvc:mapping path="/board/boardUpdate" />
 			<mvc:mapping path="/board/boardDelete" />
 			<mvc:mapping path="/admin/askCategoryBoard" />
+			<mvc:mapping path="/admin/askWrite" />
 			<ref bean="userLoginAccessHandler" />
 		</mvc:interceptor>
 		

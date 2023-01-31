@@ -3,6 +3,9 @@ package kr.co.seaduckene.admin.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
 import kr.co.seaduckene.admin.command.AskListVO;
@@ -41,4 +44,13 @@ public interface IAdminMapper {
 	
 	// 고객문의 리스트
 	List<AskListVO> getAskLisk(int userNo);
+	
+	// 전체 문의 리스트
+	List<AskListVO> getAdminAskLisk();
+	
+	// 문의사항 유저 검색
+	List<AskListVO> getAskSearchList(@Param("type") String type, @Param("keyword") String keyword);
+	
+	// 관리자 답변 요청
+	void setAskReply(@Param("askNo") String askNo, @Param("reply") String reply);
 }

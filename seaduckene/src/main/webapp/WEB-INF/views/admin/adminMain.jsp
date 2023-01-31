@@ -48,6 +48,7 @@
 		    <a class="btn btn-success" href="<c:url value='/admin/NoticeAddPage' />">공지등록</a>
 		    <a class="btn btn-success" href="<c:url value='/board/notice' />">공지사항</a>
 		    <a class="btn btn-info" href="<c:url value='/admin/userSearch' />">주문목록</a>
+		    <a class="btn btn-danger" href="<c:url value='/admin/askAdminList' />">문의게시판</a>
 	      </div>
       </div>
      </div>
