@@ -29,6 +29,7 @@
 		<typeAlias type="kr.co.seaduckene.product.command.ProductBasketVO" alias="basket"/>
 		<typeAlias type="kr.co.seaduckene.product.command.ProductImageVO" alias="image"/>
 		<typeAlias type="kr.co.seaduckene.util.BoardUserVO" alias="boardUser"/>
+		<typeAlias type="kr.co.seaduckene.util.AskCategoryBoardVO" alias="askCategoryBoard"/>
 		<typeAlias type="kr.co.seaduckene.common.NoticeVO" alias="notice"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardReplyVO" alias="boardReply"/>
 		<typeAlias type="kr.co.seaduckene.board.command.BoardReplyListVO" alias="boardReplyList"/>
