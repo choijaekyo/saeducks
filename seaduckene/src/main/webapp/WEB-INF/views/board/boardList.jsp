@@ -34,7 +34,8 @@
 
 <div class="container container-board-div2">
 	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-	<c:forEach var="proVo" items="${productList}">
+	<c:forEach var="proVo" items="${productList}" varStatus="status">
+		<c:if test="${status.index<3 }">
 		  <div class="col productcard">
 		  <a href="${pageContext.request.contextPath }/product/productDetail?productNo=${proVo.productNo}" id="cardA">
 		    <div class="card mb-4 rounded-3 shadow-sm ">
@@ -59,6 +60,7 @@
 		    </div>
 		    </a>
 		  </div>
+		 </c:if> 
 	  </c:forEach>
 	</div>
 	<div style="text-align: center;">
