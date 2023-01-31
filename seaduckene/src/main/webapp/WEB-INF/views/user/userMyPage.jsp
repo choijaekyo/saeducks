@@ -354,11 +354,13 @@
 							<tbody id="contentDiv">
 							
 							</tbody>
-						 </table>
-						<div class="row justify-content-center row-div-2">
-						  	<div class="col-1 w-auto mt-3">
-						  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
-						  	</div>
+							 </table>
+							<div class="row justify-content-center row-div-2">
+							  	<div class="col-1 w-auto mt-3">
+							  		<button type="button" class="btn btn-primary btn-sm rounded" id="the-btn">더보기</button>
+							  	</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -1639,6 +1641,7 @@ let nicknameCheck = true;
 				        `;		
 					}
 					$('#contentDiv').html(str);
+					
 				}
 				
 			); //end getJSON()

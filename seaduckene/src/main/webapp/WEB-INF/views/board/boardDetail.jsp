@@ -10,30 +10,18 @@
 
 
 <div class="container board-detail-container"> 
-	<div id="board-detail-card">
-		<div  id="board-detail-card-body">
-			<h5 >${category.categoryMinorTitle}게시판 입니다.</h5>
-			<p class=>${category.categoryMinorTitle}와 관련된 글 작성 부탁드려요!</p>
-			<button id="board-detail-card-body-button" type="button" class="btn btn-primary btn-sm HomeButtonController">Home</button>
-		</div>
+	  <div class="row">
+      <div class="mb-3">
+	  	<div class="col col align-self-center" style="position: relative;">
+        	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='15' %3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107; margin-top:10px;">
+			    <li class="breadcrumb-item" id="majorTitle">${category.categoryMajorTitle}</li>
+			    <li class="breadcrumb-item" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
+			  </ol>
+			</nav>
+        </div>
 	</div>
-</div>
-
-
-<div class="container text-center">
-	<div class="row">
-		<div class="col d-flex flex-row justify-content-end"
-			id="board-detail-item">
-
-			<p>
-				<fmt:formatDate value="${list.boardRegDate}" pattern="yyyy/MM/dd" />
-			</p>
-			<p>&nbsp;&nbsp;조회수: ${list.boardViews }</p>
-			<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">조회</a></li> -->
-
-		</div>
-	</div>
+   </div>
 </div>
 
 <form action="${pageContext.request.contextPath}/board/boardModify"
@@ -45,20 +33,32 @@
 				<div class="mb-3">
 					<input type="hidden" name="boardNo" value="${ list.boardNo }">
 					<input type="hidden" name="boardCategoryNo" value="${ list.boardCategoryNo }">
-					<label for="title" class="form-label">제목</label> <input type="text"
+					<label for="title" class="form-label"></label> <input type="text"
 						class="form-control" id="title" name="boardTitle"
 						value="${list.boardTitle}" readonly>
 				</div>
+				
 				<div class="mb-3" id="board-detail-content">
-					<label for="content" class="form-label">내용</label>
+					<label for="content" class="form-label"></label>
 					<textarea class="form-control" id="summernote" name="boardContent"
 						readonly rows="15"></textarea>
+				
+				<br>
+				<div class="col d-flex flex-row justify-content-end"
+					id="board-detail-item">
+		
+					<p>
+						<fmt:formatDate value="${list.boardRegDate}" pattern="yyyy/MM/dd" />
+					</p>
+					<p>&nbsp;&nbsp;조회수: ${list.boardViews }</p>
+		
+				</div>
 
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList/${list.boardCategoryNo}'/>'
-						class="right btn btn-info" id="listBtn">목록가기</a>
-					<button type="submit" class="right btn btn-info" id="ModBtn">수정하기</button>
+						class="right btn btn-info btn-sm" id="listBtn">목록가기</a>
+					<button type="submit" class="right btn btn-info btn-sm" id="ModBtn">수정하기</button>
 
 				</div>
 			</div>
@@ -76,7 +76,6 @@
 		<!-- 로그인 안 했을 시 -->
 			<c:if test="${login == null}">
 				<div class="col">
-				<hr>
 					<div class="d-flex align-items-center mb-3">
 						<h5 class="me-auto mb-0" id="replyBoardNo" style="display:none;"></h5>
 						<span class="text-muted extra-small ms-2" style="display:none;"></span>
@@ -106,7 +105,7 @@
 					</div>
 					<br>
 					<div>
-						<button type="button" id="replyRegist" class="right btn btn-info" style="margin-bottom: 15px;">등록하기</button>
+						<button type="button" id="replyRegist" class="right btn btn-info btn-sm" style="margin-bottom: 15px;">등록하기</button>
 					</div>
 				</div>
 			</c:if>
