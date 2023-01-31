@@ -89,7 +89,7 @@
 	
 	<select id="getAskSearchList" resultType="askList">
 		SELECT a.ask_list_no, a.ask_list_user_no, a.ask_list_content, a.ask_list_reg_date, 
-			   a.ask_list_update_date, a.ask_list_reply_content, a.ask_list_select_no
+			   a.ask_list_update_date, a.ask_list_reply_content, a.ask_list_select_no, (SELECT user_name FROM duck_user WHERE a.ask_list_user_no = user_no) AS ask_list_user_name
 		FROM ask_list a
 		<include refid="askSearch" />
 		ORDER BY ask_list_no DESC

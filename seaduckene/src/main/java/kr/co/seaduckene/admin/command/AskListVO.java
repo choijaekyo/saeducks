@@ -34,6 +34,7 @@ public class AskListVO {
 	
 	private int askListNo;
 	private int askListUserNo;
+	private String askListUserName;
 	private int askListSelectNo;
 	private String askListContent;
 	private Timestamp askListRegDate;

@@ -51,52 +51,59 @@
 		</div>
 		<div class="">
 			<c:forEach var="i" items="${empty searchList ? askAdminList : searchList}" >
-				<div class="list-group mb-2">
-					<div class="list-group-item list-group-item-secondary" >
-					  <div class="d-flex w-100 justify-content-between">
-					    <div>
-					      <h6 class="mb-0">사용자</h6>
-					      <p class="mb-0 opacity-75"  style="white-space:pre;">${i.askListContent}</p>
-					    </div>
-					    <small class="opacity-50 text-nowrap">
-					    	<c:set var="now" value="${i.askListRegDate}" />
-							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd a h:mm" type="date"/>
-					    </small>
-					  </div>
-					</div>
-					<c:if test="${empty i.askListReplyContent}">
-						<form class="was-validated" action="${pageContext.request.contextPath}/admin/askAdminReply" method="post">
-	
-							<input type="hidden" name="askNo" value="${i.askListNo}">
-							
-							<div class="row">
-								<div class="col-11 mb-3 form-floating">
-									<textarea name="reply" onkeyup="autoHeight();" class="form-control" id="sss" placeholder="관리자에게 할말을 적으라" required></textarea>
-									<label for="sss">사용자에게 할말을 적으라</label>
-								</div>
-						
-								<div class="col-1">
-									<button class="btn btn-primary rounded" type="submit">답변하기</button>
-								</div>
-							</div>
-						</form>
-					</c:if>
-					<c:if test="${not empty i.askListReplyContent}">
-						<div class="list-group-item list-group-item-action" >
+				<c:if test="${not empty searchList}">
+					<div class="list-group mb-2">
+						<div class="list-group-item list-group-item-secondary" >
 						  <div class="d-flex w-100 justify-content-between">
 						    <div>
-						      <h6 class="mb-0">관리자</h6>
-						      <p class="mb-0 opacity-75" style="white-space:pre;">${i.askListReplyContent}</p>
+						      <h6 class="mb-0">유저 : ${i.askListUserName}</h6>
+						      <p class="mb-0 opacity-75"  style="white-space:pre;">${i.askListContent}</p>
 						    </div>
 						    <small class="opacity-50 text-nowrap">
-						    	<c:set var="now" value="${i.askListUpdateDate}" />
+						    	<c:set var="now" value="${i.askListRegDate}" />
 								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd a h:mm" type="date"/>
 						    </small>
 						  </div>
 						</div>
-					</c:if>
-				</div>
+						<c:if test="${empty i.askListReplyContent}">
+							<form class="was-validated" action="${pageContext.request.contextPath}/admin/askAdminReply" method="post">
+		
+								<input type="hidden" name="askNo" value="${i.askListNo}">
+								
+								<div class="row">
+									<div class="col-11 mb-3 form-floating">
+										<textarea name="reply" onkeyup="autoHeight();" class="form-control" id="sss" placeholder="관리자에게 할말을 적으라" required></textarea>
+										<label for="sss">사용자에게 할말을 적으라</label>
+									</div>
+							
+									<div class="col-1">
+										<button class="btn btn-primary rounded" type="submit">답변하기</button>
+									</div>
+								</div>
+							</form>
+						</c:if>
+						<c:if test="${not empty i.askListReplyContent}">
+							<div class="list-group-item list-group-item-action" >
+							  <div class="d-flex w-100 justify-content-between">
+							    <div>
+							      <h6 class="mb-0">관리자</h6>
+							      <p class="mb-0 opacity-75" style="white-space:pre;">${i.askListReplyContent}</p>
+							    </div>
+							    <small class="opacity-50 text-nowrap">
+							    	<c:set var="now" value="${i.askListUpdateDate}" />
+									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd a h:mm" type="date"/>
+							    </small>
+							  </div>
+							</div>
+						</c:if>
+					</div>
+				</c:if>
 			</c:forEach>
+			<c:if test="${empty searchList}">
+				<div>
+					<p>문의 사항이 없습니다.</p>
+				</div>
+			</c:if>
 		</div>
 	</div>
 	
