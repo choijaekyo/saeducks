@@ -8,7 +8,7 @@
 	<title>Insert title here</title>
 	
     <!--개인 디자인 추가-->
-    <link href="${pageContext.request.contextPath }/resources/css/askCategory.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath }/resources/css/askCategoryBoard.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -16,12 +16,12 @@
 	
     <section class="form-signin w-100 m-auto">
       <div class="col-md-12">
-        <h1 class="add-product-title h1 mt-4">카테고리 추가 건의</h1>
+        <h1 class="add-product-title h1 mt-4">게시글별 문의사항</h1>
       </div>
       <div class="container">
-        <div class="row">
-          <form action="<c:url value='/admin/askCategory'/>" method="post">
-          	<input type="hidden" value="${login.userNo}">
+        <div class="row">	
+          <form action="<c:url value='/admin/askCategoryBoard'/>" id="askCategoryBoard-form" method="post">
+          	<input type="hidden" name="askBoardUserNo" value="${login.userNo}">
             <div class="input-group inputArea">
               <div class="col-md-2 offset-md-1 col-sm-12 col-12">
                 <label for="category">카테고리</label>
@@ -29,15 +29,12 @@
               <div class="col-md-7 col-sm-12 col-12">
                 <div class="row">
                   <div class="col-6">
-                    <select class="form-select" aria-label="Default select example" name="majorCategory" id="majorCategory" >
+                    <select class="form-select" aria-label="Default select example" name="askBoardMajorCategory" id="majorCategory" >
                       <option selected disabled>대 카테고리</option>
-                      <c:forEach var="list" items="${major}">
-                        <option>${list}</option>
-                      </c:forEach>
                     </select>
                   </div>
                   <div class="col-6">
-                    <select class="form-select" aria-label="Default select example" name="minorCategory" id="minorCategory" >
+                    <select class="form-select" aria-label="Default select example" name="askBoardMinorCategory" id="minorCategory" >
                       <option selected disabled>소 카테고리</option>
                     </select>
                   </div>
@@ -49,7 +46,7 @@
                 <label for="cate">제목</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
-                <input class="form-control" type="text" name="title" id="title" required />
+                <input class="form-control" type="text" name="askBoardTitle" id="title" required />
               </div>
             </div>
             <div class="input-group inputArea">
@@ -57,13 +54,13 @@
                 <label for="productContent">요청사유</label>
               </div>
               <div class="col-md-7 col-sm-12 col-12">
-                <textarea class="form-control"  name="content" id="content" required ></textarea>
+                <textarea class="form-control"  name="askBoardContent" id="content" required ></textarea>
               </div>
             </div>
 
             <div class="inputArea input-group btns">
               <div class="btn-b" >
-                <button type="submit" class="order_btn btn btn-outline-success">건의하기</button>
+                <button type="button" class="order_btn btn btn-outline-success" id="submit-btn">문의하기</button>
               </div>
               <div class="btn-b">
                 <button type="button" class="cancel_btn btn btn-outline-secondary"  onclick="history.back()" >뒤로가기</button>
@@ -80,6 +77,10 @@
 <script>
 
 $(function() {
+	
+	console.log('${login}');
+	console.log('${login.userNo}');
+	
 	const categoryListJson = '${categoryListJson}';
 	
 	const categoryList = JSON.parse(categoryListJson);
@@ -125,6 +126,48 @@ $(function() {
 		}
 		
 	});
+	
+    // 버튼 클릭, 버튼 엔터 이벤트 시 submit 실행 코드.
+    $('#submit-btn').click(submit);
+    $('#askCategoryBoard-form').on('keyup', 'input', keyPressEnter);
+	
+    function keyPressEnter() {
+    	if (window.event.keyCode == 13) {
+    		submit();				
+		}
+    }
+    
+	function submit() {
+		
+		if (true) {
+			const major = $('#majorCategory');
+			if (major[0].value === '대 카테고리') {
+				alert('대 카테고리를 선택하세요.');
+				major[0].focus();				
+				return;						
+			}	  
+			
+			const minor = $('#minorCategory');
+			if (minor[0].value === '소 카테고리') {
+				alert('소 카테고리를 선택하세요.');
+				minor[0].focus();				
+				return;						
+			}	  
+		}
+
+		if ($('#title').val().trim() === '') {			
+			alert('문의 제목을 입력해주세요.');
+			$('#title').focus();
+			return;
+		} else if ($('#content').val().trim() === '') {
+			alert('문의 내용을 입력해주세요.');
+			$('#content').focus();
+			return;
+		} 
+		
+   		$('#askCategoryBoard-form').submit();
+		
+	}
 	
 }); // end jQuery
 

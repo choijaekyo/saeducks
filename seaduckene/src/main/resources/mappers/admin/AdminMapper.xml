@@ -60,5 +60,11 @@
 		SELECT * FROM product
 		<include refid="productSearch" />
 	</select>
+	
+	<insert id="insertCategoryBoard">
+		INSERT INTO ask_category_board 
+		VALUES (ask_category_board_seq.NEXTVAL, #{askBoardMajorCategory}, #{askBoardMinorCategory}, #{askBoardTitle}
+		, #{askBoardContent}, default, #{askBoardReplyContent}, #{askBoardUserNo})
+	</insert>
 
 </mapper>

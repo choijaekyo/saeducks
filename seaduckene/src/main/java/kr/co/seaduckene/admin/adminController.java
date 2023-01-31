@@ -23,6 +23,7 @@ import kr.co.seaduckene.admin.service.IAdminService;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.service.IUserService;
+import kr.co.seaduckene.util.AskCategoryBoardVO;
 import kr.co.seaduckene.util.summernoteCopy;
 import lombok.extern.log4j.Log4j;
 
@@ -126,7 +127,7 @@ public class adminController {
 	}
 	
 	// 카테고리별 게시글 문의 요청 페이지 이동
-	@GetMapping("/askCategory")
+	@GetMapping("/askCategoryBoard")
 	public void askCategory(Model model) {
 		
 		List<Categories> categoryList = userService.getCategories();
@@ -145,13 +146,14 @@ public class adminController {
 	}
 	
 	// 카테고리별 게시글 문의 요청
-	@PostMapping("/askCategory")
-	public void askCategory(String majorCategory, String minorCategory, String title, String content, int userNo) {
-		log.info(majorCategory);
-		log.info(minorCategory);
-		log.info(title);
-		log.info(content);
+	@PostMapping("/askCategoryBoard")
+	public String askCategory(AskCategoryBoardVO askCateBoVo, RedirectAttributes ra) {
+		log.info(askCateBoVo);
 		
+		service.insertCategoryBoard(askCateBoVo);
 		
+		ra.addFlashAttribute("msg", "askCategoryBoard");
+		
+		return "redirect:/";
 	}
 }
