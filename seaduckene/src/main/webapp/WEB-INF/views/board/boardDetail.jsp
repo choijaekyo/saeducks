@@ -56,9 +56,10 @@
 
 				</div>
 				<div id="board-detail-button">
-					<a href='<c:url value='/board/boardList/1'/>'
-						class="right btn btn-info btn-sm" id="listBtn">목록가기</a>
-					<button type="submit" class="right btn btn-info btn-sm" id="ModBtn">수정하기</button>
+					<a href='<c:url value='/board/boardList/${list.boardCategoryNo}'/>'
+						class="right btn btn-info" id="listBtn">목록가기</a>
+					<button type="submit" class="right btn btn-info" id="ModBtn">수정하기</button>
+
 				</div>
 			</div>
 <!-- 		</div>
@@ -95,9 +96,8 @@
 			<!-- 로그인 시 -->
 			<c:if test="${login != null}">
 				<div class="col">
-					<hr>
-					<div class="d-flex align-items-center mb-3">
-						<p class="me-auto mb-0" id="replyBoardNo">${login.userNickname}</p>
+					<div class="d-flex align-items-center mb-3" style="margin:15px;" >
+						<h5 class="me-auto mb-0" id="replyBoardNo">${login.userNickname}</h5>
 					</div>
 
 					<div class="d-flex align-items-center">
@@ -106,7 +106,7 @@
 					</div>
 					<br>
 					<div>
-						<button type="button" id="replyRegist" class="right btn btn-info btn-sm">등록하기</button>
+						<button type="button" id="replyRegist" class="right btn btn-info" style="margin-bottom: 15px;">등록하기</button>
 					</div>
 				</div>
 			</c:if>
@@ -177,7 +177,8 @@
 
 		$(function() {
 			$('#summernote').summernote({
-				toolbar : false
+				toolbar : false,
+				minHeight : 500
 			});
 			$('#summernote').summernote('disable');
 			$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
