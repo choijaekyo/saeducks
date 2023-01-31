@@ -44,12 +44,36 @@
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
-			<mvc:mapping path="/**" />
+			<mvc:mapping path="/" />
+			<mvc:mapping path="/board/boardList/**" />
+			<mvc:mapping path="/board/boardDetail/**" />
+			<mvc:mapping path="/board/boardModify" />
+			<mvc:mapping path="/board/boardWrite/**" />
+			<mvc:mapping path="/board/notice" />
+			<mvc:mapping path="/user/userLogin" />
+			<mvc:mapping path="/user/userJoin" />
+			<mvc:mapping path="/user/userMyPage/**" />
+			<mvc:mapping path="/product/productDetail" />
+			<mvc:mapping path="/product/refund" />
+			<mvc:mapping path="/product/order" />
+			<mvc:mapping path="/product/productList" />
 			<ref bean="autoLoginHandler" />
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
-			<mvc:mapping path="/**" />
+			<mvc:mapping path="/" />
+			<mvc:mapping path="/board/boardList/**" />
+			<mvc:mapping path="/board/boardDetail/**" />
+			<mvc:mapping path="/board/boardModify" />
+			<mvc:mapping path="/board/boardWrite/**" />
+			<mvc:mapping path="/board/notice" />
+			<mvc:mapping path="/user/userLogin" />
+			<mvc:mapping path="/user/userJoin" />
+			<mvc:mapping path="/user/userMyPage/**" />
+			<mvc:mapping path="/product/productDetail" />
+			<mvc:mapping path="/product/refund" />
+			<mvc:mapping path="/product/order" />
+			<mvc:mapping path="/product/productList" />
 			<ref bean="CategoryHandler" />
 		</mvc:interceptor>
 		

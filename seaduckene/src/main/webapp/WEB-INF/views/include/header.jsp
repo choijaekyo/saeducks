@@ -79,14 +79,14 @@
                      </ul></li> --%>
                      
                      
-                  <c:forEach var="mj" items="${majorList}" varStatus="st">
+                  <c:forEach var="mj" items="${majorListHeader}" varStatus="st">
 	                  <li class="nav-item dropdown"><a
 	                     class="nav-link dropdown-toggle" href="#" role="button"
 	                     data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-caret-down-fill"></i> ${mj } </a>       
 	                     <ul class="dropdown-menu">
-		                     <c:forEach var="category" items="${categoryList }">
-				             	<c:if test="${category.categoryMajorTitle == majorList[st.index]}">
-				                    <li><a class="dropdown-item" href="<c:url value='/board/boardList/${category.categoryNo }' />">${category.categoryMinorTitle  }</a></li>  		
+		                     <c:forEach var="ctHeader" items="${ctListHeader }">
+				             	<c:if test="${ctHeader.categoryMajorTitle == majorListHeader[st.index]}">
+				                    <li><a class="dropdown-item" href="<c:url value='/board/boardList/${ctHeader.categoryNo }' />">${ctHeader.categoryMinorTitle  }</a></li>  		
 		                    	</c:if>   	
 		                     </c:forEach>
 	                    </ul>   

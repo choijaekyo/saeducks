@@ -21,16 +21,16 @@ public class CategoryHandler implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
+		System.out.println("Action CategoryHandler");
 		
 		
 		List<String> majorList = service.getMajor();	
 		//model.addAttribute("majorList", majorList);
-		request.setAttribute("majorList", majorList);
+		request.setAttribute("majorListHeader", majorList);
 		
 		List<CategoryVO> categoryList = service.getCategory();
 		//model.addAttribute("categoryList" , categoryList);
-		request.setAttribute("categoryList" , categoryList);
+		request.setAttribute("ctListHeader" , categoryList);
 		
 		return true;
 	}
