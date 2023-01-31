@@ -8,7 +8,7 @@
    <div class="row">
       <div class="mb-3">
 	  	<div class="col col align-self-center" style="position: relative;">
-        	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='15'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
 			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107; margin-top:10px;">
 			    <li class="breadcrumb-item" id="majorTitle">${category.categoryMajorTitle}</li>
 			    <li class="breadcrumb-item" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
@@ -28,7 +28,7 @@
 
    <div class="container">
       <div class="form-group">
-         <label for="exampleFormControlInput1">제목</label> 
+         <label for="exampleFormControlInput1">&nbsp;제목</label> 
          <input type="text" class="form-control" id="exampleFormControlInput1" name="boardTitle" placeholder="제목을 작성해주세요." maxlength="50" >
       </div>
 
@@ -40,8 +40,8 @@
       <input type="hidden" name="boardCategoryNo" value="${categoryNo}"> <br>
 
       <div>
-         <button type="button" class="btn btn-info" id="board-Write-button">등록하기</button>
-         <a href='<c:url value='/board/boardList/${categoryNo}'/>' class="btn btn-secondary"
+         <button type="button" class="btn btn-info btn-sm" id="board-Write-button">등록하기</button>
+         <a href='<c:url value='/board/boardList/${categoryNo}'/>' class="btn btn-secondary btn-sm" 
             id="WritelistBtn">목록으로</a>
       </div>
 

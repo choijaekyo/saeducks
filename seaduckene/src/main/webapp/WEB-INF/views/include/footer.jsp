@@ -13,7 +13,7 @@
       <div class="row">
          <div class="col-md-4">
             <div class="f_box text-center">
-               <p>
+               <p style="font-size: 15px;">
                   Bootstrap | 대표자 : 박세덕 <br> E-MAIL : saeduckene&#64;info.com<br>
                   사업자번호 : 123-56-78910 <br> 개인정보보호책임자 : 최재덕 <br>통신판매업 :
                   2019-서울강남-0001<br> 주소 :세덕시 세덕구 세덕동 세덕빌딩 304호
@@ -23,17 +23,16 @@
          <div class="col-md-4">
             <div class="f_box text-center">
                <p>
-                  <strong style="font-size: 15px;">반품배송지 </strong><br>
+                  <strong>반품배송지 </strong><br>
                </p>
-               <p style="font-size: 12px;">
+               <p style="font-size: 15px;">
                   인규시 세덕면 보라리 <br> 세덕물류센터
                </p>
-               <br>
                <p>
                   <strong>CUSTOMER CENTER</strong> <br> <strong>2577-3839</strong>
                   <br>
                </p>
-               <p style="font-size: 12px;">
+               <p style="font-size: 15px;">
                   AM 9:00 ~ PM 6:00 <br> break time pm:1:00 ~ pm2:00
                </p>
             </div>

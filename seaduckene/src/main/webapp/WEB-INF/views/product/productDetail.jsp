@@ -76,10 +76,10 @@
 
 				</div>
 				<div class="col-md-6">
-					<div class="small mb-1">PNO:${vo.productNo }</div>
-					<h1 class="display-5 fw-bolder">${vo.productName }</h1>
+					<div class="small mb-1">상품번호: ${vo.productNo }</div>
+					<h2 class="display-5 fw-bolder">${vo.productName }</h2>
 					<div class="fs-5 mb-5">
-						<span class="text-decoration-line-through">&#8361;<fmt:formatNumber value="${vo.productPriceNormal }" pattern="#,###" /></span>
+						<span class="text-decoration-line-through">&#8361;<fmt:formatNumber value="${vo.productPriceNormal }" pattern="#,###" /></span> &nbsp;
 						<span>&#8361;<fmt:formatNumber value="${vo.productPriceSelling }" pattern="#,###" /></span>
 					</div>
 					<p class="lead">${vo.productDetail }</p>
