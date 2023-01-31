@@ -72,4 +72,10 @@
 		ORDER BY ask_list_no DESC
 	</select>
 
+	<insert id="insertCategoryBoard">
+		INSERT INTO ask_category_board 
+		VALUES (ask_category_board_seq.NEXTVAL, #{askBoardMajorCategory}, #{askBoardMinorCategory}, #{askBoardTitle}
+		, #{askBoardContent}, default, #{askBoardReplyContent}, #{askBoardUserNo})
+	</insert>
+
 </mapper>

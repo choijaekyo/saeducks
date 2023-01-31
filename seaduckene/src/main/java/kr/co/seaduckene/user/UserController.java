@@ -672,7 +672,5 @@ public class UserController {
 		return "changed";
 	}
 	
-	
-	
 
 }

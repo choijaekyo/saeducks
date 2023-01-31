@@ -9,3 +9,7 @@
 #userJoin-wrap .buttons {
 	margin-top: 100px;
 }
+
+#userJoinSuccessPage .title ol li {
+	display: inline-block;
+}

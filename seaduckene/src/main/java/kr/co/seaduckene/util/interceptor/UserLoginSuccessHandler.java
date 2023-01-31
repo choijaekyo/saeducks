@@ -69,7 +69,8 @@ public class UserLoginSuccessHandler implements HandlerInterceptor {
 			HttpSession session = request.getSession();
 			user = userService.getUserVoWithNo(user.getUserNo());
 			session.setAttribute("login", user);
-
+			
+			modelAndView.addObject("autoLoginCheck", null);
 			modelAndView.setViewName("redirect:/");
 		}
 	}

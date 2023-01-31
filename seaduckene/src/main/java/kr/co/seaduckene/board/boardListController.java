@@ -63,6 +63,7 @@ public class boardListController {
 		model.addAttribute("productList", service.proList(categoryNo));
 		model.addAttribute("category",service.getCategory(categoryNo));
 		
+		
 		return "board/boardList";
 	}
 	

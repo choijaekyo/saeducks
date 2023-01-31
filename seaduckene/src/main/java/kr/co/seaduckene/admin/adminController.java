@@ -14,12 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
 import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.admin.service.IAdminService;
 import kr.co.seaduckene.common.NoticeVO;
+import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
+import kr.co.seaduckene.user.service.IUserService;
+import kr.co.seaduckene.util.AskCategoryBoardVO;
 import kr.co.seaduckene.util.summernoteCopy;
 import lombok.extern.log4j.Log4j;
 
@@ -27,6 +33,9 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/admin")
 @Log4j
 public class adminController {
+	
+	@Autowired
+	private IUserService userService;
 	
 	@Autowired
 	private IAdminService service;
@@ -126,7 +135,7 @@ public class adminController {
 		model.addAttribute("askList",service.getAskLisk(userVo.getUserNo()));
 		return "admin/askWrite";
 	}
-	
+
 	@PostMapping("/askWrite")
 	public String askWrite(AskListVO vo) {
 		
@@ -137,5 +146,36 @@ public class adminController {
 		service.setAsk(vo);
 		
 		return "redirect:/admin/askWrite";
+	}
+	
+	// 카테고리별 게시글 문의 요청 페이지 이동
+	@GetMapping("/askCategoryBoard")
+	public void askCategory(Model model) {
+		
+		List<Categories> categoryList = userService.getCategories();
+		
+		ObjectMapper categoryListConverter = new ObjectMapper();
+		
+		String categoryListJson = null;
+		try {
+			categoryListJson = categoryListConverter.writeValueAsString(categoryList);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.info(categoryListJson);
+		model.addAttribute("categoryListJson", categoryListJson);
+	}
+	
+	// 카테고리별 게시글 문의 요청
+	@PostMapping("/askCategoryBoard")
+	public String askCategory(AskCategoryBoardVO askCateBoVo, RedirectAttributes ra) {
+		log.info(askCateBoVo);
+		
+		service.insertCategoryBoard(askCateBoVo);
+		
+		ra.addFlashAttribute("msg", "askCategoryBoard");
+		
+		return "redirect:/";
 	}
 }

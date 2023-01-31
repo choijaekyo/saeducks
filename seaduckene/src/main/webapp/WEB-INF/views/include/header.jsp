@@ -77,8 +77,6 @@
                         <li><a class="dropdown-item" href="<c:url value='/user/userBasket' />">장바구니</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/product/productDetail?productNo=4' />">상품상세</a></li>
                      </ul></li> --%>
-                     
-                     
                   <c:forEach var="mj" items="${majorListHeader}" varStatus="st">
 	                  <li class="nav-item dropdown"><a
 	                     class="nav-link dropdown-toggle" href="#" role="button"
@@ -93,8 +91,15 @@
 	                 </li>
                  </c:forEach>
                  
-                 
-                 
+                  <li class="nav-item dropdown"><a
+                     class="nav-link dropdown-toggle" href="#" role="button"
+                     data-bs-toggle="dropdown" aria-expanded="false"> 공지 & 건의 </a>
+                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="<c:url value='/board/notice' />">공지사항</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/admin/askCategoryBoard' />">카테고리 건의</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='#' />">Q & A</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='#' />">????</a></li>
+                     </ul></li>
                </ul>
             </div>
 

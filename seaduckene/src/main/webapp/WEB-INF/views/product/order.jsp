@@ -430,6 +430,14 @@
 				}).open();
 	}
 
+    /* 전화번호 문자열 입력 방지 */
+    $('#orderRecipientTel').keydown(function(e) {
+        // Only ASCII character in that range allowed
+        const ASCIICode = (e.which) ? e.which : e.keyCode;
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+    });
+    
 	// 정규식
 	const regAccount = /^[0-9]+$/;
 	const regName = /^[가-힣a-zA-Z]+$/;

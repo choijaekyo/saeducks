@@ -13,6 +13,7 @@ import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.admin.mapper.IAdminMapper;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.product.command.ProductVO;
+import kr.co.seaduckene.util.AskCategoryBoardVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -65,6 +66,11 @@ public class AdminServiceImpl implements IAdminService {
 		map.put("type", type);
 		map.put("keyword", keyword);
 		return adminMapper.getProductList(map);
+	}
+	
+	@Override
+	public void insertCategoryBoard(AskCategoryBoardVO askCateBoVo) {
+		adminMapper.insertCategoryBoard(askCateBoVo);
 	}
 
 	@Override
