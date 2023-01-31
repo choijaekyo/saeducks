@@ -138,14 +138,4 @@ public class adminController {
 		
 		return "redirect:/admin/askWrite";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
