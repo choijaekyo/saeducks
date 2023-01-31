@@ -65,6 +65,7 @@
 			<mvc:mapping path="/product/productList" />
 			<mvc:mapping path="/user/userAskCategoryBoardDetail/**" />
 			<mvc:mapping path="/admin/askCategoryBoard" />
+			<mvc:mapping path="/admin/askWrite" />
 			<ref bean="autoLoginHandler" />
 		</mvc:interceptor>
 		
@@ -84,6 +85,7 @@
 			<mvc:mapping path="/product/productList" />
 			<mvc:mapping path="/user/userAskCategoryBoardDetail/**" />
 			<mvc:mapping path="/admin/askCategoryBoard" />
+			<mvc:mapping path="/admin/askWrite" />
 			<ref bean="CategoryHandler" />
 		</mvc:interceptor>
 		

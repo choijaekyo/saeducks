@@ -43,4 +43,6 @@ public class AskCategoryBoardVO {
 	private String askBoardReplyContent;
 	private int askBoardUserNo;
 	
+	private String askBoardUserName;
+	
 }

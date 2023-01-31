@@ -242,7 +242,7 @@ public class UserController {
 		modelAndView.addObject("userAddrList", userAddrList);
 		
 		
-		List<AskCategoryBoardVO> askCategoryBoardList = userService.getAskCategoryBoardList(userNo);
+		List<AskCategoryBoardVO> askCategoryBoardList = userService.getUserAskCategoryBoardList(userNo);
 		
 		modelAndView.addObject("askCategoryBoardList", askCategoryBoardList);
 		

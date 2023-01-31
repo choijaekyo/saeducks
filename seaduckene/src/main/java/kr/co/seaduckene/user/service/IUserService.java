@@ -106,8 +106,8 @@ public interface IUserService {
 	// 비밀번호 찾기 유저정보 확인
 	int checkUser(String userId, String userEmail);
 	
-	// 카테고리별 게시판 문의글 가져오기
-	List<AskCategoryBoardVO> getAskCategoryBoardList(int userNo);
+	// 카테고리별 게시판 해당 유저의 문의글 가져오기
+	List<AskCategoryBoardVO> getUserAskCategoryBoardList(int userNo);
 	
 	// 카테고리별 게시판 문의글 상세보기 가져오기
 	AskCategoryBoardVO getAskCategoryBoard(int askBoardNo);

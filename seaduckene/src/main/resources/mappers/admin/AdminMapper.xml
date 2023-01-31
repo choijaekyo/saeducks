@@ -105,7 +105,7 @@
 		, #{askBoardContent}, default, #{askBoardReplyContent}, #{askBoardUserNo})
 	</insert>
 	
-	<select id="getAskCategoryBoardList" resultType="askCategoryBoard">
+	<select id="getUserAskCategoryBoardList" resultType="askCategoryBoard">
 		SELECT * FROM ask_category_board
 		WHERE ask_board_user_no = #{userNo} 
 		ORDER BY ask_board_user_no DESC
@@ -114,6 +114,12 @@
 	<select id="getAskCategoryBoard" resultMap="askCategoryBoardCLOB">
 		SELECT * FROM ask_category_board
 		WHERE ask_board_no = #{askBoardNo}
+	</select>
+	
+	<select id="getAllAskCategoryBoardList" resultType="askCategoryBoard">
+		SELECT a.*, (SELECT user_name FROM duck_user WHERE user_no = a.ask_board_user_no) as ask_board_user_name
+		 FROM ask_category_board a
+		ORDER BY a.ask_board_user_no DESC
 	</select>
 
 </mapper>

@@ -333,8 +333,8 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public List<AskCategoryBoardVO> getAskCategoryBoardList(int userNo) {
-		return adminMapper.getAskCategoryBoardList(userNo);
+	public List<AskCategoryBoardVO> getUserAskCategoryBoardList(int userNo) {
+		return adminMapper.getUserAskCategoryBoardList(userNo);
 	}
 	
 	@Override

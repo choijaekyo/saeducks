@@ -204,4 +204,13 @@ public class adminController {
 		
 		return "redirect:/";
 	}
+	
+	// 관리자 계정 전용 카테고리별 게시글 문의 페이지 이동
+	@GetMapping("/adminAskCategoryBoardList")
+	public void adminAskCategoryBoardList(Model model) {
+		List<AskCategoryBoardVO> askCategoryBoardList = service.getAllAskCategoryBoardList();
+		log.info(askCategoryBoardList);
+		
+		model.addAttribute("askCategoryBoardList", askCategoryBoardList);
+	}
 }

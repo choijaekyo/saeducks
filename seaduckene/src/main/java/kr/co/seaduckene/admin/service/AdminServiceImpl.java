@@ -97,4 +97,9 @@ public class AdminServiceImpl implements IAdminService {
 	public void setAskReply(String askNo, String reply) {
 		adminMapper.setAskReply(askNo, reply);
 	}
+	
+	@Override
+	public List<AskCategoryBoardVO> getAllAskCategoryBoardList() {
+		return adminMapper.getAllAskCategoryBoardList();
+	}
 }
