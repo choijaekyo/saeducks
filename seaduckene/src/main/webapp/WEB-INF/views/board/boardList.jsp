@@ -76,7 +76,7 @@
 
 $(function() {
 	
-	//더기 버튼 클릭 이벤트
+	//더보기 버튼 클릭 이벤트
 	$('#the-btn').click(function() {
 		if(!isFinish) {
 			page++;
