@@ -1569,9 +1569,6 @@ let nicknameCheck = true;
 					}
 					$('#contentDiv').html(str);
 					
-					if(page*20 > list.length) {
-						$('#the-btn').css('display','none');
-					}
 				}
 				
 			); //end getJSON()
