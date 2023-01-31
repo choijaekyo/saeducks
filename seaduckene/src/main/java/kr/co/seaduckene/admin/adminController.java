@@ -19,17 +19,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
+import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.admin.service.IAdminService;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.user.command.Categories;
+import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
 import kr.co.seaduckene.util.AskCategoryBoardVO;
 import kr.co.seaduckene.util.summernoteCopy;
 import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Controller
 @RequestMapping("/admin")
+@Log4j
 public class adminController {
 	
 	@Autowired
@@ -124,6 +126,26 @@ public class adminController {
 	@GetMapping("/productList")
 	public void productList(Model model,String type, String keyword) {
 		model.addAttribute("list", service.getProductList(type, keyword));
+	}
+
+	@GetMapping("/askWrite")
+	public String askWrite(Model model, HttpSession session) {
+		UserVO userVo = (UserVO) session.getAttribute("login");
+		/* log.info(userVo); */
+		model.addAttribute("askList",service.getAskLisk(userVo.getUserNo()));
+		return "admin/askWrite";
+	}
+
+	@PostMapping("/askWrite")
+	public String askWrite(AskListVO vo) {
+		
+		String content = ((String) vo.getAskListContent()).replace("\r\n","<br>");
+		
+		vo.setAskListContent(content);
+		
+		service.setAsk(vo);
+		
+		return "redirect:/admin/askWrite";
 	}
 	
 	// 카테고리별 게시글 문의 요청 페이지 이동

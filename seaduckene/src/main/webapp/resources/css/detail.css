@@ -1,2 +1,14 @@
 @charset "UTF-8";
 
+.board-detail-container {
+	margin-top: 30px;
+}
+
+.regReply {
+	margin-top: 50px;
+}
+
+#reply {
+	border: none;
+	resize: none;
+}

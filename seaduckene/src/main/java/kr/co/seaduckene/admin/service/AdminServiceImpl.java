@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
+import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.admin.mapper.IAdminMapper;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.product.command.ProductVO;
@@ -72,4 +73,13 @@ public class AdminServiceImpl implements IAdminService {
 		adminMapper.insertCategoryBoard(askCateBoVo);
 	}
 
+	@Override
+	public void setAsk(AskListVO vo) {
+		adminMapper.setAsk(vo);
+	}
+	
+	@Override
+	public List<AskListVO> getAskLisk(int userNo) {
+		return adminMapper.getAskLisk(userNo);
+	}
 }

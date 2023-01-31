@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
+import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.util.AskCategoryBoardVO;
@@ -40,4 +41,11 @@ public interface IAdminMapper {
 
 	// 카테고리별 게시판 문의글 상세보기 가져오기
 	AskCategoryBoardVO getAskCategoryBoard(int askBoardNo);
+	
+	// 고객문의 글 쓰기
+	void setAsk(AskListVO vo);	
+	
+	// 고객문의 리스트
+	List<AskListVO> getAskLisk(int userNo);
+	
 }

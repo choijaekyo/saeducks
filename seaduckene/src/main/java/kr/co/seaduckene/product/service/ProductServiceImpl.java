@@ -165,6 +165,11 @@ public class ProductServiceImpl implements IProductService {
 	}
 	
 	@Override
+	public List<String> getMajor() {
+		return productMapper.getMajor();
+	}
+	
+	@Override
 	public List<String> getMinor(String major) {
 		
 		return productMapper.getMinor(major);
@@ -262,6 +267,14 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public void refund(Map<String, Object> map) {
 		productMapper.refund(map);
-		
 	}
+
+	@Override
+	public List<ProductVO> getProductList(int categoryNo) {
+		return productMapper.getProductList(categoryNo);
+	}
+
+
+	
+	
 }

@@ -38,6 +38,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.google.gson.JsonObject;
 
+import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.NoticeVO;
@@ -78,9 +79,14 @@ public class boardListController {
 	
 	//글쓰기 페이지로 이동 요청
 	@GetMapping("/boardWrite/{categoryNo}")
-	public String boardWrite(@PathVariable int categoryNo, Model model) {
+	public String boardWrite(@PathVariable int categoryNo, Model model, HttpSession session) {
 		System.out.println("/board/boardWrite: GET");
 		model.addAttribute("categoryNo", categoryNo);
+		model.addAttribute("category",service.getCategory(categoryNo));
+		
+		UserVO vo = (UserVO)session.getAttribute("login");
+		model.addAttribute("nickName", vo.getUserNickname());
+		
 		return "board/boardWrite";
 	}
 	
@@ -218,7 +224,7 @@ public class boardListController {
 		
 		JsonObject jsonObject = new JsonObject();
 		
-		String fileRoot = "C:/imgduck/temp/";	//저장될 외부 파일 경로
+		String fileRoot = "c:/imgduck/temp/";	//저장될 외부 파일 경로
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
@@ -253,7 +259,7 @@ public class boardListController {
 		System.out.println("요청 URI: " + reqUri);
 		System.out.println("미리보기 이미지 요청 호출!");
 		System.out.println("param: " + savedFileName);
-		String fileRoot = "C:/imgduck/temp/";
+		String fileRoot = "c:/imgduck/temp/";
 		String filePath = fileRoot + savedFileName;
 		System.out.println("완성된 파일 경로: " + filePath);
 		File file = new File(filePath);
@@ -275,7 +281,7 @@ public class boardListController {
 	@GetMapping("/getImg/{savedFileName}")
 	public ResponseEntity<byte[]> getImgCopy(@PathVariable String savedFileName, HttpServletResponse response){
 	  
-	  String fileRoot = "C:/imgduck/board/";
+	  String fileRoot = "c:/imgduck/board/";
 	  String filePath = fileRoot + savedFileName; 
 	  File file = new File(filePath);
 		
@@ -300,7 +306,7 @@ public class boardListController {
 		System.out.println("deleteFiles: " + list);
 		
 		for(String fileName : list) {
-			String tempRoot = "C:/imgduck/temp/";
+			String tempRoot = "c:/imgduck/temp/";
 			File file = new File(tempRoot + fileName);
 			if(file.exists()) {
 				System.out.println("임시 파일 삭제 완료!");
@@ -325,9 +331,5 @@ public class boardListController {
 		
 		return list;
 	}
-	
-	
-	
-	
-	
+
 }

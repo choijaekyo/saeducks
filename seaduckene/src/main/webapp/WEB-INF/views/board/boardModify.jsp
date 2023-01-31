@@ -70,21 +70,23 @@
 		const no = '${list.boardCategoryNo}';
 		console.log(bno);
 		console.log(no);
-
-		/* //수정 버튼 이벤트 처리
-		$('#updateBtn').click(function() {
-			if ($('input[name=boardTitle]').val().trim() === '') {
+		
+		$('#updateBtn').click(function(e) {
+			e.preventDefault();
+			if($('input[name=boardTitle]').val().trim() === '') {
 				alert('제목은 필수 항목입니다.');
-				$('input[name=boardTitle]').focus();
 				return;
-			} else if ($('#summernote').text().trim() === '') {
+			} else if($('#summernote').val().trim() === '') {
 				alert('내용은 필수 항목입니다!');
-				$('#summernote').focus();
 				return;
 			} else {
 				$('#modifyForm').submit();
 			}
-		}); //수정 버튼 이벤트 처리 끝. */
+			
+		}); 
+		//수정 버튼 이벤트 처리 끝.
+
+		
 		
 		$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
 		$('#delBtn')

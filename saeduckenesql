@@ -366,17 +366,26 @@ CREATE SEQUENCE admin_date_log_seq
 INSERT INTO admin_login (admin_no, admin_id, admin_pw) 
 VALUES (admin_login_seq.NEXTVAL, 'admin', 'admin');
 
-SELECT u.user_id, u.user_name, u.user_tel, u.user_email, 
-       d.order_num, d.order_quantity, d.order_price, d.order_status,
-       d.order_recipient_name, d.order_recipient_tel,
-       d.order_address_zip_num, d.order_address_basic,
-       d.order_address_detail, d.order_payment_method,
-       d.order_return_bank, d.order_return_account
-FROM duck_user u
-INNER JOIN duck_order d
-ON u.user_no = d.order_user_no
-WHERE u.user_name LIKE '%최재교%';
+------------------------------------- 문의사항 -----------------------------------
+CREATE TABLE ask_list(
+    ask_list_no NUMBER PRIMARY KEY,
+    ask_list_user_no NUMBER NOT NULL,
+    ask_list_select_no NUMBER NOT NULL,
+    ask_list_content VARCHAR2(4000) NOT NULL,
+    ask_list_reg_date DATE DEFAULT sysdate,
+    ask_list_update_date DATE,
+    ask_list_reply_content VARCHAR2(4000)
+);
 
-INSERT INTO duck_order 
-VALUES (order_seq.NEXTVAL, 1, '202301161111', 1, sysdate, 1, 3000, '배송중', '임인규', 01067883798, 70587, '서울시 용산구', '용산대로 23 1층', '카드결제', '농협', '10101010101');
+CREATE SEQUENCE ask_list_seq
+    START WITH 1
+    MAXVALUE 10000
+    NOCYCLE
+    NOCACHE;
+    
+INSERT INTO ask_list (ask_list_no, ask_list_user_no, ask_list_select_no, ask_list_content)
+VALUES (ask_list_seq.NEXTVAL, 1, 1, '문의문의');
+
+SELECT * FROM ask_list WHERE ask_list_user_no = 1 ORDER BY ask_list_no DESC;
+
 commit;

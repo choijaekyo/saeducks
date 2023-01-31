@@ -3,17 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<link href="${pageContext.request.contextPath }/resources/css/detail.css" rel="stylesheet">
 
 <%@ include file="../include/header.jsp"%>
 
 
 
-<div class="container"> 
-	<div class="card" style="width: 18rem;" id="board-detail-card">
-		<div class="card-body" id="board-detail-card-body">
-			<h5 class="card-title">${category.categoryMinorTitle}게시판 입니다.</h5>
-			<p class="card-text">${category.categoryMinorTitle}게시판 규칙을 꼭 지켜주세요!</p>
-			<button id="board-detail-card-body-button" type="button" class="btn btn-primary HomeButtonController">Home</button>
+<div class="container board-detail-container"> 
+	<div id="board-detail-card">
+		<div  id="board-detail-card-body">
+			<h5 >${category.categoryMinorTitle}게시판 입니다.</h5>
+			<p class=>${category.categoryMinorTitle}와 관련된 글 작성 부탁드려요!</p>
+			<button id="board-detail-card-body-button" type="button" class="btn btn-primary btn-sm HomeButtonController">Home</button>
 		</div>
 	</div>
 </div>
@@ -27,7 +28,7 @@
 			<p>
 				<fmt:formatDate value="${list.boardRegDate}" pattern="yyyy/MM/dd" />
 			</p>
-			<p>&nbsp&nbsp조회수: ${list.boardViews }</p>
+			<p>&nbsp;&nbsp;조회수: ${list.boardViews }</p>
 			<!-- 			<li class="nav-item"><a href="#" class="nav-link">추천</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">조회</a></li> -->
 
@@ -55,28 +56,27 @@
 
 				</div>
 				<div id="board-detail-button">
-					<a href='<c:url value='/board/boardList/1'/>'
+					<a href='<c:url value='/board/boardList/${list.boardCategoryNo}'/>'
 						class="right btn btn-info" id="listBtn">목록가기</a>
 					<button type="submit" class="right btn btn-info" id="ModBtn">수정하기</button>
+
 				</div>
 			</div>
 <!-- 		</div>
 	</div> -->
 </form> 
 
-<div class="container">
+<br>
+
+
+<div class="container regReply" >
 	<div class="card-body">
 		<div class="row gx-5">
 		
 		<!-- 로그인 안 했을 시 -->
 			<c:if test="${login == null}">
-				<div class="col-auto">
-					<div class="avatar avatar-online">
-						<img src="assets/img/avatars/6.jpg" alt="#" class="avatar-img" style="display:none;">
-					</div>
-				</div>
-
 				<div class="col">
+				<hr>
 					<div class="d-flex align-items-center mb-3">
 						<h5 class="me-auto mb-0" id="replyBoardNo" style="display:none;"></h5>
 						<span class="text-muted extra-small ms-2" style="display:none;"></span>
@@ -88,17 +88,15 @@
 					</div>
 					<br>
 					<div>
-						<button type="button" id="replyRegist" class="right btn btn-info" style="display:none;">등록하기</button>
+						<button type="button" id="replyRegist" class="right btn btn-info btn-sm" style="display:none;">등록하기</button>
 					</div>
 				</div>
 			</c:if>
 			
 			<!-- 로그인 시 -->
 			<c:if test="${login != null}">
-
-
 				<div class="col">
-					<div class="d-flex align-items-center mb-3">
+					<div class="d-flex align-items-center mb-3" style="margin:15px;" >
 						<h5 class="me-auto mb-0" id="replyBoardNo">${login.userNickname}</h5>
 					</div>
 
@@ -108,12 +106,12 @@
 					</div>
 					<br>
 					<div>
-						<button type="button" id="replyRegist" class="right btn btn-info">등록하기</button>
+						<button type="button" id="replyRegist" class="right btn btn-info" style="margin-bottom: 15px;">등록하기</button>
 					</div>
 				</div>
 			</c:if>
-			
-			<hr>
+			<br>
+		
 
 			<div id="replyList">
 				<!-- <div class=col>
@@ -179,7 +177,8 @@
 
 		$(function() {
 			$('#summernote').summernote({
-				toolbar : false
+				toolbar : false,
+				minHeight : 500
 			});
 			$('#summernote').summernote('disable');
 			$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
@@ -307,8 +306,10 @@
 							
 						  strAdd += 
 							likeSuccess +`</a>
+
 				 			<input type="hidden" id="hiddenReplyNo" class="hiddenReplyNo" name="replyNo" value="`+ replyList[i].replyNo +`">
-							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style="min-height: 5rem; word-break: break-all; border: none;">` + replyList[i].replyContent.replaceAll('\n', '<br>') + `</p>
+							<p data-reply-no="` + replyList[i].replyNo + `" class="form-control mt-2" id="reply" style=" word-break: break-all; border: none;">` + replyList[i].replyContent.replaceAll('\n', '<br>') + `</p>
+
 						</div>
 					
 				</div>

@@ -252,6 +252,10 @@ header{
 	}
 }
    
+.bi-caret-down-fill{
+	font-size: 15px;
+}
+   
 .nav-category li .dropdown-toggle::after {
    display: none;
 }

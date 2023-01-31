@@ -65,6 +65,17 @@
 		<include refid="productSearch" />
 	</select>
 	
+	<insert id="setAsk">
+		INSERT INTO ask_list (ask_list_no, ask_list_user_no, ask_list_select_no, ask_list_content)
+		VALUES (ask_list_seq.NEXTVAL, #{askListUserNo}, #{askListSelectNo}, #{askListContent})
+	</insert>
+	
+	<select id="getAskLisk" resultType="askList">
+		SELECT * FROM ask_list 
+		WHERE ask_list_user_no = #{userNo} 
+		ORDER BY ask_list_no DESC
+	</select>
+
 	<insert id="insertCategoryBoard">
 		INSERT INTO ask_category_board
 		VALUES (ask_category_board_seq.NEXTVAL, #{askBoardMajorCategory}, #{askBoardMinorCategory}, #{askBoardTitle}

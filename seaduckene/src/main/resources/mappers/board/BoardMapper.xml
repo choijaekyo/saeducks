@@ -50,13 +50,9 @@
 		        (
 		        SELECT * FROM product
 		        WHERE product_category_no = #{categoryNo}
-		        ORDER BY product_no ASC
+		        ORDER BY product_reg_date DESC
 		        ) tbl
-		    ) b
-		<![CDATA[
-		WHERE rn > 0
-		AND rn <= 3
-		]]>
+		    )
 	</select>
 	
 	<!-- 글 등록 -->
@@ -87,29 +83,18 @@
 
 	<select id="bUserList" resultMap="boardUserCLOB">
 		<![CDATA[
-		SELECT *
-		FROM
-		    (
-		    SELECT ROWNUM AS rn, tbl2.* FROM
-		    	(
-			    SELECT tbl.*, bb.board_content
-			     FROM
-			        (
-			            SELECT DISTINCT c.category_no, b.board_no, b.board_title, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
+		SELECT * FROM
+         (SELECT ROWNUM AS rn,tbl.* FROM
+         ( SELECT DISTINCT c.category_no, b.board_no, b.board_title, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname, d.user_no
 			            FROM duck_user d INNER JOIN favorite f
-			                             ON f.favorite_user_no= #{userNo}
+			                             ON f.favorite_user_no= d.user_no
 			                             INNER JOIN category c
 			                             ON f.favorite_category_no = c.category_no
 			                             INNER JOIN board b
 			                             ON c.category_no = b.board_category_no
-			                             WHERE d.user_no=#{userNo}
-			        ) tbl 	INNER JOIN board bb
-			     ON tbl.category_no = bb.board_category_no
-		        ) tbl2
-		    ) s
-		WHERE rn > 0
-		AND rn <= 9
-		ORDER BY s.category_minor_title DESC, s.board_views DESC
+			                             WHERE d.user_no=1)tbl)
+                                WHERE rn > 0  AND rn <= 9
+                                ORDER BY board_views DESC
 		]]>
 	</select>
 	
