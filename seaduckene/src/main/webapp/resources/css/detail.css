@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .board-detail-container {
-	margin-top: 30px;
+	margin-top: 20px;
 }
 
 .regReply {
@@ -11,4 +11,23 @@
 #reply {
 	border: none;
 	resize: none;
+}
+
+#board-detail-content .note-editor {
+	border: none;
+}
+
+#board-detail-content .note-editing-area {
+	border-radius: 7px;
+}
+
+#title {
+	border: none;
+	background: #fff9d6;
+	font-size: 22px;
+	text-align: center;
+}
+
+#title:focus {
+	box-shadow: none;
 }

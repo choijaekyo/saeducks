@@ -74,7 +74,7 @@
 
 $(function() {
 	
-	//등록하기 버튼 클릭 이벤트
+	//더기 버튼 클릭 이벤트
 	$('#the-btn').click(function() {
 		if(!isFinish) {
 			page++;
@@ -111,13 +111,19 @@ $(function() {
 				console.log(list.length);
 				console.log(list);
 				
-				if(list.length === 0){
-					isFinish = true;
-					str = '등록된 글이 없습니다. 첫 번째 글을 등록해 보세요.';
-					$('#contentDiv').html(str);
-					$('#contentDiv').css('display','block');
-					$('#contentDiv').css('text-align','center');
-					$('#contentDiv').css('line-height','150px');
+				if(list.length === 0 ){
+					if(page === 1){
+						str = '등록된 글이 없습니다. 첫 번째 글을 등록해 보세요.';
+						$('#contentDiv').html(str);
+						$('#contentDiv').css('display','block');
+						$('#contentDiv').css('text-align','center');
+						$('#contentDiv').css('line-height','150px');
+					}
+					else{
+						isFinish = true;
+						$('#div-btn').css('display','none');
+					}
+					
 				} else {
 					$('#div-btn').css('display','block');
 				}
@@ -149,11 +155,6 @@ $(function() {
 				
 				$('#contentDiv').html(str);
 				
-				if(page*9 > list.length) {
-
-					$('#div-btn').css('display','none');
-
-				}
 			}
 		
 		); //end getJSON()

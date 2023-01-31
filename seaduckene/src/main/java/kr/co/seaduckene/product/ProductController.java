@@ -41,7 +41,6 @@ import kr.co.seaduckene.product.command.ProductVO;
 import kr.co.seaduckene.product.service.IProductService;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/product")

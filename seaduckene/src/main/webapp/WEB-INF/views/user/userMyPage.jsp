@@ -338,7 +338,7 @@
 							 </table>
 							<div class="row justify-content-center row-div-2">
 							  	<div class="col-1 w-auto mt-3">
-							  		<button type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
+							  		<button type="button" class="btn btn-primary btn-sm rounded" id="the-btn">더보기</button>
 							  	</div>
 							</div>
 						</div>
@@ -1515,7 +1515,7 @@ let nicknameCheck = true;
 	$('.myBoard').click(function() {
 		
 	
-		//등록하기 버튼 클릭 이벤트
+		//더보기 버튼 클릭 이벤트
 		$('#the-btn').click(function() {
 			if(!isFinish) {
 				page++;
@@ -1568,6 +1568,10 @@ let nicknameCheck = true;
 				        `;		
 					}
 					$('#contentDiv').html(str);
+					
+					if(page*20 > list.length) {
+						$('#the-btn').css('display','none');
+					}
 				}
 				
 			); //end getJSON()
