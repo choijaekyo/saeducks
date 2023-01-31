@@ -20,7 +20,8 @@ public class AdminLoginAccessHandler implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		Integer loginAdmin = (Integer) session.getAttribute("admin");
 		
-		if (request.getRequestURI().equals("/admin/adminLogin") || request.getRequestURI().equals("/admin/adminLoginAuth")) {
+		if (request.getRequestURI().equals("/admin/adminLogin") || request.getRequestURI().equals("/admin/adminLoginAuth")
+				|| request.getRequestURI().equals("/admin/askWrite")) {
 			return true;
 		}
 		

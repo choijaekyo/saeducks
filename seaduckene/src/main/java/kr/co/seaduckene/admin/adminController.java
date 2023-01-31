@@ -16,12 +16,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
+import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.admin.service.IAdminService;
 import kr.co.seaduckene.common.NoticeVO;
+import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.util.summernoteCopy;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/admin")
+@Log4j
 public class adminController {
 	
 	@Autowired
@@ -114,10 +118,26 @@ public class adminController {
 	public void productList(Model model,String type, String keyword) {
 		model.addAttribute("list", service.getProductList(type, keyword));
 	}
+
+	@GetMapping("/askWrite")
+	public String askWrite(Model model, HttpSession session) {
+		UserVO userVo = (UserVO) session.getAttribute("login");
+		/* log.info(userVo); */
+		model.addAttribute("askList",service.getAskLisk(userVo.getUserNo()));
+		return "admin/askWrite";
+	}
 	
-	
-	
-	
+	@PostMapping("/askWrite")
+	public String askWrite(AskListVO vo) {
+		
+		String content = ((String) vo.getAskListContent()).replace("\r\n","<br>");
+		
+		vo.setAskListContent(content);
+		
+		service.setAsk(vo);
+		
+		return "redirect:/admin/askWrite";
+	}
 	
 	
 	

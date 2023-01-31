@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
+import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.common.NoticeVO;
 import kr.co.seaduckene.product.command.ProductVO;
 
@@ -31,4 +32,9 @@ public interface IAdminMapper {
 	// 상품목록
 	List<ProductVO> getProductList(Map<String, Object> map);
 
+	// 고객문의 글 쓰기
+	void setAsk(AskListVO vo);	
+	
+	// 고객문의 리스트
+	List<AskListVO> getAskLisk(int userNo);
 }
