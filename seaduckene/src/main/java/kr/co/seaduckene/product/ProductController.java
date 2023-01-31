@@ -142,7 +142,7 @@ public class ProductController {
 		System.out.println("fileName:" + fileName);
 		System.out.println("fileLoca:" + fileLoca);
 		
-		File file = new File("c:/imgduck/product/" +fileLoca+"/"+fileName);
+		File file = new File("/usr/local/imgduck/product/" +fileLoca+"/"+fileName);
 		System.out.println(file);
 		
 		byte[] result = null;
@@ -168,7 +168,7 @@ public class ProductController {
 		String fileName = vo.getProductImageFileName();
 		
 		
-		File file = new File("c:/imgduck/product/" +fileLoca+"/"+fileName);
+		File file = new File("/usr/local/imgduck/product/" +fileLoca+"/"+fileName);
 		System.out.println(file);
 		
 		byte[] result = null;
@@ -242,8 +242,8 @@ public class ProductController {
 		String today = simple.format(new Date());
 		ivo.setProductImageFolder(today);
 		list.add(thumb);
-		String uploadFolder ="C:/imgduck/product/"+today;
-		ivo.setProductImagePath("C:/imgduck/product/");
+		String uploadFolder ="/usr/local/imgduck/product/"+today;
+		ivo.setProductImagePath("/usr/local/imgduck/product/");
 		for(int i =0;i<list.size();i++ ) {
 				ivo.setProductThumbnail(0);
 			if(i==(list.size()-1)) {
@@ -307,8 +307,8 @@ public class ProductController {
 			String today = simple.format(new Date());
 			ivo.setProductImageFolder(today);
 			list.add(thumb);
-			String uploadFolder ="C:/imgduck/product/"+today;
-			ivo.setProductImagePath("C:/imgduck/product/");
+			String uploadFolder ="/usr/local/imgduck/product/"+today;
+			ivo.setProductImagePath("/usr/local/imgduck/product/");
 			for(int i =0;i<list.size();i++ ) {
 					ivo.setProductThumbnail(0);
 					ivo.setProductImageProductNo(vo.getProductNo());
@@ -347,7 +347,7 @@ public class ProductController {
 	@GetMapping("/mainDisplayImg")
 	public ResponseEntity<byte[]> mainDisplayImg(String fileLoca, String fileName) {
 		
-		File file = new File("C:/imgduck/product/" + fileLoca + "/" + fileName);
+		File file = new File("/usr/local/imgduck/product/" + fileLoca + "/" + fileName);
 		ResponseEntity<byte[]>result = null;
 		HttpHeaders headers = new HttpHeaders();
 		try {

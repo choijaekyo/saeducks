@@ -1454,8 +1454,17 @@ let nicknameCheck = true;
 	});
 	
 	$('#orderBtn').click(function() {
-		location.href ="<c:url value = '/product/order' />";
-	});
+	      const basket = '${basket}';
+	      
+	      if(basket=='[]'){
+	         alert('주문할 물품이 존재하지 않습니다');
+	         return
+	      }else{
+	         location.href ="<c:url value = '/product/order' />";
+	      }
+	      
+	      
+	   });
 	
 	const input = document.querySelector('#user-profile-pic');
 	

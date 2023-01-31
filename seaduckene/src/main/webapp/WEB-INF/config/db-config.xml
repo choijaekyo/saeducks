@@ -26,6 +26,7 @@
 		<property name="jdbcUrl" value="${ds.url}" />
 		<property name="username" value="${ds.username}" />
 		<property name="password" value="${ds.password}" />
+		<property name="maximumPoolSize" value="${ds.maximumPoolSize}" />
 	</bean>
 	
 	<!-- 히카리 데이터소스 빈 등록 -->

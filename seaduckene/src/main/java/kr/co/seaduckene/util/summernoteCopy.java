@@ -16,10 +16,10 @@ public class summernoteCopy {
 
 		if(fileList != null ) {
 			for (int i = 0; i < fileList.size(); i++) {
-				String oriFilePath = "C:/imgduck/temp/" + fileList.get(i);
+				String oriFilePath = "/usr/local/imgduck/temp/" + fileList.get(i);
 
 				// 복사될 파일경로
-				String copyFilePath = "C:/imgduck/board/" + fileList.get(i);
+				String copyFilePath = "/usr/local/imgduck/board/" + fileList.get(i);
 
 				try {
 					FileInputStream fis = new FileInputStream(oriFilePath); // 읽을파일
