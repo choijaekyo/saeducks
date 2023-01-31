@@ -61,6 +61,11 @@
 	<select id="getCategory" resultType="category">
 		SELECT * FROM category
 	</select>
+	
+	<select id="getMajor" resultType="String">
+		SELECT DISTINCT category_major_title
+		FROM category
+	</select>
 
 	<select id="getMinor" resultType="String">
 		SELECT category_minor_title
@@ -219,5 +224,21 @@
 	<update id="refund">
 		UPDATE duck_order SET order_status=#{type},order_return_reason=#{reason} WHERE order_product_no=#{productNo}
 	</update>
+	
+	<select id="getProductList" resultType="prodcut">
+		SELECT *
+		FROM
+		    (
+		    SELECT ROWNUM AS rn, tbl.* FROM
+		        (
+		        SELECT * FROM product
+		        WHERE product_category_no = #{categoryNo}
+		        ORDER BY product_reg_date DESC
+		        ) tbl
+		    )
+	</select>
+	
+	
+	
 </mapper>
     

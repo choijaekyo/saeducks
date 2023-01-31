@@ -78,9 +78,14 @@ public class boardListController {
 	
 	//글쓰기 페이지로 이동 요청
 	@GetMapping("/boardWrite/{categoryNo}")
-	public String boardWrite(@PathVariable int categoryNo, Model model) {
+	public String boardWrite(@PathVariable int categoryNo, Model model, HttpSession session) {
 		System.out.println("/board/boardWrite: GET");
 		model.addAttribute("categoryNo", categoryNo);
+		model.addAttribute("category",service.getCategory(categoryNo));
+		
+		UserVO vo = (UserVO)session.getAttribute("login");
+		model.addAttribute("nickName", vo.getUserNickname());
+		
 		return "board/boardWrite";
 	}
 	

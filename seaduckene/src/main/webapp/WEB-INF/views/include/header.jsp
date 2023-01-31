@@ -37,6 +37,9 @@
    
 </head>
 <body>
+<script type="text/javascript">
+	console.log('${category.categoryMajorTitle}');
+</script>
 
    <header>
       <div class="container" id="main-img">
@@ -74,58 +77,24 @@
                         <li><a class="dropdown-item" href="<c:url value='/user/userBasket' />">장바구니</a></li>
                         <li><a class="dropdown-item" href="<c:url value='/product/productDetail?productNo=4' />">상품상세</a></li>
                      </ul></li> --%>
-                  <li class="nav-item dropdown"><a
-                     class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 미디어 </a>
-                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/1' />">영화</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/2' />">드라마</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/3' />">애니</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/4' />">책</a></li>
-                     </ul></li>
-                  <li class="nav-item dropdown"><a
-                     class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 인물 </a>
-                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/5' />">배우</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/6' />">아이돌</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/7' />">유튜버</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/8' />">가수</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/9' />">운동선수</a></li>
-                     </ul></li>
-                 <li class="nav-item dropdown"><a
-                     class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 여행 </a>
-                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/10' />">아프리카</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/11' />">중동</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/12' />">유럽</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/13' />">아시아</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/14' />">북아메리카</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/15' />">남아메리카</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/16' />">오세아니아</a></li>
-                     </ul></li>
-                  <li class="nav-item dropdown"><a
-                     class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 패션 </a>
-                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/17' />">상의</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/18' />">하의</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/19' />">신발</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/20' />">액세서리</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/21' />">화장품</a></li>
-                     </ul></li>
-                  <li class="nav-item dropdown"><a
-                     class="nav-link dropdown-toggle" href="#" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false"> 음식 </a>
-                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/22' />">한식</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/23' />">중식</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/24' />">일식</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/25' />">양식</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/26' />">인도식</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/board/boardList/27' />">동남아식</a></li>
-                     </ul></li>
+                     
+                     
+                  <c:forEach var="mj" items="${majorListHeader}" varStatus="st">
+	                  <li class="nav-item dropdown"><a
+	                     class="nav-link dropdown-toggle" href="#" role="button"
+	                     data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-caret-down-fill"></i> ${mj } </a>       
+	                     <ul class="dropdown-menu">
+		                     <c:forEach var="ctHeader" items="${ctListHeader }">
+				             	<c:if test="${ctHeader.categoryMajorTitle == majorListHeader[st.index]}">
+				                    <li><a class="dropdown-item" href="<c:url value='/board/boardList/${ctHeader.categoryNo }' />">${ctHeader.categoryMinorTitle  }</a></li>  		
+		                    	</c:if>   	
+		                     </c:forEach>
+	                    </ul>   
+	                 </li>
+                 </c:forEach>
+                 
+                 
+                 
                </ul>
             </div>
 
@@ -158,11 +127,14 @@
    
    <script>
 	$(document).ready(function() {
+		
+		
 		$('.admin_logout .link-dark').hover(function() {
 			$(this).text('로그아웃 하기');
 		}, function() {
 			$(this).text('관리자접속중');
 			
 		});
-	})
+	});
+
    </script>

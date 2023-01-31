@@ -33,7 +33,7 @@
 		            <div class="col-lg-4 col-md-6">
 		                <div class="facilities_item items${b.boardNo}">
 		                    <h4 class="sec_h4 text-truncate">
-			                    <i class="bi bi-trophy-fill"></i>
+			                    <i class="bi bi-bookmark-star"></i>
 			                    ${b.boardTitle}
 		                    </h4>
 		                    <%-- <p class="d-inline-block text-truncate">내용 : ${b.boardContent}</p> --%>
