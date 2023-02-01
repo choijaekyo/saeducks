@@ -120,7 +120,7 @@
 						<div class="col-md-7 col-sm-12 col-12">
 							<div class="input-group">
 								<input class="form-control" type="text" name="userEmail"
-									id="userEmail" /> <input class="btn btn-outline-secondary"
+									id="userEmail" /> <input class="sbtn yellow small rounded"
 									type="button" name="confBtn" id="confBtn" value="인증하기" />
 							</div>
 						</div>

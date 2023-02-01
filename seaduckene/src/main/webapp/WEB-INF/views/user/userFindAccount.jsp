@@ -45,7 +45,7 @@
 										id="userEmail" required />
 								</div>
 								<br>
-								<input type="button" class="btn btn-b btn-duck email-btn"
+								<input type="button" class="sbtn yellow small rounded email-btn"
 									value="이메일 인증" id="confBtn"> <br>
 									<br>
 								<div class="input-group inputArea" style="display: none;"
@@ -56,7 +56,7 @@
 											<br>
 											<br>
 											<input
-											class="btn btn-duck " type="button"
+											class="sbtn yellow small rounded " type="button"
 											name="confCheckBtn" id="confCheckBtn" value="인증하기" />
 									</div>
 									<br>
@@ -80,7 +80,7 @@
 
 								</label> <br>
 								<br>
-								<input class="btn btn-duck btn-outline-secondary" type="button" id="joinBtn" value="신규가입"/>
+								<input class="sbtn cyan small rounded" type="button" id="joinBtn" value="신규가입"/>
 							</div>
 						</div>
 					</div>

@@ -38,7 +38,7 @@
 										class="form-control find-input" type="text" placeholder="이메일"
 										id="userEmail" required />
 								</div>
-								<input type="button" class="btn btn-b btn-duck email-btn"
+								<input type="button" class="sbtn yellow small rounded email-btn"
 									value="이메일 인증" id="confBtn"> <br>
 								<div class="input-group inputArea" style="display: none;"
 									id="emailConf">
@@ -47,7 +47,7 @@
 											id="confNum" placeholder="이메일 인증 코드" required /> 
 											<p id="confMailRes"></p>
 											<input
-											class="btn btn-lg " type="button"
+											class="sbtn yellow small rounded" type="button"
 											name="confCheckBtn" id="confCheckBtn" value="인증하기" />
 									</div>
 									<br>
