@@ -38,6 +38,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.co.seaduckene.admin.command.AskListVO;
+import kr.co.seaduckene.admin.service.IAdminService;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
@@ -67,6 +69,9 @@ public class UserController {
 	
 	@Autowired
 	private IProductService productService;
+	
+	@Autowired
+	private IAdminService adminService;
 	
 
 	@GetMapping("/userLogin")
@@ -245,6 +250,10 @@ public class UserController {
 		List<AskCategoryBoardVO> askCategoryBoardList = userService.getUserAskCategoryBoardList(userNo);
 		
 		modelAndView.addObject("askCategoryBoardList", askCategoryBoardList);
+
+		List<AskListVO> askList = adminService.getAskLisk(userNo);
+		
+		modelAndView.addObject("askList", askList);
 		
 		return modelAndView;
 	}

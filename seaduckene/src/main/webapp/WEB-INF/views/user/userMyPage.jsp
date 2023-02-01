@@ -479,8 +479,43 @@
 					</c:otherwise>
 				</c:choose>
 							<div class="container">		
+							<c:if test="${askList.size() == 0}">
+								<div class="text-center h3">일반 문의글이 없습니다.</div>
+							</c:if>
+							<c:if test="${askList.size() > 0}">
+							<div class="text-center" style="position: relative;">일반 관련 문의글 <div id="ask-btn" class="btn btn-primary rounded" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; position: absolute; bottom: 0px; right: 0px;" onclick="location.href ='<c:url value='/admin/askWrite' />'">일반 문의 내용 보러가기</div></div>
+								<table class="table table-striped text-center " style="table-layout:fixed;">				
+									<thead>
+										<tr>
+											<th scope="col">항목</th>
+											<th scope="col"colspan="2">내용</th>
+											<th scope="col">답변 상태</th>
+										</tr>
+									</thead>
+									<tbody >
+									<c:forEach var="ask" items="${askList}" varStatus="status">
+							            	<tr>
+							            		<c:choose>
+							            			<c:when test="${ask.askListSelectNo == 1}"><td class="align-middle basket">카테고리</td></c:when>
+							            			<c:when test="${ask.askListSelectNo == 2}"><td class="align-middle basket">상품</td></c:when>
+							            			<c:when test="${ask.askListSelectNo == 3}"><td class="align-middle basket">사용자문의</td></c:when>
+							            			<c:when test="${ask.askListSelectNo == 4}"><td class="align-middle basket">기타문의</td></c:when>
+							            		</c:choose>
+								                	<td scope="row" colspan="2" class="align-middle basket">${ask.askListContent}</td>
+								                <c:if test="${empty ask.askListReplyContent}">
+								                	<td class="align-middle basket">답변 대기 중</td>
+								                </c:if>
+								                <c:if test="${not empty ask.askListReplyContent}">
+								                	<td class="align-middle basket">답변 완료</td>
+								                </c:if>
+							            	</tr>						
+									</c:forEach>
+									</tbody>
+								</table>
+							</c:if>
+							<br>
 							<c:if test="${askCategoryBoardList.size() == 0}">
-								<div class="text-center h3">문의글이 없습니다.</div>
+								<div class="text-center h3">게시판 관련 문의글이 없습니다.</div>
 							</c:if>
 							<c:if test="${askCategoryBoardList.size() > 0}">
 							<div class="text-center">게시판 관련 문의글</div>
@@ -514,6 +549,7 @@
 									</tbody>
 								</table>
 							</c:if>
+
 							</div>
 				        </div>
 				    </div>
