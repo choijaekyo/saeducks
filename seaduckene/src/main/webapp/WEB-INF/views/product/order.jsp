@@ -358,6 +358,7 @@
 					
 				},
 				error : function() {
+					authCode = '보라보라돌이';
 					alert('이메일 전송 실패');
 				}
 			});//end-ajax	
