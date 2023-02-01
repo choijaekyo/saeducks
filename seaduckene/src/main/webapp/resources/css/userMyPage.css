@@ -125,17 +125,6 @@
 	filter: alpha(opacity = 0);
 }
 
-#userMyPage .update-container form input.btn-a {
-	border-radius: 20px;
-	margin-top: 10px;
-	width: 300px;
-	height: 50px;
-	font-size: 20px;
-	color: black;
-	cursor: auto;
-	background-color: white;
-}
-
 #userMyPage .update-container form .join-input {
 	display: inline-block;
 	width: 300px;
@@ -154,15 +143,6 @@
 	width: 205px;
 }
 
-#userMyPage .update-container form .btn-outline-secondary {
-	vertical-align: unset;
-}
-
-#userMyPage .input-group .join-input:focus, #userMyPage #category-wrap .join-category:focus,
-	#myPageModal form .join-input:focus {
-	border: 1px solid rgb(255, 193, 7);
-	box-shadow: 0 0 5px 0.20rem rgba(255, 193, 7, 0.475);
-}
 
 @media screen and (min-width: 768px) {
 	#userMyPage .update-container form input.btn-a:hover {
@@ -178,11 +158,7 @@
 	font-size: 0.9rem;
 }
 
-@media screen and (max-width: 767px) {
-	#userMyPage .update-container form input.btn-a:hover {
-		opacity: 0.9;
-	}
-}
+
 
 /* #userMyPage .container .join-container form input.btn-a::placeholder {
 	font-size: 30px;
@@ -237,37 +213,6 @@
 	top: 0px;
 }
 
-#userMyPage .update-container form input.btn-b {
-	border-radius: 20px;
-	margin-top: 10px;
-	width: 120px;
-	height: 30px;
-	font-size: 20px;
-	color: black;
-	line-height: 1px;
-}
-
-#userMyPage .update-container form input.btn-pw-modi {
-	width: 190px;
-	border-radius: 17px;
-}
-
-#userMyPage .update-container form input.email-btn {
-	width: 150px;
-}
-
-#userMyPage .update-container form #update:hover {
-	background-color: #0ca0f1;
-}
-
-#userMyPage .update-container form #back {
-	background: #ff8000;
-}
-
-#userMyPage .update-container form #back:hover {
-	background: #f2680d;
-}
-
 /*============= 모달 페이지 ==============*/
 #modalMask {
 	width: 100%;
@@ -298,7 +243,8 @@
 #myPageModal .modalDesign,
 #addrListModal .modalDesign {
 	width: 350px;
-	background-color: #E6E1C1;
+	background-color: #fff9d6;
+	border-radius: 2%;
 	color: black;
 	position: absolute;
 	left: 50%;

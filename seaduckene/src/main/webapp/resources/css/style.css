@@ -1,5 +1,11 @@
 ﻿﻿﻿a:hover {
 	color: #ffc107;	
+﻿a{
+	text-decoration: none;
+}
+
+a:hover {
+	color: white;
 }
 
 .btn-duck {

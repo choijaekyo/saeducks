@@ -16,10 +16,10 @@
 	flex-wrap: wrap;
     justify-content: center;
 }
-	
+
 #userLoginPage form input.btn-a {
 
-	border-radius: 20px;
+	border-radius: 5px;
 	margin-top: 10px;
 
 	width: 350px;
@@ -38,9 +38,7 @@
 #userLoginPage form input.btn-a:focus {
  	/* border: 1px solid #fff107; */
 }
-#userLoginPage form input.btn-a:hover {
- 	opacity: 0.9;	 
-}
+
 #userLoginPage form .login-checkbox-group {
 	margin-bottom: 45px;
 }
@@ -99,14 +97,19 @@ a{color:inherit;text-decoration:none}
   margin-bottom:15px;
 }
 .login-form .group .label,
-.login-form .group .input,
-.login-form .group .button{
+.login-form .group .input{
   width:100%;
   color: black;
   display:block;
 }
-.login-form .group .input,
-.login-form .group .button{
+
+
+.login-form .group .button {
+	width: 90%;
+}
+
+
+.login-form .group .input{
   border:none;
   padding:15px 20px;
   border-radius:25px;

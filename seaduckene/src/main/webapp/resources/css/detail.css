@@ -32,6 +32,9 @@
 	box-shadow: none;
 }
 
-#writeForm hr {
+#writeForm .container hr {
 	margin: 0;
 }
+
+#replyModal textarea {
+	resize: none;

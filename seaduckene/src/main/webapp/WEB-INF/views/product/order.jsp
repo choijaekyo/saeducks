@@ -46,7 +46,7 @@
 										<p data-zip="${status.index}">${addr.addressZipNum}</p>
 										<p data-basic="${status.index}">${addr.addressBasic}</p>
 										<p data-detail="${status.index}">${addr.addressDetail}</p>
-										<button type="button" value="${status.index }" class="btn btn-outline-success addrbtn">주소입력</button>
+										<button type="button" value="${status.index }" class="sbtn purple small rounded addrbtn">주소입력</button>
 								</div>
 								<hr>
 								<br>
@@ -55,7 +55,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary"
+					<button type="button" class="sbtn blue small rounded"
 						data-bs-dismiss="modal" >닫기</button>				</div>
 			</div>
 		</div>
@@ -120,7 +120,7 @@
 						<div class="col-md-7 col-sm-12 col-12">
 							<div class="input-group">
 								<input class="form-control" type="text" name="userEmail"
-									id="userEmail" /> <input class="btn btn-outline-secondary"
+									id="userEmail" /> <input class="sbtn yellow small rounded"
 									type="button" name="confBtn" id="confBtn" value="인증하기" />
 							</div>
 						</div>
@@ -271,12 +271,12 @@
 					<div class="inputArea input-group">
 						<div
 							class="col-md-1 offset-md-5 col-sm-2 offset-sm-4 col-2 offset-4">
-							<button type="button" class="order_btn btn btn-outline-success"
+							<button type="button" class="order_btn sbtn cyan small rounded"
 								id="orderBtn">주문</button>
 						</div>
 						<div class="col-md-3 col-sm-6 col-6">
-							<button type="button"
-								class="cancel_btn btn btn-outline-secondary">취소</button>
+							<button type="button" onclick="history.back()"
+								class="cancel_btn sbtn blue small rounded">취소</button>
 						</div>
 					</div>
 

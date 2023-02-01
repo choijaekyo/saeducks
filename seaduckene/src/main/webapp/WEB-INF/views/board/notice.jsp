@@ -26,7 +26,7 @@
         </div>
         <div class="row justify-content-center m-5" >
               <div class="col-1 w-auto">
-                  <button type="button" class="btn btn-primary rounded" id="the-noti-btn">더보기</button>
+                  <button type="button" class="btn purple small rounded" id="the-noti-btn">더보기</button>
               </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
     
 </body>
 
-<script>
+<script>s
 
     $(function() {
         

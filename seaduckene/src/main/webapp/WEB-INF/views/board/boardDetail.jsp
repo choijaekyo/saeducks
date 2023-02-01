@@ -13,7 +13,7 @@
 	  <div class="row">
       <div class="mb-3">
 	  	<div class="col col align-self-center" style="position: relative;">
-        	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='15' %3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' %3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
 			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107; margin-top:10px;">
 			    <li class="breadcrumb-item" id="majorTitle">${category.categoryMajorTitle}</li>
 			    <li class="breadcrumb-item" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
@@ -37,8 +37,6 @@
 						class="form-control" id="title" name="boardTitle"
 						value="${list.boardTitle}" readonly>
 						
-				
-					
 				<div class="col d-flex flex-row justify-content-end"
 					id="board-detail-item">
 		
@@ -47,21 +45,24 @@
 					</p>
 					<p>&nbsp;&nbsp;조회수: ${list.boardViews }</p>
 				</div>
+
+				<div class="col d-flex flex-row justify-content-end"
+					id="board-detail-item">
+							
+				</div>
 				<hr>
-				
 				<div class="mb-3" id="board-detail-content">
 					<label for="content" class="form-label"></label>
 					<textarea class="form-control" id="summernote" name="boardContent"
 						readonly rows="15"></textarea>
 				
 				<br>
-				
 
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList/${list.boardCategoryNo}'/>'
-						class="right btn btn-info btn-sm rounded" id="listBtn">목록가기</a>
-					<button type="submit" class="right btn btn-info btn-sm rounded" id="ModBtn">수정하기</button>
+						class="right sbtn blue small rounded" id="listBtn">목록가기</a>
+					<button type="submit" class="right sbtn cyan small rounded" id="ModBtn">수정하기</button>
 				</div>
 				
 			</div>
@@ -76,25 +77,6 @@
 <div class="container regReply" >
 	<div class="card-body">
 		<div class="row gx-5">
-		
-		<!-- 로그인 안 했을 시 -->
-			<c:if test="${login == null}">
-				<div class="col">
-					<div class="d-flex align-items-center mb-3">
-						<h5 class="me-auto mb-0" id="replyBoardNo" style="display:none;"></h5>
-						<span class="text-muted extra-small ms-2" style="display:none;"></span>
-					</div>
-
-					<div class="d-flex align-items-center">
-						<input type="hidden" value="${login.userNo}" id="replyUserNo"></input>
-						<textarea class="form-control" rows="3" id="reply" style="display:none;"></textarea>
-					</div>
-					<br>
-					<div>
-						<button type="button" id="replyRegist" class="right btn btn-info btn-sm rounded" style="display:none;">등록하기</button>
-					</div>
-				</div>
-			</c:if>
 			
 			<!-- 로그인 시 -->
 			<c:if test="${login != null}">
@@ -109,7 +91,9 @@
 					</div>
 					<br>
 					<div>
-						<button type="button" id="replyRegist" class="right btn btn-info btn-sm rounded" style="margin-bottom: 15px;">등록하기</button>
+
+						<button type="button" id="replyRegist" class="right sbtn cyan small rounded" style="margin-bottom: 15px;">등록하기</button>
+
 					</div>
 				</div>
 			</c:if>
@@ -132,7 +116,11 @@
 			
 		</div>
 		<br>
-		 <button type="button" class="btn btn-sm btn-primary rounded" id="moreList">더보기</button>
+
+		 <div style="text-align: center;">
+		 	<button type="button" class="sbtn cyan small rounded" id="moreList">더보기</button>
+		 </div>
+
 	</div>
 
 </div>
@@ -151,13 +139,14 @@
 				<!-- 수정폼 id값을 확인하세요-->
 				<div class="reply-content">
 					<textarea class="form-control" rows="4" id="modalReply"
-						placeholder="내용입력"></textarea>
+						placeholder="내용입력" ></textarea>
 					<div class="reply-group">
 						<div class="reply-input">
 							<input type="hidden" id="modalRno"> 
 						</div>
-						<button class="right btn btn-info" id="modalModBtn">수정하기</button>
-						<button class="right btn btn-info" id="modalDelBtn">삭제하기</button>
+						<br>
+						<button class="right sbtn cyan small rounded" id="modalModBtn">수정하기</button>
+						<button class="right sbtn blue small rounded" id="modalDelBtn">삭제하기</button>
 					</div> 
 				</div>
 				<!-- 수정폼끝 -->
@@ -302,7 +291,7 @@
 						if(total <= page * 5) {
 							$('#moreList').css('display', 'none');
 						} else {
-							$('#moreList').css('display', 'block');
+							$('#moreList').css('display', 'inline');
 						}
 						/* console.log("최고인규" + data.length); */
 						if(data.length <= 0) return;
