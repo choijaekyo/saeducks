@@ -75,6 +75,6 @@
 	if ('${msg}' === 'adminLogout') {
 		alert('관리자 계정을 로그아웃하셨습니다.');
 	} else if ('${msg}' === 'askCategoryBoard') {
-		alert('게시글 문의가 정상적으로 요쳥되었습니다.');
+		alert('게시글 문의가 정상적으로 요청되었습니다.');
 	}
 </script>

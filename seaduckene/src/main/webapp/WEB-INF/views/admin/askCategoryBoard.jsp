@@ -56,10 +56,10 @@
 
             <div class="inputArea input-group btns">
               <div class="btn-b" >
-                <button type="button" class="order_btn btn btn-outline-success" id="submit-btn">문의하기</button>
+                <button type="button" class="order_btn sbtn cyan small rounded" id="submit-btn">문의하기</button>
               </div>
               <div class="btn-b">
-                <button type="button" class="cancel_btn btn btn-outline-secondary"  onclick="history.back()" >뒤로가기</button>
+                <button type="button" class="cancel_btn sbtn blue small rounded"  onclick="history.back()" >뒤로가기</button>
               </div>
             </div>
           </form>

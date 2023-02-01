@@ -485,8 +485,8 @@
 								<div class="text-center h3">일반 문의글이 없습니다.</div>
 							</c:if>
 							<c:if test="${askList.size() > 0}">
-							<div class="text-center" style="position: relative;">일반 관련 문의글 <div id="ask-btn" class="btn btn-primary rounded" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; position: absolute; bottom: 0px; right: 0px;" onclick="location.href ='<c:url value='/admin/askWrite' />'">일반 문의 내용 보러가기</div></div>
-								<table class="table table-striped text-center " style="table-layout:fixed;">				
+							<div class="text-center h4" style="position: relative;">일반 관련 문의글 <div id="ask-btn" class="sbtn cyan small rounded" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; position: absolute; bottom: 0px; right: 0px;" onclick="location.href ='<c:url value='/admin/askWrite' />'">일반 문의 내용 보러가기</div></div>
+								<table class="table table-striped mt-3 text-center " style="table-layout:fixed;">				
 									<thead>
 										<tr>
 											<th scope="col">항목</th>
@@ -520,8 +520,8 @@
 								<div class="text-center h3">게시판 관련 문의글이 없습니다.</div>
 							</c:if>
 							<c:if test="${askCategoryBoardList.size() > 0}">
-							<div class="text-center">게시판 관련 문의글</div>
-								<table class="table table-striped text-center " style="table-layout:fixed;">				
+							<div class="text-center h4">게시판 관련 문의글</div>
+								<table class="table table-striped mt-3 text-center " style="table-layout:fixed;">				
 									<thead>
 										<tr>
 											<th scope="col">대 카테고리</th>

@@ -1,13 +1,13 @@
 ﻿a{
-	text-decoration: none;
+   text-decoration: none;
 }
 
 a:hover {
-	color: white;
+   color: white;
 }
 
 .btn-duck {
-	background: #ffc107;	
+   background: #ffc107;   
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup,
@@ -42,12 +42,61 @@ table {
    border-spacing: 0
 }
 
+/*=============버튼 스타일============*/
+
+.sbtn.small {
+  padding: 8px 18px 4px;  
+  font-size: 14px;
+}
+      
+/* Colors for .btn and .btn-two */
+.sbtn.blue    {background-color: #7fb1bf;}
+.sbtn.green   {background-color: #9abf7f;}
+.sbtn.red     {background-color: #fa5a5a;}
+.sbtn.purple  {background-color: #cb99c5;}
+.sbtn.cyan    {background-color: #7fccde;}
+.sbtn.yellow  {background-color: #f0d264;}
+
+.rounded {
+  border-radius: 10px;
+}
+      
+/* default button style */
+.sbtn {
+  position: relative;
+  border: 0;
+  padding: 15px 25px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+}
+.sbtn:active {
+  top: 4px; 
+}
+      
+      
+ /* color classes for .btn */
+.sbtn.blue {box-shadow: 0px 4px #74a3b0;}
+.sbtn.blue:active {box-shadow: 0 0 #74a3b0; background-color: #709CA8;}
+
+.sbtn.green {box-shadow: 0px 4px 0px #87a86f;}
+.sbtn.green:active {box-shadow: 0 0 #87a86f; background-color: #87a86f;}
+
+.sbtn.red {box-shadow:0px 4px 0px #E04342;}
+.sbtn.red:active {box-shadow: 0 0 #ff4c4b; background-color: #ff4c4b;}
+
+.sbtn.purple {box-shadow:0px 4px 0px #AD83A8;}
+.sbtn.purple:active {box-shadow: 0 0 #BA8CB5; background-color: #BA8CB5;}
+
+.sbtn.cyan {box-shadow:0px 4px 0px #73B9C9;}
+.sbtn.cyan:active {box-shadow: 0 0 #73B9C9; background-color: #70B4C4;}
+
+.sbtn.yellow {box-shadow:0px 4px 0px #D1B757;}
+.sbtn.yellow:active {box-shadow: 0 0 #ff4c4b; background-color: #D6BB59;}
+
 
 
 /*=========웹폰트 선언=========*/
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 @font-face {
     font-family: 'GangwonEdu_OTFBoldA';
@@ -56,45 +105,38 @@ table {
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'BMJUA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 /*===========================*/
 
 /*디자인 시작시 기본 선언*/
 * { /* 기본선언: 마딩, 패딩 0, 요소크기에 padding, border값을 포함 x*/
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
 }
 
 body, html {
-	width: 100%;
-	min-width: 320px;
-	font-family: 'GangwonEdu_OTFBoldA', sans-serif;
-	font-size:18px;
+   width: 100%;
+   min-width: 320px;
+   font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+   font-size:18px;
 }
 
 img {
-	max-width: 100%; /*사이즈가 변해도 넓이를 유지 */
-	height: auto; /*사이즈가 변해도 높이를 유지 */
-	/*vertical-align: top;*/
+   max-width: 100%; /*사이즈가 변해도 넓이를 유지 */
+   height: auto; /*사이즈가 변해도 높이를 유지 */
+   /*vertical-align: top;*/
 }
 
 input, textarea, button, select {
-	/*고유하게 적용되어있는 form관련 요소들을 제거해서 여러브라우저에서 동일한디자인을 얻게함*/
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	border: none
+   /*고유하게 적용되어있는 form관련 요소들을 제거해서 여러브라우저에서 동일한디자인을 얻게함*/
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   border: none
 }
 
 ul, ol, dl, li {
-	list-style: none /*순서 요소들이 리스트스타일을 업앤다 */
+   list-style: none /*순서 요소들이 리스트스타일을 업앤다 */
 }
   .clearfix::after{
             content:'';
@@ -103,7 +145,7 @@ ul, ol, dl, li {
         }
 
 .btn {
-	border-radius: 0px;
+   border-radius: 0px;
 }
 /*============ home ============*/
 
@@ -114,12 +156,12 @@ ul, ol, dl, li {
 }
 
 #main_container_one {
-	margin-top: 15px;
-	margin-bottom: 70px;
+   margin-top: 15px;
+   margin-bottom: 70px;
 }
 
 #section_gap_id {
-	background: #fff9d6;
+   background: #fff9d6;
 }
 
 .section_title {
@@ -253,11 +295,11 @@ header{
    .navbar .container .navbar-collapse .navbar-nav{
       background-color: white;
       border-radius: 2%;
-	}
+   }
 }
    
 .bi-caret-down-fill{
-	font-size: 15px;
+   font-size: 15px;
 }
    
 .nav-category li .dropdown-toggle::after {
@@ -284,8 +326,8 @@ header{
 }
 
 .f_box a {
-	text-decoration: none;
-	color: black;
+   text-decoration: none;
+   color: black;
 }
 
 /*============= END footer ==============*/

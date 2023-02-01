@@ -64,7 +64,7 @@
 
             <div class=" btns ps-0">
               <div class="btn-b">
-                <button type="button" class="cancel_btn btn btn-outline-secondary"  onclick="history.back()" >뒤로가기</button>
+                <button type="button" class="cancel_btn sbtn blue small rounded"  onclick="history.back()" >뒤로가기</button>
               </div>
             </div>
         </div>
