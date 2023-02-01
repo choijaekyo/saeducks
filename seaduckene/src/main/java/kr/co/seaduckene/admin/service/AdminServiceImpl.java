@@ -82,4 +82,19 @@ public class AdminServiceImpl implements IAdminService {
 	public List<AskListVO> getAskLisk(int userNo) {
 		return adminMapper.getAskLisk(userNo);
 	}
+	
+	@Override
+	public List<AskListVO> getAdminAskLisk() {
+		return adminMapper.getAdminAskLisk();
+	}
+	
+	@Override
+	public List<AskListVO> getAskSearchList(String type, String keyword) {
+		return adminMapper.getAskSearchList(type, keyword);
+	}
+	
+	@Override
+	public void setAskReply(String askNo, String reply) {
+		adminMapper.setAskReply(askNo, reply);
+	}
 }

@@ -26,7 +26,9 @@
 	<div class="row justify-content-center m-5">
 
 	  	<div class="col-1 w-auto" style="display: none;" id="div-btn">
+
 	  		<button  type="button" class="sbtn cyan small rounded" id="the-btn">더보기</button>
+
 			
 	  	</div>
 	</div>
@@ -34,7 +36,8 @@
 
 <div class="container container-board-div2">
 	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-	<c:forEach var="proVo" items="${productList}">
+	<c:forEach var="proVo" items="${productList}" varStatus="status">
+		<c:if test="${status.index<3 }">
 		  <div class="col productcard">
 		  <a href="${pageContext.request.contextPath }/product/productDetail?productNo=${proVo.productNo}" id="cardA">
 		    <div class="card mb-4 rounded-3 shadow-sm ">
@@ -59,6 +62,7 @@
 		    </div>
 		    </a>
 		  </div>
+		 </c:if> 
 	  </c:forEach>
 	</div>
 	<div style="text-align: center;">
@@ -74,15 +78,20 @@
 
 $(function() {
 	
-	//더기 버튼 클릭 이벤트
+	//더보기 버튼 클릭 이벤트
 	$('#the-btn').click(function() {
 		if(!isFinish) {
 			page++;
 			getList(page, false);
 		} else {
-			console.log('더이상 불러올 목록이 없다.');
+			alert('더이상 불러올 목록이 없습니다.');
 		}
 	});
+	
+	$('#moreProBtn').click(function() {
+		location.href = '${pageContext.request.contextPath}/product/productList?categoryNo='+categoryNo;
+	});
+	
 	
 	const categoryNo = '${categoryNo}';
 	let str = '';
@@ -90,10 +99,6 @@ $(function() {
 	let isFinish = false;
 	console.log(categoryNo);
 	getList(1, false);
-	
-	$('#moreProBtn').click(function() {
-		location.href = '${pageContext.request.contextPath}/product/productList?categoryNo='+categoryNo;
-	});
 	
 	function getList(page, reset) {
 		
@@ -120,13 +125,16 @@ $(function() {
 						$('#contentDiv').css('line-height','150px');
 					}
 					else{
+						if(list.length < 9){
 						isFinish = true;
 						$('#div-btn').css('display','none');
+						}
 					}
 					
 				} else {
 					$('#div-btn').css('display','block');
 				}
+				
 				
 				for(let i=0; i<list.length; i++) {
 					

@@ -41,4 +41,12 @@ public interface IAdminService {
 	// 카테고리별 테이블 문의글 저장	
 	void insertCategoryBoard(AskCategoryBoardVO askCateBoVo);
 	
+	// 전체 문의 리스트
+	List<AskListVO> getAdminAskLisk();
+	
+	// 문의사항 유저 검색
+	List<AskListVO> getAskSearchList(String type, String keyword);
+	
+	// 관리자 답변 요청
+	void setAskReply(String askNo, String reply);
 }

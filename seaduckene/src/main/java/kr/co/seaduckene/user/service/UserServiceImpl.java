@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
+import kr.co.seaduckene.admin.mapper.IAdminMapper;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.IAddressMapper;
@@ -23,6 +24,7 @@ import kr.co.seaduckene.product.mapper.IProductMapper;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.mapper.IUserMapper;
+import kr.co.seaduckene.util.AskCategoryBoardVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -37,6 +39,9 @@ public class UserServiceImpl implements IUserService {
 	
 	@Autowired
 	private IProductMapper productMapper;
+	
+	@Autowired
+	private IAdminMapper adminMapper;
 
 	@Override
 	public void registUser(UserVO userVO) {
@@ -325,6 +330,16 @@ public class UserServiceImpl implements IUserService {
 		map.put("userEmail", userEmail);
 				
 		return userMapper.checkUser(map);
+	}
+	
+	@Override
+	public List<AskCategoryBoardVO> getAskCategoryBoardList(int userNo) {
+		return adminMapper.getAskCategoryBoardList(userNo);
+	}
+	
+	@Override
+	public AskCategoryBoardVO getAskCategoryBoard(int askBoardNo) {
+		return adminMapper.getAskCategoryBoard(askBoardNo);
 	}
 	
 }

@@ -278,6 +278,16 @@
 #addrListModal .modalDesign .btn-hr {
 	margin: 0;
 }
+
+.askCategoryBoardDetail {
+	text-decoration: none;
+	color: black;
+}
+
+.askCategoryBoardDetail:hover {
+	color: #ffc107;
+}
+
 /*============= END 모달 페이지 ==============*/
 
 /*============= END 마이페이지 페이지 ==============*/

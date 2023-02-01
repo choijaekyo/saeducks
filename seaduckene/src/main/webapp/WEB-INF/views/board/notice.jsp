@@ -16,7 +16,7 @@
 
 	<%@ include file="../include/header.jsp" %>
 
-    <div class="container">
+    <div class="container" style="margin-top:30px;">
         <div class="row">
             <div class="accordion accordion-flush" id="accordionFlushExample">
                   <div id="noticeContentDiv">
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center m-5">
+        <div class="row justify-content-center m-5" >
               <div class="col-1 w-auto">
                   <button type="button" class="btn purple small rounded" id="the-noti-btn">더보기</button>
               </div>

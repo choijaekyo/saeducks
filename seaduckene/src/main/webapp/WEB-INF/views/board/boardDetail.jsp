@@ -36,8 +36,7 @@
 					<label for="title" class="form-label"></label> <input type="text"
 						class="form-control" id="title" name="boardTitle"
 						value="${list.boardTitle}" readonly>
-				</div>
-				
+						
 				<div class="col d-flex flex-row justify-content-end"
 					id="board-detail-item">
 		
@@ -45,8 +44,8 @@
 						<fmt:formatDate value="${list.boardRegDate}" pattern="yyyy/MM/dd" />
 					</p>
 					<p>&nbsp;&nbsp;조회수: ${list.boardViews }</p>
-		
 				</div>
+
 				<div class="col d-flex flex-row justify-content-end"
 					id="board-detail-item">
 							
@@ -58,17 +57,19 @@
 						readonly rows="15"></textarea>
 				
 				<br>
-			
 
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList/${list.boardCategoryNo}'/>'
+
 						class="right sbtn blue small rounded" id="listBtn">목록가기</a>
 					<button type="submit" class="right sbtn cyan small rounded" id="ModBtn">수정하기</button>
+
 				</div>
 			</div>
 <!-- 		</div>
 	</div> -->
+	</div>
 </form> 
 
 <br>
@@ -91,7 +92,9 @@
 					</div>
 					<br>
 					<div>
+
 						<button type="button" id="replyRegist" class="right sbtn cyan small rounded" style="margin-bottom: 15px;">등록하기</button>
+
 					</div>
 				</div>
 			</c:if>
@@ -114,9 +117,11 @@
 			
 		</div>
 		<br>
+
 		 <div style="text-align: center;">
 		 	<button type="button" class="sbtn cyan small rounded" id="moreList">더보기</button>
 		 </div>
+
 	</div>
 
 </div>

@@ -12,10 +12,20 @@
 		<if test="type == 'orderStatus'">WHERE d.order_status LIKE '%'||#{keyword}||'%'</if>
 	</sql>
 	
+	<sql id="askSearch">
+		<if test="type == 'name'">INNER JOIN duck_user d ON a.ask_list_user_no = d.user_no WHERE d.user_name LIKE '%'||#{keyword}||'%'</if>
+		<if test="type == 'yes'"> </if>
+		<if test="type == 'no'">WHERE ask_list_reply_content IS NULL</if>
+	</sql>
+	
 	<sql id="productSearch">
 		<if test="type == 'productNo'">WHERE product_no LIKE '%'||#{keyword}||'%'</if>
 		<if test="type == 'productName'">WHERE product_name LIKE '%'||#{keyword}||'%'</if>
 	</sql>
+	
+		<resultMap type="askCategoryBoard" id="askCategoryBoardCLOB">
+		<result property="askBoardContent" column="ask_board_content" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
 	
 	<select id="getAdminVo" resultType="admin">
 		SELECT * FROM admin_login WHERE admin_id = #{adminId} AND admin_pw = #{adminPw}
@@ -71,11 +81,39 @@
 		WHERE ask_list_user_no = #{userNo} 
 		ORDER BY ask_list_no DESC
 	</select>
+	
+	<select id="getAdminAskLisk" resultType="askList">
+		SELECT * FROM ask_list
+		ORDER BY ask_list_no DESC
+	</select>
+	
+	<select id="getAskSearchList" resultType="askList">
+		SELECT a.ask_list_no, a.ask_list_user_no, a.ask_list_content, a.ask_list_reg_date, 
+			   a.ask_list_update_date, a.ask_list_reply_content, a.ask_list_select_no
+		FROM ask_list a
+		<include refid="askSearch" />
+		ORDER BY ask_list_no DESC
+	</select>
+	
+	<update id="setAskReply">
+		UPDATE ask_list SET ask_list_reply_content = #{reply} WHERE ask_list_no = #{askNo}
+	</update>
 
 	<insert id="insertCategoryBoard">
-		INSERT INTO ask_category_board 
+		INSERT INTO ask_category_board
 		VALUES (ask_category_board_seq.NEXTVAL, #{askBoardMajorCategory}, #{askBoardMinorCategory}, #{askBoardTitle}
 		, #{askBoardContent}, default, #{askBoardReplyContent}, #{askBoardUserNo})
 	</insert>
+	
+	<select id="getAskCategoryBoardList" resultType="askCategoryBoard">
+		SELECT * FROM ask_category_board
+		WHERE ask_board_user_no = #{userNo} 
+		ORDER BY ask_board_user_no DESC
+	</select>
+	
+	<select id="getAskCategoryBoard" resultMap="askCategoryBoardCLOB">
+		SELECT * FROM ask_category_board
+		WHERE ask_board_no = #{askBoardNo}
+	</select>
 
 </mapper>

@@ -12,6 +12,7 @@ import kr.co.seaduckene.favorite.FavoriteVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
 import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
+import kr.co.seaduckene.util.AskCategoryBoardVO;
 
 public interface IUserService {
 
@@ -104,4 +105,10 @@ public interface IUserService {
 	
 	// 비밀번호 찾기 유저정보 확인
 	int checkUser(String userId, String userEmail);
+	
+	// 카테고리별 게시판 문의글 가져오기
+	List<AskCategoryBoardVO> getAskCategoryBoardList(int userNo);
+	
+	// 카테고리별 게시판 문의글 상세보기 가져오기
+	AskCategoryBoardVO getAskCategoryBoard(int askBoardNo);
 }

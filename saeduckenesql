@@ -387,5 +387,14 @@ INSERT INTO ask_list (ask_list_no, ask_list_user_no, ask_list_select_no, ask_lis
 VALUES (ask_list_seq.NEXTVAL, 1, 1, '문의문의');
 
 SELECT * FROM ask_list WHERE ask_list_user_no = 1 ORDER BY ask_list_no DESC;
+SELECT * FROM ask_list ORDER BY ask_list_no DESC;
+SELECT * FROM ask_list WHERE ask_list_reply_content IS NULL ORDER BY ask_list_no DESC;
+SELECT a.ask_list_no, a.ask_list_user_no, a.ask_list_content, a.ask_list_reg_date, 
+       a.ask_list_update_date, a.ask_list_reply_content, a.ask_list_select_no
+FROM ask_list a
+INNER JOIN duck_user d
+ON a.ask_list_user_no = d.user_no
+WHERE d.user_name LIKE '%최재교%';
 
+UPDATE ask_list SET ask_list_reply_content = 'ehlsasdasdasdeek' WHERE ask_list_no = 6;
 commit;
