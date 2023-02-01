@@ -32,6 +32,23 @@
         padding-bottom: 60px;
         background-color: #fff9d6;
       }
+      
+      a#main {
+		display: block;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background: tomato;
+		text-align: center;
+		line-height: 50px;
+		margin-right: 20px;
+		text-decoration: none;
+		color: white;
+		
+		position: fixed;
+		bottom: 20px;
+		right: 10px;
+		}
     </style>
   </head>
   <body>
@@ -50,12 +67,12 @@
 			</div>
 		</div>
 		<div class="">
-			<c:forEach var="i" items="${empty askCategoryBoardList ? askAdminList : askCategoryBoard}" >
+			<c:forEach var="i" items="${empty askCategoryBoardList ? askSearchCategoryBoardList : askCategoryBoardList}" >
 				<div class="list-group mb-2">
 					<div class="list-group-item list-group-item-secondary" >
 					  <div class="d-flex w-100 justify-content-between">
 					    <div>
-					      <h6 class="mb-0">${i.askBoardUserName}</h6>
+					      <h6 class="mb-0">${i.askBoardUserName} &nbsp;&nbsp;&nbsp;<i>${i.askBoardMajorCategory}</i>&gt;<i>${i.askBoardMinorCategory}</i></h6>
 					      <p class="mb-0 opacity-75"  style="white-space:pre;">${i.askBoardContent}</p>
 					    </div>
 					    <small class="opacity-50 text-nowrap">
@@ -65,7 +82,7 @@
 					  </div>
 					</div>
 					<c:if test="${empty i.askBoardReplyContent}">
-						<form class="was-validated" action="${pageContext.request.contextPath}/admin/askAdminReply" method="post"> <!-- url 추가해서 수정해야함 -->
+						<form class="was-validated" action="${pageContext.request.contextPath}/admin/askCategoryAdminReply" method="post"> <!-- url 추가해서 수정해야함 -->
 	
 							<input type="hidden" name="askNo" value="${i.askBoardNo}">
 							
@@ -89,7 +106,7 @@
 						      <p class="mb-0 opacity-75" style="white-space:pre;">${i.askBoardReplyContent}</p>
 						    </div>
 						    <small class="opacity-50 text-nowrap">
-						    	<c:set var="now" value="${i.askBoardRegDate}" />
+						    	<c:set var="now" value="${i.askBoardUpdateDate}" />
 								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd a h:mm" type="date"/>
 						    </small>
 						  </div>
@@ -99,7 +116,7 @@
 			</c:forEach>
 		</div>
 	</div>
-	
+	<a id="main" href="<c:url value='/admin/adminMain'/>" >main</a>
 	<script>
 		function autoHeight() {
 			var textEle = $('textarea');
@@ -118,7 +135,7 @@
 					if (this === document.getElementById('askSearch')) {
 						type = 'name';
 						keyword = document.getElementById('askSearch').value;
-						location.href='${pageContext.request.contextPath}/admin/askAdminList?type='+type+'&keyword='+keyword;
+						location.href='${pageContext.request.contextPath}/admin/adminAskCategoryBoardList?type='+type+'&keyword='+keyword;
 						$('#askSearch').val('');	
 					}
 				}
@@ -127,13 +144,13 @@
 			$('#askYesFullSearch').on('click', function() {
 				type = 'yes';
 				keyword = 'yes';
-				location.href='${pageContext.request.contextPath}/admin/askAdminList?type='+type+'&keyword='+keyword;
+				location.href='${pageContext.request.contextPath}/admin/adminAskCategoryBoardList?type='+type+'&keyword='+keyword;
 			});
 			
 			$('#askNoFullSearch').on('click', function() {
 				type = 'no';
 				keyword = 'no';
-				location.href='${pageContext.request.contextPath}/admin/askAdminList?type='+type+'&keyword='+keyword;
+				location.href='${pageContext.request.contextPath}/admin/adminAskCategoryBoardList?type='+type+'&keyword='+keyword;
 			});
 			
 			$('#askAdminList').on('click', function() {

@@ -18,6 +18,12 @@
 		<if test="type == 'no'">WHERE ask_list_reply_content IS NULL</if>
 	</sql>
 	
+	<sql id="askCategorySearch">
+		<if test="type == 'name'">INNER JOIN duck_user d ON a.ask_board_user_no = d.user_no WHERE d.user_name LIKE '%'||#{keyword}||'%'</if>
+		<if test="type == 'yes'"> </if>
+		<if test="type == 'no'">WHERE ask_board_reply_content IS NULL</if>
+	</sql>
+	
 	<sql id="productSearch">
 		<if test="type == 'productNo'">WHERE product_no LIKE '%'||#{keyword}||'%'</if>
 		<if test="type == 'productName'">WHERE product_name LIKE '%'||#{keyword}||'%'</if>
@@ -108,7 +114,7 @@
 	<select id="getUserAskCategoryBoardList" resultType="askCategoryBoard">
 		SELECT * FROM ask_category_board
 		WHERE ask_board_user_no = #{userNo} 
-		ORDER BY ask_board_user_no DESC
+		ORDER BY ask_board_no DESC
 	</select>
 	
 	<select id="getAskCategoryBoard" resultMap="askCategoryBoardCLOB">
@@ -119,7 +125,13 @@
 	<select id="getAllAskCategoryBoardList" resultType="askCategoryBoard">
 		SELECT a.*, (SELECT user_name FROM duck_user WHERE user_no = a.ask_board_user_no) as ask_board_user_name
 		FROM ask_category_board a
-		ORDER BY a.ask_board_user_no DESC
+		<include refid="askCategorySearch" />
+		ORDER BY a.ask_board_no DESC
 	</select>
+	
+	<update id="setAskCategoryReply">
+		UPDATE ask_category_board SET ask_board_reply_content = #{reply}, ask_board_update_date = sysdate WHERE ask_board_no = #{askNo}
+		ORDER BY ask_board_no DESC
+	</update>
 
 </mapper>

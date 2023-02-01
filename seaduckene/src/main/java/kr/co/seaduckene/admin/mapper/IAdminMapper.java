@@ -45,8 +45,8 @@ public interface IAdminMapper {
 	// 카테고리별 게시판 문의글 상세보기 가져오기
 	AskCategoryBoardVO getAskCategoryBoard(int askBoardNo);
 	
-	// 카테고리별 게시판 모든 문의글 가져오기
-	List<AskCategoryBoardVO> getAllAskCategoryBoardList();
+	// 카테고리별 게시판 모든, 검색 문의글 가져오기
+	List<AskCategoryBoardVO> getAllAskCategoryBoardList(@Param("type") String type, @Param("keyword") String keyword);
 	
 	// 고객문의 글 쓰기
 	void setAsk(AskListVO vo);	
@@ -62,4 +62,7 @@ public interface IAdminMapper {
 	
 	// 관리자 답변 요청
 	void setAskReply(@Param("askNo") String askNo, @Param("reply") String reply);
+	
+	// 관리자 게시판 답변 요청
+	void setAskCategoryReply(@Param("askNo") String askNo, @Param("reply") String reply);
 }

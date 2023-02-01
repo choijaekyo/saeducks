@@ -59,7 +59,7 @@
             <div class="form-control m-auto text-center" style="width: 60%">곧 답변드리겠습니다.</div>
            </c:if>
            <c:if test="${not empty askCategoryBoard.askBoardReplyContent}">
-            <div>${askCategoryBoard.askBoardReplyContent}</div>
+            <div class="form-control m-auto text-center" style="width: 60%">${askCategoryBoard.askBoardReplyContent}</div>
            </c:if>
 
             <div class=" btns ps-0">

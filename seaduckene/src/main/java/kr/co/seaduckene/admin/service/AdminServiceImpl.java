@@ -99,7 +99,12 @@ public class AdminServiceImpl implements IAdminService {
 	}
 	
 	@Override
-	public List<AskCategoryBoardVO> getAllAskCategoryBoardList() {
-		return adminMapper.getAllAskCategoryBoardList();
+	public List<AskCategoryBoardVO> getAllAskCategoryBoardList(String type, String keyword) {
+		return adminMapper.getAllAskCategoryBoardList(type, keyword);
+	}
+	
+	@Override
+	public void setAskCategoryReply(String askNo, String reply) {
+		adminMapper.setAskCategoryReply(askNo, reply);
 	}
 }

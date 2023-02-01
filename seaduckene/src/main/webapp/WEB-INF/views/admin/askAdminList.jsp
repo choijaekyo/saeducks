@@ -32,6 +32,23 @@
         padding-bottom: 60px;
         background-color: #fff9d6;
       }
+      
+      a#main {
+		display: block;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background: tomato;
+		text-align: center;
+		line-height: 50px;
+		margin-right: 20px;
+		text-decoration: none;
+		color: white;
+		
+		position: fixed;
+		bottom: 20px;
+		right: 10px;
+		}
     </style>
   </head>
   <body>
@@ -99,7 +116,7 @@
 			</c:forEach>
 		</div>
 	</div>
-	
+	<a id="main" href="<c:url value='/admin/adminMain'/>" >main</a>
 	<script>
 		function autoHeight() {
 			var textEle = $('textarea');

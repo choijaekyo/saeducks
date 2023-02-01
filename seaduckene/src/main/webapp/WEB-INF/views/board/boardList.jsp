@@ -12,7 +12,8 @@
 			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107; margin-top:10px;">
 			    <li class="breadcrumb-item" id="majorTitle">${category.categoryMajorTitle}</li>
 			    <li class="breadcrumb-item" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
-			    <li><a class="ml-5 btn btn-info btn-sm w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a></li>
+			    <li><a class="ml-5 btn btn-info btn-sm w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a></li>&nbsp;
+			    <li><a class="ml-5 btn btn-info btn-sm w-auto rounded" href="<c:url value='/admin/askCategoryBoard/${categoryNo}' />">게시판 문의하기</a></li>
 			  </ol>
 			</nav>
         </div>

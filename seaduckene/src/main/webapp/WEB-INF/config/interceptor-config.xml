@@ -37,7 +37,7 @@
 			<mvc:mapping path="/board/boardModify" />
 			<mvc:mapping path="/board/boardUpdate" />
 			<mvc:mapping path="/board/boardDelete" />
-			<mvc:mapping path="/admin/askCategoryBoard" />
+			<mvc:mapping path="/admin/askCategoryBoard/**" />
 			<mvc:mapping path="/admin/askWrite" />
 			<mvc:mapping path="/user/myAskCategoryBoardListPage" />
 			<mvc:mapping path="/user/userAskCategoryBoardDetail/**" />
@@ -64,7 +64,7 @@
 			<mvc:mapping path="/product/order" />
 			<mvc:mapping path="/product/productList" />
 			<mvc:mapping path="/user/userAskCategoryBoardDetail/**" />
-			<mvc:mapping path="/admin/askCategoryBoard" />
+			<mvc:mapping path="/admin/askCategoryBoard/**" />
 			<mvc:mapping path="/admin/askWrite" />
 			<ref bean="autoLoginHandler" />
 		</mvc:interceptor>
@@ -84,7 +84,7 @@
 			<mvc:mapping path="/product/order" />
 			<mvc:mapping path="/product/productList" />
 			<mvc:mapping path="/user/userAskCategoryBoardDetail/**" />
-			<mvc:mapping path="/admin/askCategoryBoard" />
+			<mvc:mapping path="/admin/askCategoryBoard/**" />
 			<mvc:mapping path="/admin/askWrite" />
 			<ref bean="CategoryHandler" />
 		</mvc:interceptor>

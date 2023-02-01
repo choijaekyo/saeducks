@@ -49,7 +49,7 @@ pageEncoding="UTF-8"%>
 		position: fixed;
 		bottom: 20px;
 		right: 10px;
-	}
+		}
 	
     </style>
   </head>

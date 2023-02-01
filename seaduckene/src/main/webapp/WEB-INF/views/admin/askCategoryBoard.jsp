@@ -29,14 +29,10 @@
               <div class="col-md-7 col-sm-12 col-12">
                 <div class="row">
                   <div class="col-6">
-                    <select class="form-select" aria-label="Default select example" name="askBoardMajorCategory" id="majorCategory" >
-                      <option selected disabled>대 카테고리</option>
-                    </select>
+                    <input class="form-control" value="${category.categoryMajorTitle}" name="askBoardMajorCategory" id="majorCategory" readonly/>
                   </div>
                   <div class="col-6">
-                    <select class="form-select" aria-label="Default select example" name="askBoardMinorCategory" id="minorCategory" >
-                      <option selected disabled>소 카테고리</option>
-                    </select>
+                    <input class="form-control" value="${category.categoryMinorTitle}" name="askBoardMinorCategory" id="minorCategory" readonly/>
                   </div>
                 </div>
               </div>
@@ -78,55 +74,6 @@
 
 $(function() {
 	
-	console.log('${login}');
-	console.log('${login.userNo}');
-	
-	const categoryListJson = '${categoryListJson}';
-	
-	const categoryList = JSON.parse(categoryListJson);
-	
-	const $majorCategorySelect = $('#majorCategory')[0];
-	
-	const $fragOpts1 = document.createDocumentFragment();
-	
-	for (let i = 0; i < categoryList.length; i++) {
-		const $option = document.createElement('option');
-		$option.textContent = categoryList[i].categoryMajorTitle;
-        $fragOpts1.appendChild($option);
-	}
-	
-	$majorCategorySelect.appendChild($fragOpts1);
-	
-	$('#majorCategory').on('change', function() {
-		for (let i = 0; i < categoryList.length; i++) {
-			const categoryMajorTitle = categoryList[i].categoryMajorTitle;
-			const $fragOpts2 = document.createDocumentFragment();
-			
-			if (categoryMajorTitle === this.value) {
-				const categoryMinorList = categoryList[i].categoryMinorList;
-				
-				const $optDefault = document.createElement('option');
-				$($optDefault).attr('selected', 'true');			
-				$($optDefault).attr('disabled', 'true');			
-				$($optDefault).text('소 카테고리');
-				
-				$fragOpts2.appendChild($optDefault);
-				
-				for (let i = 0; i < categoryMinorList.length; i++) {
-					const $option = document.createElement('option');
-					$option.textContent = categoryMinorList[i];
-		        	$fragOpts2.appendChild($option);
-				}
-				
-				const $minorCategorySelect = $('#minorCategory')[0];
-				$($minorCategorySelect).html('');
-		        $minorCategorySelect.appendChild($fragOpts2);
-				
-			}
-		}
-		
-	});
-	
     // 버튼 클릭, 버튼 엔터 이벤트 시 submit 실행 코드.
     $('#submit-btn').click(submit);
     $('#askCategoryBoard-form').on('keyup', 'input', keyPressEnter);
@@ -138,22 +85,6 @@ $(function() {
     }
     
 	function submit() {
-		
-		if (true) {
-			const major = $('#majorCategory');
-			if (major[0].value === '대 카테고리') {
-				alert('대 카테고리를 선택하세요.');
-				major[0].focus();				
-				return;						
-			}	  
-			
-			const minor = $('#minorCategory');
-			if (minor[0].value === '소 카테고리') {
-				alert('소 카테고리를 선택하세요.');
-				minor[0].focus();				
-				return;						
-			}	  
-		}
 
 		if ($('#title').val().trim() === '') {			
 			alert('문의 제목을 입력해주세요.');
