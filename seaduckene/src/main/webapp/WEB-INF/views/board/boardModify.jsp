@@ -40,13 +40,13 @@
 					<br>
 
 					<button type="button" onclick="history.back(-1)"
-						class="btn btn-dark btn-sm">취소</button>
+						class="sbtn blue small rounded">취소</button>
 
 
-					<button type="submit" id="updateBtn" class="btn btn-primary btn-sm">변경</button>
+					<button type="submit" id="updateBtn" class="sbtn cyan small rounded">변경</button>
 
 
-					<button type="button" id="delBtn" class="btn btn-info btn-sm">삭제</button>
+					<button type="button" id="delBtn" class="sbtn red small rounded">삭제</button>
 
 				</form>
 

@@ -95,7 +95,7 @@
 			                        <input name="userId" class="form-control join-input" type="text" placeholder="아이디" value="${user.userId}" id="userId" readonly />
 			                    </div>
 		                	</div>
-							<input type="button" class="btn btn-b btn-duck btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 변경하기" id=""> <br> <br>
+							<input type="button" class="mt-2 sbtn cyan small rounded btn-pw-modi" onclick="showModiPwModal()" value="비밀번호 변경하기" id=""> <br> <br>
 							<p>이름</p>
 							<div class="input-group inputArea">
 			                    <div class="col-md-12 col-sm-12 col-12">
@@ -108,7 +108,7 @@
 			                        <input name="userNickname" class="form-control join-input" type="text" placeholder="닉네임" value="${user.userNickname}" id="userNickname" required />
 			                    </div>
 		                	</div>
-							<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="nickname-check"> <br>
+							<input type="button" class="mt-2 sbtn cyan small rounded" value="중복 확인" id="nickname-check"> <br>
 		   					<div class="input-group inputArea">
 				                <div class="col-md-12 col-sm-12 col-12">
 				            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" value="${user.userTel}" id="userTel" maxlength="11" required/>
@@ -166,7 +166,7 @@
 				                        <input class="form-control join-input" type="text" placeholder="우편번호" value="${userAddrList[0].addressZipNum}" readonly />
 				                    </div>
 		                		</div>	<br>
-		                		<button type="button" onclick="showAddressModal()" class="btn btn-outline-success">주소록 확인</button>
+		                		<button type="button" onclick="showAddressModal()" class="sbtn cyan small rounded">주소록 확인</button>
 								<div class="input-group inputArea">
 				                    <div class="col-md-12 col-sm-12 col-12">
 							            <c:if test="${user.userEmail == null}">
@@ -177,20 +177,20 @@
 				                        <input name="userEmail" class="form-control join-input" type="text" placeholder="이메일" value="${user.userEmail}" id="userEmail" />
 				                    </div>
 		                		</div>	
-								<input type="button" class="btn btn-lg btn-b btn-duck email-btn" value="이메일 인증" id="confBtn"> <br>
+								<input type="button" class="mt-2 sbtn cyan small rounded email-btn" value="이메일 인증" id="confBtn"> <br>
 								<div class="input-group inputArea" style="display: none;" id="emailConf">
 				                    <div class="col-md-12 col-sm-12 col-12 beforeConf">
 										<input class="form-control join-input " type="text" name=""
 											id="email-auth-code" placeholder="이메일 인증 코드" required />
-										<input class="btn btn-outline-secondary" type="button"
+										<input class="sbtn yellow small rounded type="button"
 													name="confCheckBtn" id="confCheckBtn" value="인증하기" />
 				                    </div>
 				                    <p id="confMailRes"></p>
 		                		</div>	
 	                		</div> <br>
-							<input type="button" class="btn btn-sm btn-info btn-b" onclick="showUpdateModal()" value="수정하기" id="update"> &nbsp;&nbsp;
-							<input type="button" class="btn btn-sm btn-danger btn-b" onclick="showDeleteModal()" value="탈퇴하기" id="delete"> &nbsp;&nbsp;
-							<input type="button" class="btn btn-sm btn-b" onclick="history.back()" value="뒤로가기" id="back">
+							<input type="button" class="mt-2 sbtn cyan small rounded" onclick="showUpdateModal()" value="수정하기" id="update"> &nbsp;&nbsp;
+							<input type="button" class="mt-2 sbtn red small rounded" onclick="showDeleteModal()" value="탈퇴하기" id="delete"> &nbsp;&nbsp;
+							<input type="button" class="mt-2 sbtn blue small rounded" onclick="history.back()" value="뒤로가기" id="back">
 							
 							   <!-- 주소록 모달  -->
 							   <div class="modal" id="addrListModal" data-bs-backdrop="static">
@@ -211,7 +211,7 @@
 							                        	<h5>메인 주소</h5>
 						                        	</c:if>
 						                        	<c:if test="${status.index != 0}">
-							                        	<a class="set-main">메인주소로 설정</a>
+							                        	<a class="set-main sbtn green small rounded">메인주소로 설정</a>
 						                        	</c:if>
 													<div class="input-group inputArea">
 									                    <div class="col-md-12 col-sm-12 col-12">
@@ -228,9 +228,9 @@
 									                        <input name="addressZipNum" class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="${addr.addressZipNum}" readonly />
 									                    </div>
 							                		</div>	<br>
-													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
+													<input type="button" class="sbtn cyan small rounded find-address" value="주소찾기">
 													<c:if test="${status.index != 0}">
-														<input type="button" class="btn btn-sm btn-b btn-danger address-del" value="삭제">
+														<input type="button" class="sbtn red small rounded address-del" value="삭제">
 													</c:if>
 													 <br>
 						                        </div>
@@ -240,7 +240,7 @@
 							            </div>
 							            <hr class="btn-hr">
 							            <div class="modal-footer myPage-modal-footer">
-							               <button type="button" class="btn btn-success address-add" >주소 추가</button>
+							               <button type="button" class="sbtn cyan small rounded address-add" >주소 추가</button>
 							               <!-- 노드 복사용 더미 주소 div태그 -->
 						                        <div style="display: none;">
 						                        	<hr>
@@ -259,11 +259,11 @@
 									                        <input class="form-control join-input addrZipNum" type="text" placeholder="우편번호" value="dummy" readonly />
 									                    </div>
 							                		</div>	<br>
-													<input type="button" class="btn btn-sm btn-b btn-duck find-address" value="주소찾기">
-													<input type="button" class="btn btn-sm btn-b btn-danger address-del" value="삭제"> <br>
+													<input type="button" class="sbtn cyan small rounded find-address" value="주소찾기">
+													<input type="button" class="sbtn red small rounded address-del" value="삭제"> <br>
 						                        </div>					               
-							               <button type="button" class="btn btn-primary" >확인</button>
-							               <button type="button" class="btn btn-light modal-cancel" onclick="hideAddrModal()" data-bs-dismiss="modal">닫기</button>
+							         
+							               <button type="button" class="sbtn blue small rounded modal-cancel" onclick="hideAddrModal()" data-bs-dismiss="modal">닫기</button>
 							            </div>
 							            <input name="addressCount" type="hidden" id="address-count">
 							         </div>
@@ -303,8 +303,8 @@
 			      	</form>
 			      </div>
 			      <div class="modal-footer myPage-modal-footer">
-			        <button type="button" class="btn btn-primary modal-submit-btn">내용 수정하기</button>
-			        <button type="button" class="btn btn-light modal-cancel" onclick="hidePwModal()" data-dismiss="modal">돌아가기</button>
+			        <button type="button" class="sbtn cyan small rounded modal-submit-btn">내용 수정하기</button>
+			        <button type="button" class="sbtn blue small rounded modal-cancel" onclick="hidePwModal()" data-dismiss="modal">돌아가기</button>
 			      </div>
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
@@ -338,7 +338,7 @@
 							 </table>
 							<div class="row justify-content-center row-div-2">
 							  	<div class="col-1 w-auto mt-3">
-							  		<button type="button" class="btn btn-primary btn-sm rounded" id="the-btn">더보기</button>
+							  		<button type="button" class="sbtn cyan small rounded" id="the-btn">더보기</button>
 							  	</div>
 							</div>
 						</div>
@@ -374,7 +374,7 @@
 				                <a class="basketA" href="${pageContext.request.contextPath}/product/plusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}&pNo=${b.basketProductNo}"><i class="bi bi-plus-square"></i></a>
 				                <a class="basketA" href="${pageContext.request.contextPath}/product/minusQuantity?basketNo=${b.basketNo}&q=${b.basketQuantity}"><i class="bi bi-dash-square" id="minusQuantity"></i></a></td>
 				                <td class="align-middle basket" >&#8361;<fmt:formatNumber value="${b.basketQuantity*b.basketPrice}" pattern="#,###" /> </td>
-				                <td class="align-middle basket"><button type="button" class="btn btn-danger basketDel" >삭제</button></td>
+				                <td class="align-middle basket"><button type="button" class="sbtn red small rounded basketDel" >삭제</button></td>
 				                <td style="display:none">${b.basketNo} </td> 
 				            </tr>
 				            </c:forEach>
@@ -385,7 +385,7 @@
 				                	총액:&nbsp;&#8361;<span id='totalPrice'><fmt:formatNumber value="${total }" pattern="#,###" /> </span>
 				            </div>
 				            <div class="col-md-2 offset-md-10 text-end">
-				                <button type="button" class="btn btn-success" id="orderBtn">주문하기</button>
+				                <button type="button" class="sbtn cyan small rounded" id="orderBtn">주문하기</button>
 				            </div>
 				        </div>
 				    </div>
@@ -436,7 +436,7 @@
 				                		<td class="align-middle basket">  </td>
 				                	</c:when>
 				                	<c:otherwise>
-				                		<td class="align-middle basket"> <button class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/product/refund?no=${o.orderProductNo }'" >주문취소<br> 반품신청</button> </td>
+				                		<td class="align-middle basket"> <button class="sbtn red small rounded" onclick="location.href='${pageContext.request.contextPath}/product/refund?no=${o.orderProductNo }'" >주문취소<br> 반품신청</button> </td>
 				                	</c:otherwise>
 				                </c:choose>
 				                <td style="display:none">${o.orderNo} </td> 

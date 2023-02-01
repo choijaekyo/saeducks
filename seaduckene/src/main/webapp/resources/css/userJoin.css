@@ -103,19 +103,6 @@
 	filter: alpha(opacity=0);
 }
 
-#userJoinPage .join-container form input.btn-a {
-
-	border-radius: 20px;
-	margin-top: 10px;
-
-	width: 300px;
-	height: 50px;
-	font-size: 20px;
-	color: black;
-	cursor: auto;
-
-	background-color: white;
-}
 
 #userJoinPage .join-container form .join-input {
 	display: inline-block;
@@ -127,11 +114,6 @@
 
 #userJoinPage .join-container form #email-auth-code { 
 	width: 205px;
-}
-
-#userJoinPage .join-container form .btn-outline-secondary { 
-	vertical-align: unset;
-	
 }
 
 #userJoinPage .input-group .join-input:focus,
@@ -156,30 +138,12 @@
 	font-size: 0.9rem;
 }
 
-@media screen and (max-width: 767px) {
-	
-	#userJoinPage .join-container form input.btn-a:hover {
-		opacity: 0.9;	
-	}
-}
+
 
 /* #userJoinPage .container .join-container form input.btn-a::placeholder {
 	font-size: 30px;
 
 } */
-
-#userJoinPage .join-container #account-check {
-	width: 100px;
-	height: 40px;
-	
-	border-radius: 17px;
-	
-	font-size: 1.1em;
-}
-
-#userJoinPage .join-container #account-check:hover {
-	opacity: 0.9;
-}
 
 #userJoinPage .join-container .optional-container {
 	text-align: center;
@@ -244,20 +208,6 @@
 	top: 0px;
  }
 
-#userJoinPage .join-container form input.btn-b {
 
-	border-radius: 20px;
-	margin-top: 10px;
-	
-	width: 120px;
-	height: 50px;
-	font-size: 20px;
-	color: black;
-
-}
-
-#userJoinPage .join-container form input.email-btn {
-	width: 150px;
-}
 
 /*============= END 회원가입 페이지 ==============*/

@@ -63,9 +63,8 @@
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList/${list.boardCategoryNo}'/>'
-						class="right btn btn-warning btn-sm rounded" id="listBtn">목록가기</a>
-					<button type="submit" class="right btn btn-success btn-sm rounded" id="ModBtn">수정하기</button>
-
+						class="right sbtn blue small rounded" id="listBtn">목록가기</a>
+					<button type="submit" class="right sbtn cyan small rounded" id="ModBtn">수정하기</button>
 				</div>
 			</div>
 <!-- 		</div>
@@ -92,7 +91,7 @@
 					</div>
 					<br>
 					<div>
-						<button type="button" id="replyRegist" class="right btn btn-info btn-sm rounded" style="margin-bottom: 15px;">등록하기</button>
+						<button type="button" id="replyRegist" class="right sbtn cyan small rounded" style="margin-bottom: 15px;">등록하기</button>
 					</div>
 				</div>
 			</c:if>
@@ -116,7 +115,7 @@
 		</div>
 		<br>
 		 <div style="text-align: center;">
-		 	<button type="button" class="btn btn-info btn-sm rounded" id="moreList">더보기</button>
+		 	<button type="button" class="sbtn cyan small rounded" id="moreList">더보기</button>
 		 </div>
 	</div>
 
@@ -142,8 +141,8 @@
 							<input type="hidden" id="modalRno"> 
 						</div>
 						<br>
-						<button class="right btn btn-warning btn-sm rounded" id="modalModBtn">수정하기</button>
-						<button class="right btn btn-warning btn-sm rounded" id="modalDelBtn">삭제하기</button>
+						<button class="right sbtn cyan small rounded" id="modalModBtn">수정하기</button>
+						<button class="right sbtn blue small rounded" id="modalDelBtn">삭제하기</button>
 					</div> 
 				</div>
 				<!-- 수정폼끝 -->

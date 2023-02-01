@@ -43,7 +43,7 @@
 	                        <input name="userId" class="form-control join-input" type="text" placeholder="아이디" id="userId" required />
 	                    </div>
                 	</div>
-					<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="account-check"> <br>
+					<input type="button" class="mt-2 sbtn cyan small rounded" value="중복 확인" id="account-check"> <br>
 					<div class="input-group inputArea">
 	                    <div class="col-md-12 col-sm-12 col-12">
 	                        <input name="userPw" class="form-control join-input" type="password" placeholder="비밀번호" id="userPw" required />
@@ -64,7 +64,7 @@
 	                        <input name="userNickname" class="form-control join-input" type="text" placeholder="닉네임" id="userNickname" required />
 	                    </div>
                 	</div>
-					<input type="button" class="btn btn-sm btn-b btn-duck" value="중복 확인" id="nickname-check"> <br>
+					<input type="button" class="mt-2 sbtn cyan small rounded" value="중복 확인" id="nickname-check"> <br>
    					<div class="input-group inputArea">
 		                <div class="col-md-12 col-sm-12 col-12">
 		            		<input name="userTel" class="form-control join-input" type="text" placeholder="전화번호" id="userTel" maxlength="11" required/>
@@ -107,7 +107,7 @@
 					</span> <br>
 					<div class="optional-info" style="display: none;">
 						<span class="basic-info">추가 정보</span> <br>
-						<input type="button" class="btn btn-sm btn-b btn-duck" onclick="searchAddress()" value="주소찾기"> <br>
+						<input type="button" class="sbtn cyan small rounded" onclick="searchAddress()" value="주소찾기"> <br>
 						<div class="input-group inputArea">
 		                    <div class="col-md-12 col-sm-12 col-12">
 		                        <input name="addressBasic" class="form-control join-input" type="text" placeholder="기본 주소" id="addrBasic" readonly />
@@ -128,19 +128,19 @@
 		                        <input name="userEmail" class="form-control join-input" type="text" placeholder="이메일" id="userEmail" />
 		                    </div>
                 		</div>	
-						<input type="button" class="btn btn-lg btn-b btn-duck email-btn" value="이메일 인증" id="confBtn"> <br>
+						<input type="button" class="mt-2 sbtn cyan small rounded email-btn" value="이메일 인증" id="confBtn"> <br>
 						<div class="input-group inputArea" style="display: none;" id="emailConf">
 		                    <div class="col-md-12 col-sm-12 col-12 beforeConf">
 								<input class="form-control join-input " type="text" name=""
 									id="email-auth-code" placeholder="이메일 인증 코드" required />
-								<input class="btn btn-outline-secondary" type="button"
+								<input class="sbtn yellow small rounded" type="button"
 											name="confCheckBtn" id="confCheckBtn" value="인증하기" />
 		                    </div> <br>
 		                    <p id="confMailRes"></p>
                 		</div>	
 					</div> <br> <br>
-					<input type="button" class="btn btn-sm btn-info btn-b" value="가입하기" id="user-join-submit"> &nbsp;&nbsp;
-					<input type="button" class="btn btn-sm btn-danger btn-b" value="뒤로가기" onclick="back()">
+					<input type="button" class="sbtn cyan small rounded" value="가입하기" id="user-join-submit"> &nbsp;&nbsp;
+					<input type="button" class="sbtn blue small rounded" value="뒤로가기" onclick="history.back()" >
 				</form>
 			</div>
 		</div>

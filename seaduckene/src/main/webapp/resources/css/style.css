@@ -1,5 +1,9 @@
-﻿﻿a:hover {
-	color: #ffc107;	
+﻿a{
+	text-decoration: none;
+}
+
+a:hover {
+	color: white;
 }
 
 .btn-duck {
@@ -37,6 +41,58 @@ table {
    border-collapse: collapse;
    border-spacing: 0
 }
+
+/*=============버튼 스타일============*/
+
+.sbtn.small {
+  padding: 8px 18px 4px;  
+  font-size: 14px;
+}
+      
+/* Colors for .btn and .btn-two */
+.sbtn.blue    {background-color: #7fb1bf;}
+.sbtn.green   {background-color: #9abf7f;}
+.sbtn.red     {background-color: #fa5a5a;}
+.sbtn.purple  {background-color: #cb99c5;}
+.sbtn.cyan    {background-color: #7fccde;}
+.sbtn.yellow  {background-color: #f0d264;}
+
+.rounded {
+  border-radius: 10px;
+}
+      
+/* default button style */
+.sbtn {
+  position: relative;
+  border: 0;
+  padding: 15px 25px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+}
+.sbtn:active {
+  top: 4px; 
+}
+      
+      
+ /* color classes for .btn */
+.sbtn.blue {box-shadow: 0px 4px #74a3b0;}
+.sbtn.blue:active {box-shadow: 0 0 #74a3b0; background-color: #709CA8;}
+
+.sbtn.green {box-shadow: 0px 4px 0px #87a86f;}
+.sbtn.green:active {box-shadow: 0 0 #87a86f; background-color: #87a86f;}
+
+.sbtn.red {box-shadow:0px 4px 0px #E04342;}
+.sbtn.red:active {box-shadow: 0 0 #ff4c4b; background-color: #ff4c4b;}
+
+.sbtn.purple {box-shadow:0px 4px 0px #AD83A8;}
+.sbtn.purple:active {box-shadow: 0 0 #BA8CB5; background-color: #BA8CB5;}
+
+.sbtn.cyan {box-shadow:0px 4px 0px #73B9C9;}
+.sbtn.cyan:active {box-shadow: 0 0 #73B9C9; background-color: #70B4C4;}
+
+.sbtn.yellow {box-shadow:0px 4px 0px #D1B757;}
+.sbtn.yellow:active {box-shadow: 0 0 #ff4c4b; background-color: #D6BB59;}
 
 
 
