@@ -40,8 +40,8 @@
       <input type="hidden" name="boardCategoryNo" value="${categoryNo}"> <br>
 
       <div>
-         <button type="button" class="btn btn-info btn-sm" id="board-Write-button">등록하기</button>
-         <a href='<c:url value='/board/boardList/${categoryNo}'/>' class="btn btn-secondary btn-sm" 
+         <button type="button" class="btn btn-info btn-sm rounded" id="board-Write-button">등록하기</button>
+         <a href='<c:url value='/board/boardList/${categoryNo}'/>' class="btn btn-secondary btn-sm rounded" 
             id="WritelistBtn">목록으로</a>
       </div>
 

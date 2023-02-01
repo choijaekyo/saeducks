@@ -12,7 +12,7 @@
 			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107; margin-top:10px;">
 			    <li class="breadcrumb-item" id="majorTitle">${category.categoryMajorTitle}</li>
 			    <li class="breadcrumb-item" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
-			    <li><a class="ml-5 btn btn-info btn-sm w-auto rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a></li>
+			    <li><a class="ml-5 btn btn-success btn-sm rounded" href="<c:url value='/board/boardWrite/${categoryNo}' />">글쓰기</a></li>
 			  </ol>
 			</nav>
         </div>
@@ -26,7 +26,7 @@
 	<div class="row justify-content-center m-5">
 
 	  	<div class="col-1 w-auto" style="display: none;" id="div-btn">
-	  		<button  type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
+	  		<button  type="button" class="btn btn-primary btn-sm rounded" id="the-btn">더보기</button>
 			
 	  	</div>
 	</div>
@@ -63,7 +63,7 @@
 	</div>
 	<div style="text-align: center;">
 	  <c:if test="${fn:length(productList) > 3}">
-	  	<button id="moreProBtn" class="btn btn-primary btn-sm">더보기</button>
+	  	<button id="moreProBtn" class="btn btn-primary btn-sm rounded">더보기</button>
 	  </c:if>
 	  
 	  </div>
