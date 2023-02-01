@@ -38,12 +38,6 @@
 						value="${list.boardTitle}" readonly>
 				</div>
 				
-				<div class="mb-3" id="board-detail-content">
-					<label for="content" class="form-label"></label>
-					<textarea class="form-control" id="summernote" name="boardContent"
-						readonly rows="15"></textarea>
-				
-				<br>
 				<div class="col d-flex flex-row justify-content-end"
 					id="board-detail-item">
 		
@@ -53,6 +47,14 @@
 					<p>&nbsp;&nbsp;조회수: ${list.boardViews }</p>
 		
 				</div>
+				<hr>
+				<div class="mb-3" id="board-detail-content">
+					<label for="content" class="form-label"></label>
+					<textarea class="form-control" id="summernote" name="boardContent"
+						readonly rows="15"></textarea>
+				
+				<br>
+			
 
 				</div>
 				<div id="board-detail-button">
@@ -182,7 +184,7 @@
 			$('#summernote').summernote('disable');
 			$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
 			$('.note-statusbar').hide();
-			$('.note-editable').css('background', '	#FFFFFF');
+			$('.note-editable').css('background', '	#fff9d6');
 		});
 		
 		
