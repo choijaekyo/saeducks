@@ -129,7 +129,10 @@
 			
 		</div>
 		<br>
-		 <button type="button" class="form-control" id="moreList">더보기</button>
+		 
+	</div>
+	<div class="text-center">
+		<button type="button" class="form-control" id="moreList">더보기</button>
 	</div>
 
 </div>

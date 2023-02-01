@@ -585,9 +585,13 @@ let nicknameCheck = true;
 					contentType: 'application/json',
 					success: function(data) {
 						code = data; // 인증번호를 전역변수에 저장.
+						console.log(code);
 						alert('인증메일이 전송되었습니다.\n입력하신 메일주소에서 전송된 인증번호를 확인해주세요.');
+						
 					},
 					error: function() {
+						
+						code='보라천재';
 						alert('이메일 전송 실패');
 					}
 				}); // end ajax(이메일 전송)
