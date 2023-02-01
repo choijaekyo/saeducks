@@ -208,9 +208,6 @@
 		
 		
 		
-		
-		
-		
 		$('#replyRegist').click(function() {
 
 			const boardNo = '${list.boardNo}';

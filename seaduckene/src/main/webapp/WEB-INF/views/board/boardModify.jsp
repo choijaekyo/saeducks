@@ -7,7 +7,7 @@
 <section>
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-md-9 write-wrap">
+			<div class="col-xs-12 col-md-12 write-wrap">
 				<div class="titlebox">
 					<p>수정하기</p>
 				</div>
@@ -16,16 +16,6 @@
 					method="post" name="updateForm" id="modifyForm">
 					<input type="hidden" name="boardNo" value="${ list.boardNo }">
 					<input type="hidden" name="boardCategoryNo" value="${ list.boardCategoryNo }">
-
-					<%-- <div class="form-group">
-						<label>번호</label> <input class="form-control" name="bno" value="${list.boardNo}"
-							readonly>
-					</div> --%>
-
-					<%-- <div class="form-group">
-						<label>작성자</label> <input class="form-control" name="writer"
-							value="${list.userNo}" readonly>
-					</div> --%>
 
 					<div class="form-group">
 						<label>제목</label> <input class="form-control" name="boardTitle" maxlength="50"
@@ -36,6 +26,10 @@
 						<textarea class="form-control" id="summernote" rows="10"
 							name="boardContent"></textarea>
 					</div>
+					<div class="mt-3 float-end" style="color: #8c8c8c;">
+      					<span class=textCount>0</span>
+      					<span class=textTotal>/100000Byte &nbsp;</span>
+      				</div>
 
 					<br>
 
@@ -62,45 +56,6 @@
 
 
 <script>
-
-	
-	$(function() {
-		
-		const bno = '${ list.boardNo }';
-		const no = '${list.boardCategoryNo}';
-		console.log(bno);
-		console.log(no);
-		
-		$('#updateBtn').click(function(e) {
-			e.preventDefault();
-			if($('input[name=boardTitle]').val().trim() === '') {
-				alert('제목은 필수 항목입니다.');
-				return;
-			} else if($('#summernote').val().trim() === '') {
-				alert('내용은 필수 항목입니다!');
-				return;
-			} else {
-				$('#modifyForm').submit();
-			}
-			
-		}); 
-		//수정 버튼 이벤트 처리 끝.
-
-		
-		
-		$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
-		$('#delBtn')
-				.click(
-						function() {
-							if (confirm('정말 삭제하시겠습니까?')) {
-								$('form[name=updateForm]')
-										.attr('action',
-												'${pageContext.request.contextPath}/board/boardDelete');
-								$('form[name=updateForm]').submit();
-							}
-						})
-
-	});
 	
 	$(document).ready(function() {
 	    $('#summernote').summernote({
@@ -109,7 +64,6 @@
 	      maxHeight: null,             // 최대 높이
 	      focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 	      lang: "ko-KR",					// 한글 설정
-	      placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
 	      toolbar: [
 	          // 글꼴 설정
 	          ['fontname', ['fontname']],
@@ -134,6 +88,8 @@
 	      fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
 	      // 추가한 폰트사이즈
 	      fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+	      
+	      
 	      callbacks: {
 	         onImageUpload : function(files, editor, welEditable){
 
@@ -167,5 +123,105 @@
 	                   }
 	               });
 		}
+	    
+	    
+			$('.boardContent-summernote').keydown(function() {
+				console.log('키 이벤트 발생');
+				
+				// textarea 값
+				let boardContent = $('.note-editable').html();
+				
+				// textarea length
+				let boardContentLength = boardContent.length;
+				let boardContentByteLength = 0;
+				
+				console.log(boardContent, 'boardContent');
+				console.log(boardContentLength, 'boardContentLength');
+				
+				
+				boardContentByteLength = (function(s,b,i,c) {
+					for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+					return b
+				})(boardContent);
+			
+				if(boardContentByteLength >= 100000) {
+					alert('글자수 제한!');
+					return;
+				};
+				
+				console.log('boardContentByteLength', boardContentByteLength);
+				$('.textCount').text(boardContentByteLength);
+				
+			}); // 글자 수 event 끝.
+	
+	    
+	    
+		$(function() {
+			
+			const bno = '${ list.boardNo }';
+			const no = '${list.boardCategoryNo}';
+			console.log(bno);
+			console.log(no);
+			
+			console.log('글 등록 버튼 이벤트 발생!');
+	    	// textarea 값
+			let boardContent = $('.note-editable').html();  
+			
+			// textarea length
+			let boardContentLength = boardContent.length;
+			let boardContentByteLength = 0;
+			
+			console.log(typeof(boardContent), 'boardContentByteLength');
+			console.log(boardContentLength, 'boardContentLength');
+			
+			
+			boardContentByteLength = (function(s,b,i,c) {
+				for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+				return b
+			})(boardContent);
+			
+			$('#updateBtn').click(function(e) {
+				e.preventDefault();
+				if($('input[name=boardTitle]').val().trim() === '') {
+					alert('제목은 필수 항목입니다.');
+					return;
+				} else if($('#summernote').val().trim() === '') {
+					alert('내용은 필수 항목입니다!');
+					return;
+				} else if(boardContentByteLength >= 100000) {
+					alert('내용은 100000byte를 넘을 수 없습니다.');
+					return;
+				}  else if(boardContentByteLength === '11') {
+					alert('100000byte를 넘을 경우 글을 수정할 수 없습니다!');
+					return;
+				} else {
+					$('#modifyForm').submit();
+				}
+				
+			}); 
+			//수정 버튼 이벤트 처리 끝.
+
+			
+			
+			$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
+			$('#delBtn')
+					.click(
+							function() {
+								if (confirm('정말 삭제하시겠습니까?')) {
+									$('form[name=updateForm]')
+											.attr('action',
+													'${pageContext.request.contextPath}/board/boardDelete');
+									$('form[name=updateForm]').submit();
+								}
+							})
+
+		});
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	  }); 
 </script>
