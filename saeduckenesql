@@ -390,7 +390,7 @@ SELECT * FROM ask_list WHERE ask_list_user_no = 1 ORDER BY ask_list_no DESC;
 SELECT * FROM ask_list ORDER BY ask_list_no DESC;
 SELECT * FROM ask_list WHERE ask_list_reply_content IS NULL ORDER BY ask_list_no DESC;
 SELECT a.ask_list_no, a.ask_list_user_no, a.ask_list_content, a.ask_list_reg_date, 
-       a.ask_list_update_date, a.ask_list_reply_content, a.ask_list_select_no
+       a.ask_list_update_date, a.ask_list_reply_content, a.ask_list_select_no, (SELECT user_name FROM duck_user WHERE a.ask_list_user_no = user_no) AS ask_list_user_name
 FROM ask_list a
 INNER JOIN duck_user d
 ON a.ask_list_user_no = d.user_no

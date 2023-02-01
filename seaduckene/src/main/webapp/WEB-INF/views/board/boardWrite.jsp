@@ -147,6 +147,7 @@
 		}
 	  }
     });
+    $('#summernote').summernote('fontName', 'GangwonEdu_OTFBoldA');
     
     function uploadSummernoteImageFile(file, editor) {
 
