@@ -102,7 +102,7 @@
 	<insert id="insertCategoryBoard">
 		INSERT INTO ask_category_board
 		VALUES (ask_category_board_seq.NEXTVAL, #{askBoardMajorCategory}, #{askBoardMinorCategory}, #{askBoardTitle}
-		, #{askBoardContent}, default, #{askBoardReplyContent}, #{askBoardUserNo})
+		, #{askBoardContent}, default, null , #{askBoardReplyContent}, #{askBoardUserNo})
 	</insert>
 	
 	<select id="getUserAskCategoryBoardList" resultType="askCategoryBoard">
@@ -118,7 +118,7 @@
 	
 	<select id="getAllAskCategoryBoardList" resultType="askCategoryBoard">
 		SELECT a.*, (SELECT user_name FROM duck_user WHERE user_no = a.ask_board_user_no) as ask_board_user_name
-		 FROM ask_category_board a
+		FROM ask_category_board a
 		ORDER BY a.ask_board_user_no DESC
 	</select>
 
