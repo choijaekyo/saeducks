@@ -57,10 +57,10 @@
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList/${list.boardCategoryNo}'/>'
-						class="right btn btn-info btn-sm" id="listBtn">목록가기</a>
-					<button type="submit" class="right btn btn-info btn-sm" id="ModBtn">수정하기</button>
-
+						class="right btn btn-info" id="listBtn">목록가기</a>
+					<button type="button" class="right btn btn-info" id="ModBtn">수정하기</button>
 				</div>
+				
 			</div>
 <!-- 		</div>
 	</div> -->
@@ -184,6 +184,27 @@
 			$('.note-statusbar').hide();
 			$('.note-editable').css('background', '	#FFFFFF');
 		});
+		
+		$(function() {
+			console.log('수정버튼 클릭됨');
+
+			const userNo = '${login.userNo}';
+			console.log(userNo + 'userNo');
+			
+			const boardUserNo = '${list.boardUserNo}';
+			console.log(boardUserNo + 'boardUserNo');
+			
+			if(userNo !== boardUserNo) {
+				$('#ModBtn').css('display', 'none');
+			} else {
+				$('#ModBtn').css('display', 'inline-block');
+			}
+		}); // ModBtn click event 끝.
+		
+		$('#ModBtn').click(function() {
+			 $('#writeForm').submit();
+		});
+		
 		
 		
 		$('#replyRegist').click(function() {

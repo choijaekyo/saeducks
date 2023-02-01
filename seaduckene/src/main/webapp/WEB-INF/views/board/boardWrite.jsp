@@ -35,7 +35,10 @@
       <div class="form-group boardContent-summernote">
          <textarea class="form-control" id="summernote" rows="10" name="boardContent"></textarea>
       </div>
-
+      	<div class="mt-3 float-end" style="color: #8c8c8c;">
+      		<span class=textCount>0</span>
+      		<span class=textTotal>/100000Byte &nbsp;</span>
+      	</div>
       <input type="hidden" name="boardUserNo" value="${login.userNo}"> 
       <input type="hidden" name="boardCategoryNo" value="${categoryNo}"> <br>
 
@@ -57,45 +60,6 @@
 		let jsonArray = [];
 	
 		
-    $('#board-Write-button').click(function() {
-       console.log('글 등록 버튼 이벤트 발생!');
-       
-       if($('input[name=boardTitle]').val().trim() === '') {
-          alert('제목은 필수 항목입니다.');
-          $('input[name=boardTitle]')
-          return;
-         } else if($('textarea[name=boardContent]').val().trim() === '') {
-            alert('내용은 필수 항목입니다.');
-            $('textarea[name=boardContent]')
-            return;
-         } else {
-            console.log('jsonArray: ' + jsonArray);
-            console.log('길이: ' + jsonArray.length);
-            
-            for(var i = 0; i<jsonArray.length; i++){
-               console.log('반복문 동작!');
-               var str = jsonArray[i].url;
-               console.log(str);
-               // str의 값 : common/getImg.do?savedFileName=bc395afe-2324-438d-ae68-1a0a75d0a431.png 
-               // '='를 기준으로 자른다.
-               var result = str.split('/');
-               console.log('정제된 데이터: ' + result);
-
-               const $input = document.createElement('input');
-               $input.setAttribute('name', 'filename');
-               $input.setAttribute('type', 'hidden');
-               $input.setAttribute('value', result[3]);
-
-               document.getElementById('writeForm').appendChild($input);
-               
-            }            
-           
-            $('#writeForm').submit();
-            
-         }
-    });
-
-	
 		// https://programmer93.tistory.com/31 여기서 봄
     $('#summernote').summernote({
       height: 500,                 // 에디터 높이
@@ -103,7 +67,6 @@
       maxHeight: null,             // 최대 높이
       focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
       lang: "ko-KR",					// 한글 설정
-      placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
       toolbar: [
 		// 글꼴 설정
 		['fontname', ['fontname']],
@@ -171,6 +134,7 @@
 		});
 	}
    
+    
 
    //새로고침, 브라우저 종료, 뒤로가기 감지 이벤트
    $(window).on('beforeunload', function(){
@@ -203,6 +167,99 @@
          data: JSON.stringify(deleteFiles)
       });
 	} 
+    
+    
+		$('.boardContent-summernote').keydown(function() {
+			console.log('키 이벤트 발생');
+			
+			// textarea 값
+			let boardContent = $('.note-editable').html();
+			
+			// textarea length
+			let boardContentLength = boardContent.length;
+			let boardContentByteLength = 0;
+			
+			console.log(boardContent, 'boardContent');
+			console.log(boardContentLength, 'boardContentLength');
+			
+			
+			boardContentByteLength = (function(s,b,i,c) {
+				for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+				return b
+			})(boardContent);
+		
+			if(boardContentByteLength >= 100000) {
+				alert('글자수 제한!');
+				return;
+			};
+			
+			console.log('boardContentByteLength', boardContentByteLength);
+			$('.textCount').text(boardContentByteLength);
+			
+		});
+		
+		
+	
+    
+	
+    $('#board-Write-button').click(function() {
+        console.log('글 등록 버튼 이벤트 발생!');
+    	// textarea 값
+		let boardContent = $('.note-editable').html();
+		
+		// textarea length
+		let boardContentLength = boardContent.length;
+		let boardContentByteLength = 0;
+		
+		console.log(boardContent, 'boardContent');
+		console.log(boardContentLength, 'boardContentLength');
+		
+		
+		boardContentByteLength = (function(s,b,i,c) {
+			for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+			return b
+		})(boardContent);
+        
+        if($('input[name=boardTitle]').val().trim() === '') {
+           alert('제목은 필수 항목입니다.');
+           return;
+          } else if($('textarea[name=boardContent]').val().trim() === '') {
+             alert('내용은 필수 항목입니다.');
+             return;
+          } else if(boardContentByteLength >= 100000) {
+         	alert('내용은 100000byte를 넘을 수 없습니다.');
+         	return;
+          } else {
+             console.log('jsonArray: ' + jsonArray);
+             console.log('길이: ' + jsonArray.length);
+             
+             for(var i = 0; i<jsonArray.length; i++){
+                console.log('반복문 동작!');
+                var str = jsonArray[i].url;
+                console.log(str);
+                // str의 값 : common/getImg.do?savedFileName=bc395afe-2324-438d-ae68-1a0a75d0a431.png 
+                // '='를 기준으로 자른다.
+                var result = str.split('/');
+                console.log('정제된 데이터: ' + result);
+
+                const $input = document.createElement('input');
+                $input.setAttribute('name', 'filename');
+                $input.setAttribute('type', 'hidden');
+                $input.setAttribute('value', result[3]);
+
+                document.getElementById('writeForm').appendChild($input);
+                
+             }            
+            
+             $('#writeForm').submit();
+             
+          }
+     });
+    
+    
+    
+    
+    
   }); 
 
 </script>
