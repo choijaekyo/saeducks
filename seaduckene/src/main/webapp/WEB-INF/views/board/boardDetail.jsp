@@ -36,14 +36,9 @@
 					<label for="title" class="form-label"></label> <input type="text"
 						class="form-control" id="title" name="boardTitle"
 						value="${list.boardTitle}" readonly>
-				</div>
+						
 				
-				<div class="mb-3" id="board-detail-content">
-					<label for="content" class="form-label"></label>
-					<textarea class="form-control" id="summernote" name="boardContent"
-						readonly rows="15"></textarea>
-				
-				<br>
+					
 				<div class="col d-flex flex-row justify-content-end"
 					id="board-detail-item">
 		
@@ -51,19 +46,28 @@
 						<fmt:formatDate value="${list.boardRegDate}" pattern="yyyy/MM/dd" />
 					</p>
 					<p>&nbsp;&nbsp;조회수: ${list.boardViews }</p>
-		
 				</div>
+				<hr>
+				
+				<div class="mb-3" id="board-detail-content">
+					<label for="content" class="form-label"></label>
+					<textarea class="form-control" id="summernote" name="boardContent"
+						readonly rows="15"></textarea>
+				
+				<br>
+				
 
 				</div>
 				<div id="board-detail-button">
 					<a href='<c:url value='/board/boardList/${list.boardCategoryNo}'/>'
-						class="right btn btn-info btn-sm" id="listBtn">목록가기</a>
-					<button type="submit" class="right btn btn-info btn-sm" id="ModBtn">수정하기</button>
+						class="right btn btn-info btn-sm rounded" id="listBtn">목록가기</a>
+					<button type="submit" class="right btn btn-info btn-sm rounded" id="ModBtn">수정하기</button>
 
 				</div>
 			</div>
 <!-- 		</div>
 	</div> -->
+	</div>
 </form> 
 
 <br>
@@ -87,7 +91,7 @@
 					</div>
 					<br>
 					<div>
-						<button type="button" id="replyRegist" class="right btn btn-info btn-sm" style="display:none;">등록하기</button>
+						<button type="button" id="replyRegist" class="right btn btn-info btn-sm rounded" style="display:none;">등록하기</button>
 					</div>
 				</div>
 			</c:if>
@@ -105,7 +109,7 @@
 					</div>
 					<br>
 					<div>
-						<button type="button" id="replyRegist" class="right btn btn-info btn-sm" style="margin-bottom: 15px;">등록하기</button>
+						<button type="button" id="replyRegist" class="right btn btn-info btn-sm rounded" style="margin-bottom: 15px;">등록하기</button>
 					</div>
 				</div>
 			</c:if>
@@ -128,7 +132,7 @@
 			
 		</div>
 		<br>
-		 <button type="button" class="form-control" id="moreList">더보기</button>
+		 <button type="button" class="btn btn-sm btn-primary rounded" id="moreList">더보기</button>
 	</div>
 
 </div>
@@ -182,7 +186,7 @@
 			$('#summernote').summernote('disable');
 			$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
 			$('.note-statusbar').hide();
-			$('.note-editable').css('background', '	#FFFFFF');
+			$('.note-editable').css('background', '	#fff9d6');
 		});
 		
 		

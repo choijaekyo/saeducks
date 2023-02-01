@@ -26,7 +26,7 @@
 	<div class="row justify-content-center m-5">
 
 	  	<div class="col-1 w-auto" style="display: none;" id="div-btn">
-	  		<button  type="button" class="btn btn-primary rounded" id="the-btn">더보기</button>
+	  		<button  type="button" class="btn btn-primary btn-sm rounded" id="the-btn">더보기</button>
 			
 	  	</div>
 	</div>
@@ -82,9 +82,14 @@ $(function() {
 			page++;
 			getList(page, false);
 		} else {
-			console.log('더이상 불러올 목록이 없다.');
+			alert('더이상 불러올 목록이 없습니다.');
 		}
 	});
+	
+	$('#moreProBtn').click(function() {
+		location.href = '${pageContext.request.contextPath}/product/productList?categoryNo='+categoryNo;
+	});
+	
 	
 	const categoryNo = '${categoryNo}';
 	let str = '';
@@ -92,10 +97,6 @@ $(function() {
 	let isFinish = false;
 	console.log(categoryNo);
 	getList(1, false);
-	
-	$('#moreProBtn').click(function() {
-		location.href = '${pageContext.request.contextPath}/product/productList?categoryNo='+categoryNo;
-	});
 	
 	function getList(page, reset) {
 		
@@ -122,13 +123,16 @@ $(function() {
 						$('#contentDiv').css('line-height','150px');
 					}
 					else{
+						if(list.length < 9){
 						isFinish = true;
 						$('#div-btn').css('display','none');
+						}
 					}
 					
 				} else {
 					$('#div-btn').css('display','block');
 				}
+				
 				
 				for(let i=0; i<list.length; i++) {
 					

@@ -31,3 +31,7 @@
 #title:focus {
 	box-shadow: none;
 }
+
+#writeForm hr {
+	margin: 0;
+}
