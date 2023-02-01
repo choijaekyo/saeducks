@@ -38,6 +38,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.co.seaduckene.admin.command.AskListVO;
+import kr.co.seaduckene.admin.service.IAdminService;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
@@ -67,6 +69,9 @@ public class UserController {
 	
 	@Autowired
 	private IProductService productService;
+	
+	@Autowired
+	private IAdminService adminService;
 	
 
 	@GetMapping("/userLogin")
@@ -242,9 +247,13 @@ public class UserController {
 		modelAndView.addObject("userAddrList", userAddrList);
 		
 		
-		List<AskCategoryBoardVO> askCategoryBoardList = userService.getAskCategoryBoardList(userNo);
+		List<AskCategoryBoardVO> askCategoryBoardList = userService.getUserAskCategoryBoardList(userNo);
 		
 		modelAndView.addObject("askCategoryBoardList", askCategoryBoardList);
+
+		List<AskListVO> askList = adminService.getAskLisk(userNo);
+		
+		modelAndView.addObject("askList", askList);
 		
 		return modelAndView;
 	}
@@ -678,7 +687,7 @@ public class UserController {
 		return "changed";
 	}
 	
-	@GetMapping("userAskCategoryBoardDetail/{askBoardNo}")
+	@GetMapping("/userAskCategoryBoardDetail/{askBoardNo}")
 	public String userAskCategoryBoardDetail(@PathVariable int askBoardNo, Model model) {
 		AskCategoryBoardVO askCategoryBoard = userService.getAskCategoryBoard(askBoardNo);
 		

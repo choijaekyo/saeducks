@@ -16,6 +16,7 @@ import lombok.ToString;
 	    ask_board_title VARCHAR2(300) NOT NULL,
 	    ask_board_content CLOB NOT NULL,
 	    ask_board_reg_date DATE DEFAULT sysdate,
+	    ask_board_update_date DATE ,
 	    ask_board_reply_content CLOB,
 	    ask_board_user_no NUMBER NOT NULL
 	);
@@ -40,7 +41,10 @@ public class AskCategoryBoardVO {
 	private String askBoardTitle;
 	private String askBoardContent;
 	private Timestamp askBoardRegDate;
+	private Timestamp askBoardUpdateDate;
 	private String askBoardReplyContent;
 	private int askBoardUserNo;
+	
+	private String askBoardUserName;
 	
 }

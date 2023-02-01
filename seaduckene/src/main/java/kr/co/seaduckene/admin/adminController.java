@@ -8,27 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import kr.co.seaduckene.admin.command.AdminSearchVO;
 import kr.co.seaduckene.admin.command.AdminVO;
 import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.admin.service.IAdminService;
+import kr.co.seaduckene.board.service.IBoardService;
+import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.common.NoticeVO;
-import kr.co.seaduckene.user.command.Categories;
 import kr.co.seaduckene.user.command.UserVO;
 import kr.co.seaduckene.user.service.IUserService;
 import kr.co.seaduckene.util.AskCategoryBoardVO;
 import kr.co.seaduckene.util.summernoteCopy;
 import lombok.extern.log4j.Log4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/admin")
@@ -40,6 +38,9 @@ public class adminController {
 	
 	@Autowired
 	private IAdminService service;
+	
+	@Autowired
+	private IBoardService boardService;
 
 	// 관리자 로그인페이지
 	@GetMapping("/adminLogin")
@@ -163,7 +164,7 @@ public class adminController {
 		return "admin/askAdminList";
 	}
 	
-	// 관리자 탯글 요청
+	// 관리자 댓글 요청
 	@PostMapping("/askAdminReply")
 	public String askAdminReply(String askNo, String reply) {
 		
@@ -175,22 +176,17 @@ public class adminController {
 	}
 	
 	// 카테고리별 게시글 문의 요청 페이지 이동
-	@GetMapping("/askCategoryBoard")
-	public void askCategory(Model model) {
+	@GetMapping("/askCategoryBoard/{categoryNo}")
+	public ModelAndView askCategory(ModelAndView modelAndView, @PathVariable int categoryNo) {
 		
-		List<Categories> categoryList = userService.getCategories();
+		CategoryVO category = boardService.getCategory(categoryNo);
 		
-		ObjectMapper categoryListConverter = new ObjectMapper();
+		log.info(category);
 		
-		String categoryListJson = null;
-		try {
-			categoryListJson = categoryListConverter.writeValueAsString(categoryList);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		log.info(categoryListJson);
-		model.addAttribute("categoryListJson", categoryListJson);
+		modelAndView.addObject("category", category);
+		modelAndView.setViewName("/admin/askCategoryBoard");
+		
+		return modelAndView;
 	}
 	
 	// 카테고리별 게시글 문의 요청
@@ -203,5 +199,41 @@ public class adminController {
 		ra.addFlashAttribute("msg", "askCategoryBoard");
 		
 		return "redirect:/";
+	}
+	
+	// 관리자 계정 전용 카테고리별 게시글 문의 페이지 이동
+	@GetMapping("/adminAskCategoryBoardList")
+	public void adminAskCategoryBoardList(Model model, String type, String keyword) {
+		
+		if (model.getAttribute("askSearchCategoryBoardList") == null) {			
+			List<AskCategoryBoardVO> askCategoryBoardList = service.getAllAskCategoryBoardList(type, keyword);
+			log.info(askCategoryBoardList);
+			
+			model.addAttribute("askCategoryBoardList", askCategoryBoardList);
+		}
+		
+	}
+	
+	// 관리자 게시판 문의 게시판
+	@PostMapping("/adminAskCategoryBoardList")
+	public String adminAskCategoryBoardList(Model model, String type, String keyword, RedirectAttributes ra) {
+
+		List<AskCategoryBoardVO> askSearchCategoryBoardList = service.getAllAskCategoryBoardList(type, keyword);
+		ra.addFlashAttribute("askSearchCategoryBoardList" , askSearchCategoryBoardList);
+		
+		ra.addFlashAttribute("askCategoryBoardList", askSearchCategoryBoardList);
+
+		return "redirect:/admin/adminAskCategoryBoardList";
+	}
+	
+	// 관리자 게시판 댓글 요청
+	@PostMapping("/askCategoryAdminReply")
+	public String askCategoryAdminReply(String askNo, String reply) {
+		
+		String content = ((String) reply.replace("\r\n","<br>"));
+
+		service.setAskCategoryReply(askNo, content);
+		
+		return "redirect:/admin/adminAskCategoryBoardList";
 	}
 }

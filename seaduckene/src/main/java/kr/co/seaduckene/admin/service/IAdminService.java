@@ -49,4 +49,11 @@ public interface IAdminService {
 	
 	// 관리자 답변 요청
 	void setAskReply(String askNo, String reply);
+	
+	// 카테고리별 게시판 모든, 검색 문의글 가져오기
+	List<AskCategoryBoardVO> getAllAskCategoryBoardList(String type, String keyword);
+	
+	// 관리자 게시판 답변 요청
+	void setAskCategoryReply(String askNo, String reply);
+	
 }
