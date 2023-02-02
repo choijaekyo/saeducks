@@ -25,6 +25,9 @@ public interface IBoardMapper {
 	
 	// 내 글 총 수량
 	int getMyBoardTotal (int userNo);
+	
+	// 공지 총 수량
+	int getNoticeTotal ();
 
 	// 카테고리 이름
 	CategoryVO getCategory(int categoryNo);

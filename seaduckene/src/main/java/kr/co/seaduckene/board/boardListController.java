@@ -204,14 +204,16 @@ public class boardListController {
 	
 	// 공지사항페이지 이동
 	@GetMapping("/notice")
-	public void notice() {}
+	public void notice(Model model) {
+		model.addAttribute("total", service.getNoticeTotal());
+	}
 	
 	// 공지사항 페이징
 	@GetMapping("/noticeLists")
 	@ResponseBody
 	public List<NoticeVO> noticeLists(PageVO paging) {
 		
-		paging.setCpp(9);
+		paging.setCpp(10);
 
 		return service.noticeLists(paging);
 	}

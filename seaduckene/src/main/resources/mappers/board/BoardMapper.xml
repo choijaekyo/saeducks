@@ -47,6 +47,10 @@
 		WHERE board_user_no = #{userNo} 
 	</select>
 	
+	<select id="getNoticeTotal" resultType="int">
+		SELECT COUNT(*) FROM notice
+	</select>
+	
 	<select id="getCategory" resultType="category">
 		SELECT * FROM category
 		WHERE category_no = #{categoryNo}

@@ -50,6 +50,11 @@ public class BoardServiceImpl implements IBoardService {
 	public CategoryVO getCategory(int categoryNo) {
 		return mapper.getCategory(categoryNo);
 	}
+	
+	@Override
+	public int getNoticeTotal() {
+		return mapper.getNoticeTotal();
+	}
 
 	@Override
 	public BoardVO content(int bno) {
@@ -112,6 +117,8 @@ public class BoardServiceImpl implements IBoardService {
 	public List<BoardVO> getMyList(Map<String, Object> data) {
 		return mapper.getMyList(data);
 	}
+
+
 
 
 
