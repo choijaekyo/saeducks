@@ -161,6 +161,7 @@
 	}
 
 	let optionCheck = false;
+    let emailConfirm = true;
 	$(function() {
 		
 		$('.optional-container').click(function(e) {
@@ -169,12 +170,19 @@
 				$('#optional-checkbox').prop("checked",false);
 				$('.optional-info').css('display','none');
 				$('.addiction-description').text('쇼핑 서비스를 이용하시려면 클릭하세요~');
+				$('#addrBasic').val('');
+				$('#addrDetail').val('');
+				$('#addrZipNum').val('');
+				$('#userEmail').val('');
+				
 				optionCheck = false;
+				emailConfirm = true;
 			} else {
 				$('#optional-checkbox').prop("checked",true);
 				$('.optional-info').css('display','block');
 				$('.addiction-description').text('쇼핑 서비스를 이용하시려면 추가 정보를 입력하세요!');
 				optionCheck = true;
+				emailConfirm = false;
 			}
 		});
 		
@@ -551,7 +559,6 @@
 			}	
         });
         
-        let emailConfirm = false;
         /* 이메일 확인검사 */
         $('#userEmail').keyup(function() {
         	$(this).css('color', 'black');
