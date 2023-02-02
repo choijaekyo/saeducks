@@ -24,7 +24,7 @@
 				<div class="title">
 				<c:choose>
 					<c:when test="${toggle == 2}">					
-						<h2>내 게시판</h2>
+						<h2>내 글</h2>
 					</c:when>
 					<c:when test="${toggle == 3}">					
 						<h2>장바구니</h2>
@@ -33,10 +33,10 @@
 						<h2>주문정보</h2>
 					</c:when>
 					<c:when test="${toggle == 5}">					
-						<h2>내 문의사항</h2>
+						<h2>문의사항</h2>
 					</c:when>
 					<c:otherwise>
-						<h2>마이페이지</h2>
+						<h2>내 정보</h2>
 					</c:otherwise>
 				</c:choose>
 					<nav aria-label="breadcrumb">
@@ -75,15 +75,18 @@
 						</c:choose>				  
 						<c:choose>
 							<c:when test="${toggle == 5}">		
-						  		<li class="breadcrumb-item active" data-head="5"><a data-toggle="tab" href="#myAsk">내 문의사항</a></li>
+						  		<li class="breadcrumb-item active" data-head="5"><a data-toggle="tab" href="#myAsk">문의사항</a></li>
 							</c:when>
 							<c:otherwise>
-						  		<li class="breadcrumb-item" data-head="5"><a data-toggle="tab" href="#myAsk">내 문의사항</a></li>
+						  		<li class="breadcrumb-item" data-head="5"><a data-toggle="tab" href="#myAsk">문의사항</a></li>
 							</c:otherwise>
 						</c:choose>				  
 						</ol>
-					</nav>				
+					
+					</nav>
+					<hr>				
 				</div>
+				
 			<div class="tab-content">
 		<c:choose>
 			<c:when test="${toggle == 1}">					
@@ -404,7 +407,7 @@
 				        </table>
 				        <div>
 				        	<div class="col-md-2 offset-md-10 text-end" style="line-height: 25px;">
-				                	총액:&nbsp;&#8361;<span id='totalPrice'><fmt:formatNumber value="${total }" pattern="#,###" /> </span>
+				                	총액:&nbsp;&#8361;<span id='totalPrice'><fmt:formatNumber value="${btotal }" pattern="#,###" /> </span>
 				            </div>
 				            <div class="col-md-2 offset-md-10 text-end">
 				                <button type="button" class="sbtn cyan small rounded" id="orderBtn">주문하기</button>
@@ -480,12 +483,15 @@
 						<div class="tab-pane" id="myAsk">
 					</c:otherwise>
 				</c:choose>
-							<div class="container">		
+						<div class="container">		
+						
+						
+							<div class="text-center h4" style="position: relative;">일반 문의글 <button id="ask-btn" class="sbtn cyan small rounded" style="position: absolute; bottom: 0px; right: 0px;" onclick="location.href ='<c:url value='/admin/askWrite' />'">일반 문의 내용 보러가기</button></div>
 							<c:if test="${askList.size() == 0}">
-								<div class="text-center h3">일반 문의글이 없습니다.</div>
+								<div class="text-center h6 mt-3">일반 문의글이 없습니다.</div>
 							</c:if>
 							<c:if test="${askList.size() > 0}">
-							<div class="text-center h4" style="position: relative;">일반 관련 문의글 <div id="ask-btn" class="sbtn cyan small rounded" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; position: absolute; bottom: 0px; right: 0px;" onclick="location.href ='<c:url value='/admin/askWrite' />'">일반 문의 내용 보러가기</div></div>
+							
 								<table class="table table-striped mt-3 text-center " style="table-layout:fixed;">				
 									<thead>
 										<tr>
@@ -515,12 +521,15 @@
 									</tbody>
 								</table>
 							</c:if>
+							
+							
 							<br>
+							<hr>
+							<div class="text-center h4 mt-3">게시판 문의글</div>
 							<c:if test="${askCategoryBoardList.size() == 0}">
-								<div class="text-center h3">게시판 관련 문의글이 없습니다.</div>
+								<div class="text-center h6 mt-3">게시판 문의글이 없습니다.</div>
 							</c:if>
 							<c:if test="${askCategoryBoardList.size() > 0}">
-							<div class="text-center h4">게시판 관련 문의글</div>
 								<table class="table table-striped mt-3 text-center " style="table-layout:fixed;">				
 									<thead>
 										<tr>
@@ -551,8 +560,14 @@
 									</tbody>
 								</table>
 							</c:if>
+							
+							
+							
+							
 
-							</div>
+						</div>
+								
+							
 				        </div>
 				    </div>
 				    
@@ -597,15 +612,15 @@ let emailConfirm = true;
 			$(id).toggleClass('active');
 			
 			if ($(this).data('head') == '1') {
-				$('#userMyPage .title h2').text('마이페이지');
+				$('#userMyPage .title h2').text('내 정보');
 			} else if($(this).data('head') == '2') {
-				$('#userMyPage .title h2').text('내 게시판');
+				$('#userMyPage .title h2').text('내 글');
 			} else if($(this).data('head') == '3') {
 				$('#userMyPage .title h2').text('장바구니');
 			} else if($(this).data('head') == '4') {
 				$('#userMyPage .title h2').text('주문정보');
 			} else if($(this).data('head') == '5') {
-				$('#userMyPage .title h2').text('내 문의사항');
+				$('#userMyPage .title h2').text('문의사항');
 			} 
 			
 		}); 

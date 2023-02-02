@@ -94,6 +94,7 @@
 				const $input = document.createElement('input');
 				$input.setAttribute('name', 'filename');
 				$input.setAttribute('value', result[3]);
+				$input.setAttribute('type', 'hidden');
 				
 				document.getElementById('notice-form').appendChild($input);  
 			}

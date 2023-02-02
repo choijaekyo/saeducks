@@ -15,8 +15,8 @@
 	<%@ include file="../include/header.jsp" %>
 	
     <section class="form-signin w-100 m-auto">
-      <div class="col-md-12">
-        <h1 class="add-product-title h1 mt-4">게시글별 문의사항</h1>
+      <div class="col-md-12 mt-4">
+        <h4 class="add-product-title h4 mt-4">게시글별 문의사항</h4>
       </div>
       <div class="container">
         <div class="row">	

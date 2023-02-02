@@ -67,7 +67,7 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="order-title h1 ">주문상세</h1>
+					<h2 class="order-title h2 ">주문상세</h2>
 				</div>
 
 				<form method="post" action="<c:url value="/product/order" />"

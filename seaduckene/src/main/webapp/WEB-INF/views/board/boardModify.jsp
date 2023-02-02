@@ -5,13 +5,19 @@
 <%@ include file="../include/header.jsp"%>
 
 <section>
-	<div class="container mt-5">
+	<div class="container mt-4">
 		<div class="row">
+			<div class="mb-3">
+			  	<div class="col col align-self-center" style="position: relative;">
+		        	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='15'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+					  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 25px; color: #ffc107;">
+					    <li class="breadcrumb-item mt-1" id="majorTitle">${category.categoryMajorTitle}</li>
+					    <li class="breadcrumb-item mt-1" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
+					  </ol>
+					</nav>
+		        </div>
+			</div>
 			<div class="col-xs-12 col-md-12 write-wrap">
-				<div class="titlebox">
-					<p>수정하기</p>
-				</div>
-
 				<form action="${pageContext.request.contextPath}/board/boardUpdate"
 					method="post" name="updateForm" id="modifyForm">
 					<input type="hidden" name="boardNo" value="${ list.boardNo }">

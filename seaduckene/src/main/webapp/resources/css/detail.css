@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-.board-detail-container {
-	margin-top: 20px;
-}
-
 .regReply {
 	margin-top: 50px;
 }
@@ -24,8 +20,8 @@
 #title {
 	border: none;
 	background: #fff9d6;
-	font-size: 22px;
 	text-align: center;
+	font-size: 27px;
 }
 
 #title:focus {

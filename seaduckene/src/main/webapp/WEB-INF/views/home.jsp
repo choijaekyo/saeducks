@@ -4,8 +4,9 @@
 
 <%@ include file="include/header.jsp"%>
 
+<section>
 <!--================ side =================-->
-<div class="container" id="main_container_one">
+<div class="container mt-4" id="main_container_one">
 	<div class="row">
 		<div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
@@ -23,8 +24,8 @@
 	<div class="row">
 		<section class="facilities_area section_gap" id="section_gap_id">
 		    <div class="container">
-		        <div class="section_title text-center">
-		            <h2 class="title_w">내가 선택한 덕질</h2>
+		        <div class="section_title text-center mb-3">
+		            <h4 class="title_w">내가 선택한 덕질</h4>
 		            <p>All the dig in this world that I chose</p>
 		        </div>
 		        <div class="row mb_30">
@@ -32,10 +33,10 @@
 		        	<input type="hidden" value="${b.boardNo}" class="bno">
 		            <div class="col-lg-4 col-md-6">
 		                <div class="facilities_item items${b.boardNo}">
-		                    <h4 class="sec_h4 text-truncate">
+		                    <h5 class="sec_h4 text-truncate">
 			                    <i class="bi bi-bookmark-star"></i>
 			                    ${b.boardTitle}
-		                    </h4>
+		                    </h5>
 		                    <%-- <p class="d-inline-block text-truncate">내용 : ${b.boardContent}</p> --%>
 		                    <p>조회수 : ${b.boardViews}</p>
 		                    <p>소카테고리 : ${b.categoryMinorTitle}</p>
@@ -49,6 +50,7 @@
 	</div>
 </div>
 <!--================ END board list content =================-->
+</section>
 
 
 <%@ include file="include/footer.jsp"%>

@@ -50,8 +50,8 @@ $(function(){
 			orderId : orderId,
 			orderName : orderName,
 			customerName : customerName,
-			successUrl: 'http://localhost/product/success',
-			failUrl : 'http://localhost/product/fail'
+			successUrl: '${pageContext.request.contextPath}/product/success',
+			failUrl : '${pageContext.request.contextPath}/product/fail'
 		});
 	}
 	toss();

@@ -49,10 +49,10 @@
                   <li><a href="">공지사항4 열심히할수있는</a></li>
                   <li><a href="">공지사항5 좋은사이트</a></li> -->
                </ul>
-               <br> <br> <br>
-               <div>
-               		<div id="ask-btn" class="sbtn yellow small rounded" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" onclick="location.href ='<c:url value='/admin/askWrite' />'">문의하기</div>
+               <div class="text-center">
+               		<button id="ask-btn" class="sbtn yellow small rounded"  onclick="location.href ='<c:url value='/admin/askWrite' />'">문의하기</button>
                </div>
+               <br>
             </div>
          </div>
 

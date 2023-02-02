@@ -223,10 +223,11 @@ public class UserController {
 		for(ProductBasketVO b : bvo) {
 			total += b.getBasketQuantity() * b.getBasketPrice();
 		}
+		
 		modelAndView.addObject("name", name);
 		modelAndView.addObject("order", ovo);
 		modelAndView.addObject("basket", bvo);
-		modelAndView.addObject("total", total);
+		modelAndView.addObject("btotal", total);
 		modelAndView.addObject("user", userVo);
 		
 		log.info(userService.getCategories());
