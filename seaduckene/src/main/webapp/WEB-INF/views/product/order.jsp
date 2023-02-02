@@ -432,11 +432,12 @@
 	}
 
     /* 전화번호 문자열 입력 방지 */
-    $('#orderRecipientTel').keydown(function(e) {
-        // Only ASCII character in that range allowed
-        const ASCIICode = (e.which) ? e.which : e.keyCode;
-        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-            return false;
+    $('#userTel').keydown(function(e) {
+        if (e.key >= 0 && e.key <= 9 || e.which == 8 || e.which == 37 || e.which == 39 || e.which == 46) {
+        	return true;
+		} else {
+			return false;
+		}
     });
     
 	// 정규식
