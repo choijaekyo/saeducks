@@ -161,6 +161,7 @@
 	}
 
 	let optionCheck = false;
+    let emailConfirm = true;
 	$(function() {
 		
 		$('.optional-container').click(function(e) {
@@ -169,12 +170,19 @@
 				$('#optional-checkbox').prop("checked",false);
 				$('.optional-info').css('display','none');
 				$('.addiction-description').text('쇼핑 서비스를 이용하시려면 클릭하세요~');
+				$('#addrBasic').val('');
+				$('#addrDetail').val('');
+				$('#addrZipNum').val('');
+				$('#userEmail').val('');
+				
 				optionCheck = false;
+				emailConfirm = true;
 			} else {
 				$('#optional-checkbox').prop("checked",true);
 				$('.optional-info').css('display','block');
 				$('.addiction-description').text('쇼핑 서비스를 이용하시려면 추가 정보를 입력하세요!');
 				optionCheck = true;
+				emailConfirm = false;
 			}
 		});
 		
@@ -247,6 +255,11 @@
 		// 인증번호 이메일 전송
 		$('.email-btn').click(() => {
 
+			if ($('#userEmail').css('border-block-color') === 'rgb(255, 0, 0)' || !emailConfirm) {
+				alert('이메일을 다시 확인하세요.');
+				$('#userEmail').focus();				
+				return;
+			}
 			/* openLoading(); */
 			
 
@@ -418,40 +431,49 @@
 		});
 		
 		$('#userTel').hover(function() {
-			$(this).attr('placeholder', '-(하이픈) 없이 입력하세요.');
+			$(this).attr('placeholder', '-(하이픈) 없이 숫자만 입력하세요.');
 		}, function() {
 			$(this).attr('placeholder', '전화번호');			
 		});
 		
+		let idConfirm = false;
 		/*아이디 형식 검사 스크립트*/
 		$('#userId').keyup(function() {
             const regex = /^[A-Za-z0-9+]{4,12}$/; /* 영문 대/소문자, 숫자 4 ~ 12 */
-			
+            idCheck = false;
             if(regex.test($(this).val() )) {
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
+                idConfirm = true;
                 /* document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다."; */
 
             } else {
                 $(this).css('border', '2px solid red');
+                idConfirm = false;
                 /* document.getElementById("msgId").innerHTML = "유효하지 않은 아이디 입력방식입니다."; */
             }            
             /* console.log($(this).css('border-block-color')); */
             
             
 		});
+		
+		let pwConfirm = false;
 		/*비밀번호 형식 검사 스크립트*/
 		$('#userPw').keyup(function() {
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
+            	pwConfirm = false;
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
                 
 	            if($("#pwConfirm").val() === $(this).val() ) {
+	            	pwConfirm = true;
 	                $("#pwConfirm").css('border', '2px solid rgb(34, 139, 34)');
 	            } else {
+	            	pwConfirm = false;
 	            	$("#pwConfirm").css('border', '2px solid red');
 	            }
             } else {
+            	pwConfirm = false;
                 $(this).css('border', '2px solid red');
             }            
 
@@ -462,62 +484,77 @@
             
             if(regex.test($(this).val() )) {
 	            if($(this).val() === $("#userPw").val()) {
+	            	pwConfirm = true;
 	                $(this).css('border', '2px solid rgb(34, 139, 34)');
 	                $("#userPw").css('border', '2px solid rgb(34, 139, 34)');        
 	
 	            } else {
+	            	pwConfirm = false;
 	                $(this).css('border', '2px solid red');
 	                $("#userPw").css('border', '2px solid red');
 	            }      
 
             } else {
+            	pwConfirm = false;
                 $(this).css('border', '2px solid red');
             }   
 		});
         
+		let nameConfirm = false;
         /* 이름 확인검사 */
         $('#userName').keyup(function() {
         	$(this).css('color', 'black');
 			const regex = /^[가-힣a-zA-Z]+$/;
+			nicknameCheck = false;
 			
 			if (regex.test($(this).val())) {
+				nameConfirm = true;
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
 				
 			} else {
+				nameConfirm = false;
                 $(this).css('border', '2px solid red');
 			}	
         });
         
+        let nicknameConfirm = false;
         /* 닉네임 확인검사 */
         $('#userNickname').keyup(function() {
         	$(this).css('color', 'black');
 			const regex = /^[\w가-힣\_\!\?]{1,10}$/; /* 한/영문/ 숫자 포함 10 글자 이내, 특수문자( _, !, ?) */
+			nicknameCheck = false;
 			
 			if (regex.test($(this).val())) {
+				nicknameConfirm = true;
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
 				
 			} else {
+				nicknameConfirm = false;
                 $(this).css('border', '2px solid red');
 			}	
         });
-        
+
         /* 전화번호 문자열 입력 방지 */
         $('#userTel').keydown(function(e) {
-            // Only ASCII character in that range allowed
-            const ASCIICode = (e.which) ? e.which : e.keyCode;
-            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                return false;
-        });,
+            if (e.key >= 0 && e.key <= 9 || e.which == 8 || e.which == 37 || e.which == 39 || e.which == 46) {
+            	return true;
+			} else {
+				return false;
+			}
+        });
         
+        let telConfirm = false;
         /* 전화번호 확인검사 */
         $('#userTel').keyup(function() {
         	$(this).css('color', 'black');
 			const regex = /^(010)[0-9]{8}$/; /* 숫자 010포함 11 자리 */
 			
 			if (regex.test($(this).val())) {
+				telConfirm = true;
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
 				
 			} else {
+				telConfirm = false;
                 $(this).css('border', '2px solid red');
 			}	
         });
@@ -531,8 +568,10 @@
 				$(this).css('border', '1px solid rgb(206, 212, 218)');
 			} else {
 				if (regex.test($(this).val())) {
+					emailConfirm = true;
 	                $(this).css('border', '2px solid rgb(34, 139, 34)');
 				} else {
+					emailConfirm = false;
 	                $(this).css('border', '2px solid red');
 				}
 			}
@@ -583,15 +622,19 @@
 				alert('아이디 중복 확인이 필요합니다.');
 				$('#userId').focus();
 				return;
-			} else if ($('#userPw').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			} else if ($('#userId').css('border-block-color') !== 'rgb(34, 139, 34)' || !idConfirm) {
+				alert('아이디를 다시 확인하세요.');
+				$('#userId').focus();				
+				return;
+			} else if ($('#userPw').css('border-block-color') !== 'rgb(34, 139, 34)' || !pwConfirm) {
 				alert('비밀번호를 다시 확인하세요.');
 				$('#userPw').focus();				
 				return;
-			} else if ($('#pwConfirm').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			} else if ($('#pwConfirm').css('border-block-color') !== 'rgb(34, 139, 34)' || !pwConfirm) {
 				alert('비밀번호를 다시 확인하세요.');
 				$('#pwConfirm').focus();				
 				return;
-			} else if ($('#userName').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			} else if ($('#userName').css('border-block-color') !== 'rgb(34, 139, 34)' || !nameConfirm) {
 				alert('이름을 다시 확인하세요.');
 				$('#userName').focus();				
 				return;
@@ -599,11 +642,15 @@
 				alert('닉네임 중복확인이 필요합니다.');
 				$('#userNickname').focus();				
 				return;
-			} else if ($('#userTel').css('border-block-color') !== 'rgb(34, 139, 34)') {
+			} else if ($('#userNickname').css('border-block-color') !== 'rgb(34, 139, 34)' || !nicknameConfirm) {
+				alert('닉네임을 다시 확인하세요.');
+				$('#userNickname').focus();				
+				return;
+			} else if ($('#userTel').css('border-block-color') !== 'rgb(34, 139, 34)' || !telConfirm) {
 				alert('전화번호를 다시 확인하세요.');
 				$('#userTel').focus();				
 				return;
-			} else if ($('#userEmail').css('border-block-color') === 'rgb(255, 0, 0)') {
+			} else if ($('#userEmail').css('border-block-color') === 'rgb(255, 0, 0)' || !emailConfirm) {
 				alert('이메일을 다시 확인하세요.');
 				$('#userEmail').focus();				
 				return;
@@ -635,12 +682,12 @@
         	
         	if (optionCheck === true) { 
 				if ($('#addrBasic').val() === '') {
-					alert('기본 주소를 입력해주세요.');
+					alert('주소 찾기를 진행해주세요.');
 					$('#addrBasic').focus();
 					return;
 				} else if ($('#addrDetail').val() === '') {
 					alert('상세 주소를 입력해주세요.');
-					$('#addrBasic').focus();
+					$('#addrDetail').focus();
 					return;
 				} else if ($('#confBtn').css('display') !== 'none') {
 					alert('이메일 인증해주세요.');
