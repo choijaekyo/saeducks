@@ -224,7 +224,7 @@ public class boardListController {
 		
 		JsonObject jsonObject = new JsonObject();
 		
-		String fileRoot = "c:/imgduck/temp/";	//저장될 외부 파일 경로
+		String fileRoot = "/usr/local/imgduck/temp/";	//저장될 외부 파일 경로
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 				
@@ -259,7 +259,7 @@ public class boardListController {
 		System.out.println("요청 URI: " + reqUri);
 		System.out.println("미리보기 이미지 요청 호출!");
 		System.out.println("param: " + savedFileName);
-		String fileRoot = "c:/imgduck/temp/";
+		String fileRoot = "/usr/local/imgduck/temp/";
 		String filePath = fileRoot + savedFileName;
 		System.out.println("완성된 파일 경로: " + filePath);
 		File file = new File(filePath);
@@ -281,7 +281,7 @@ public class boardListController {
 	@GetMapping("/getImg/{savedFileName}")
 	public ResponseEntity<byte[]> getImgCopy(@PathVariable String savedFileName, HttpServletResponse response){
 	  
-	  String fileRoot = "c:/imgduck/board/";
+	  String fileRoot = "/usr/local/imgduck/board/";
 	  String filePath = fileRoot + savedFileName; 
 	  File file = new File(filePath);
 		
@@ -306,7 +306,7 @@ public class boardListController {
 		System.out.println("deleteFiles: " + list);
 		
 		for(String fileName : list) {
-			String tempRoot = "c:/imgduck/temp/";
+			String tempRoot = "/usr/local/imgduck/temp/";
 			File file = new File(tempRoot + fileName);
 			if(file.exists()) {
 				System.out.println("임시 파일 삭제 완료!");
