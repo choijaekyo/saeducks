@@ -323,6 +323,7 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 	
+	
 	@Override
 	public int checkUser(String userId, String userEmail) {
 		Map<String, Object> map =  new HashMap<String, Object>();
@@ -341,5 +342,6 @@ public class UserServiceImpl implements IUserService {
 	public AskCategoryBoardVO getAskCategoryBoard(int askBoardNo) {
 		return adminMapper.getAskCategoryBoard(askBoardNo);
 	}
-	
+
+
 }

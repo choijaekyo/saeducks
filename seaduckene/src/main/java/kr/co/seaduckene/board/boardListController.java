@@ -38,7 +38,6 @@ import org.springframework.web.util.WebUtils;
 
 import com.google.gson.JsonObject;
 
-import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.NoticeVO;
@@ -62,7 +61,7 @@ public class boardListController {
 		model.addAttribute("categoryNo", categoryNo);
 		model.addAttribute("productList", service.proList(categoryNo));
 		model.addAttribute("category",service.getCategory(categoryNo));
-		
+		model.addAttribute("total", service.getTotal(categoryNo));
 		
 		return "board/boardList";
 	}

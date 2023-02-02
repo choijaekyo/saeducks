@@ -18,6 +18,12 @@ public interface IBoardService {
 	// 글 목록
 	List<BoardVO> list(PageVO paging , int categoryNo);
 	
+	// category 글 수량
+	int getTotal(int categoryNo);
+	
+	// 내 글 총 수량
+	int getMyBoardTotal (int userNo);
+	
 	// 카테고리 이름
 	CategoryVO getCategory (int categoryNo);
 
