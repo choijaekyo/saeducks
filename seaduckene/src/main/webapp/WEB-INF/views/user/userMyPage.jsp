@@ -202,7 +202,7 @@
 				                    <div class="col-md-12 col-sm-12 col-12 beforeConf">
 										<input class="form-control join-input " type="text" name=""
 											id="email-auth-code" placeholder="이메일 인증 코드" required />
-										<input class="sbtn yellow small rounded type="button"
+										<input class="sbtn yellow small rounded" type="button"
 													name="confCheckBtn" id="confCheckBtn" value="인증하기" />
 				                    </div>
 				                    <p id="confMailRes"></p>
@@ -685,6 +685,11 @@ let emailConfirm = true;
 		// 인증번호 이메일 전송
 		$('.email-btn').click(() => {
 
+			if ($('#userEmail').css('border-block-color') === 'rgb(255, 0, 0)' || !emailConfirm) {
+				alert('이메일을 다시 확인하세요.');
+				$('#userEmail').focus();				
+				return;
+			}
 			/* openLoading(); */
 			
 
@@ -833,14 +838,17 @@ let emailConfirm = true;
             
             if (!$('#myPageModal').hasClass('modiPw')) {
 	            if(regex.test($(this).val() )) {
+	            	currPwConfirm = true;
 	                $(this).css('border', '2px solid rgb(34, 139, 34)');
 	                
-		            if($("#checkPw").val() === $(this).val() ) {
-		            	currPwConfirm = true;
+		            if($("#checkPw").val() === $(this).val()) {
 		                $("#checkPw").css('border', '2px solid rgb(34, 139, 34)');
 		            } else {
-		            	currPwConfirm = false;
-		            	$("#checkPw").css('border', '2px solid red');
+		                if ($("#checkPw").val() === '') {
+						} else {
+			            	currPwConfirm = false;
+			            	$("#checkPw").css('border', '2px solid red');
+						}
 		            }
 	            } else {
 	            	currPwConfirm = false;
@@ -855,14 +863,17 @@ let emailConfirm = true;
             const regex = /^[A-Za-z0-9+]{8,16}$/; /* 영문 대/소문자, 숫자 8 ~ 16 */
             
             if(regex.test($(this).val() )) {
+                modiPwConfirm = true;
                 $(this).css('border', '2px solid rgb(34, 139, 34)');
                 
 	            if($("#checkPw").val() === $(this).val() ) {
-	            	modiPwConfirm = true;
 	                $("#checkPw").css('border', '2px solid rgb(34, 139, 34)');
 	            } else {
-	            	modiPwConfirm = false;
-	            	$("#checkPw").css('border', '2px solid red');
+	            	if ($("#checkPw").val() === '') {
+					} else {
+		            	modiPwConfirm = false;
+		            	$("#checkPw").css('border', '2px solid red');
+					}
 	            }
             } else {
             	modiPwConfirm = false;
@@ -1462,7 +1473,7 @@ let emailConfirm = true;
 			$('#userEmail').focus();
 			alert('이메일을 다시 확인하세요.');
 			return;
-		} else if ($('#userEmail').css('border-block-color') !== 'rgb(206, 212, 218)' && $('#emailConf').css('display') === 'none') {
+		} else if($('#userEmail').css('border-block-color') !== 'rgb(206, 212, 218)' && $('#emailConf').css('display') === 'none') {
 			hidePwModal();
 			$('#userEmail').focus();
 			alert('이메일을 인증하세요.');
@@ -1472,6 +1483,7 @@ let emailConfirm = true;
 		// 주소가 null 인 상태로 주소록 모달 창을 닫을 수가 없으니까 주소는 null 체크 안해도 됨.
 		
 		if ($('#emailConf').css('display') === 'block' && $('#confBtn').css('display') !== 'none') {
+			hidePwModal();
 			$('#email-auth-code').focus();
 			alert('이메일을 인증하세요.');
 			return;
@@ -1519,7 +1531,12 @@ let emailConfirm = true;
 			category_index_list.push($($li_category).data('index'));
 			
 		}
-		console.log(category_index_list);
+		
+		if (category_index_list.length <= 0) {
+			hidePwModal();
+			alert('카테고리는 반드시 하나 이상이어야 합니다.');		
+			return;
+		}
 		
 		
 		for (let $div_address of $('.div-address')) {
@@ -1572,7 +1589,7 @@ let emailConfirm = true;
 			alert('비밀번호를 다시 확인하세요.');
 			$('#currPw').focus();
 			return;
-		} else if($('#checkPw').css('border-block-color') !== 'rgb(34, 139, 34)' || !checkPwConfirm) {
+		} else if($('#checkPw').css('border-block-color') !== 'rgb(34, 139, 34)' || !checkPwConfirm2) {
 			alert('비밀번호를 다시 확인하세요.');
 			$('#checkPw').focus();
 			return;

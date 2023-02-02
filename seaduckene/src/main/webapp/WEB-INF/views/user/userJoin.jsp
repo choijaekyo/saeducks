@@ -247,6 +247,11 @@
 		// 인증번호 이메일 전송
 		$('.email-btn').click(() => {
 
+			if ($('#userEmail').css('border-block-color') === 'rgb(255, 0, 0)' || !emailConfirm) {
+				alert('이메일을 다시 확인하세요.');
+				$('#userEmail').focus();				
+				return;
+			}
 			/* openLoading(); */
 			
 
@@ -669,12 +674,12 @@
         	
         	if (optionCheck === true) { 
 				if ($('#addrBasic').val() === '') {
-					alert('기본 주소를 입력해주세요.');
+					alert('주소 찾기를 진행해주세요.');
 					$('#addrBasic').focus();
 					return;
 				} else if ($('#addrDetail').val() === '') {
 					alert('상세 주소를 입력해주세요.');
-					$('#addrBasic').focus();
+					$('#addrDetail').focus();
 					return;
 				} else if ($('#confBtn').css('display') !== 'none') {
 					alert('이메일 인증해주세요.');
