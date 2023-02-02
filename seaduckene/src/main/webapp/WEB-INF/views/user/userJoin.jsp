@@ -507,7 +507,7 @@
             const ASCIICode = (e.which) ? e.which : e.keyCode;
             if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
                 return false;
-        });
+        });,
         
         /* 전화번호 확인검사 */
         $('#userTel').keyup(function() {
