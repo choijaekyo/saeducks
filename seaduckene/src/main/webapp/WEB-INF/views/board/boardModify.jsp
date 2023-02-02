@@ -18,8 +18,8 @@
 					<input type="hidden" name="boardCategoryNo" value="${ list.boardCategoryNo }">
 
 					<div class="form-group">
-						<label>제목</label> <input class="form-control" name="boardTitle" maxlength="50"
-							value="${list.boardTitle}">
+						<label>제목</label>
+						<input class="form-control" name="boardTitle" maxlength="50" value="${list.boardTitle}">
 					</div>
 					<div class="form-group boardContent-summernote">
 						<label>내용</label>
@@ -62,7 +62,7 @@
 	      height: 500,                 // 에디터 높이
 	      minHeight: null,             // 최소 높이
 	      maxHeight: null,             // 최대 높이
-	      focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+	      focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
 	      lang: "ko-KR",					// 한글 설정
 	      toolbar: [
 	          // 글꼴 설정
@@ -123,6 +123,23 @@
 	                   }
 	               });
 		}
+	 
+	    
+	    $('.note-editable').click(function() {
+			console.log('기본 이벤트!');
+			
+			let boardContent = $('.note-editable').html();
+			let boardContentLength = boardContent.length;
+			let boardContentByteLength = 0;
+			
+			boardContentByteLength = (function(s,b,i,c) {
+				for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+				return b
+			})(boardContent);
+			
+			$('.textCount').text(boardContentByteLength);
+		
+		}); 
 	    
 	    
 			$('.boardContent-summernote').keydown(function() {
@@ -137,7 +154,6 @@
 				
 				console.log(boardContent, 'boardContent');
 				console.log(boardContentLength, 'boardContentLength');
-				
 				
 				boardContentByteLength = (function(s,b,i,c) {
 					for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
@@ -201,23 +217,18 @@
 			}); 
 			//수정 버튼 이벤트 처리 끝.
 
-			
-			
 			$('#summernote').summernote('pasteHTML', `${list.boardContent}`);
-			$('#delBtn')
-					.click(
-							function() {
-								if (confirm('정말 삭제하시겠습니까?')) {
-									$('form[name=updateForm]')
-											.attr('action',
-													'${pageContext.request.contextPath}/board/boardDelete');
-									$('form[name=updateForm]').submit();
-								}
-							})
+			$('#delBtn').click(function() {
+				if (confirm('정말 삭제하시겠습니까?')) {
+					$('form[name=updateForm]').attr('action', '${pageContext.request.contextPath}/board/boardDelete');
+					
+					$('form[name=updateForm]').submit();
+				}
+			})
 
 		});
 	    
-	    
+			
 	    
 	    
 	    

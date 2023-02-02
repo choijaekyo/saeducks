@@ -79,6 +79,9 @@
 
 $(function() {
 	
+	const total = parseInt('${total}');
+	console.log('total' + total);
+	
 	//더보기 버튼 클릭 이벤트
 	$('#the-btn').click(function() {
 		if(!isFinish) {
@@ -92,7 +95,6 @@ $(function() {
 	$('#moreProBtn').click(function() {
 		location.href = '${pageContext.request.contextPath}/product/productList?categoryNo='+categoryNo;
 	});
-	
 	
 	const categoryNo = '${categoryNo}';
 	let str = '';
@@ -117,25 +119,19 @@ $(function() {
 				console.log(list.length);
 				console.log(list);
 				
-				if(list.length === 0 ){
-					if(page === 1){
+				if(total > page*9){
+					$('#div-btn').css('display','block');
+				}else {
+					isFinish = true;
+					$('#div-btn').css('display','none');
+					if(total === 0){
 						str = '등록된 글이 없습니다. 첫 번째 글을 등록해 보세요.';
 						$('#contentDiv').html(str);
 						$('#contentDiv').css('display','block');
 						$('#contentDiv').css('text-align','center');
-						$('#contentDiv').css('line-height','150px');
+						$('#contentDiv').css('line-height','150px');	
 					}
-					else{
-						if(list.length < 9){
-						isFinish = true;
-						$('#div-btn').css('display','none');
-						}
-					}
-					
-				} else {
-					$('#div-btn').css('display','block');
 				}
-				
 				
 				for(let i=0; i<list.length; i++) {
 					

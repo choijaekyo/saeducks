@@ -38,7 +38,6 @@ import org.springframework.web.util.WebUtils;
 
 import com.google.gson.JsonObject;
 
-import kr.co.seaduckene.admin.command.AskListVO;
 import kr.co.seaduckene.board.command.BoardVO;
 import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.NoticeVO;
@@ -62,7 +61,7 @@ public class boardListController {
 		model.addAttribute("categoryNo", categoryNo);
 		model.addAttribute("productList", service.proList(categoryNo));
 		model.addAttribute("category",service.getCategory(categoryNo));
-		
+		model.addAttribute("total", service.getTotal(categoryNo));
 		
 		return "board/boardList";
 	}
@@ -205,14 +204,16 @@ public class boardListController {
 	
 	// 공지사항페이지 이동
 	@GetMapping("/notice")
-	public void notice() {}
+	public void notice(Model model) {
+		model.addAttribute("total", service.getNoticeTotal());
+	}
 	
 	// 공지사항 페이징
 	@GetMapping("/noticeLists")
 	@ResponseBody
 	public List<NoticeVO> noticeLists(PageVO paging) {
 		
-		paging.setCpp(9);
+		paging.setCpp(10);
 
 		return service.noticeLists(paging);
 	}

@@ -72,7 +72,8 @@
 					<div class="list-group-item list-group-item-secondary" >
 					  <div class="d-flex w-100 justify-content-between">
 					    <div>
-					      <h6 class="mb-0">${i.askBoardUserName} &nbsp;&nbsp;&nbsp;<i>${i.askBoardMajorCategory}</i>&gt;<i>${i.askBoardMinorCategory}</i></h6>
+					      <h6 class="mb-0">${empty i.askBoardUserName ? '탈퇴한 회원': i.askBoardUserName} &nbsp;&nbsp;&nbsp;<i>${i.askBoardMajorCategory}</i>&gt;<i>${i.askBoardMinorCategory}</i></h6>
+					      <p class="mb-0 opacity-75" style="white-space:pre;">${i.askBoardTitle}</p>
 					      <p class="mb-0 opacity-75"  style="white-space:pre;">${i.askBoardContent}</p>
 					    </div>
 					    <small class="opacity-50 text-nowrap">
@@ -114,6 +115,11 @@
 					</c:if>
 				</div>
 			</c:forEach>
+			<c:if test="${empty askCategoryBoardList}">
+				<div>
+					<p>문의 사항이 없습니다.</p>
+				</div>
+			</c:if>
 		</div>
 	</div>
 	<a id="main" href="<c:url value='/admin/adminMain'/>" >main</a>
