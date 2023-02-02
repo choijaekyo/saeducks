@@ -73,7 +73,7 @@
 						<div class="list-group-item list-group-item-secondary" >
 						  <div class="d-flex w-100 justify-content-between">
 						    <div>
-						      <h6 class="mb-0">유저 : ${i.askListUserName}</h6>
+						      <h6 class="mb-0">${empty i.askListUserName ? '탈퇴한 회원': '유저 : ' += i.askListUserName}</h6>
 						      <p class="mb-0 opacity-75"  style="white-space:pre;">${i.askListContent}</p>
 						    </div>
 						    <small class="opacity-50 text-nowrap">
