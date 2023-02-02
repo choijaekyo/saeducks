@@ -398,3 +398,4 @@ WHERE d.user_name LIKE '%√÷¿Á±≥%';
 
 UPDATE ask_list SET ask_list_reply_content = 'ehlsasdasdasdeek' WHERE ask_list_no = 6;
 commit;
+

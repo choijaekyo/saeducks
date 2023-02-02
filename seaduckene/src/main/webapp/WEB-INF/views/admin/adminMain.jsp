@@ -117,7 +117,9 @@
 					class="sbtn green small rounded"
 					href="<c:url value='/board/notice' />">공지사항</a> <a
 					class="sbtn yellow small rounded"
-					href="<c:url value='/admin/userSearch' />">주문목록</a>
+					href="<c:url value='/admin/userSearch' />">주문목록</a> <a
+					class="sbtn cyan small rounded"
+					href="<c:url value='/admin/askAdminList' />">고객문의</a>
 			</div>
 		</div>
 	</div>
