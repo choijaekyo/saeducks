@@ -255,6 +255,8 @@ public class UserController {
 		
 		modelAndView.addObject("askList", askList);
 		
+		modelAndView.addObject("total", boardService.getMyBoardTotal(userNo));
+		
 		return modelAndView;
 	}
 	

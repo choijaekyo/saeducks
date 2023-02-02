@@ -352,12 +352,12 @@
 					            </tr>
 				            </thead>
 							<tbody id="contentDiv">
-							
+								
 							</tbody>
 							 </table>
 							<div class="row justify-content-center row-div-2">
 							  	<div class="col-1 w-auto mt-3">
-							  		<button type="button" class="sbtn cyan small rounded" id="the-btn">더보기</button>
+							  		<button type="button" class="sbtn cyan small rounded" id="the-btn" sty>더보기</button>
 							  	</div>
 							</div>
 
@@ -1627,6 +1627,7 @@ let nicknameCheck = true;
 	
 	$('.myBoard').click(function() {
 		
+		const total = parseInt('${total}');
 	
 		//더보기 버튼 클릭 이벤트
 		$('#the-btn').click(function() {
@@ -1660,7 +1661,12 @@ let nicknameCheck = true;
 					console.log(list.length);
 					console.log(list);
 					
-					if(list.length === 0) isFinish = true;
+					if(total > page*20){
+						$('#the-btn').css('display','block');
+					}else {
+						isFinish = true;
+						$('#the-btn').css('display','none');
+					}
 					
 					for(let i=0; i<list.length; i++) {
 						

@@ -26,7 +26,7 @@
         </div>
         <div class="row justify-content-center m-5" >
               <div class="col-1 w-auto">
-                  <button type="button" class="btn purple small rounded" id="the-noti-btn">더보기</button>
+                  <button type="button" class="sbtn cyan small rounded" id="the-noti-btn" style="display: none;">더보기</button>
               </div>
         </div>
     </div>
@@ -35,9 +35,12 @@
     
 </body>
 
-<script>s
+<script>
 
     $(function() {
+    	
+    	const total = parseInt('${total}');
+    	console.log('total' + total);
         
         //등록하기 버튼 클릭 이벤트
         $('#the-noti-btn').click(function() {
@@ -73,7 +76,12 @@
                     console.log("list.length : " + lists.length);
                     console.log("list : " + lists);
                     
-                    if(lists.length === 0) isFinish = true;
+    				if(total > page*9){
+    					$('#the-noti-btn').css('display','block');
+    				}else {
+    					isFinish = true;
+    					$('#the-noti-btn').css('display','none');
+    				}
                     
                     for(let i=0; i<lists.length; i++) {
                         
