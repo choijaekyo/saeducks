@@ -524,7 +524,7 @@
 							
 							
 							<br>
-							<hr>
+							<hr style="margin-bottom: 38px;">
 							<div class="text-center h4 mt-3">게시판 문의글</div>
 							<c:if test="${askCategoryBoardList.size() == 0}">
 								<div class="text-center h6 mt-3">게시판 문의글이 없습니다.</div>
