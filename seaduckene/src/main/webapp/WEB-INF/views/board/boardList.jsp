@@ -36,10 +36,11 @@
 	</div>
 </div>
 
-<hr>
+
 
 
 <div class="container container-board-div2">
+	<hr>
 	<div class="text-center">
 		<h4>추천상품</h4>
 	</div>
@@ -150,7 +151,7 @@ $(function() {
 				      <svg width="100%" height="225">
 				      
 				      
-				      <image href="/board/getImg/` + list[i].boardImageUuid + `" width="100%" height="100%" style="opacity: 0.5;"/>
+				      <image href="/board/getImg/` + list[i].boardImageUuid + `" width="100%" height="100%"/>
 				      
 				      </svg>
 				      <div class="card-body container">

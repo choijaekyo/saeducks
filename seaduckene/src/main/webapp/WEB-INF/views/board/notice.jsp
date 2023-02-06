@@ -86,26 +86,31 @@
     				}
                     
                     for(let i=0; i<lists.length; i++) {
-                        str += 
-                        `<div class="accordion-item border shadow">
-                            <h2 class="accordion-header" id="flush-headingOne` + lists[i].noticeNo + `">
-                                <button class="accordion-button collapsed text-black-50" id="btn-noti-btn`+lists[i].noticeNo+`" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne` + lists[i].noticeNo + `" aria-expanded="false" aria-controls="flush-collapseOne` + lists[i].noticeNo + `">` + lists[i].noticeTitle + `</button>
-                            </h2>
-                            <div id="flush-collapseOne` + lists[i].noticeNo + `" class="accordion-collapse collapse" aria-labelledby="flush-headingOne` + lists[i].noticeNo + `" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">` + lists[i].noticeContent + `</div>
-                            </div>
-                            </div>`;
-                        noticeNo = lists[i].noticeNo;
-                        console.log('noticeNo:' + noticeNo);
-                        if(no === noticeNo) {
-                        console.log('1' + no);
-                        console.log('2' + noticeNo);
-                    	$('#btn-noti-btn'+ noticeNo).click();
-                   		 }
+                        if(no === lists[i].noticeNo) {
+                        	str += 
+                                `<div class="accordion-item border shadow">
+                                    <h2 class="accordion-header" id="flush-headingOne` + lists[i].noticeNo + `">
+                                        <button class="accordion-button text-black-50" id="btn-noti-btn`+lists[i].noticeNo+`" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne` + lists[i].noticeNo + `" aria-expanded="true" aria-controls="flush-collapseOne` + lists[i].noticeNo + `">` + lists[i].noticeTitle + `</button>
+                                    </h2>
+                                    <div id="flush-collapseOne` + lists[i].noticeNo + `" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne` + lists[i].noticeNo + `" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">` + lists[i].noticeContent + `</div>
+                                    </div>
+                                    </div>`;
+                        } else {
+                        	str += 
+                                `<div class="accordion-item border shadow">
+                                    <h2 class="accordion-header" id="flush-headingOne` + lists[i].noticeNo + `">
+                                        <button class="accordion-button collapsed text-black-50" id="btn-noti-btn`+lists[i].noticeNo+`" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne` + lists[i].noticeNo + `" aria-expanded="false" aria-controls="flush-collapseOne` + lists[i].noticeNo + `">` + lists[i].noticeTitle + `</button>
+                                    </h2>
+                                    <div id="flush-collapseOne` + lists[i].noticeNo + `" class="accordion-collapse collapse" aria-labelledby="flush-headingOne` + lists[i].noticeNo + `" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">` + lists[i].noticeContent + `</div>
+                                    </div>
+                                    </div>`;
+                        }
+                       
                     }
                     
                     $('#noticeContentDiv').html(str);
-                    
                     
                 }
                     

@@ -1,5 +1,5 @@
 @charset "UTF-8";
 
-#btn-noti-btn{
+#noticeContentDiv .accordion-item button {
 	background: #fff9d6;
 }
