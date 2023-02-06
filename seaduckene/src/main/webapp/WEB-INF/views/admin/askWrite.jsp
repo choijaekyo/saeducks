@@ -30,7 +30,7 @@
 		</div>
 
 		<div class="col-12">
-			<button class="sbtn cyan small rounded" type="submit">문의하기</button>
+			<button class="sbtn cyan small rounded " type="submit">문의하기</button>
 		</div>
 	</form>
 	

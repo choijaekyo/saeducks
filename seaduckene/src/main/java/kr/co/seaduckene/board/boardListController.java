@@ -201,6 +201,7 @@ public class boardListController {
 	@GetMapping("/noticeList")
 	@ResponseBody
 	public List<NoticeVO> noticeList() {
+		System.out.println("noticeList :" + service.noticeList() );
 		return service.noticeList();
 	}
 	
@@ -216,7 +217,7 @@ public class boardListController {
 	public List<NoticeVO> noticeLists(PageVO paging) {
 		
 		paging.setCpp(10);
-
+		System.out.println("noticeLists :" + service.noticeLists(paging) );
 		return service.noticeLists(paging);
 	}
 	

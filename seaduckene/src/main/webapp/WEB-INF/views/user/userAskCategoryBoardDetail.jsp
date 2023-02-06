@@ -48,20 +48,26 @@
               </div>
             </div> -->
             <div class="input-group inputArea">
-              <div class="col-md-2 offset-md-1 col-sm-12 col-12">
-                <label for="productContent">상세 내용</label>
-              </div>
-              <div class="col-md-7 col-sm-12 col-12">
-                <p class="form-control" id="content" >${askCategoryBoard.askBoardContent}</p>
-              </div>
-            </div>
-           <c:if test="${empty askCategoryBoard.askBoardReplyContent}">
-            <div class="form-control m-auto text-center" style="width: 60%">곧 답변드리겠습니다.</div>
-           </c:if>
-           <c:if test="${not empty askCategoryBoard.askBoardReplyContent}">
-            <div class="form-control m-auto text-center" style="width: 60%">${askCategoryBoard.askBoardReplyContent}</div>
-           </c:if>
-
+	              <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+	                <label for="productContent">상세 내용</label>
+	              </div>
+	              <div class="col-md-7 col-sm-12 col-12">
+	                <p class="form-control" id="content" >${askCategoryBoard.askBoardContent}</p>
+	              </div>
+             </div>
+			<div class="input-group inputArea">
+	            <div class="col-md-2 offset-md-1 col-sm-12 col-12">
+	            	<label for="answer">답변 내용</label>
+	            </div>
+				<div class="col-md-7 col-sm-12 col-12">
+					<c:if test="${empty askCategoryBoard.askBoardReplyContent}">
+		            	<div class="form-control m-auto text-center" style="width: 100%">곧 답변드리겠습니다.</div>
+		            </c:if>
+		           	<c:if test="${not empty askCategoryBoard.askBoardReplyContent}">
+		            	<div class="form-control m-auto text-center" style="width: 100%">${askCategoryBoard.askBoardReplyContent}</div>
+		           	</c:if>
+				</div>
+			</div>
             <div class=" btns ps-0">
               <div class="btn-b">
                 <button type="button" class="cancel_btn sbtn blue small rounded"  onclick="history.back()" >뒤로가기</button>
