@@ -52,6 +52,8 @@ $(function(){
 			customerName : customerName,
 			successUrl: 'http://13.209.230.106/product/success',
 			failUrl : 'http://13.209.230.106/product/fail'
+/* 			successUrl: '${pageContext.request.contextPath}/product/success',
+			failUrl : '${pageContext.request.contextPath}/product/fail' */
 		});
 	}
 	toss();

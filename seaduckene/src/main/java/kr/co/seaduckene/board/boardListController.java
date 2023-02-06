@@ -175,7 +175,9 @@ public class boardListController {
 	
 	//수정 페이지로 이동
 	@PostMapping("/boardModify")
-	public void modify(@ModelAttribute("list") BoardVO vo) {
+	public void modify(@ModelAttribute("list") BoardVO vo, Model model) {
+		int categoryNo = vo.getBoardCategoryNo();
+		model.addAttribute("category",service.getCategory(categoryNo));
 		System.out.println(vo);
 	}
 	

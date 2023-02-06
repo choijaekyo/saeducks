@@ -164,9 +164,7 @@ ul, ol, dl, li {
    background: #fff9d6;
 }
 
-.section_title {
-  margin-bottom: 75px;
-}
+
 
 .section_title h2 {
   font-size: 36px;
@@ -224,6 +222,10 @@ ul, ol, dl, li {
   font-size: 14px;
   line-height: 24px;
   margin-bottom: 0px;
+}
+
+#section_gap_id .section_title h4 {
+	margin: 0;
 }
 
 /*============ END home ============*/
@@ -328,6 +330,10 @@ header{
 .f_box a {
    text-decoration: none;
    color: black;
+}
+
+#contentUl {
+	padding: 0;
 }
 
 /*============= END footer ==============*/

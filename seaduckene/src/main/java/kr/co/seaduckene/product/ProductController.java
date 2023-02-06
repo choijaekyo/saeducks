@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.seaduckene.board.service.IBoardService;
 import kr.co.seaduckene.common.AddressVO;
 import kr.co.seaduckene.common.CategoryVO;
 import kr.co.seaduckene.product.command.ProductBasketVO;
@@ -51,6 +52,8 @@ public class ProductController {
 	private IProductService productService;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IBoardService boardService;
 	
 	@Value("${toss.clientKey}")
 	private String clientKey;
@@ -511,6 +514,7 @@ public class ProductController {
 	@GetMapping("/productList")
 	public void productList(int categoryNo, Model model) {
 		model.addAttribute("productList", productService.getProductList(categoryNo));
+		model.addAttribute("category",boardService.getCategory(categoryNo));
 	}
 	
 	

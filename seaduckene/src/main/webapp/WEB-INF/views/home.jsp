@@ -4,8 +4,9 @@
 
 <%@ include file="include/header.jsp"%>
 
+<section>
 <!--================ side =================-->
-<div class="container" id="main_container_one">
+<div class="container mt-4" id="main_container_one">
 	<div class="row">
 		<div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
@@ -32,10 +33,10 @@
 		        	<input type="hidden" value="${b.boardNo}" class="bno">
 		            <div class="col-lg-4 col-md-6">
 		                <div class="facilities_item items${b.boardNo}">
-		                    <h4 class="sec_h4 text-truncate">
+		                    <h5 class="sec_h4 text-truncate">
 			                    <i class="bi bi-bookmark-star"></i>
 			                    ${b.boardTitle}
-		                    </h4>
+		                    </h5>
 		                    <%-- <p class="d-inline-block text-truncate">내용 : ${b.boardContent}</p> --%>
 		                    <p>조회수 : ${b.boardViews}</p>
 		                    <p>소카테고리 : ${b.categoryMinorTitle}</p>
@@ -49,6 +50,7 @@
 	</div>
 </div>
 <!--================ END board list content =================-->
+</section>
 
 
 <%@ include file="include/footer.jsp"%>

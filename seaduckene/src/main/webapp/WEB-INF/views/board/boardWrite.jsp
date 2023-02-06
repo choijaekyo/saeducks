@@ -4,14 +4,15 @@
 
 <%@ include file="../include/header.jsp"%>
 
-<div class="container" style="margin-top: 20px;">
+<section>
+	<div class="container mt-4">
    <div class="row">
       <div class="mb-3">
 	  	<div class="col col align-self-center" style="position: relative;">
         	<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='15'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 28px; color: #ffc107; margin-top:10px;">
-			    <li class="breadcrumb-item" id="majorTitle">${category.categoryMajorTitle}</li>
-			    <li class="breadcrumb-item" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
+			  <ol class="breadcrumb" style="margin-bottom: 0; font-size: 25px; color: #ffc107;">
+			    <li class="breadcrumb-item mt-1" id="majorTitle">${category.categoryMajorTitle}</li>
+			    <li class="breadcrumb-item mt-1" id="minorTitle">${category.categoryMinorTitle}&nbsp;&nbsp;</li>
 			  </ol>
 			</nav>
         </div>
@@ -19,7 +20,7 @@
    </div>
    <div class="row">
       <div class="col mb-1">
-		<p>작성자: ${nickName }</p>
+		<p>&nbsp;작성자: ${nickName }</p>
       </div>
    </div>
 </div>
@@ -51,6 +52,7 @@
 
    </div>
 </form>
+</section>
 
 <%@ include file="../include/footer.jsp"%>
 

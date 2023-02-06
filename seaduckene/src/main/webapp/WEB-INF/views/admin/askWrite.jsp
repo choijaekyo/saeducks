@@ -6,9 +6,9 @@
 
 <%@ include file="../include/header.jsp"%>
 
-<div class="container mt-5">
-	<div class="row">
-		<p class="fs-2">문의 사항</p>
+<div class="container mt-4">
+	<div class="row text-center">
+		<h4 class="h4">문의 사항</h4>
 	</div>
 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/askWrite" method="post">
 		
@@ -25,8 +25,8 @@
 		</div>
 		
 		<div class="mb-3 form-floating">
-			<textarea name="askListContent" onkeyup="autoHeight();" class="form-control" id="sss" placeholder="관리자에게 할말을 적으라" required></textarea>
-			<label for="sss">관리자에게 할말을 적으라</label>
+			<textarea name="askListContent" onkeyup="autoHeight();" class="form-control" id="sss" placeholder="문의하실 내용을 입력하세요." required style="resize: none;"></textarea>
+			<label for="sss">문의하실 내용을 입력하세요.</label>
 		</div>
 
 		<div class="col-12">
@@ -34,8 +34,8 @@
 		</div>
 	</form>
 	
-	<div class="row mt-5">
-		<p class="fs-2">내가 문의한 내용</p>
+	<div class="row mt-4 text-center">
+		<h4 class="h4">내가 문의한 내용</h4>
 	</div>
 	<div class="row">
 		<c:forEach var="i" items="${askList}" >
