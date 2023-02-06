@@ -63,6 +63,9 @@ public class BoardServiceImpl implements IBoardService {
 
 	@Override
 	public void update(BoardVO vo) {
+		
+		System.out.println(vo.getBoardContent());
+		
 		mapper.update(vo);
 
 	}
