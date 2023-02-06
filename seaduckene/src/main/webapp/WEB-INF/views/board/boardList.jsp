@@ -35,6 +35,9 @@
 	</div>
 </div>
 
+<hr>
+
+
 <div class="container container-board-div2">
 	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
 	<c:forEach var="proVo" items="${productList}" varStatus="status">

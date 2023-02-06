@@ -25,7 +25,7 @@
 		    <div class="container">
 		        <div class="section_title text-center">
 		            <h2 class="title_w">내가 선택한 덕질</h2>
-		            <p>All the dig in this world that I chose</p>
+		            <p>당신이 선택한 카테고리의 인기글</p>
 		        </div>
 		        <div class="row mb_30">
 		        	<c:forEach var="b" items="${boardList}">

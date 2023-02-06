@@ -123,6 +123,28 @@ public class ProductController {
 		//model.addAttribute("total",total);
 		session.setAttribute("total", total);
 	}
+	@GetMapping("/insertOrder")
+	public void orderSheet2(HttpSession session,int ea, int no, Model model) {
+		System.out.println("controller동작 insertorder/GET");
+		
+		UserVO user = (UserVO)session.getAttribute("login");
+		int userNo = user.getUserNo();
+
+		// 주소목록 불러오기
+		List<AddressVO> addrList = userService.getUserAddr(userNo);
+		model.addAttribute("addrList", addrList);
+		
+		// 장바구니 상품 불러오기
+		ProductVO pvo = productService.getContent(no);
+		model.addAttribute("product", pvo);
+		
+		int total = pvo.getProductPriceSelling()*ea;
+		// 상품 썸네일 가져오기
+		model.addAttribute("ea", ea);
+		
+		//model.addAttribute("total",total);
+		session.setAttribute("total", total);
+	}
 	
 	@GetMapping("/productDetail")
 	public void detail(int productNo,Model model) {
@@ -141,7 +163,7 @@ public class ProductController {
 		System.out.println("fileName:" + fileName);
 		System.out.println("fileLoca:" + fileLoca);
 		
-		File file = new File("/usr/local/imgduck/product/" +fileLoca+"/"+fileName);
+		File file = new File("c:/imgduck/product/" +fileLoca+"/"+fileName);
 		System.out.println(file);
 		
 		byte[] result = null;
@@ -167,7 +189,7 @@ public class ProductController {
 		String fileName = vo.getProductImageFileName();
 		
 		
-		File file = new File("/usr/local/imgduck/product/" +fileLoca+"/"+fileName);
+		File file = new File("c:/imgduck/product/" +fileLoca+"/"+fileName);
 		System.out.println(file);
 		
 		byte[] result = null;
@@ -181,6 +203,38 @@ public class ProductController {
 
 	@PostMapping("/order")
 	public String order(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,
+						ProductOrderVO orderVo ,String userEmail, HttpSession session,
+						RedirectAttributes ra) {
+		System.out.println("controller 동작");
+		System.out.println(orderVo);
+		System.out.println(userEmail);
+		System.out.println(orderVo.getOrderPaymentMethod());
+		
+		UserVO user = (UserVO)session.getAttribute("login");	
+		
+		String result =  productService.checkStock(orderProductNoList, user);
+		
+		
+		
+		if(result.equals("lack")) {
+			ra.addFlashAttribute("result", result);
+			return "redirect:/product/order";
+		} else {
+			if(orderVo.getOrderPaymentMethod().equals("tossPay")) {
+				session.setAttribute("orderList", orderProductNoList);
+				session.setAttribute("orderVo", orderVo);
+				session.setAttribute("userEmail", userEmail);
+				ra.addFlashAttribute("clientKey", clientKey);
+				return "redirect:/product/payment";
+			} else {
+				productService.order(orderProductNoList, orderVo, userEmail, user);
+				return "redirect:/user/userMyPage/4";	
+			}
+		}
+		
+	}
+	@PostMapping("/order2")
+	public String order2(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,
 						ProductOrderVO orderVo ,String userEmail, HttpSession session,
 						RedirectAttributes ra) {
 		System.out.println("controller 동작");
@@ -241,8 +295,8 @@ public class ProductController {
 		String today = simple.format(new Date());
 		ivo.setProductImageFolder(today);
 		list.add(thumb);
-		String uploadFolder ="/usr/local/imgduck/product/"+today;
-		ivo.setProductImagePath("/usr/local/imgduck/product/");
+		String uploadFolder ="c:/imgduck/product/"+today;
+		ivo.setProductImagePath("c:/imgduck/product/");
 		for(int i =0;i<list.size();i++ ) {
 				ivo.setProductThumbnail(0);
 			if(i==(list.size()-1)) {
@@ -306,8 +360,8 @@ public class ProductController {
 			String today = simple.format(new Date());
 			ivo.setProductImageFolder(today);
 			list.add(thumb);
-			String uploadFolder ="/usr/local/imgduck/product/"+today;
-			ivo.setProductImagePath("/usr/local/imgduck/product/");
+			String uploadFolder ="c:/imgduck/product/"+today;
+			ivo.setProductImagePath("c:/imgduck/product/");
 			for(int i =0;i<list.size();i++ ) {
 					ivo.setProductThumbnail(0);
 					ivo.setProductImageProductNo(vo.getProductNo());
@@ -346,7 +400,7 @@ public class ProductController {
 	@GetMapping("/mainDisplayImg")
 	public ResponseEntity<byte[]> mainDisplayImg(String fileLoca, String fileName) {
 		
-		File file = new File("/usr/local/imgduck/product/" + fileLoca + "/" + fileName);
+		File file = new File("c:/imgduck/product/" + fileLoca + "/" + fileName);
 		ResponseEntity<byte[]>result = null;
 		HttpHeaders headers = new HttpHeaders();
 		try {

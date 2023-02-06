@@ -50,8 +50,8 @@ $(function(){
 			orderId : orderId,
 			orderName : orderName,
 			customerName : customerName,
-			successUrl: 'http://localhost/product/success',
-			failUrl : 'http://localhost/product/fail'
+			successUrl: 'http://13.209.230.106/product/success',
+			failUrl : 'http://13.209.230.106/product/fail'
 		});
 	}
 	toss();

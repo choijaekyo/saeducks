@@ -404,7 +404,7 @@
 				        </table>
 				        <div>
 				        	<div class="col-md-2 offset-md-10 text-end" style="line-height: 25px;">
-				                	총액:&nbsp;&#8361;<span id='totalPrice'><fmt:formatNumber value="${total }" pattern="#,###" /> </span>
+				                	총액:&nbsp;&#8361;<span id='totalPrice'><fmt:formatNumber value="${btotal }" pattern="#,###" /> </span>
 				            </div>
 				            <div class="col-md-2 offset-md-10 text-end">
 				                <button type="button" class="sbtn cyan small rounded" id="orderBtn">주문하기</button>

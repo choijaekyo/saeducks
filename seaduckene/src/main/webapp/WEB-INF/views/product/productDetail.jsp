@@ -83,12 +83,16 @@
 						<span>&#8361;<fmt:formatNumber value="${vo.productPriceSelling }" pattern="#,###" /></span>
 					</div>
 					<p class="lead">${vo.productDetail }</p>
-					<div class="d-flex">
+					<div class="d-flex ">
 						<input class="form-control text-center" id="inputQuantity"
 							type="number" value="0" min="0" max="${vo.productStock }">
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
 							id="cartBtn">
 							<i class="bi-cart-fill me-1"></i> Add to cart
+						</button>
+						<button class="btn btn-outline-dark flex-shrink-0" type="button"
+							id="orderBtn" style="display:none;">
+							 상품주문
 						</button>
 						<c:if test="${admin != null }">
 							<a href="<c:url value="/product/modifyProduct?no=${vo.productNo }"/>">수정</a>
@@ -109,6 +113,7 @@
 		const pNo = '${vo.productNo}';
 		const price = '${vo.productPriceSelling}';
 		const pName = '${vo.productName}';
+		const bStock = '${vo.productStock}';
 		$('#cartBtn').click(function() {
 			if(userNo == ''){
 				alert('주문은 로그인이 필요한 기능입니다');
@@ -116,10 +121,15 @@
 			}
 			let ea = $('#inputQuantity').val();
 	         console.log(ea);
+	         console.log(bStock);
 	         if(ea <= 0){
 	            alert('0개 이하는 주문이 안됩니다!');
 	            $('#inputQuantity').val(0);
 	            return;
+	         }
+	        if(+(ea) > +(bStock)){
+	        	 alert('재고수량을 초과해서 담을수 없습니다 재고수량:'+bStock);
+	        	 return;
 	         }
 			$.ajax({
 				type : 'post',
@@ -151,6 +161,25 @@
 			}); // 장바구니 등록 비동기 통신 끝
 
 		});//장바구니 추가 끝
-
+		
+		$('#orderBtn').click(function() {
+			if(userNo == ''){
+				alert('주문은 로그인이 필요한 기능입니다');
+				return;
+			}
+			let ea = $('#inputQuantity').val();
+	         console.log(ea);
+	         console.log(bStock);
+	         if(ea <= 0){
+	            alert('0개 이하는 주문이 안됩니다!');
+	            $('#inputQuantity').val(0);
+	            return;
+	         }
+	        if(+(ea) > +(bStock)){
+	        	 alert('재고수량을 초과해서 담을수 없습니다 재고수량:'+bStock);
+	        	 return;
+	         }
+	        location.href='${pageContext.request.contextPath}/product/insertOrder?ea='+ea+'&no='+pNo;
+		});//바로주문 상품
 	});// end jQuery
 </script>

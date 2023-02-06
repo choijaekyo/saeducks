@@ -27,7 +27,7 @@
 		   DailyRollingFileAppender: 설정한 기간 단위로 새 파일을 만들어서 로그 메세지를 기록합니다.
 	-->
 	<appender name="rollingFile" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="/usr/local/LOG/all.log" />
+		<param name="File" value="c:/LOG/all.log" />
 		<param name="Append" value="true" /> <!-- 기존 파일에 붙여넣을지, 새로 생성할지 정하는 태그 -->
 		<!-- <param name="MaxFileSize" value="10MB" /> --> <!-- 파일의 최대 크기 -->
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
@@ -54,7 +54,7 @@
 	<appender name="errFile" class="org.apache.log4j.DailyRollingFileAppender">
 		<!-- 이 태그를 지정하면 값에 대항하는 레벨의 로그만 출력하고, 없으면 전부 다 출력한다. -->
 		<param name="Threshold" value="ERROR" />
-		<param name="File" value="/usr/local/LOG/error.log" />
+		<param name="File" value="c:/LOG/error.log" />
 		<param name="Append" value="true" />
 		<!-- <param name="MaxFileSize" value="10MB" /> -->
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />

@@ -138,7 +138,7 @@ public class UserController {
 			String today = simple.format(new Date());
 			
 			String fileRealName = profilePic.getOriginalFilename(); // 파일 원본명
-			String profilePath = "/usr/local/imgduck/user/";
+			String profilePath = "c:/imgduck/user/";
 			
 			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
 			
@@ -226,7 +226,7 @@ public class UserController {
 		modelAndView.addObject("name", name);
 		modelAndView.addObject("order", ovo);
 		modelAndView.addObject("basket", bvo);
-		modelAndView.addObject("total", total);
+		modelAndView.addObject("btotal", total);
 		modelAndView.addObject("user", userVo);
 		
 		log.info(userService.getCategories());
@@ -547,7 +547,7 @@ public class UserController {
 			String today = simple.format(new Date());
 			
 			String fileRealName = profilePic.getOriginalFilename(); // 파일 원본명
-			String profilePath = "/usr/local/imgduck/user/";
+			String profilePath = "c:/imgduck/user/";
 			
 			String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
 			
