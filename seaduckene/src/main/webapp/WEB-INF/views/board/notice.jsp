@@ -39,6 +39,8 @@
 
     $(function() {
     	
+    	let no = parseInt('${param.no}');
+    	
     	const total = parseInt('${total}');
     	console.log('total' + total);
         
@@ -59,7 +61,7 @@
         getLists(1, false);
         
         let pageList = 0;
-        
+        let noticeNo = 0;
         function getLists(page, reset) {
             
             console.log('getList 함수 호출');
@@ -76,7 +78,7 @@
                     console.log("list.length : " + lists.length);
                     console.log("list : " + lists);
                     
-    				if(total > page*9){
+    				if(total > page*10){
     					$('#the-noti-btn').css('display','block');
     				}else {
     					isFinish = true;
@@ -84,20 +86,27 @@
     				}
                     
                     for(let i=0; i<lists.length; i++) {
-                        
                         str += 
                         `<div class="accordion-item border shadow">
-                            <h2 class="accordion-header" id="flush-headingOne` + page + i + `">
-                                <button class="accordion-button collapsed text-black-50" id="btn-noti-btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne` + page + i + `" aria-expanded="false" aria-controls="flush-collapseOne` + page + i + `">` + lists[i].noticeTitle + `</button>
+                            <h2 class="accordion-header" id="flush-headingOne` + lists[i].noticeNo + `">
+                                <button class="accordion-button collapsed text-black-50" id="btn-noti-btn`+lists[i].noticeNo+`" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne` + lists[i].noticeNo + `" aria-expanded="false" aria-controls="flush-collapseOne` + lists[i].noticeNo + `">` + lists[i].noticeTitle + `</button>
                             </h2>
-                            <div id="flush-collapseOne` + page + i + `" class="accordion-collapse collapse" aria-labelledby="flush-headingOne` + page + i + `" data-bs-parent="#accordionFlushExample">
+                            <div id="flush-collapseOne` + lists[i].noticeNo + `" class="accordion-collapse collapse" aria-labelledby="flush-headingOne` + lists[i].noticeNo + `" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body">` + lists[i].noticeContent + `</div>
                             </div>
                             </div>`;
-                            
+                        noticeNo = lists[i].noticeNo;
+                        console.log('noticeNo:' + noticeNo);
+                        if(no === noticeNo) {
+                        console.log('1' + no);
+                        console.log('2' + noticeNo);
+                    	$('#btn-noti-btn'+ noticeNo).click();
+                   		 }
                     }
                     
                     $('#noticeContentDiv').html(str);
+                    
+                    
                 }
                     
             ); //end getJSON()

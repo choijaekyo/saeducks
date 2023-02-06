@@ -275,7 +275,7 @@
 								id="orderBtn">주문</button>
 						</div>
 						<div class="col-md-3 col-sm-6 col-6">
-							<button type="button" onclick="history.back()"
+							<button type="button" onclick="location.href='${pageContext.request.contextPath}/user/userMyPage/3'"
 								class="cancel_btn sbtn blue small rounded">취소</button>
 						</div>
 					</div>

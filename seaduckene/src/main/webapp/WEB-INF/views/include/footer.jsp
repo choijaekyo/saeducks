@@ -112,7 +112,7 @@
                for(let i=0; i<list.length; i++) {
                   
                   str += 
-                  `<li>`+ list[i].noticeTitle +`</li>`;      
+                	  `<li><a href="${pageContext.request.contextPath}/board/notice?no=`+list[i].noticeNo+`">`+ list[i].noticeTitle +`</a></li>`;    
                }
             }
 
