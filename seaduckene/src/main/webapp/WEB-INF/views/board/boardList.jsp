@@ -147,12 +147,15 @@ $(function() {
 					str += 
 				    `<div class="col">
 				    <div class="card shadow-sm detailButton" data-bno="` + list[i].boardNo + `">
-				      <svg width="100%" height="225">
+				      <svg width="100%" height="225"> `;
 				      
+				    if (list[i].boardContent.indexOf('<img') == -1) {
+				   		str += `<image href="/board/getImg/saeduckBoardImage.png" width="100%" height="100%" style="opacity: 0.5;"/>`;
+					} else {
+						str += `<image href="/board/getImg/` + list[i].boardImageUuid + `" width="100%" height="100%" style="opacity: 0.5;"/>`;
+					}
 				      
-				      <image href="/board/getImg/` + list[i].boardImageUuid + `" width="100%" height="100%" style="opacity: 0.5;"/>
-				      
-				      </svg>
+				      str += `</svg>
 				      <div class="card-body container">
 				        <div class="d-flex justify-content-between align-items-center row">
 							<p class="col-8 text-truncate" style="color: #5c5e5e; margin-bottom: 0;">` + list[i].boardTitle + `</p>
