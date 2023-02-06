@@ -83,19 +83,19 @@
 	border-radius: 50%;
 }
 
-#userMyPage .update-container .file-upload span {
-	font-size: 105px;
+#userMyPage .update-container .file-upload i {
+	font-size: 37px;
 	position: relative;
-	top: -38px;
-	left: -16px;
+	top: 0px;
+	left: -3px;
 }
 
 #userMyPage .update-container .file-upload {
 	position: relative;
 	overflow: hidden;
-	width: 60px;
-	height: 60px;
-	top: -60px;
+	width: 50px;
+	height: 50px;
+	top: -50px;
 	left: 65px;
 	border-radius: 50% !important;
 	background: #76b1de;

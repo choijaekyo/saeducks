@@ -106,7 +106,7 @@
 						</c:if>
 							<div class="clearfix">
 								<div class="file-upload">
-									<span>+</span>
+									<i class="bi bi-box-arrow-up"></i>
 									<input name="profilePic" type="file" class="upload" id="user-profile-pic" accept="image/*" > <br>
 								</div>
 							</div>
