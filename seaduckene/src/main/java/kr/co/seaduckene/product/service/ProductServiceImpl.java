@@ -42,8 +42,9 @@ public class ProductServiceImpl implements IProductService {
 	// 상품 재고수량 확인
 	public String checkStock (List<Integer> orderProductNoList, UserVO user, int ea) {
 		int userNo = user.getUserNo();
-		
+		System.out.println("CALL checkStock");
 		if(ea != 0) {
+			System.out.println("order2");
 			for(int productNo : orderProductNoList) {
 				ProductVO product = productMapper.getContent(productNo);
 				int stock = product.getProductStock();
@@ -55,6 +56,7 @@ public class ProductServiceImpl implements IProductService {
 			return "possible";
 			
 		} else {
+			System.out.println("order1");
 			for(int productNo : orderProductNoList) {
 				Map<String, Object> basketMap = new HashMap<String, Object>();
 				basketMap.put("userNo", userNo);

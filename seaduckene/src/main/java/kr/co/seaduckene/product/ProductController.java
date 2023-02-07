@@ -245,12 +245,12 @@ public class ProductController {
 		UserVO user = (UserVO)session.getAttribute("login");	
 		
 		String result =  productService.checkStock(pNo, user, ea);
-		
-		
-		
-		if(result.equals("lack")) {
-			ra.addFlashAttribute("result", result);
-			return "redirect:/product/order";
+
+		if(result.contains("lack")) {
+			String[]re = result.split("/");
+			ra.addFlashAttribute("result", re[0]);
+			ra.addFlashAttribute("productName", re[1]);
+			return "redirect:/product/insertOrder";
 		} else {
 			if(orderVo.getOrderPaymentMethod().equals("tossPay")) {
 				session.setAttribute("orderList", pNo);
