@@ -22,11 +22,11 @@
 		        (
 		        SELECT d.*, i.*, c.*, u.user_nickname AS writer
                 FROM board d
-                INNER JOIN boardImage i
+                LEFT JOIN boardImage i
                 ON d.board_no = i.board_board_no
-                INNER JOIN category c
+                LEFT JOIN category c
             	ON d.board_category_no = c.category_no
-            	INNER JOIN duck_user u
+            	LEFT JOIN duck_user u
             	ON d.board_user_no = u.user_no
 		        WHERE d.board_category_no = #{categoryNo}
                 ORDER BY d.board_no DESC
@@ -120,9 +120,9 @@
 		    SELECT ROWNUM AS rn, tbl.* FROM
 		        (
 		            SELECT b.board_no, b.board_title, b.board_content, b.board_views, c.category_major_title, c.category_minor_title, d.user_nickname
-		            FROM board b INNER JOIN category c
+		            FROM board b LEFT JOIN category c
 		                             ON b.board_category_no = c.category_no
-		                             INNER JOIN duck_user d
+		                             LEFT JOIN duck_user d
 		                             ON b.board_user_no = d.user_no
 		        ) tbl
 		    ) s
