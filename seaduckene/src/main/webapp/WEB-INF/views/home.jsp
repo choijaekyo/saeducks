@@ -49,7 +49,7 @@
 		                    <%-- <p class="d-inline-block text-truncate">내용 : ${b.boardContent}</p> --%>
 		                    <p>조회수 : ${b.boardViews}</p>
 		                    <p>소카테고리 : ${b.categoryMinorTitle}</p>
-		                    <p>작성자 : ${b.userNickname}</p>
+		                    <p>작성자 : ${b.userNickname == null ? '탈퇴회원' : b.userNickname}</p>
 		                </div>
 		            </div>
 		            </c:forEach>
