@@ -1506,7 +1506,7 @@ let emailConfirm = true;
 				return;
 			}
 			
-			for (let i = 1; i < majors.length; i++) {
+			for (let i = 0; i < majors.length; i++) {
 				if (i == currCategories_index) {
 					i++;
 					continue;
@@ -1520,7 +1520,7 @@ let emailConfirm = true;
 			}
 			
 			const minors = $('select[name=categoryMinorTitle]');
-			for (let i = 1; i < minors.length; i++) {
+			for (let i = 0; i < minors.length; i++) {
 				if (i == currCategories_index) {
 					i++;
 					continue;
