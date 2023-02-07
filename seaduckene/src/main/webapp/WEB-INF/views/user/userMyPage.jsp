@@ -122,7 +122,7 @@
 							<p>이름</p>
 							<div class="input-group inputArea">
 			                    <div class="col-md-12 col-sm-12 col-12">
-			                        <input name="userName" class="form-control join-input" type="text" placeholder="이름" value="${user.userName}" id="userName" required />
+			                        <input name="userName" class="form-control join-input" type="text" placeholder="이름" value="${user.userName}" id="userName" maxlength="10" required />
 			                    </div>
 		                	</div> <br>							
 							<p>닉네임</p>
@@ -140,7 +140,7 @@
 		               		<span class="basic-info">카테고리 정보</span> 
 							<ul class="category-wrap">
 							<c:forEach var="userCategory" items="${userCategoryList}" varStatus="status">
-								<li class="li-category" data-index='${status.index}'>
+								<li class="li-category currCategories" data-index='${status.index}'>
 									<select  name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example" >
 		                                    <option selected disabled>대 카테고리</option>
 		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
@@ -157,7 +157,7 @@
 							<span class="basic-info">카테고리 추가</span> 
 							<a href="##" id="add-category"><i class="bi bi-plus-square"></i></a>
 							<ul id="category-wrap" class="category-wrap"> <!-- JS로 ul 자식에 li를 추가해서 추가 카테고리 정보를 받는다. -->
-								<li style="display: none;" >
+								<li style="display: none;">
 									<select name="categoryMajorTitle" class="form-select join-category" aria-label="Default select example">
 		                                    <option selected disabled>대 카테고리</option>
 		                                    <c:forEach var="i" begin="0" end="${majorLength}" step="1">
@@ -829,7 +829,7 @@ let emailConfirm = true;
 		});
 		
 		$('#userName').hover(function() {
-			$(this).attr('placeholder', '한/영');
+			$(this).attr('placeholder', '한/영 10자리');
 		}, function() {
 			$(this).attr('placeholder', '이름');			
 		});
@@ -942,7 +942,7 @@ let emailConfirm = true;
         /* 이름 확인검사 */
         $('#userName').keyup(function() {
         	$(this).css('color', 'black');
-			const regex = /^[가-힣a-zA-Z]+$/;
+			const regex = /^[가-힣a-zA-Z]{1,10}$/;
 
 			if ($(this).val() === '${user.userName}') {
 				nameConfirm = true;
@@ -1051,6 +1051,7 @@ let emailConfirm = true;
         	$($cloneLi).attr('data-index', indexLi);
         	$($cloneLi).css('display', 'list-item');
         	$($cloneLi).addClass('li-category');
+        	
         	
         	$('#category-wrap').append($cloneLi);
         	
@@ -1497,6 +1498,7 @@ let emailConfirm = true;
 			return;
 		} else {
 			const majors = $('select[name=categoryMajorTitle]');
+			const currCategories_index = $('.currCategories').length - 1;
 			
 			if (majors.length <= 1) {
 				hidePwModal();
@@ -1505,7 +1507,7 @@ let emailConfirm = true;
 			}
 			
 			for (let i = 1; i < majors.length; i++) {
-				if (i == 2) {
+				if (i == currCategories_index) {
 					i++;
 					continue;
 				}
@@ -1519,7 +1521,7 @@ let emailConfirm = true;
 			
 			const minors = $('select[name=categoryMinorTitle]');
 			for (let i = 1; i < minors.length; i++) {
-				if (i == 2) {
+				if (i == currCategories_index) {
 					i++;
 					continue;
 				}

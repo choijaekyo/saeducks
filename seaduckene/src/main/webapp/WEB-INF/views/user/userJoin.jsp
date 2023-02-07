@@ -56,7 +56,7 @@
                 	</div>
 					<div class="input-group inputArea">
 	                    <div class="col-md-12 col-sm-12 col-12">
-	                        <input name="userName" class="form-control join-input" type="text" placeholder="이름" id="userName" required />
+	                        <input name="userName" class="form-control join-input" type="text" placeholder="이름" id="userName" maxlength="10" required />
 	                    </div>
                 	</div>
 					<div class="input-group inputArea">
@@ -419,7 +419,7 @@
 		});
 		
 		$('#userName').hover(function() {
-			$(this).attr('placeholder', '한/영');
+			$(this).attr('placeholder', '한/영 10자리');
 		}, function() {
 			$(this).attr('placeholder', '이름');			
 		});
@@ -504,7 +504,7 @@
         /* 이름 확인검사 */
         $('#userName').keyup(function() {
         	$(this).css('color', 'black');
-			const regex = /^[가-힣a-zA-Z]+$/;
+			const regex = /^[가-힣a-zA-Z]{1,10}$/;
 			nicknameCheck = false;
 			
 			if (regex.test($(this).val())) {
