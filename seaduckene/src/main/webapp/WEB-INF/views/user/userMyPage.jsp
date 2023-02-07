@@ -1050,6 +1050,7 @@ let emailConfirm = true;
         	const $cloneLi = document.getElementById('category-wrap').firstElementChild.cloneNode(true);
         	$($cloneLi).attr('data-index', indexLi);
         	$($cloneLi).css('display', 'list-item');
+        	$($cloneLi).addClass('li-category');
         	
         	$('#category-wrap').append($cloneLi);
         	

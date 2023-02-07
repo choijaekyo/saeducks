@@ -207,7 +207,7 @@ public class UserServiceImpl implements IUserService {
 		for (int i = 0; i < newMajorList.length; i++) {
 			CategoryVO borVo = new CategoryVO(0, newMajorList[i], newMinorList[i], null);
 			Map<String, Integer> map = new HashMap<String, Integer>();
-			if (currCategoryVOs.get(i).getCategoryNo() != userMapper.getCategoryNo(borVo)) {
+			if (currCategoryVOs.size() != 0 && currCategoryVOs.get(i).getCategoryNo() != userMapper.getCategoryNo(borVo)) {
 				log.info("curr: " + currCategoryVOs.get(i).getCategoryNo());
 				log.info("new: " + userMapper.getCategoryNo(borVo));
 				map.put("categoryNo", userMapper.getCategoryNo(borVo));
