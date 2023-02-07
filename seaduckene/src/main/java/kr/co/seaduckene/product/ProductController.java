@@ -208,7 +208,7 @@ public class ProductController {
 	public String order(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,
 						ProductOrderVO orderVo ,String userEmail, HttpSession session,
 						RedirectAttributes ra) {
-		System.out.println("controller 동작");
+		System.out.println("controller동작 order/POST");
 		System.out.println(orderVo);
 		System.out.println(userEmail);
 		System.out.println(orderVo.getOrderPaymentMethod());
@@ -219,8 +219,10 @@ public class ProductController {
 		
 		
 		
-		if(result.equals("lack")) {
-			ra.addFlashAttribute("result", result);
+		if(result.contains("lack")) {
+			String[]re = result.split("/");
+			ra.addFlashAttribute("result", re[0]);
+			ra.addFlashAttribute("productName", re[1]);
 			return "redirect:/product/order";
 		} else {
 			if(orderVo.getOrderPaymentMethod().equals("tossPay")) {
@@ -240,7 +242,7 @@ public class ProductController {
 	public String order2(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,
 						ProductOrderVO orderVo ,String userEmail, HttpSession session,
 						RedirectAttributes ra) {
-		System.out.println("controller 동작");
+		System.out.println("controller동작 order2/POST");
 		System.out.println(orderVo);
 		System.out.println(userEmail);
 		System.out.println(orderVo.getOrderPaymentMethod());

@@ -164,8 +164,6 @@ ul, ol, dl, li {
    background: #fff9d6;
 }
 
-
-
 .section_title h2 {
   font-size: 36px;
   line-height: 45px;
@@ -181,6 +179,7 @@ ul, ol, dl, li {
 
 .title_w {
   color: rgb(0, 0, 0);
+  margin: 0;
 }
 
 .facilities_area {
@@ -315,6 +314,16 @@ header{
    border: 1px solid rgb(255, 193, 7);
    box-shadow: 0 0 5px 0.20rem rgba(255, 193, 7, 0.475);
 }
+
+
+
+.dropdown-toggle::after { transition: transform 0.15s linear;}
+
+.show.dropdown .dropdown-toggle::after {transform: translateY(3px);}
+
+.dropdown-menu {margin-top: 0;} /* hover 메뉴때문에 넣음 */
+
+
 
 
 /*============= END header ==============*/

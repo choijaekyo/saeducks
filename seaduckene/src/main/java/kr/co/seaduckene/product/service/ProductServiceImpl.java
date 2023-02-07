@@ -50,8 +50,9 @@ public class ProductServiceImpl implements IProductService {
 			ProductBasketVO basket = productMapper.getBasket(basketMap);
 			
 			int stock = productMapper.getContent(productNo).getProductStock();
+			String productName = productMapper.getContent(productNo).getProductName();
 			if(stock < basket.getBasketQuantity()) {
-				return "lack";
+				return "lack/"+productName;
 			}
 		}
 		return "possible";

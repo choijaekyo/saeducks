@@ -106,6 +106,7 @@
 						console.log(data);
 					},
 					error: function() {
+						authCode = 'fail';
 						alert('이메일 전송 실패');
 					}
 				});//end-ajax	

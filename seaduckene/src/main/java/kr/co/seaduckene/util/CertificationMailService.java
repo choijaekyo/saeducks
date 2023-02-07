@@ -29,7 +29,7 @@ public class CertificationMailService {
 	public String joinEmail(String email) {
 		makeAuthNum(); 
 		System.out.println("joinEmail: " + authNum);
-		String setFrom = "s949794@naver.com"; // email-config에 설정한 발신용 이메일 주소
+		String setFrom = "waytogo_816@naver.com"; // email-config에 설정한 발신용 이메일 주소
 		String toMail = email;
 		String title = "회원 가입 인증 이메일 입니다.";
 		String content = "홈페이지를 방문해 주셔서 감사합니다." + 
@@ -51,7 +51,7 @@ public class CertificationMailService {
 	public String sendTmpPw(String email) {
 		makeTmpPw();
 		System.out.println("임시비밀번호: " + tmpPw);
-		String setFrom = "s949794@naver.com"; // email-config에 설정한 발신용 이메일 주소
+		String setFrom = "waytogo_816@naver.com"; // email-config에 설정한 발신용 이메일 주소
 		String toMail = email;
 		String title = "임시 비밀번호 입니다.";
 		String content = "<br><br>" +

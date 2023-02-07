@@ -5,8 +5,17 @@
 <%@ include file="include/header.jsp"%>
 
 <section>
+<div class="container">
+	<div class="row">
+		<div class="col-12 text-center mt-4">
+			<h2>세상 모든 덕질</h1>
+			<h1>세덕이네</h1>
+			<p>당신의 즐거운 덕질을 위해 <br>커뮤니티와 쇼핑을 한 번에!</p>
+		</div>
+	</div>
+</div>
 <!--================ side =================-->
-<div class="container mt-4" id="main_container_one">
+<div class="container " id="main_container_one">
 	<div class="row">
 		<div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
@@ -26,9 +35,9 @@
 		    <div class="container">
 		        <div class="section_title text-center">
 		            <h2 class="title_w">내가 선택한 덕질</h2>
-		            <p>당신이 선택한 카테고리의 인기글</p>
+		            <p>내가 선택한 카테고리의 인기글</p>
 		        </div>
-		        <div class="row mb_30">
+		        <div class="row mb_30 mt-2">
 		        	<c:forEach var="b" items="${boardList}">
 		        	<input type="hidden" value="${b.boardNo}" class="bno">
 		            <div class="col-lg-4 col-md-6">
