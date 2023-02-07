@@ -2,6 +2,7 @@ package kr.co.seaduckene.user.service;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -204,7 +205,7 @@ public class UserServiceImpl implements IUserService {
 		List<CategoryVO> currCategoryVOs = userMapper.getUserCategories(userNo);
 		List<FavoriteVO> currFavoriteVOs = userMapper.getUserFavorites(userNo);
 		
-		for (int i = 0; i < newMajorList.length; i++) {
+		for (int i = 0; i < currCategoryVOs.size(); i++) {
 			CategoryVO borVo = new CategoryVO(0, newMajorList[i], newMinorList[i], null);
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			if (currCategoryVOs.size() != 0 && currCategoryVOs.get(i).getCategoryNo() != userMapper.getCategoryNo(borVo)) {
@@ -276,6 +277,11 @@ public class UserServiceImpl implements IUserService {
 				addressMapper.updateAddr(modiAddressVo);
 			}
 		}
+	}
+
+	@Override
+	public int getCountUserAddress(int userNo) {
+		return userMapper.getCountUserAddress(userNo);
 	}
 	
 	@Override

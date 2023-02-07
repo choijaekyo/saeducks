@@ -1495,6 +1495,41 @@ let emailConfirm = true;
 			$('#userEmail').focus();
 			alert('이메일을 인증하세요.');
 			return;
+		} else {
+			const majors = $('select[name=categoryMajorTitle]');
+			
+			if (majors.length <= 1) {
+				hidePwModal();
+				alert('카테고리를 선택은 필수입니다.');
+				return;
+			}
+			
+			for (let i = 1; i < majors.length; i++) {
+				if (i == 2) {
+					i++;
+					continue;
+				}
+				if (majors[i].value === '대 카테고리') {
+					hidePwModal();
+					alert('대 카테고리를 선택하세요.');
+					majors[i].focus();				
+					return;						
+				}	  
+			}
+			
+			const minors = $('select[name=categoryMinorTitle]');
+			for (let i = 1; i < minors.length; i++) {
+				if (i == 2) {
+					i++;
+					continue;
+				}
+				if (minors[i].value === '소 카테고리') {
+					hidePwModal();
+					alert('소 카테고리를 선택하세요.');
+					minors[i].focus();				
+					return;						
+				}	  
+			}
 		}
 		
 		// 주소가 null 인 상태로 주소록 모달 창을 닫을 수가 없으니까 주소는 null 체크 안해도 됨.

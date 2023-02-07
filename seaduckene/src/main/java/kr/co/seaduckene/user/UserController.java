@@ -430,6 +430,8 @@ public class UserController {
 		}
 //		currUserFavortiesCount = categoryIndexList.size();
 		
+		currUserFavortiesCount = userService.getCountUserAddress(userNo);
+		
 		if (currUserFavortiesCount < allUserCategoriesCount) {
 			String[] newMajorArray = new String[allUserCategoriesCount - currUserFavortiesCount];
 			String[] newMinorArray = new String[allUserCategoriesCount - currUserFavortiesCount];

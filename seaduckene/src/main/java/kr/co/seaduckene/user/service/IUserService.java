@@ -94,6 +94,9 @@ public interface IUserService {
 	// 유저의 address 변경
 	void updateUserAddress(AddressVO newAddressVO, int userNo);
 	
+	// 유저의 address count 조회
+	int getCountUserAddress(int userNo);
+	
 	// rn 순서, userNo로 addressVO 얻기
 	AddressVO getUserAddressWithRn(int addressIndex, int userNo);
 	
