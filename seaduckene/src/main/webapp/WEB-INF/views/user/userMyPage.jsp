@@ -1662,7 +1662,6 @@ let emailConfirm = true;
 	         location.href ="<c:url value = '/product/order' />";
 	      }
 	      
-	      
 	   });
 	
 	const input = document.querySelector('#user-profile-pic');

@@ -97,6 +97,8 @@
 										<!--상품번호-->
 										<input type="hidden" name="orderProductNo"
 											value="${product.productNo }" />
+										<input type="hidden" name="orderQuantity"
+													value="${ea }" />
 									</div>
 								</div>
 							</div>

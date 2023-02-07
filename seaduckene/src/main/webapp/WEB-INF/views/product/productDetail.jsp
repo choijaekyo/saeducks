@@ -91,7 +91,7 @@
 							<i class="bi-cart-fill me-1"></i> Add to cart
 						</button>
 						<button class="btn btn-outline-dark flex-shrink-0" type="button"
-							id="orderBtn" style="display:none;">
+							id="orderBtn">
 							 상품주문
 						</button>
 						<c:if test="${admin != null }">
@@ -164,7 +164,7 @@
 		
 		$('#orderBtn').click(function() {
 			if(userNo == ''){
-				alert('주문은 로그인이 필요한 기능입니다');
+				alert('주문은 로그인이 필요한 기능입니다.');
 				return;
 			}
 			let ea = $('#inputQuantity').val();
@@ -176,10 +176,10 @@
 	            return;
 	         }
 	        if(+(ea) > +(bStock)){
-	        	 alert('재고수량을 초과해서 담을수 없습니다 재고수량:'+bStock);
+	        	 alert('재고수량을 초과해서 담을수 없습니다. 재고수량:'+bStock);
 	        	 return;
 	         }
-	        location.href='${pageContext.request.contextPath}/product/insertOrder?ea='+ea+'&no='+pNo;
+	        location.href='${pageContext.request.contextPath}/product/insertOrder?ea='+ea+'&pNo='+pNo;
 		});//바로주문 상품
 	});// end jQuery
 </script>

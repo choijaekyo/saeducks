@@ -95,11 +95,6 @@ public class ProductController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/master")
-	public void master() {
-		
-	}
-	
 	@GetMapping("/order")
 	public void orderSheet(HttpSession session,Model model) {
 		System.out.println("controller동작 order/GET");
@@ -111,23 +106,22 @@ public class ProductController {
 		List<AddressVO> addrList = userService.getUserAddr(userNo);
 		model.addAttribute("addrList", addrList);
 		
+		int total = 0;
+		
 		// 장바구니 상품 불러오기
-		List<ProductBasketVO> basketList = productService.getBasketList(userNo);
+		List<ProductBasketVO> basketList = productService.getBasketList(userNo);			
 		model.addAttribute("basketList",basketList);
 		
-		int total = 0;
-		// 상품 썸네일 가져오기
-		for(ProductBasketVO product : basketList) {
-			//ProductImageVO thumbnail = productService.getThumbnailImg(product.getBasketProductNo());
-			
+		for(ProductBasketVO product : basketList) {				
 			// 총액 계산하기
 			total += product.getBasketQuantity()*product.getBasketPrice();
 		}
 		//model.addAttribute("total",total);
 		session.setAttribute("total", total);
 	}
+	
 	@GetMapping("/insertOrder")
-	public void orderSheet2(HttpSession session,int ea, int no, Model model) {
+	public void orderSheet2(HttpSession session,int ea, int pNo, Model model) {
 		System.out.println("controller동작 insertorder/GET");
 		
 		UserVO user = (UserVO)session.getAttribute("login");
@@ -137,15 +131,13 @@ public class ProductController {
 		List<AddressVO> addrList = userService.getUserAddr(userNo);
 		model.addAttribute("addrList", addrList);
 		
-		// 장바구니 상품 불러오기
-		ProductVO pvo = productService.getContent(no);
-		model.addAttribute("product", pvo);
-		
-		int total = pvo.getProductPriceSelling()*ea;
-		// 상품 썸네일 가져오기
-		model.addAttribute("ea", ea);
-		
-		//model.addAttribute("total",total);
+		// 상품정보 불러오기
+		ProductVO product = productService.getContent(pNo);
+		model.addAttribute("product",product);
+		model.addAttribute("ea",ea);
+		// 총액 계산하기
+		int total = 0;
+		total = ea*product.getProductPriceSelling();
 		session.setAttribute("total", total);
 	}
 	
@@ -215,9 +207,9 @@ public class ProductController {
 		
 		UserVO user = (UserVO)session.getAttribute("login");	
 		
-		String result =  productService.checkStock(orderProductNoList, user);
-		
-		
+		// 메서드를 위한 빈 변수
+		int ea = 0;
+		String result =  productService.checkStock(orderProductNoList, user, ea);
 		
 		if(result.contains("lack")) {
 			String[]re = result.split("/");
@@ -238,18 +230,21 @@ public class ProductController {
 		}
 		
 	}
+	
 	@PostMapping("/order2")
-	public String order2(@RequestParam("orderProductNo") List<Integer> orderProductNoList ,
+	public String order2(@RequestParam("orderProductNo") List<Integer> pNo,@RequestParam("orderQuantity") int ea,
 						ProductOrderVO orderVo ,String userEmail, HttpSession session,
 						RedirectAttributes ra) {
 		System.out.println("controller동작 order2/POST");
-		System.out.println(orderVo);
-		System.out.println(userEmail);
-		System.out.println(orderVo.getOrderPaymentMethod());
+		System.out.println("orderVo:"+orderVo);
+		System.out.println("userEmail:"+userEmail);
+		System.out.println("결제방법"+orderVo.getOrderPaymentMethod());
+		System.out.println("상품번호:" + pNo);
+		System.out.println("총수량:" + ea);
 		
 		UserVO user = (UserVO)session.getAttribute("login");	
 		
-		String result =  productService.checkStock(orderProductNoList, user);
+		String result =  productService.checkStock(pNo, user, ea);
 		
 		
 		
@@ -258,13 +253,13 @@ public class ProductController {
 			return "redirect:/product/order";
 		} else {
 			if(orderVo.getOrderPaymentMethod().equals("tossPay")) {
-				session.setAttribute("orderList", orderProductNoList);
+				session.setAttribute("orderList", pNo);
 				session.setAttribute("orderVo", orderVo);
 				session.setAttribute("userEmail", userEmail);
 				ra.addFlashAttribute("clientKey", clientKey);
 				return "redirect:/product/payment";
 			} else {
-				productService.order(orderProductNoList, orderVo, userEmail, user);
+				productService.order2(pNo, orderVo, userEmail, user, ea);
 				return "redirect:/user/userMyPage/4";	
 			}
 		}

@@ -40,22 +40,36 @@ public class ProductServiceImpl implements IProductService {
 	}
 	
 	// 상품 재고수량 확인
-	public String checkStock (List<Integer> orderProductNoList, UserVO user) {
-			int userNo = user.getUserNo();
+	public String checkStock (List<Integer> orderProductNoList, UserVO user, int ea) {
+		int userNo = user.getUserNo();
 		
-		for(int productNo : orderProductNoList) {
-			Map<String, Object> basketMap = new HashMap<String, Object>();
-			basketMap.put("userNo", userNo);
-			basketMap.put("productNo", productNo);
-			ProductBasketVO basket = productMapper.getBasket(basketMap);
-			
-			int stock = productMapper.getContent(productNo).getProductStock();
-			String productName = productMapper.getContent(productNo).getProductName();
-			if(stock < basket.getBasketQuantity()) {
-				return "lack/"+productName;
+		if(ea != 0) {
+			for(int productNo : orderProductNoList) {
+				ProductVO product = productMapper.getContent(productNo);
+				int stock = product.getProductStock();
+				String productName = product.getProductName();
+				if(stock < ea) {
+					return "lack/"+productName;
+				}
 			}
+			return "possible";
+			
+		} else {
+			for(int productNo : orderProductNoList) {
+				Map<String, Object> basketMap = new HashMap<String, Object>();
+				basketMap.put("userNo", userNo);
+				basketMap.put("productNo", productNo);
+				ProductBasketVO basket = productMapper.getBasket(basketMap);
+				
+				ProductVO product = productMapper.getContent(productNo);
+				int stock = product.getProductStock();
+				String productName = product.getProductName();
+				if(stock < basket.getBasketQuantity()) {
+					return "lack/"+productName;
+				}
+			}
+			return "possible";
 		}
-		return "possible";
 	}
 	
 	@Override
@@ -120,6 +134,61 @@ public class ProductServiceImpl implements IProductService {
 		// 장바구니 비우기
 		productMapper.deleteBasket(userNo);
 		
+	}
+	
+	@Override
+	public void order2(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user, int ea) {
+		int userNo = user.getUserNo();
+		
+		// 주문번호 날짜 8자리
+		Date today = new Date();
+		SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
+		String date = formatDate.format(today);
+		
+		// order TABLE INSERT
+		for(int productNo : orderProductNoList) {
+			ProductVO product = productMapper.getContent(productNo);
+			
+			// 주문번호 랜덤4자리
+			Random random = new Random();
+			int ranNum = random.nextInt(8889)+1111;
+			// 12자리 주문번호 생성 및 setting
+			String orderNum = date+ranNum;
+			System.out.println("생성한 주문번호: " + orderNum);
+			
+			order.setOrderNum(orderNum);
+			order.setOrderUserNo(userNo);
+			order.setOrderProductNo(productNo);
+			
+			int quantity = ea;
+			int price = product.getProductPriceSelling();
+			
+			order.setOrderQuantity(quantity);
+			order.setOrderPrice(quantity*price);
+			
+			
+			int stock = product.getProductStock();
+			
+			productMapper.order(order);
+				
+			// 상품 재고 수량 수정			
+			int newStock = stock - quantity;
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("stock", newStock);
+			map.put("productNo", productNo);
+			productMapper.updateStock(map);			
+		
+		}
+		// user TABLE UPDATE
+		 if(user.getUserEmail() == null) {
+			updateEmail(userNo, userEmail);
+		 }
+		
+		// address TABLE INSERT
+		if(checkAddr(userNo, order.getOrderAddressDetail(),order.getOrderAddressZipNum())== 0) {
+			addAddress(order, userNo);
+		}		
 	}
 	
 	

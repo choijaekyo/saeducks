@@ -25,10 +25,13 @@ public interface IProductService {
 	ProductImageVO getThumbnailImg(int productNo);
 
 	// 재고수량 체크
-	String checkStock(List<Integer> productNoList, UserVO user);
+	String checkStock(List<Integer> productNoList, UserVO user, int ea);
 
-	// 상품주문
+	// 장바구니 상품주문
 	void order(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user);
+	
+	// 상품상세 상품주문
+	void order2(List<Integer> orderProductNoList, ProductOrderVO order, String userEmail, UserVO user, int ea);
 
 	// 상품삭제
 	void delProduct(int no);

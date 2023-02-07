@@ -74,36 +74,36 @@
 					class="order-form" id="orderform">
 					<hr>
 					<!-- 반복문으로 상품목록!! -->
-					<c:forEach var="product" items="${basketList }">
-						<c:if test="${product.basketQuantity != 0 }">
-							<div class="container">
-							<div class="productDetail ">
-								<div class="row">
-									<div
-										class="col-md-4 offset-md-1 col-sm-12 order-imgBox text-center">
-										<img id="productThumb"
-											src="<c:url value='/product/display2?no=${product.basketProductNo }' />"
-											alt="상품이미지">
+							<c:forEach var="product" items="${basketList }">
+								<c:if test="${product.basketQuantity != 0 }">
+									<div class="container">
+									<div class="productDetail ">
+										<div class="row">
+											<div
+												class="col-md-4 offset-md-1 col-sm-12 order-imgBox text-center">
+												<img id="productThumb2"
+													src="<c:url value='/product/display2?no=${product.basketProductNo }' />"
+													alt="상품이미지">
+											</div>
+											<div class="col-md-6 col-sm-12 order-detailBox">
+												<h5 class="h5">${product.basketProductName }</h5>
+												<br>
+												<p>
+													<fmt:formatNumber value="${product.basketPrice }"
+														pattern="#,###" />
+													&nbsp;원
+												</p>
+												<p>${product.basketQuantity }&nbsp;개</p>
+												<!--상품번호-->
+												<input type="hidden" name="orderProductNo"
+													value="${product.basketProductNo }" />
+											</div>
+										</div>
 									</div>
-									<div class="col-md-6 col-sm-12 order-detailBox">
-										<h5 class="h5">${product.basketProductName }</h5>
-										<br>
-										<p>
-											<fmt:formatNumber value="${product.basketPrice }"
-												pattern="#,###" />
-											&nbsp;원
-										</p>
-										<p>${product.basketQuantity }&nbsp;개</p>
-										<!--상품번호-->
-										<input type="hidden" name="orderProductNo"
-											value="${product.basketProductNo }" />
-									</div>
+									<hr>
 								</div>
-							</div>
-							<hr>
-						</div>
-						</c:if>
-					</c:forEach>
+								</c:if>
+							</c:forEach>
 
 					<div class="container">
 						<div class="col-md-3 offset-md-8 col-sm-12">
