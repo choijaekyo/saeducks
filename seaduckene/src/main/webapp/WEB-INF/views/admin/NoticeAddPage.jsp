@@ -56,17 +56,17 @@
   <body>
   	<form action="${pageContext.request.contextPath}/admin/adminNoticeCreate" id="notice-form" method="post">
 	  	<div class="container">
-	  		<div class="row">
+	  		<div class="row mt-5">
 			      <div class="form-group">
-			         <label for="exampleFormControlInput1">제목</label> 
+			         <label for="exampleFormControlInput1">공지 제목</label> 
 			         <input type="text" class="form-control" id="exampleFormControlInput1" name="noticeTitle">
 			      </div>
 			
 			      <div class="form-group">
+			      	 <label for="summernote">공지 내용</label> 
 			         <textarea class="form-control" id="summernote" rows="10" name="noticeContent"></textarea>
 			      </div>
-			
-			      <div>
+			      <div class="mt-2">
 			         <button type="button" class="btn btn-info" id="notice-Write-button">등록하기</button>
 			         <a href='<c:url value='/admin/adminMain'/>' class="btn btn-secondary">메인으로</a>
 			      </div>
