@@ -423,8 +423,14 @@ public class UserController {
 		// 추가된 카테고리 insert 코드
 		log.info(categoryVO.getCategoryMajorTitle());
 		log.info(categoryVO.getCategoryMinorTitle());
+		
 		int allUserCategoriesCount = categoryVO.getCategoryMinorTitle().split(",").length;
+		if (allUserCategoriesCount == 0) {
+			allUserCategoriesCount = 1;
+		}
 //		currUserFavortiesCount = categoryIndexList.size();
+		
+		currUserFavortiesCount = userService.getCountUserAddress(userNo);
 		
 		if (currUserFavortiesCount < allUserCategoriesCount) {
 			String[] newMajorArray = new String[allUserCategoriesCount - currUserFavortiesCount];

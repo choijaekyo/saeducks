@@ -164,6 +164,10 @@
 		UPDATE favorite SET favorite_category_no = #{categoryNo} WHERE favorite_no = #{favoriteNo} AND favorite_user_no = #{userNo}
 	</update>	
 	
+	<select id="getCountUserAddress" resultType="int">
+		SELECT COUNT(*) FROM favorite WHERE favorite_user_no = #{userNo}
+	</select>
+	
 	<delete id="deleteUserAllInfoUser">
 		DELETE FROM duck_user WHERE user_no = #{userNo}
 	</delete>
