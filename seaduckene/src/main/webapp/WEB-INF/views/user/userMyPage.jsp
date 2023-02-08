@@ -1498,7 +1498,7 @@ let emailConfirm = true;
 			return;
 		} else {
 			const majors = $('select[name=categoryMajorTitle]');
-			const currCategories_index = $('.currCategories').length - 1;
+			let currCategories_index = $('.currCategories').length - 1;
 			
 			if (majors.length <= 1) {
 				hidePwModal();
@@ -1506,11 +1506,8 @@ let emailConfirm = true;
 				return;
 			}
 			
-			for (let i = 0; i < majors.length; i++) {
-				if (i == currCategories_index) {
-					i++;
-					continue;
-				}
+			for (let i = currCategories_index + 2; i < majors.length; i++) {
+				
 				if (majors[i].value === '대 카테고리') {
 					hidePwModal();
 					alert('대 카테고리를 선택하세요.');
@@ -1520,11 +1517,8 @@ let emailConfirm = true;
 			}
 			
 			const minors = $('select[name=categoryMinorTitle]');
-			for (let i = 0; i < minors.length; i++) {
-				if (i == currCategories_index) {
-					i++;
-					continue;
-				}
+			for (let i = currCategories_index + 2; i < minors.length; i++) {
+				
 				if (minors[i].value === '소 카테고리') {
 					hidePwModal();
 					alert('소 카테고리를 선택하세요.');
