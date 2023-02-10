@@ -31,9 +31,9 @@
 			<div class="content">회원가입이 완료되었습니다!
 			</div>
 			<div class="buttons">
-				<a href='${pageContext.request.contextPath}/user/userLogin'><button class="btn btn-sm btn-success">로그인하러가기</button></a>
+				<a href='${pageContext.request.contextPath}/user/userLogin'><button class="sbtn cyan small rounded">로그인하러가기</button></a>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href='${pageContext.request.contextPath}/'><button class="btn btn-sm btn-info">홈으로 가기</button></a>
+				<a href='${pageContext.request.contextPath}/'><button class="sbtn blue small rounded">홈으로 가기</button></a>
 			</div>
 		 </div>
 		</div>
